@@ -31,7 +31,7 @@ permalink: /blog/:year/:month/:day/:title/
 source: source
 destination: public
 plugins: plugins
-code_dir: downloads/code
+code_dir: examples
 category_dir: blog/categories
 markdown: rdiscount
 pygments: false # default python pygments have been replaced by pygments.rb
@@ -89,7 +89,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: xiaocong
 disqus_show_comment_count: false
 
 # Google Analytics
