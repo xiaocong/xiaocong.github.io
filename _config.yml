@@ -97,3 +97,6 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: true
+
+# Douban
+douban_user: xiaocong@gmail.com

@@ -5,7 +5,7 @@
         name: '',
         email: ''
       },
-      filter: function(query) {
+      filter: function(query) {//helper function for user search
         if (query === undefined || query === null || query === '') return true;
         query = query.toLowerCase();
         return this.get('name').toLowerCase().indexOf(query) != -1 || this.get('email').toLowerCase().indexOf(query) != -1;

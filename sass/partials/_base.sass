@@ -1,0 +1,67 @@
+@import compass/css3
+@import blueprint/reset
+@import blueprint
+
+$blueprint-font-family: Helvetica, Arial, "Microsoft Yahei", "WenQuanYi Micro Hei", STXihei, SimHei, sans-serif
+$text-color: #444444
+
++blueprint-typography
++blueprint-interaction
++blueprint-utilities
+
+=replace-text($img, $width: false, $height: false)
+  @if $width
+    width: $width
+  @if $height
+    height: $height
+  font-size: 0
+  text-indent: -9999px
+  background: url($img) no-repeat
+
+.clear:after
+  content: "."
+  display: block
+  height: 0
+  clear: both
+  visibility: hidden
+
+.plain-list
+  margin: 0px
+  padding: 0px
+  list-style-type: none
+
+.flat-list
+  @extend .plain-list
+  li
+    float: left
+    margin-right: 15px
+
+.title
+  color: $text-color
+  font-size: 2.5em
+  font-weight: bold
+  +text-shadow(-1px 0 0 #fae3a9)
+  a
+    color: $text-color
+    &:visited, &:active
+      color: $text-color
+    &:hover
+      border-bottom: 1px dotted #aaaaaa
+      color: #666666
+
+a
+  color: #01579f
+  text-decoration: none
+  &:hover
+    color: #0181eb
+
+h1
+  @extend .title
+  margin-bottom: 13px
+  font-size: 26px
+
+@for $i from 2 through 4
+  h#{$i}
+    @extend .title
+    margin-bottom: 17px - $i * 5px
+    font-size: 30px - $i * 5px

@@ -1,0 +1,85 @@
+section.archive{
+	position: relative;
+	&:first-of-type{
+		border-top: 1px solid $gray05;
+		article.archive{
+			border-top: none;
+		}
+		h1.archive-title{
+			border-top: none;
+			&:before{
+				border-top: none;
+			}
+		}
+	}
+	&:last-of-type{
+		border-bottom: 1px solid $gray04;
+		article.archive{
+			border-bottom: none;
+		}
+	}
+	h1.archive-title{
+		line-height: 35px;
+		width: 200px;
+		position: absolute;
+		top: 0;
+		padding-top: 30px;
+		border-top: 1px solid #fff;
+		&:before{
+			content: "";
+			position: absolute;
+			top: -2px;
+			width: 100%;
+			border-top: 1px solid $gray04;
+		}
+		@media screen and (max-width: 600px){
+			position: relative;
+			width: 100%;
+			& + article.archive{
+				border-top: none;
+				h1{
+					padding-top: 15px;
+				}
+			}
+		}
+	}
+	article.archive{
+		margin-left: 200px;
+		@media screen and (max-width: 600px){
+			margin-left: 0;
+			padding: 15px 0;
+		}
+		h1{
+			margin-bottom: 0;
+		}
+		.meta{
+			color: $gray02;
+			line-height: 2;
+			margin-top: 15px;
+			@media screen and (max-width: 600px){
+				display: none;
+			}
+			span{
+				margin-right: 30px;
+				padding-left: 30px;
+				@include inline-block;
+			}
+			a{
+				color: $gray02;
+				@include transition(0.3s);
+				&:hover{
+					color: $gray01;
+				}
+			}
+			.date{
+				background: image-url('date.png') 0 center no-repeat;
+			}
+			.tags{
+				background: image-url('tags.png') 0 center no-repeat;
+			}
+			.comments{
+				background: image-url('comments.png') 0 center no-repeat;
+			}
+		}
+	}
+}

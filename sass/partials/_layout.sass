@@ -1,0 +1,129 @@
+body
+  padding: 20px 0
+  background: url(../images/bg.png) repeat
+  color: $text-color
+  font-size: 12px
+  line-height: 1.7
+
+#wrapper
+  position: relative
+  margin: 0 auto 20px auto
+  padding: 60px 50px 0 40px
+  width: 860px
+  +border-radius
+  +box-shadow(0 2px 9px 2px #444444)
+  background-color: white
+
+#header
+  float: left
+  width: 450px
+  h1
+    @extend .title
+    margin-bottom: 5px
+    text-transform: uppercase
+  p
+    margin: 0
+    color: #aaaaaa
+    font-size: 15px
+    text-transform: uppercase
+
+#social-links
+  $social-link-width: 48px
+  $social-link-height: 49px
+  $social-link-gap: 5px
+  @extend .flat-list
+  float: right
+  width: ($social-link-width + $social-link-gap) * 3
+  li
+    margin-right: $social-link-gap
+    a
+      display: block
+      +replace-text("../images/icons.png", $social-link-width, $social-link-height)
+      &.github:hover
+        background-position: 0 -$social-link-height
+      &.feed
+        background-position: -$social-link-width 0
+        &:hover
+          background-position: -$social-link-width -$social-link-height
+      &.twitter
+        background-position: -($social-link-width * 2) 0
+        &:hover
+          background-position: -($social-link-width * 2) -$social-link-height
+
+#nav
+  @extend .flat-list
+  position: absolute
+  top: -30px
+  margin: 30px 40px 0 0
+  font-size: 10px
+  text-transform: uppercase
+  font-weight: bold
+  font-family: monospace
+  letter-spacing: 1px
+  li
+    margin-right: 10px
+  a
+    display: block
+    padding: 3px 6px
+    +border-bottom-radius
+    background-color: #b3b3b3
+    color: white
+    &:hover, &.current
+      background-color: #4d4d4d
+
+#main
+  margin-top: 15px
+
+#pagination
+  @extend .clear
+  margin-bottom: 10px
+  a
+    font-size: 1.2em
+    &.next
+      float: right
+
+#footer
+  position: relative
+  left: -40px
+  padding: 10px 50px 15px 40px
+  width: 860px
+  border-top: 1px dashed #f8f8f8
+  +border-bottom-radius(5px)
+  +background-image(linear-gradient(#f5f5f5, #dddddd))
+  h2
+    margin-bottom: 0
+    text-transform: uppercase
+  ul
+    @extend .plain-list
+    font-size: 1.1em
+  .panels
+    @extend .clear
+    margin-bottom: 10px
+
+    &> div
+      float: left
+      margin-right: 40px
+    &> .license
+      width: 180px
+    &> .posts
+      max-width: 300px
+    &> .douban
+      img
+        max-width: 45px
+      table
+        margin-bottom: 0
+      td
+        padding: 0 15px 0 0
+        vertical-align: top
+      .view-douban
+        color: $text-color
+    &> .archives
+      float: right
+      margin-right: 0
+      text-align: right
+      .view-all
+        color: $text-color
+  .powered
+    margin-bottom: 0
+    color: #888888
+    text-align: center

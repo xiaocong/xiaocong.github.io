@@ -1,0 +1,95 @@
+.post
+  margin-bottom: 25px
+  padding-bottom: 5px
+  border-bottom: 2px solid rgba(78, 68, 60, 0.1)
+
+.post-single
+  padding-bottom: 5px
+  border-bottom: none
+
+.post-header
+  position: relative
+  padding-top: 2em
+  time
+    position: absolute
+    top: 0
+    color: #aaaaaa
+    font-size: 1.2em
+    text-transform: uppercase
+
+.post-content
+  font-size: 1.2em
+  p
+    margin-bottom: 0.7em
+  img, video, .flash-video
+    &.left
+      float: left
+      margin-right: 1.5em
+    &.right
+      float: right
+      margin-left: 1.5em
+    &.center
+      display: block
+      margin: 0 auto 1.5em
+    &.left, &.right
+      margin-bottom: .8em
+    max-width: 80%
+  video, .flash-video
+    margin: 0 auto 1.5em
+
+/*
+ *.highlight {
+ *  @extend .codeblock;
+ *  margin-bottom: 0.7em;
+ *  @include border-radius(3px);
+ *  pre {
+ *    margin: 0; }
+ *  table {
+ *    table-layout: fixed;
+ *    margin-bottom: 0; }
+ *  td {
+ *    padding: 0;
+ *    &.gutter {
+ *      width: 38px;
+ *      border-right: 1px solid #dedede; }
+ *    &.code {
+ *      padding-left: 10px; } }
+ *  .line-numbers {
+ *    padding: 2px;
+ *    text-align: right; } }
+.categories, .sharing
+  float: left
+
+.sharing
+  margin-left: 10px
+  .twitter-share-button
+    width: 75px !important
+
+#comments
+  margin-top: 5px
+  h2
+    margin-bottom: 10px
+  #dsq-content
+    .dsq-pagination
+      padding: 0
+    .dsq-trackback-url
+      margin-left: 10px
+      width: 65%
+  #dsq-comments-title
+    margin-top: 10px
+  #dsq-global-toolbar
+    margin-top: 0 !important
+
+#archives
+  .post-line
+    @extend .clear
+    margin-bottom: 5px
+    padding-bottom: 1px
+    h1
+      float: left
+      margin-bottom: 0
+      font-size: 1.2em
+    time
+      float: right
+    &:hover time
+      font-weight: bold
