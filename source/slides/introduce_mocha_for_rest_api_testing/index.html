@@ -243,5 +243,48 @@ $ make test
 </section>
 
 <section class="slide">
+<h2>References</h2>
+<ul>
+  <li>Node: <a href="http://nodejs.org/">http://nodejs.org/</a></li>
+  <li>Mocha: <a href="http://visionmedia.github.com/mocha/">http://visionmedia.github.com/mocha</a></li>
+  <li>Should: <a href="https://github.com/visionmedia/should.js">https://github.com/visionmedia/should.js</a></li>
+  <li>Request: <a href="https://github.com/mikeal/request">https://github.com/mikeal/request</a></li>
+  <li>Jasmine: <a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a></li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Alternative REST API test framework</h2>
+<p>Frisby.js(<a href="http://frisbyjs.com/">http://frisbyjs.com</a>): REST API testing framework.</p>
+```js
+var frisby = require('frisby');
+
+frisby.create('Get Brightbit Twitter feed')
+  .get('https://api.twitter.com/1/statuses/user_timeline.json?screen_name=brightbit')
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSON('0', {
+    place: function(val) { expect(val).toMatchOrBeNull("Oklahoma City, OK"); },
+    user: {
+      verified: false,
+      location: "Oklahoma City, OK",
+      url: "http://brightb.it"
+    }
+  })
+  .expectJSONTypes('0', {
+    id_str: String,
+    retweeted: Boolean,
+    in_reply_to_screen_name: function(val) { expect(val).toBeTypeOrNull(String); },
+    user: {
+      verified: Boolean,
+      location: String,
+      url: String
+    }
+  })
+.toss();
+```
+</section>
+
+<section class="slide">
 <h1>Thanks &amp; QA</h1>
 </section>
