@@ -1,0 +1,37 @@
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+  <datalist id="goto-datalist"></datalist>
+  <input type="submit" value="Go">
+</form>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>/<span class="deck-status-total"></span>
+</p>
+
+<script src="{{ root_url }}/deck.js/jquery-1.7.min.js"></script>
+
+<!-- Deck Core and extensions -->
+<script src="{{ root_url }}/deck.js/core/deck.core.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/hash/deck.hash.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/menu/deck.menu.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/goto/deck.goto.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/status/deck.status.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="{{ root_url }}/deck.js/extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+  $.deck('.slide');
+});
+</script>
+
+</body>
+</html>

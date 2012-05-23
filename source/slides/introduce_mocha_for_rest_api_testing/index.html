@@ -1,0 +1,247 @@
+---
+layout: slides
+title: "Mocha: feature-rich JavaScript test framework"
+date: 2012-05-22 16:30
+style: neon
+transition: vertical-slide
+---
+
+<section class="slide">
+<h1>Mocha - javascript test framework </h1>
+</section>
+
+<section class="slide">
+<h2>Introduction</h2>
+{% blockquote http://visionmedia.github.com/mocha/ %}
+Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub.
+{% endblockquote %}
+</section>
+
+<section class="slide">
+<h2>Features</h2>
+<ul>
+  <li>javascript API for running tests</li>
+  <li>sync/async support</li>
+  <li>async test timeout support</li>
+  <li>before, after, before each, after each hooks</li>
+  <li>extensible test DSLs or “interfaces”</li>
+  <li>use any assertion library you want</li>
+  <li>extensible reporting, bundled with 9+ reporters</li>
+  <li>proper exit status for CI support etc.</li>
+  <li><a href="http://visionmedia.github.com/mocha/">more...</a></li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Test requirements</h2>
+<ul>
+  <li>RESTful API</li>
+  <li>Can be integrated with CI</li>
+  <li>Readable test report</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Installation - I<h2>
+
+<ul>
+  <li class="slide"><p>Install <a href="http://nodejs.org/">Node.js and npm</a></p></li>
+  <li class="slide"><p>Install <a href="http://github.com/visionmedia/mocha">mocha</a></p>
+
+```bash
+$ npm install -g mocha
+```
+  </li>
+</ul>
+</section>
+
+<section class="slide">
+  <h2>Installation - II</h2>
+  <ul>
+  <li class="slide"><p>Install asserting library</p>
+    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span>
+
+```bash
+$ npm install -g should
+```
+  </li>
+  <li class="slide">Install other libraries<br/>
+
+```bash
+      $ npm install -g request
+      $ npm install -g qs
+```
+  </li>
+  </ul>
+</section>
+
+<section class="slide">
+<h2>Write the first test</h2>
+```js test.js
+var should = require('should'),
+  request = require('request'),
+  qs = require('querystring'),
+  zlib = require('zlib');
+
+describe('Qiupu APIs: /qiupu', function() {
+  before(function() {
+  });
+
+  describe('/app/all', function() {
+    before(function() {
+    });
+
+    it('show all apps.', function(done) {
+      request.get({
+        url: 'http://api.borqs.com/qiupu/app/all',
+        encoding: null,
+        headers: { 'accept-encoding': 'gzip,deflate'}
+      }, function(err, resp, body) {
+        resp.should.be.ok;
+        resp.should.have.header('content-encoding', 'gzip');
+        zlib.unzip(body, function(err, buffer) {
+          should.not.exist(err);
+          should.exist(buffer);
+          var json = JSON.parse(buffer);
+          json.should.not.be.empty;
+          json.should.be.an.instanceof(Array);
+          json[0].should.have.property('package');
+          json[0].should.have.property('app_name');
+          json[0].should.have.property('app_liked_users')
+            .and.be.an.instanceof(Array);
+          done();
+        });
+      });
+    });
+  });
+});
+```
+</section>
+
+<section class="slide">
+<h2>Load required libraries</h2>
+```js
+var should = require('should'),
+  request = require('request'),
+  qs = require('querystring'),
+  zlib = require('zlib');
+```
+<ul>
+  <li><a href="https://github.com/visionmedia/should.js">should</a>: assert library</li>
+  <li><a href="https://github.com/mikeal/request">request</a>: http request library</li>
+  <li><a href="https://github.com/visionmedia/node-querystring">qs</a>: querystring for http request</li>
+  <li><a href="https://github.com/kkaefer/node-zlib">zlib</a>: gzip library</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Define test suite</h2>
+```js
+describe('Qiupu APIs: /qiupu', function() {
+  before(function() {
+    //......
+  });
+
+  //......
+});
+```
+<ul>
+  <li>describe: test suite</li>
+  <li>before, after: functions to be run before/after test suite</li>
+  <li>beforeEach, afterEach: functions to be run before/after each test case</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Define test case</h2>
+```js
+    it('show all apps.', function(done) {
+      //......
+    });
+```
+<ul>
+  <li>1st param: description of the test</li>
+  <li>2nd param: test method</li>
+  <li>Param <strong>done</strong> of test method: callback function for async testing. The test will be treat as sync one without the 'done' param.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Http request</h2>
+```js
+      request.get({
+        url: 'http://api.borqs.com/qiupu/app/all',
+        encoding: null,
+        headers: { 'accept-encoding': 'gzip,deflate'}
+      }, function(err, resp, body) {
+        //......
+      });
+```
+<ul>
+  <li>The request lib supports all CRUD methods</li>
+  <li>Set encoding to null to get stream <strong>body</strong> instead of encoded one.</li>
+  <li>The callback function will be called after the http request gets returned.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Unzip http body</h2>
+```js
+        zlib.unzip(body, function(err, buffer) {
+          //......
+          var json = JSON.parse(buffer);
+          //...
+          done();
+        });
+```
+<ul>
+  <li>zlib.unzip is also an async method.</li>
+  <li>The callback function will be called after the uncompression gets finished.</li>
+  <li>Convert uncompressed content to js object using JSON.parse method.</li>
+  <li>After all testings are donw, call passed-in <strong>done</strong> method to tell the js process that the async testing is finished.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Asserting using should</h2>
+```js
+        resp.should.be.ok;
+        resp.should.have.header('content-encoding', 'gzip');
+        zlib.unzip(body, function(err, buffer) {
+          should.not.exist(err);
+          should.exist(buffer);
+          var json = JSON.parse(buffer);
+          json.should.not.be.empty;
+          json.should.be.an.instanceof(Array);
+          json[0].should.have.property('package');
+          json[0].should.have.property('app_name');
+          json[0].should.have.property('app_liked_users')
+            .and.be.an.instanceof(Array);
+          done();
+        });
+```
+<p><a href="https://github.com/visionmedia/should.js">Should</a>: https://github.com/visionmedia/should.js</p>
+</section>
+
+<section class="slide">
+<h2>Run the test</h2>
+```bash
+$ mocha --reporter list --timeout 5000 test.js
+```
+{% img /images/slides/screenshot-1.png %}
+</section>
+
+<section class="slide">
+<h2>Simple steps to run the demo</h2>
+```bash
+$ git clone git@github.com:xiaocong/demo-mocha.git
+$ cd demo-mocha
+$ npm install .
+$ make test
+```
+{% img /images/slides/screenshot-2.png %}
+</section>
+
+<section class="slide">
+<h1>Thanks &amp; QA</h1>
+</section>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="author" content="{{ site.author }}">
+  {% capture description %}{% if page.description %}{{ page.description }}{% else %}{{ content | raw_content }}{% endif %}{% endcapture %}
+  <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:150 }}">
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+  <meta name="viewport" content="width={% if page.width %}{{ page.width }}{% else %}1024{% endif %}">
+  
+  <!-- Core and extension CSS files -->
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/core/deck.core.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/goto/deck.goto.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/menu/deck.menu.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/status/deck.status.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/hash/deck.hash.css">
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/extensions/scale/deck.scale.css">
+  
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/themes/style/{% if page.style %}{{ page.style }}{% else %}web-2.0{% endif %}.css">
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" href="{{ root_url }}/deck.js/themes/transition/{% if page.transition %}{{ page.transition }}{% else %}horizontal-slide{% endif %}.css">
+
+  <script src="{{ root_url }}/deck.js/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
