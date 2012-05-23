@@ -2,8 +2,9 @@
 layout: slides
 title: "Mocha: feature-rich JavaScript test framework"
 date: 2012-05-22 16:30
-style: neon
-transition: vertical-slide
+width: device-width
+style: swiss
+transition: fade
 ---
 
 <section class="slide">
@@ -11,7 +12,7 @@ transition: vertical-slide
 </section>
 
 <section class="slide">
-<h2>Introduction</h2>
+<h2>Mocha</h2>
 {% blockquote http://visionmedia.github.com/mocha/ %}
 Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub.
 {% endblockquote %}
@@ -43,11 +44,9 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 
 <section class="slide">
 <h2>Installation - I<h2>
-
 <ul>
-  <li class="slide"><p>Install <a href="http://nodejs.org/">Node.js and npm</a></p></li>
-  <li class="slide"><p>Install <a href="http://github.com/visionmedia/mocha">mocha</a></p>
-
+  <li class="slide">Install <a href="http://nodejs.org/">Node.js and npm</a></li>
+  <li class="slide">Install <a href="http://github.com/visionmedia/mocha">mocha</a><br/>
 ```bash
 $ npm install -g mocha
 ```
@@ -58,8 +57,8 @@ $ npm install -g mocha
 <section class="slide">
   <h2>Installation - II</h2>
   <ul>
-  <li class="slide"><p>Install asserting library</p>
-    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span>
+  <li class="slide">Install asserting library</br>
+    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span><br/>
 
 ```bash
 $ npm install -g should
