@@ -7,5 +7,4 @@ sharing: true
 footer: true
 ---
 
-##Slides##
 - [Mocha - javascript test framework](/slides/introduce_mocha_for_rest_api_testing)
