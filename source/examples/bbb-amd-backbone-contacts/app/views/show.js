@@ -27,7 +27,7 @@ define([
     },
     edit: function() {
       if (this.item)
-        Backbond.history.navigate('contacts/' + this.item.cid + '/edit', {
+        Backbone.history.navigate('contacts/' + this.item.cid + '/edit', {
           trigger: true
         });
     }
