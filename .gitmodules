@@ -1,3 +1,14 @@
-[submodule "deck.js"]
+[submodule ".themes/compbits"]
+        path = .themes/compbits
+        url = https://github.com/iwinux/compbits.git
+
+[submodule ".themes/slash"]
+        path = .themes/slash
+        url = https://github.com/tommy351/Octopress-Theme-Slash.git
+
+[submodule "source/deck.js"]
 	path = source/deck.js
 	url = https://github.com/imakewebthings/deck.js.git
+[submodule "source/impress.js"]
+	path = source/impress.js
+	url = https://github.com/bartaz/impress.js.git
