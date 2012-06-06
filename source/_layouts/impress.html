@@ -1,0 +1,6 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+{% include impress/head.html %}
+
+{{ content | expand_urls: root_url }}
+
+{% include impress/foot.html %}

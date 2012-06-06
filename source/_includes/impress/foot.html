@@ -1,0 +1,17 @@
+<div class="hint"><p>Use a spacebar or arrow keys to navigate</p></div>
+</div>
+<div id="timer"></div>
+
+<script src="{{ root_url }}/customize/impress.js/js/highlight.pack.js"></script>
+<script src="{{ root_url }}/customize/impress.js/js/impress.js"></script>
+<script src="{{ root_url }}/customize/impress.js/js/default.js"></script>
+
+<div style="position: fixed; bottom: 10px; left: 10px; pointer-events: auto;">
+    <a href="http://twitter.com/share" class="twitter-share-button" data-text="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }} by @{{ site.twitter_user }}}" data-url="{{site.url}}{{page.url}}" data-related="bartaz"></a>
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+{% include google_analytics.html %}
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    
+  <meta name="author" content="{{ site.author }}">
+  {% capture description %}{% if page.description %}{{ page.description }}{% else %}{{ content | raw_content }}{% endif %}{% endcapture %}
+  <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:150 }}">
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+  
+<!--   <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+ -->
+  <!-- <link href="{{ root_url }}/impress.js/css/impress-demo.css" rel="stylesheet" /> -->
+  <link href="{{ root_url }}/customize/impress.js/css/font.css" rel="stylesheet" />
+  <link href="{{ root_url }}/customize/impress.js/css/default.css" rel="stylesheet" />
+  <link href="{{ root_url }}/customize/impress.js/css/sunburst.css" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="{{ root_url }}/impress.js/favicon.png" />
+  <link rel="apple-touch-icon" href="{{ root_url }}/impress.js/apple-touch-icon.png" />
+</head>
+
+<body>
+<div id="impress" class="impress-not-supported">
+  <div id="fm1" class="fallback-message hidden">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js,
+      so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b> or
+      <b>Safari</b> browser. Firefox 10 (to be released soon)
+      will also handle it.</p>
+  </div>
+  <div id="fm2" class="fallback-message">
+    <p>If you have fast machine and recent Google Chrome or Safari installed,
+      please check <a href="index.html">a bit more "moving" version of that presentation</a></p>
+    <p style="text-align:center"><big>Otherwise, scroll down to see the slides</big></p>
+  </div>
