@@ -160,4 +160,4 @@ Metaclasses are deeper magic than 99% of users should ever worry about. If you w
 
 - [Metaclass Programming In Python](http://gnosis.cx/publish/programming/metaclass_1.html)
 - [Wikipedia: Metaclass](http://en.wikipedia.org/wiki/Metaclass)
-- [Python Metaclasses: Who? Why? When?](www.vrplumber.com/programming/metaclasses.pdf)
+- [Python Metaclasses: Who? Why? When?](http://www.vrplumber.com/programming/metaclasses.pdf)
