@@ -22,6 +22,8 @@ In object-oriented programming languages, a mixin is a class that provides a cer
 - 你希望给一个类提供很多可选的特征(feature).
 - 你希望在很多不同的类中使用一个特定的特征(feature).
 
+<!--more-->
+
 例如, [werkzeug](http://werkzeug.pocoo.org/docs/wrappers/) 的`request`, `response`系统.
 我们可以实现简单`request`如下:
 
