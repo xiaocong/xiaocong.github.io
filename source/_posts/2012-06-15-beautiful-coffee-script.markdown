@@ -26,6 +26,8 @@ CoffeeScript对JavaScript的改造刚好切中要害, 用Ruby/Python的语法重
 
 CoffeeScript的平均代码量估计不超过等价JavaScript代码量的50%.
 
+<!--more-->
+
 ## 优雅
 
 Coffee的代码看起来让人赏心悦目, 如同看诗一样:
@@ -112,13 +114,12 @@ cubes = (function() {
 
 有谁愿意一次又一次地花时间琢磨`for`循环到`n`还是`n-1`结束呢? 这种琢磨对于软件来说到底有多大意思? 我们是按照自然语言的方式进行思维, 如果也按照自然语言的方式写代码, 那我们的大脑就不会花无谓的时间进行翻译了.
 
-看看下面CoffeeScript的代码:
+看看下面CoffeeScript的代码， 是不是读完代码就明白了这段代码的意思?
 ``` coffeescript
 foods = ['broccoli', 'spinach', 'chocolate']
-
 eat food for food in foods when food isnt 'chocolate'
 ```
-然后再对照等价的JavaScript代码:
+然后再对照等价的JavaScript代码, 读代码的过程中, 不知道你的大脑需要花多长时间进行翻译?
 ``` javascript
 var food, foods, _i, _len;
 
@@ -131,7 +132,6 @@ for (_i = 0, _len = foods.length; _i < _len; _i++) {
   }
 }
 ```
-基本不用怎么思考, 我们就能看懂CoffeeScript的代码, 但是对于JavaScript代码, 我们的大脑需要翻译才能看懂.
 
 ## 效率
 
@@ -144,7 +144,9 @@ for (_i = 0, _len = foods.length; _i < _len; _i++) {
 - coffee源代码目录: coffee
 - grunt coffee编译任务: tasks/coffee.js
 - 更改grunt配置文件以支持coffee的编译: grunt.js
- 
+
+下面的链接你可以找到所有的源代码:
+
 - [地址本-JavaScript源码](https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/bbb-amd-backbone-contacts/)
 - [地址本-CoffeeScript源码](https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/coffee-bbb-amd-backbone-contacts/)
 - [地址本-CoffeeScript演示]({{ root_url }}/examples/coffee-bbb-amd-backbone-contacts/index.html)
