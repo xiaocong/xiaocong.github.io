@@ -21,7 +21,7 @@ define([
       appView.edit(this.getContact(id));
     },
     getContact: function(id) {
-      if (id === undefined || id === null)
+      if (typeof(id) === 'undefined' || id === null)
         if (contacts.length > 0)
           return contacts.at(0);
       return contacts.getByCid(id);
