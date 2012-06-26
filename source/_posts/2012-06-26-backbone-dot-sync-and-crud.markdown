@@ -6,7 +6,7 @@ comments: true
 categories: [javascript, backbone.js]
 ---
 
-{% blockquote Backbone.sync http://documentcloud.github.com/backbone/#Sync %}
+{% blockquote Backbone http://documentcloud.github.com/backbone/#Sync Backbone.sync %}
 Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.
 {% endblockquote %}
 

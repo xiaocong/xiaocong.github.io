@@ -26,7 +26,7 @@ categories: [javascript, backbone.js, require.js]
 
 Backbone解决的是将用户数据，页面显示，以及流程控制模块化，而AMD解决的是将不同功能的代码封装到小的代码单元，代码单元功能的注册，以及代码依赖。
 
-{% blockquote http://requirejs.org/docs/whyamd.html#purposes Why AMD? %}
+{% blockquote requirejs http://requirejs.org/docs/whyamd.html#purposes Why AMD? %}
 What are JavaScript modules? What is their purpose?
 - Definition: how to encapsulate a piece of code into a useful unit, and how to register its capability/export a value for the module.
 - Dependency References: how to refer to other units of code.
