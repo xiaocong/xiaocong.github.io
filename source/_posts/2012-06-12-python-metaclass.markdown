@@ -11,7 +11,7 @@ categories: [python]
 
 ## 什么是 metaclass ?
 
-{% blockquote http://en.wikipedia.org/wiki/Metaclass Metaclass %}
+{% blockquote Metaclass http://en.wikipedia.org/wiki/Metaclass %}
 In object-oriented programming, a metaclass is a class whose instances are 
 classes. Just as an ordinary class defines the behavior of certain objects, a
 metaclass defines the behavior of certain classes and their instances.
