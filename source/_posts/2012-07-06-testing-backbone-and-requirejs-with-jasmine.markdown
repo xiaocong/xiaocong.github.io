@@ -63,9 +63,9 @@ define [use!underscore', 'use!backbone', 'model/under/test'], (_, Backbone, mode
 ```
 下面是测试用例的代码(`collection`, `model`, `view`各实现了一个模块的测试, 仅供demo):
 
-- [Collection测试Dmeo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/js/spec/collections/contacts.js)
-- [Model测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/js/spec/models/contact.js)
-- [View测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/js/spec/views/contactitem.js)
+- [Collection测试Dmeo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/collections/contacts.coffee)
+- [Model测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/models/contact.coffee)
+- [View测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/views/contactitem.coffee)
 
 ## 加载*测试模块*, 定义测试`runner`
 
