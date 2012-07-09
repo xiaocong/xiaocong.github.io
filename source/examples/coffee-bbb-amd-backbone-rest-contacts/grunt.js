@@ -15,9 +15,9 @@ module.exports = function(grunt) {
       release: "dist/release" // release files under the folder
     },
 
-    // The clean task ensures all files are removed from the dist/ directory so
+    // The clean task ensures all files are removed from the app/, dist/, spec/js directory so
     // that no files linger from previous builds.
-    clean: ["<config:dirs.app>", "<config:dirs.debug>", "<config:dirs.release>"],
+    clean: ["<config:dirs.app>", "<config:dirs.debug>", "<config:dirs.release>", "tests/js"],
 
     // compile coffee to js
     coffee: {
@@ -25,6 +25,14 @@ module.exports = function(grunt) {
         src: ['coffee/**/*.coffee'],
         dest: 'app',
         strip: 'coffee/',
+        options: {
+            bare: true
+        }
+      },
+      spec: {
+        src: ['tests/coffee/**/*.coffee'],
+        dest: 'tests/js',
+        strip: 'tests/coffee/',
         options: {
             bare: true
         }
@@ -127,7 +135,8 @@ module.exports = function(grunt) {
       base: ".",
       folders: {
         "app": "app",
-        "assets": "assets"
+        "assets": "assets",
+        "tests": "tests"
       },
       debug: {
         folders: {
@@ -166,9 +175,9 @@ module.exports = function(grunt) {
   // load tasks from tasks/ folder.
   grunt.loadTasks("tasks");
 
-  // The default task will remove all contents inside the dist/ folder, lint
-  // all your code.
-  grunt.registerTask("default", "clean coffee lint:beforeconcat");
+  // The default task will remove all contents inside the dist/ folder, compile
+  // coffee to js, and lint all your code.
+  grunt.registerTask("default", "clean coffee:app lint:beforeconcat coffee:spec");
 
   // The debug task will remove all contents inside the dist/ folder, lint all
   // js code under app/ folder, copy files to dist/debug folder, combine all
