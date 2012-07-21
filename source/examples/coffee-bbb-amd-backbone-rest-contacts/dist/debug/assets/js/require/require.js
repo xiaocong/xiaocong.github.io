@@ -14081,7 +14081,6 @@ define('models/contact',['use!underscore', 'use!backbone'], function(_, Backbone
   return Contact;
 });
 
-
 define('collections/contacts',['use!underscore', 'use!backbone', 'models/contact'], function(_, Backbone, Contact) {
   var Contacts;
   Contacts = Backbone.Collection.extend({
@@ -14093,7 +14092,6 @@ define('collections/contacts',['use!underscore', 'use!backbone', 'models/contact
   });
   return new Contacts();
 });
-
 /**
  * @license RequireJS text 1.0.7 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -14383,10 +14381,7 @@ define('collections/contacts',['use!underscore', 'use!backbone', 'models/contact
     });
 }());
 
-define('text!templates/sidebar.html',[],function () { return '<header>\n  <input type="search" placeholder="search" results="0" incremental="true" autofocus>\n</header>\n<div class="items"></div>\n<footer>\n  <button>New Contact</button>\n</footer>\n';});
-
 define('text!templates/item.html',[],function () { return '<%= (name ? name : "<i>No Name</i>") %>';});
-
 
 define('views/contactitem',["jquery", "use!underscore", "use!backbone", "text!templates/item.html"], function($, _, Backbone, tplItem) {
   var ContactItemView;
@@ -14401,7 +14396,9 @@ define('views/contactitem',["jquery", "use!underscore", "use!backbone", "text!te
       this.model.bind("reset", this.render, this);
       this.model.bind("change", this.render, this);
       this.model.bind("destroy", this.remove, this);
-      if (this.model.view) this.model.view.remove();
+      if (this.model.view) {
+        this.model.view.remove();
+      }
       return this.model.view = this;
     },
     render: function() {
@@ -14422,7 +14419,7 @@ define('views/contactitem',["jquery", "use!underscore", "use!backbone", "text!te
   });
   return ContactItemView;
 });
-
+define('text!templates/sidebar.html',[],function () { return '<header>\n  <input type="search" placeholder="search" results="0" incremental="true" autofocus>\n</header>\n<div class="items"></div>\n<footer>\n  <button>New Contact</button>\n</footer>\n';});
 
 define('views/sidebar',["jquery", "use!underscore", "use!backbone", "collections/contacts", "models/contact", "views/contactitem", "text!templates/sidebar.html"], function($, _, Backbone, contacts, Contact, ContactItemView, tplSidebar) {
   var SidebarView;
@@ -14473,9 +14470,13 @@ define('views/sidebar',["jquery", "use!underscore", "use!backbone", "collections
       });
     },
     active: function(item) {
-      if (this.activeItem) this.activeItem.view.deactive();
+      if (this.activeItem) {
+        this.activeItem.view.deactive();
+      }
       this.activeItem = item;
-      if (this.activeItem) return this.activeItem.view.active();
+      if (this.activeItem) {
+        return this.activeItem.view.active();
+      }
     },
     add: function(contact) {
       return this.renderOne(contact);
@@ -14488,9 +14489,7 @@ define('views/sidebar',["jquery", "use!underscore", "use!backbone", "collections
     model: contacts
   });
 });
-
 define('text!templates/show.html',[],function () { return '<header>\n  <a class="edit">Edit</a>\n</header>\n<div class="content">\n  <p><label>name: <%= name %></label></p>\n  <p><label>email: <%= email %></label></p>\n</div>\n';});
-
 
 define('views/show',["jquery", "use!underscore", "use!backbone", "text!templates/show.html"], function($, _, Backbone, tplShow) {
   var ShowView;
@@ -14525,9 +14524,7 @@ define('views/show',["jquery", "use!underscore", "use!backbone", "text!templates
   });
   return new ShowView();
 });
-
 define('text!templates/edit.html',[],function () { return '<header>\n  <a class="save">Save</a>\n  <a class="delete">Delete</a>\n</header>\n<div class="content">\n  <form>\n    <label>\n      <span>Name</span>\n      <input type="text" name="name" value="<%= name %>">\n    </label>\n    <label>\n      <span>Email</span>\n      <input type="email" name="email" value="<%= email %>">\n    </label>  \n    <button>Save</button>\n  </form>\n</div>\n';});
-
 
 define('views/edit',["jquery", "use!underscore", "use!backbone", "text!templates/edit.html"], function($, _, Backbone, tplEdit) {
   var EditView;
@@ -14543,7 +14540,9 @@ define('views/edit',["jquery", "use!underscore", "use!backbone", "text!templates
       return _.bindAll(this, "submit", "remove");
     },
     render: function() {
-      if (this.item) this.$el.html(this.template(this.item.toJSON()));
+      if (this.item) {
+        this.$el.html(this.template(this.item.toJSON()));
+      }
       return this;
     },
     change: function(item) {
@@ -14574,8 +14573,6 @@ define('views/edit',["jquery", "use!underscore", "use!backbone", "text!templates
   });
   return new EditView();
 });
-
-
 define('views/main',["jquery", "use!underscore", "use!backbone", "views/show", "views/edit"], function($, _, Backbone, showView, editView) {
   var MainView;
   MainView = Backbone.View.extend({
@@ -14602,8 +14599,6 @@ define('views/main',["jquery", "use!underscore", "use!backbone", "views/show", "
   });
   return new MainView();
 });
-
-
 define('views/app',["jquery", "use!underscore", "use!backbone", "views/sidebar", "views/main"], function($, _, Backbone, sidebarView, mainView) {
   var AppView;
   AppView = Backbone.View.extend({
@@ -14632,8 +14627,6 @@ define('views/app',["jquery", "use!underscore", "use!backbone", "views/sidebar",
   });
   return new AppView();
 });
-
-
 define('router',['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'views/app'], function($, _, Backbone, contacts, appView) {
   var AppRouter;
   AppRouter = Backbone.Router.extend({
@@ -14658,16 +14651,12 @@ define('router',['jquery', 'use!underscore', 'use!backbone', 'collections/contac
   });
   return new AppRouter();
 });
-
-
 define('namespace',['use!underscore', 'use!backbone'], function(_, Backbone) {
   var global;
   global = {};
   _.extend(global, Backbone.Events);
   return global;
 });
-
-
 define('app',['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'router', 'views/app', 'namespace'], function($, _, Backbone, contacts, appRouter, appView, global) {
   var initialize;
   initialize = function() {
@@ -14683,14 +14672,10 @@ define('app',['jquery', 'use!underscore', 'use!backbone', 'collections/contacts'
     initialize: initialize
   };
 });
-
-
 require(['app'], function(app) {
   return app.initialize();
 });
-
 define("main", function(){});
-
 
 require.config({
   deps: ["main"],
@@ -14713,5 +14698,4 @@ require.config({
     }
   }
 });
-
 define("config", function(){});

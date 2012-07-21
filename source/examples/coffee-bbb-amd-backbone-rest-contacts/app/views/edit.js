@@ -1,4 +1,3 @@
-
 define(["jquery", "use!underscore", "use!backbone", "text!templates/edit.html"], function($, _, Backbone, tplEdit) {
   var EditView;
   EditView = Backbone.View.extend({
@@ -13,7 +12,9 @@ define(["jquery", "use!underscore", "use!backbone", "text!templates/edit.html"],
       return _.bindAll(this, "submit", "remove");
     },
     render: function() {
-      if (this.item) this.$el.html(this.template(this.item.toJSON()));
+      if (this.item) {
+        this.$el.html(this.template(this.item.toJSON()));
+      }
       return this;
     },
     change: function(item) {

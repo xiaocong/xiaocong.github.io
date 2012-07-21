@@ -154,6 +154,23 @@ module.exports = function(grunt) {
       }
     },
 
+    // pure grunt static server task, we need it for test,
+    // because bbb's server task will not end and not continue next test task.
+    staticserver: {
+      port: 8000,
+      base: "."
+    },
+
+    // jasmine task is to run specs using phantom, before running it, you must
+    // make sure you have installed phantom following instruction on
+    // https://github.com/cowboy/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed
+    jasmine: {
+      all: {
+        src:['http://localhost:8000/tests/SpecRunner.html'],
+        timeout: 300000 //in milliseconds
+      }
+    },
+
     // This task uses James Burke's excellent r.js AMD build tool.  In the
     // future other builders may be contributed as drop-in alternatives.
     requirejs: {
@@ -179,11 +196,15 @@ module.exports = function(grunt) {
   // coffee to js, and lint all your code.
   grunt.registerTask("default", "clean coffee:app lint:beforeconcat coffee:spec");
 
+  // Register test task, which will compile app and run the server and then do test.
+  // Here we use 'staticserver' task (pure grunt static server) for testing.
+  grunt.registerTask('test', 'default staticserver jasmine');
+
   // The debug task will remove all contents inside the dist/ folder, lint all
-  // js code under app/ folder, copy files to dist/debug folder, combine all
-  // application files into require.js, and then concat real require.js with
-  // the application require.js file.
-  grunt.registerTask("debug", "default copy:debug requirejs concat");
+  // js code under app/ folder, perform testing, copy files to dist/debug folder,
+  // combine all application files into require.js, and then concat real require.js
+  // with the application require.js file.
+  grunt.registerTask("debug", "test copy:debug requirejs concat");
 
   // The release task will perform debug task, copy files to dist/release folder,
   // minmize css file, and minimize require.js into dist/release.

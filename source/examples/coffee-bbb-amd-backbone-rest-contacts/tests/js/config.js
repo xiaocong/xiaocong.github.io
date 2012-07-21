@@ -1,4 +1,3 @@
-
 require.config({
   baseUrl: "../app",
   paths: {
@@ -21,7 +20,6 @@ require.config({
     }
   }
 });
-
 require(["../tests/js/runner"], function(runner) {
   return runner();
 });

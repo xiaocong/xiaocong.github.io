@@ -1,4 +1,3 @@
-
 define(['use!underscore', 'use!backbone', 'models/contact'], function(_, Backbone, Contact) {
   return describe("models/contact", function() {
     describe("constructor", function() {

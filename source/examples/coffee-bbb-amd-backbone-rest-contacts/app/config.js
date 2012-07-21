@@ -1,4 +1,3 @@
-
 require.config({
   deps: ["main"],
   paths: {

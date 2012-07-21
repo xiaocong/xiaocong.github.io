@@ -1,4 +1,3 @@
-
 define(['jquery', 'use!underscore', 'use!backbone', 'models/contact', 'views/contactitem'], function($, _, Backbone, Contact, ContactItemView) {
   return describe("views/contactitem", function() {
     return describe("test contactitem under mock model", function() {

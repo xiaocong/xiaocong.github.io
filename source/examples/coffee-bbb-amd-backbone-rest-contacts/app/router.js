@@ -1,4 +1,3 @@
-
 define(['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'views/app'], function($, _, Backbone, contacts, appView) {
   var AppRouter;
   AppRouter = Backbone.Router.extend({

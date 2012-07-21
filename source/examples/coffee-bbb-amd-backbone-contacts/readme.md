@@ -16,21 +16,26 @@ $ npm install -g coffee-script
 ```
 
 - Build and Run the server
-``` bash compile coffee to js
+
+Compile the coffee to js
+``` bash
 $ bbb coffee
 ```
 
-``` bash compile and run server of not concat version
+Compile and run the dev server
+``` bash
 $ bbb
 $ bbb server
 ```
 
-``` bash compile and run server of concat version
+Compile and run the debug version of server
+``` bash
 $ bbb debug
 $ bbb server:debug
 ```
 
-``` bash compile and run server of optmized version
+Compile and run the release version of server
+``` bash
 $ bbb release
 $ bbb server:release
 ```

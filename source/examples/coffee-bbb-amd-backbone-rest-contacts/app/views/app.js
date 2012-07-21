@@ -1,4 +1,3 @@
-
 define(["jquery", "use!underscore", "use!backbone", "views/sidebar", "views/main"], function($, _, Backbone, sidebarView, mainView) {
   var AppView;
   AppView = Backbone.View.extend({

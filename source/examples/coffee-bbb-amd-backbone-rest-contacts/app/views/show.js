@@ -1,4 +1,3 @@
-
 define(["jquery", "use!underscore", "use!backbone", "text!templates/show.html"], function($, _, Backbone, tplShow) {
   var ShowView;
   ShowView = Backbone.View.extend({

@@ -1,0 +1,20 @@
+{
+  "author": "Xiaocong He <xiaocong@gmail.com>",
+  "name": "coffee-bbb-amd-backbone-rest-contacts",
+  "description": "example project combining coffee, bbb, requirejs, backbone, jasmine",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xiaocong/xiaocong.github.com.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "coffee-script": "*",
+    "bbb": "*"
+    },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

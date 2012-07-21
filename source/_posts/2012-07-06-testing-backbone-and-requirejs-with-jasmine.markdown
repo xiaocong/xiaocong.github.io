@@ -3,7 +3,7 @@ layout: post
 title: "使用jasmine+sinon测试backbone+requirejs项目"
 date: 2012-07-06 00:32
 comments: true
-categories: [javascript, backbone.js, require.js, jasmine.js, sinon.js, sinon.js, coffeescript]
+categories: [javascript, backbone.js, require.js, jasmine.js, sinon.js, coffeescript]
 ---
 
 [backbone]: http://backbonejs.com/ "Backbone.js"

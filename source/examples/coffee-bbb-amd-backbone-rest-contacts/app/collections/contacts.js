@@ -1,4 +1,3 @@
-
 define(['use!underscore', 'use!backbone', 'models/contact'], function(_, Backbone, Contact) {
   var Contacts;
   Contacts = Backbone.Collection.extend({
