@@ -11,6 +11,7 @@ categories: [javascript, backbone.js, require.js, jasmine.js, phantom.js, coffee
 [jasmine]: http://pivotal.github.com/jasmine/
 [sinon]: http://sinonjs.org/ "sinon.js"
 [Phantomjs]: http://phantomjs.org/
+[requirejs]: http://requirejs.org/
 
 [Contact](http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-rest-contacts/dist/release/)([源代码](https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts))示例项目使用了[bbb][]作为项目构建工具,
 作为[gruntjs][]的扩展, [bbb][]能很方便地完成:
@@ -27,10 +28,10 @@ categories: [javascript, backbone.js, require.js, jasmine.js, phantom.js, coffee
 并且项目中还使用[bbb][]进行[jasmine][]单元测试代码的编译. 所有的操作都可以通过定义[bbb][]任务并以命令行方式进行运行, 唯一的一个例外是[jasmine][]测试执行需要启动浏览器执行.
 如果要在项目中实施持续集成, 就必须不能依赖浏览器而以命令行方式执行测试.
 
-曾经尝试过[envjs](http://www.envjs.com/), 但在当前的实现中, [envjs](http://www.envjs.com/)还不能顺利运行[requirejs](http://requirejs.org/)的异步模块加载([issue](https://github.com/envjs/env-js/issues/7)).
+曾经尝试过[envjs](http://www.envjs.com/), 但在当前的实现中, [envjs](http://www.envjs.com/)还不能顺利运行[requirejs][]的异步模块加载([issue](https://github.com/envjs/env-js/issues/7)).
 [Phantomjs][]是另外一种方案, 它可以很顺利地集成[jasmine][]以及[requirejs][], 但是如果需要集成得很好, 必须得实现一个[jasmine][]的`reporter`用来和[Phantomjs][]进行通讯,
 并且还得实现一个[gruntjs][]任务插件, 用来调用[Phantomjs][]执行测试, 以及生成测试报告. 这个工作量不大, 我也曾经完成了一个最简单的[gruntjs][]任务来调用[Phantomjs][]. 正在想着怎样进行重构的时候,
-突然发现最新的[bbb][]已经悄然导入了[grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task).
+突然发现最新的[bbb][]已经悄然导入了[grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task), 一个利用[Phantomjs][]执行[jasmine][]测试的[gruntjs][]任务插件.
 
 Ok, 那一切就简单了. 现在仅仅需要修改`grunt.js`配置文件来定义项目的`jasmine`任务. 当然, 之前必须安装[Phantomjs][]([gruntjs][]网站上有关于如何安装的[faq](https://github.com/cowboy/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed)).
 ``` javascript
@@ -128,7 +129,7 @@ module.exports = function(grunt) {
 ```
 假如你看过[gruntjs][]的代码, 你应当能看出来, 这其实就是[gruntjs][]自带的`server`任务, 只是为了避免和`bbb`的`server`任务命名冲突, 这里将任务注册的名称从`server`换成了`staticserver`.
 
-然后, 我们可以注册一个`alias task`命名为`test`:
+将`staticserver.js`文件和其他`gruntjs` `task`文件一样存放在`<工程目录>/tasks`目录下, 确保这个任务能正确加载. 然后, 如下注册一个`alias task`命名为`test`:
 ``` javascript
   // Register test task, which will compile app and run the server and then do test.
   // Here we use 'staticserver' task (pure grunt static server) for testing.
