@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "views/show", "views/edit" ], ($, _, Backbone, showView, editView) ->
+define [ "jquery", "underscore", "backbone", "views/show", "views/edit" ], ($, _, Backbone, showView, editView) ->
   MainView = Backbone.View.extend(
     className: "main stack"
     initialize: ->

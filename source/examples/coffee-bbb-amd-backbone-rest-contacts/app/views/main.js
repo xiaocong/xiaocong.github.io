@@ -1,4 +1,5 @@
-define(["jquery", "use!underscore", "use!backbone", "views/show", "views/edit"], function($, _, Backbone, showView, editView) {
+
+define(["jquery", "underscore", "backbone", "views/show", "views/edit"], function($, _, Backbone, showView, editView) {
   var MainView;
   MainView = Backbone.View.extend({
     className: "main stack",

@@ -1,4 +1,4 @@
-define ['use!underscore', 'use!backbone', 'models/contact'], (_, Backbone, Contact) ->
+define ['underscore', 'backbone', 'models/contact'], (_, Backbone, Contact) ->
   describe "models/contact", ->
     describe "constructor", ->
       beforeEach ->

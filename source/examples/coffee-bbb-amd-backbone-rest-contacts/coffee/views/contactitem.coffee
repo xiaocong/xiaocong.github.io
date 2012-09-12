@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "text!templates/item.html" ], ($, _, Backbone, tplItem) ->
+define [ "jquery", "underscore", "backbone", "text!templates/item.html" ], ($, _, Backbone, tplItem) ->
   ContactItemView = Backbone.View.extend(
     className: "item"
     template: _.template(tplItem)

@@ -1,4 +1,5 @@
-define(["jquery", "use!underscore", "use!backbone", "text!templates/item.html"], function($, _, Backbone, tplItem) {
+
+define(["jquery", "underscore", "backbone", "text!templates/item.html"], function($, _, Backbone, tplItem) {
   var ContactItemView;
   ContactItemView = Backbone.View.extend({
     className: "item",
@@ -11,9 +12,7 @@ define(["jquery", "use!underscore", "use!backbone", "text!templates/item.html"],
       this.model.bind("reset", this.render, this);
       this.model.bind("change", this.render, this);
       this.model.bind("destroy", this.remove, this);
-      if (this.model.view) {
-        this.model.view.remove();
-      }
+      if (this.model.view) this.model.view.remove();
       return this.model.view = this;
     },
     render: function() {

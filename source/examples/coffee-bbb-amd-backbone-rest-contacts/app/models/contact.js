@@ -1,5 +1,5 @@
 
-define(['use!underscore', 'use!backbone'], function(_, Backbone) {
+define(['underscore', 'backbone'], function(_, Backbone) {
   var Contact;
   Contact = Backbone.Model.extend({
     defaults: {

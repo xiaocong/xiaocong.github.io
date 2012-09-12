@@ -1,4 +1,4 @@
-define ['jquery', 'use!underscore', 'use!backbone', 'models/contact', 'views/contactitem'], ($, _, Backbone, Contact, ContactItemView) ->
+define ['jquery', 'underscore', 'backbone', 'models/contact', 'views/contactitem'], ($, _, Backbone, Contact, ContactItemView) ->
   describe "views/contactitem", ->
 
     describe "test contactitem under mock model", ->

@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "views/sidebar", "views/main" ], ($, _, Backbone, sidebarView, mainView) ->
+define [ "domReady!", "jquery", "underscore", "backbone", "views/sidebar", "views/main" ], (doc, $, _, Backbone, sidebarView, mainView) ->
   AppView = Backbone.View.extend(
     className: "contacts"
     initialize: ->

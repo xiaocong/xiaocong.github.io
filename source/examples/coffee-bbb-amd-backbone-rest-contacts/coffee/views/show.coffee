@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "text!templates/show.html" ], ($, _, Backbone, tplShow) ->
+define [ "jquery", "underscore", "backbone", "text!templates/show.html" ], ($, _, Backbone, tplShow) ->
   ShowView = Backbone.View.extend(
     className: "show"
     template: _.template(tplShow)

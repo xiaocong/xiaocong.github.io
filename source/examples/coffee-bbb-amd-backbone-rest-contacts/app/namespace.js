@@ -1,4 +1,5 @@
-define(['use!underscore', 'use!backbone'], function(_, Backbone) {
+
+define(['underscore', 'backbone'], function(_, Backbone) {
   var global;
   global = {};
   _.extend(global, Backbone.Events);

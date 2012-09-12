@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "collections/contacts", "models/contact", "views/contactitem", "text!templates/sidebar.html" ], ($, _, Backbone, contacts, Contact, ContactItemView, tplSidebar) ->
+define [ "jquery", "underscore", "backbone", "collections/contacts", "models/contact", "views/contactitem", "text!templates/sidebar.html" ], ($, _, Backbone, contacts, Contact, ContactItemView, tplSidebar) ->
   SidebarView = Backbone.View.extend(
     className: "sidebar"
     template: _.template(tplSidebar)

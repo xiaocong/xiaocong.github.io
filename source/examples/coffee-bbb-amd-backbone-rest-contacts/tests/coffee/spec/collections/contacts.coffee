@@ -1,4 +1,4 @@
-define ['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'models/contact'], ($, _, Backbone, contacts, Contact) ->
+define ['jquery', 'underscore', 'backbone', 'collections/contacts', 'models/contact'], ($, _, Backbone, contacts, Contact) ->
   describe "collections/contacts", ->
     beforeEach ->
       contacts.reset [], {silent: true}

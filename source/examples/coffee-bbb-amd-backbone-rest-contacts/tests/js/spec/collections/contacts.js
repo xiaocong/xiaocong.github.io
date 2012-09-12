@@ -1,4 +1,5 @@
-define(['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'models/contact'], function($, _, Backbone, contacts, Contact) {
+
+define(['jquery', 'underscore', 'backbone', 'collections/contacts', 'models/contact'], function($, _, Backbone, contacts, Contact) {
   return describe("collections/contacts", function() {
     beforeEach(function() {
       return contacts.reset([], {

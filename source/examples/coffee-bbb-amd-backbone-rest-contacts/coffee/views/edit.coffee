@@ -1,4 +1,4 @@
-define [ "jquery", "use!underscore", "use!backbone", "text!templates/edit.html" ], ($, _, Backbone, tplEdit) ->
+define [ "jquery", "underscore", "backbone", "text!templates/edit.html" ], ($, _, Backbone, tplEdit) ->
   EditView = Backbone.View.extend(
     className: "edit"
     template: _.template(tplEdit)

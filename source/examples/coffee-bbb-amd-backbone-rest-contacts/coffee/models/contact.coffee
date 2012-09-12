@@ -1,4 +1,4 @@
-define ['use!underscore', 'use!backbone'], (_, Backbone) ->
+define ['underscore', 'backbone'], (_, Backbone) ->
   Contact = Backbone.Model.extend(
     defaults:
       name: 'unamed'

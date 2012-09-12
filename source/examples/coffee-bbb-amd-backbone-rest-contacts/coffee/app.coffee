@@ -1,4 +1,4 @@
-define ['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'router', 'views/app', 'namespace'], ($, _, Backbone, contacts, appRouter, appView, global) ->
+define ['jquery', 'underscore', 'backbone', 'collections/contacts', 'router', 'views/app', 'namespace'], ($, _, Backbone, contacts, appRouter, appView, global) ->
   initialize = ->
     global.app =
       contacts : contacts

@@ -1,4 +1,5 @@
-define(['use!underscore', 'use!backbone', 'models/contact'], function(_, Backbone, Contact) {
+
+define(['underscore', 'backbone', 'models/contact'], function(_, Backbone, Contact) {
   return describe("models/contact", function() {
     describe("constructor", function() {
       beforeEach(function() {

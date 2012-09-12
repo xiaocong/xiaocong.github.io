@@ -1,4 +1,4 @@
-define ['jquery', 'use!underscore', 'use!backbone', 'collections/contacts', 'views/app'], ($, _, Backbone, contacts, appView) ->
+define ['jquery', 'underscore', 'backbone', 'collections/contacts', 'views/app'], ($, _, Backbone, contacts, appView) ->
   AppRouter = Backbone.Router.extend(
     routes:
       '': 'show'

@@ -1,4 +1,5 @@
-define(["jquery", "use!underscore", "use!backbone", "collections/contacts", "models/contact", "views/contactitem", "text!templates/sidebar.html"], function($, _, Backbone, contacts, Contact, ContactItemView, tplSidebar) {
+
+define(["jquery", "underscore", "backbone", "collections/contacts", "models/contact", "views/contactitem", "text!templates/sidebar.html"], function($, _, Backbone, contacts, Contact, ContactItemView, tplSidebar) {
   var SidebarView;
   SidebarView = Backbone.View.extend({
     className: "sidebar",
@@ -47,13 +48,9 @@ define(["jquery", "use!underscore", "use!backbone", "collections/contacts", "mod
       });
     },
     active: function(item) {
-      if (this.activeItem) {
-        this.activeItem.view.deactive();
-      }
+      if (this.activeItem) this.activeItem.view.deactive();
       this.activeItem = item;
-      if (this.activeItem) {
-        return this.activeItem.view.active();
-      }
+      if (this.activeItem) return this.activeItem.view.active();
     },
     add: function(contact) {
       return this.renderOne(contact);
