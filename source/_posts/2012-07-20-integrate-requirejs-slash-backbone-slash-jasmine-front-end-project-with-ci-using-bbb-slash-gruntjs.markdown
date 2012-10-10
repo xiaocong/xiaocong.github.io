@@ -6,8 +6,8 @@ comments: true
 categories: [javascript, backbone.js, require.js, jasmine.js, phantom.js, coffeescript, bbb, grunt.js]
 ---
 
-[bbb]: https://github.com/backbone-boilerplate/grunt-bbb bbb, grunt.js扩展
-[gruntjs]: https://github.com/cowboy/grunt
+[bbb]: https://github.com/backbone-boilerplate/grunt-bbb "Backbone Boilerplate framework tool."
+[gruntjs]: https://github.com/cowboy/grunt "task-based command line build tool for JavaScript projects"
 [jasmine]: http://pivotal.github.com/jasmine/
 [sinon]: http://sinonjs.org/ "sinon.js"
 [Phantomjs]: http://phantomjs.org/
