@@ -93,5 +93,5 @@ var MyView = Backbone.View.extend({
 
 下面是作者的教学视频, 初学者一定要看看.
 
-{% video http://player.vimeo.com/video/32765088 800 313 %}
+<iframe src="http://player.vimeo.com/video/32765088" width="500" height="313" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <p><a href="http://vimeo.com/32765088">backbone.layoutmanager</a> from <a href="http://vimeo.com/user5699767">tbranyen</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
