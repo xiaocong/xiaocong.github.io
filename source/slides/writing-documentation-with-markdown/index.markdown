@@ -14,47 +14,47 @@ date: 2012-10-10 15:36
   </p>
 </div>
 
-<div id="markdown-index" class="step" data-z="1000" data-scale="2">
+<div id="markdown-index" class="step" data-y="-2000" data-z="1000" data-scale="2">
   <h2>有没有在写技术文档的时候遇到这样的问题?</h2>
 </div>
 
-<div id="issue-1" class="step" data-z="1000" data-rotate="90">
+<div id="issue-1" class="step" data-y="-1500" data-z="1000" data-rotate="90">
   <blockquote>你写的文档用MS Office打开时格式乱了! 下次发出来前一定用MS Office调整一下.</blockquote>
 </div>
 
-<div id="issue-2" class="step" data-z="1000" data-rotate="180">
+<div id="issue-2" class="step" data-y="-1000" data-z="1000" data-rotate="180">
   <blockquote>这个文档和上一个版本到底修改了什么地方啊!? 看Revision history?</blockquote>
 </div>
 
-<div id="issue-3" class="step" data-z="1000" data-rotate="270">
+<div id="issue-3" class="step" data-y="-500" data-z="1000" data-rotate="270">
   <blockquote>嗯...? 我也忘了具体改哪儿了, 咱们一行一行对比一遍吧!</blockquote>
 </div>
 
-<div id="issue-4" class="step" data-z="1000" data-rotate="360">
+<div id="issue-4" class="step" data-y="0" data-z="1000" data-rotate="360">
   <blockquote>我花了一晚上把文档格式修正了一下. 什么? 你也改了? 这word文档怎么合并?! 我的改动少, 我在你的版本上再修改一次吧!</blockquote>
 </div>
 
-<div id="issue-5" class="step" data-z="1000" data-rotate="450">
+<div id="issue-5" class="step" data-y="500" data-z="1000" data-rotate="450">
   <blockquote>这该死的Open Office, 这么难用!?</blockquote>
 </div>
 
-<div id="issue-6" class="step" data-z="1000" data-rotate="540">
+<div id="issue-6" class="step" data-y="1000" data-z="1000" data-rotate="540">
   <blockquote>什么?! 我修改的文档有病毒?!</blockquote>
 </div>
 
-<div id="issue-7" class="step" data-z="1000" data-rotate="600">
+<div id="issue-7" class="step" data-y="1500" data-z="1000" data-rotate="600">
   <blockquote>你得申请文档库的权限. 咱们的代码库不让放大量的二进制文件, 所以...... 我给你发邮件告诉你文档的路径.</blockquote>
 </div>
 
-<div id="issue-8" class="step" data-z="1000" data-rotate="660">
+<div id="issue-8" class="step" data-y="2000" data-z="1000" data-rotate="660">
   <blockquote>对, 我们的代码分了三条线. 设计文档? 文档只有一条线. 这三条线的区别不大, 不会audit这么严格吧?!</blockquote>
 </div>
 
-<div id="question" class="step" data-scale="2">
+<div id="question" class="step" data-x="-1000" data-y="1000" data-scale="2">
   <h2>如何解决???!!!</h2>
 </div>
 
-<div id="requirement" class="step" >
+<div id="requirement" class="step" data-x="-500" data-y="500" data-rotate-z="90">
   <h3>要求</h3>
   <p/>
   <p class="substep">容易书写</p>
@@ -66,11 +66,11 @@ date: 2012-10-10 15:36
   <p class="substep">简单易学</p>
 </div>
 
-<div id="answer-markdown" class="step" data-scale="0.5">
+<div id="answer-markdown" class="step" data-rotate-z="180" data-scale="0.5">
   <h1>推荐: Markdown</h1>
 </div>
 
-<div id="markdown-why" class="step" data-scale="0.25">
+<div id="markdown-why" class="step" data-x="500" data-y="-500" data-rotate-z="360" data-scale="0.25">
   <h3>Markdown设计的目标:</h3><p/>
   <blockquote>易读易写的适用于网络的文本书写语言</blockquote>
 </div>
@@ -389,7 +389,7 @@ Please don't use any `&lt;blink&gt;` tags.
   </code></pre>
 </div>
 
-<div id="markdown-thinking" class="step" data-rotate-z="180">
+<div id="markdown-thinking" class="step" data-x="2000" data-y="2000" data-rotate-z="180">
   <h2>对 Markdown 感觉如何?</h2>
 </div>
 
@@ -397,8 +397,8 @@ Please don't use any `&lt;blink&gt;` tags.
   <h2>「易读易写」</h2>
 </div>
 
-<div id="markdown-how-to-publish" class="step" data-rotate="90" data-x="-1000">
-  <h3>如何发布 Markdown 写的文档 ?</h3>
+<div id="markdown-how-to-publish" class="step" data-x="1000" data-y="1000" data-rotate="90" data-x="-1000">
+  <h2>如何发布 Markdown 写的文档 ?</h2>
   <p class="substep">
     <ul>
       <li>HTML</li>
@@ -408,7 +408,7 @@ Please don't use any `&lt;blink&gt;` tags.
   </p>
 </div>
 
-<div id="markdown-edit-tool" class="step" data-rotate="90" data-x="1000">
+<div id="markdown-edit-tool" class="step" data-x="500" data-y="500" data-rotate="90" data-x="1000">
   <h2>Markdown 编辑器</h2>
   <ul>
     <li>Windows: MarkdownPad(http://markdownpad.com/)</li>
@@ -418,13 +418,18 @@ Please don't use any `&lt;blink&gt;` tags.
   </ul>
 </div>
 
-<div id="markdown-ref" class="step" data-rotate="-90" data-scale="5">
-  <h3>参考网站</h3>
+<div id="markdown-impl" class="step" data-x="-500" data-y="-500" data-rotate="-90" data-scale="2">
+  <h2>Markdown 实现</h2>
+  <p class="substep">http://en.wikipedia.org/wiki/List_of_Markdown_implementations</p>
+</div>
+
+<div id="markdown-ref" class="step" data-x="-1000" data-y="-1000" data-rotate="-180" data-scale="2">
+  <h2>参考网站</h2>
   <p class="substep">http://wowubuntu.com/markdown/</p>
   <p class="substep">http://daringfireball.net/projects/markdown/</p>
 </div>
 
-<div id="thanks" class="step" data-scale="0.5">
+<div id="thanks" class="step" data-scale="10">
   <h1>谢谢 !</h1>
 </div>
 
