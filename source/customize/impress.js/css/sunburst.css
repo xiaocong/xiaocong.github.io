@@ -1,6 +1,6 @@
 /*
 
-Sunburst-like style (c) Vasily Polovnyov <vast@whiteants.net>
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
 
 */
 
@@ -9,141 +9,124 @@ pre code {
   background: #000; color: #f8f8f8;
 }
 
-pre .comment,
-pre .template_comment,
-pre .javadoc {
-  color: #aeaeae;
-  font-style: italic;
-}
-
-pre .keyword,
-pre .ruby .function .keyword,
-pre .request,
-pre .status,
+pre code,
+pre .ruby .subst,
+pre .tag .title,
+pre .lisp .title,
+pre .clojure .built_in,
 pre .nginx .title {
-  color: #E28964;
-}
-
-pre .function .keyword,
-pre .sub .keyword,
-pre .method,
-pre .list .title {
-  color: #99CF50;
+  color: #DDD;
 }
 
 pre .string,
-pre .tag .value,
-pre .cdata,
-pre .filter .argument,
-pre .attr_selector,
-pre .apache .cbracket,
-pre .date,
-pre .tex .command {
-  color: #65B042;
-}
-
-pre .subst {
-  color: #DAEFA3;
-}
-
-pre .regexp {
-  color: #E9C062;
-}
-
 pre .title,
-pre .sub .identifier,
-pre .pi,
-pre .tag,
-pre .tag .keyword,
-pre .decorator,
-pre .shebang,
-pre .input_number {
-  color: #89BDFF;
-}
-
-pre .class .title,
-pre .haskell .type,
-pre .smalltalk .class,
-pre .javadoctag,
-pre .yardoctag,
-pre .phpdoc {
-  text-decoration: underline;
-}
-
-pre .symbol,
+pre .constant,
+pre .parent,
+pre .tag .value,
+pre .rules .value,
+pre .rules .value .number,
+pre .preprocessor,
+pre .ruby .symbol,
 pre .ruby .symbol .string,
-pre .ruby .symbol .keyword,
-pre .ruby .symbol .keymethods,
-pre .number {
-  color: #3387CC;
+pre .aggregate,
+pre .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .addition,
+pre .flow,
+pre .stream,
+pre .bash .variable,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .tex .special,
+pre .erlang_repl .function_or_atom,
+pre .markdown .header {
+  color: #F88;
 }
 
-pre .params,
-pre .variable {
-  color: #3E87E3;
-}
-
-pre .css .tag,
-pre .rules .property,
-pre .pseudo,
-pre .tex .special {
-  color: #CDA869;
-}
-
-pre .css .class {
-  color: #9B703F;
-}
-
-pre .rules .keyword {
-  color: #C5AF75;
-}
-
-pre .rules .value {
-  color: #CF6A4C;
-}
-
-pre .css .id {
-  color: #8B98AB;
-}
-
+pre .comment,
 pre .annotation,
-pre .apache .sqbracket,
-pre .nginx .built_in {
-  color: #9B859D;
-}
-
-pre .preprocessor {
-  color: #8996A8;
-}
-
-pre .hexcolor,
-pre .css .value .number {
-  color: #DD7B3B;
-}
-
-pre .css .function {
-  color: #DAD085;
-}
-
+pre .template_comment,
 pre .diff .header,
 pre .chunk,
-pre .tex .formula {
-  background-color: #0E2231;
-  color: #F8F8F8;
+pre .markdown .blockquote {
+  color: #888;
+}
+
+pre .number,
+pre .date,
+pre .regexp,
+pre .literal,
+pre .smalltalk .symbol,
+pre .smalltalk .char,
+pre .go .constant,
+pre .change,
+pre .markdown .bullet,
+pre .markdown .link_url {
+  color: #080;
+}
+
+pre .label,
+pre .javadoc,
+pre .ruby .string,
+pre .decorator,
+pre .filter .argument,
+pre .localvars,
+pre .array,
+pre .attr_selector,
+pre .important,
+pre .pseudo,
+pre .pi,
+pre .doctype,
+pre .deletion,
+pre .envvar,
+pre .shebang,
+pre .apache .sqbracket,
+pre .nginx .built_in,
+pre .tex .formula,
+pre .erlang_repl .reserved,
+pre .input_number,
+pre .markdown .link_label,
+pre .vhdl .attribute,
+pre .clojure .attribute {
+  color: #88F
+}
+
+pre .keyword,
+pre .id,
+pre .phpdoc,
+pre .title,
+pre .built_in,
+pre .aggregate,
+pre .css .tag,
+pre .javadoctag,
+pre .phpdoc,
+pre .yardoctag,
+pre .smalltalk .class,
+pre .winutils,
+pre .bash .variable,
+pre .apache .tag,
+pre .go .typename,
+pre .tex .command,
+pre .markdown .strong,
+pre .request,
+pre .status {
+  font-weight: bold;
+}
+
+pre .markdown .emphasis {
   font-style: italic;
 }
 
-pre .diff .change {
-  background-color: #4A410D;
-  color: #F8F8F8;
+pre .nginx .built_in {
+  font-weight: normal;
 }
 
-pre .addition {
-  background-color: #253B22;
-  color: #F8F8F8;
-}
-
-pre .deletion {
-  background-color: #420E09;
-  color: #F8F8F8;
+pre .coffeescript .javascript,
+pre .xml .css,
+pre .xml .javascript,
+pre .xml .vbscript,
+pre .tex .formula {
+  opacity: 0.5;
 }

@@ -16,7 +16,7 @@ categories: [backbone.js backbone.layoutmanager bbb]
 [backbone.layoutmanager][] 主要的目的是提供一种规则来管理 `Backbone.View` 的渲染, 程序员只需要遵循这套规则, 就能简化页面渲染的实现.
 [backbone.layoutmanager][] 主页已经很详细地介绍了使用方法, 这里就不再赘述. 下面是个人感觉在学习使用过程中感觉应当注意的几点:
 
-- 完全受管理的 render
+## 完全受管理的 render
 
 `Backbone.LayoutView` 仅仅是一个将 `manage` 属性设置成 `true` 的 `Backbone.View`.
 ``` javascript backbone.layoutmanager V0.6.6
@@ -26,22 +26,22 @@ Backbone.LayoutView = Backbone.View.extend({
 ```
 只有当 `manage` 属性被设置为 `true`, `LayoutManager` 才会接管 `Backbone.View` 的渲染.
 
-- 数据和模板
+## 数据和模板
 
 视图的渲染需要 `template` 和 `serialize` 属性, 分别对应HTML模板和数据模型. `LayoutManager` 缺省使用 [underscore][] 的 `template` 函数进行页面的渲染.
 
-- 嵌套视图
+## 嵌套视图
 
 可以通过 `setView`, `setViews`, `insertView`, `insertViews` 等函数在**视图**中嵌套多个其他的**子视图**.
 
-- BeforeRender 和 AfterRender
+## BeforeRender 和 AfterRender
 
 `render` 完全处在 `LayoutManager` 的管理下, 因此, 如果你想在每次视图渲染前后做一些特殊的处理, 必须定义 `beforeRender` 和 `afterRender` 函数.
 由于 `LayoutManager` 内部会在渲染**视图**前移除所有附加模式的**子视图**, 因此, 通常在 `beforeRender` 函数中调用 `setView` 和 `insertView` 来增加和设置**子视图**.
 
 *如果你不想在每次渲染时移除子视图, 自己控制子视图的增删, 可以设置子视图的 `keep` 属性为 `true`.*
 
-- Cleanup 函数
+## Cleanup 函数
 
 很多视图(View)都有数据模型(model)的事件绑定函数, 因此, 必须在视图被删除后解除绑定. 可以通过定义视图的 `cleanup` 函数来完成这个解绑操作:
 
@@ -60,7 +60,7 @@ var MyView = Backbone.View.extend({
 });
 ```
 
-- 自定义获取模版
+## 自定义获取模版
 
 `LayoutManager` 缺省只支持 `script` 标签的模版, 但是在实际软件项目中, 通常会将不同的模版放置在不同的单独的 html 文件中, 这样便于模版文件的管理.
 `LayoutManager` 提供了 `fetch` 配置项让我们有机会来自己获得模版文件:
