@@ -1,0 +1,354 @@
+---
+layout: post
+title: "介绍 Android DropBoxManager Service"
+date: 2012-11-21 11:59
+comments: true
+categories: android
+---
+
+[Android]: http://www.android.com Android
+[DropBoxManager]: http://developer.android.com/reference/android/os/DropBoxManager.html
+[ActivityManagerService]: http://developer.android.com/reference/android/app/ActivityManager.html ActivityManager Service
+[StrictMode]: http://developer.android.com/reference/android/os/StrictMode.html StrictMode
+
+## 什么是 DropBoxManager ?
+
+{% blockquote %}
+Enqueues chunks of data (from various sources -- application crashes, kernel log records, etc.). The queue is size bounded and will drop old data if the enqueued data exceeds the maximum size. You can think of this as a persistent, system-wide, blob-oriented "logcat".
+{% endblockquote %}
+
+DropBoxManager 是 [Android][] 在 Froyo(API level 8) 引入的用来持续化存储系统数据的机制, 主要用于记录
+Android 运行过程中, 内核, 系统进程, 用户进程等出现严重问题时的 log, 可以认为这是一个可持续存储的系统级别的
+[logcat](http://developer.android.com/tools/help/logcat.html).
+
+我们可以通过用参数 [DROPBOX_SERVICE](http://developer.android.com/reference/android/content/Context.html#DROPBOX_SERVICE)
+调用 [getSystemService(String)](http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String)
+来获得这个服务, 并查询出所有存储在 DropBoxManager 里的系统错误记录.
+
+## Android 缺省能记录哪些系统错误 ?
+
+我没有在官方的网站上找到关于哪些系统错误会被记录到 DropBoxManager 中的文档, 但我们可以查看源代码来找到相关信息.
+从源代码中可以查找到记录到 DropBoxManager 中各种 `tag`(类似于 logcat 的 `tag`).
+
+### crash (应用程序强制关闭, Force Close)
+
+当Java层遇到未被 catch 的例外时, ActivityManagerService 会记录一次 `crash` 到 DropBoxManager中, 并弹出 `Force Close` 对话框提示用户.
+
+``` java ActivityManagerService https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java
+    public void handleApplicationCrash(IBinder app, ApplicationErrorReport.CrashInfo crashInfo) {
+        ProcessRecord r = findAppProcess(app, "Crash");
+        final String processName = app == null ? "system_server"
+                : (r == null ? "unknown" : r.processName);
+
+        EventLog.writeEvent(EventLogTags.AM_CRASH, Binder.getCallingPid(),
+                UserHandle.getUserId(Binder.getCallingUid()), processName,
+                r == null ? -1 : r.info.flags,
+                crashInfo.exceptionClassName,
+                crashInfo.exceptionMessage,
+                crashInfo.throwFileName,
+                crashInfo.throwLineNumber);
+
+        addErrorToDropBox("crash", r, processName, null, null, null, null, null, crashInfo);
+
+        crashApplication(r, crashInfo);
+    }
+```
+
+### anr (应用程序没响应, Application Not Responding, ANR)
+
+当应用程序的主线程(UI线程)长时间未能得到响应时, ActivityManagerService 会记录一次 `anr` 到 DropBoxManager中, 并弹出 `Application Not Responding` 对话框提示用户.
+
+``` java ActivityManagerService https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java
+    final void appNotResponding(ProcessRecord app, ActivityRecord activity,
+            ActivityRecord parent, boolean aboveSystem, final String annotation) {
+        //......
+        addErrorToDropBox("anr", app, app.processName, activity, parent, annotation,
+                cpuInfo, tracesFile, null);
+        //......
+    }
+```
+
+### wtf (What a Terrible Failure)
+
+'android.util.Log' 类提供了静态的 `wtf` 函数, 应用程序可以在代码中用来主动报告一个不应当发生的情况. 依赖于系统设置,
+这个函数会通过 ActivityManagerService 增加一个 `wtf` 记录到 DropBoxManager中, 并/或终止当前应用程序进程.
+
+``` java ActivityManagerService https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java
+    public boolean handleApplicationWtf(IBinder app, String tag,
+            ApplicationErrorReport.CrashInfo crashInfo) {
+        ProcessRecord r = findAppProcess(app, "WTF");
+        final String processName = app == null ? "system_server"
+                : (r == null ? "unknown" : r.processName);
+
+        EventLog.writeEvent(EventLogTags.AM_WTF,
+                UserHandle.getUserId(Binder.getCallingUid()), Binder.getCallingPid(),
+                processName,
+                r == null ? -1 : r.info.flags,
+                tag, crashInfo.exceptionMessage);
+
+        addErrorToDropBox("wtf", r, processName, null, null, tag, null, null, crashInfo);
+
+        if (r != null && r.pid != Process.myPid() &&
+                Settings.Global.getInt(mContext.getContentResolver(),
+                        Settings.Global.WTF_IS_FATAL, 0) != 0) {
+            crashApplication(r, crashInfo);
+            return true;
+        } else {
+            return false;
+        }
+    }
+```
+
+### strict_mode (StrictMode Violation)
+
+[StrictMode][] (严格模式), 顾名思义, 就是在比正常模式检测得更严格, 通常用来监测不应当在主线程执行的网络, 文件等操作.
+任何 StrictMode 违例都会被 ActivityManagerService 在 DropBoxManager 中记录为一次 `strict_mode` 违例.
+
+``` java ActivityManagerService https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java
+    public void handleApplicationStrictModeViolation(
+            IBinder app,
+            int violationMask,
+            StrictMode.ViolationInfo info) {
+        ProcessRecord r = findAppProcess(app, "StrictMode");
+        if (r == null) {
+            return;
+        }
+
+        if ((violationMask & StrictMode.PENALTY_DROPBOX) != 0) {
+            Integer stackFingerprint = info.hashCode();
+            boolean logIt = true;
+            synchronized (mAlreadyLoggedViolatedStacks) {
+                if (mAlreadyLoggedViolatedStacks.contains(stackFingerprint)) {
+                    logIt = false;
+                    // TODO: sub-sample into EventLog for these, with
+                    // the info.durationMillis?  Then we'd get
+                    // the relative pain numbers, without logging all
+                    // the stack traces repeatedly.  We'd want to do
+                    // likewise in the client code, which also does
+                    // dup suppression, before the Binder call.
+                } else {
+                    if (mAlreadyLoggedViolatedStacks.size() >= MAX_DUP_SUPPRESSED_STACKS) {
+                        mAlreadyLoggedViolatedStacks.clear();
+                    }
+                    mAlreadyLoggedViolatedStacks.add(stackFingerprint);
+                }
+            }
+            if (logIt) {
+                logStrictModeViolationToDropBox(r, info);
+            }
+        }
+        //......
+    }
+```
+
+### lowmem (低内存)
+
+在内存不足的时候, Android 会终止后台应用程序来释放内存, 但如果没有后台应用程序可被释放时, ActivityManagerService 就会在 DropBoxManager 中记录一次 `lowmem`.
+
+``` java ActivityManagerService https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            //...
+            case REPORT_MEM_USAGE: {
+                //......
+                Thread thread = new Thread() {
+                    @Override public void run() {
+                        StringBuilder dropBuilder = new StringBuilder(1024);
+                        StringBuilder logBuilder = new StringBuilder(1024);
+                        //......
+                        addErrorToDropBox("lowmem", null, "system_server", null,
+                                null, tag.toString(), dropBuilder.toString(), null, null);
+                        //......
+                    }
+                };
+                thread.start();
+                break;
+            }
+            //......
+        }
+```
+
+### watchdog
+
+如果 WatchDog 监测到系统进程(`system_server`)出现问题, 会增加一条 `watchdog` 记录到 DropBoxManager 中, 并终止系统进程的执行.
+
+``` java Watchdog https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/Watchdog.java
+/** This class calls its monitor every minute. Killing this process if they don't return **/
+public class Watchdog extends Thread {
+    //......
+    @Override
+    public void run() {
+        boolean waitedHalf = false;
+        while (true) {
+            //......
+
+            // If we got here, that means that the system is most likely hung.
+            // First collect stack traces from all threads of the system process.
+            // Then kill this process so that the system will restart.
+
+            //......
+
+            // Try to add the error to the dropbox, but assuming that the ActivityManager
+            // itself may be deadlocked.  (which has happened, causing this statement to
+            // deadlock and the watchdog as a whole to be ineffective)
+            Thread dropboxThread = new Thread("watchdogWriteToDropbox") {
+                    public void run() {
+                        mActivity.addErrorToDropBox(
+                                "watchdog", null, "system_server", null, null,
+                                name, null, stack, null);
+                    }
+                };
+            dropboxThread.start();
+            try {
+                dropboxThread.join(2000);  // wait up to 2 seconds for it to return.
+            } catch (InterruptedException ignored) {}
+
+            //......
+        }
+    }
+
+    //......
+}
+```
+
+### netstats_error
+
+NetworkStatsService 负责收集并持久化存储网络状态的统计数据, 当遇到明显的网络状态错误时, 它会增加一条 `netstats_error` 记录到 DropBoxManager.
+
+### BATTERY_DISCHARGE_INFO
+
+BatteryService 负责检测充电状态, 并更新手机电池信息. 当遇到明显的 discharge 事件, 它会增加一条 `BATTERY_DISCHARGE_INFO` 记录到 DropBoxManager.
+
+### 系统服务(System Serve)启动完成后的检测
+
+系统服务(System Serve)启动完成后会进行一系列自检, 包括:
+
+-   开机
+
+    每次开机都会增加一条 `SYSTEM_BOOT` 记录.
+
+-   System Server 重启
+
+    如果系统服务(System Server)不是开机后的第一次启动, 会增加一条 `SYSTEM_RESTART` 记录, 正常情况下系统服务(System Server)在一次开机中只会启动一次,
+    启动第二次就意味着 bug.
+
+-   Kernel Panic (内核错误)
+
+    发生 Kernel Panic 时, Kernel 会记录一些 log 信息到文件系统, 因为 Kernel 已经挂掉了, 当然这时不可能有其他机会来记录错误信息了. 唯一能检测 Kernel Panic
+    的办法就是在手机启动后检查这些 log 文件是否存在, 如果存在则意味着上一次手机是因为 Kernel Panic 而宕机, 并记录这些日志到 DropBoxManager 中.
+    DropBoxManager 记录 TAG 名称和对应的文件名分别是:
+
+    -   `SYSTEM_LAST_KMSG`, 如果 `/proc/last_kmsg` 存在.
+    -   `APANIC_CONSOLE`, 如果 `/data/dontpanic/apanic_console` 存在.
+    -   `APANIC_THREADS`, 如果 `/data/dontpanic/apanic_threads` 存在.
+
+-   系统恢复(System Recovery)
+
+    通过检测文件 `/cache/recovery/log` 是否存在来检测设备是否因为系统恢复而重启, 并增加一条 `SYSTEM_RECOVERY_LOG` 记录到 DropBoxManager 中.
+
+``` java System Server BootReceiver https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/BootReceiver.java
+    private void logBootEvents(Context ctx) throws IOException {
+        final DropBoxManager db = (DropBoxManager) ctx.getSystemService(Context.DROPBOX_SERVICE);
+        final SharedPreferences prefs = ctx.getSharedPreferences("log_files", Context.MODE_PRIVATE);
+        final String headers = new StringBuilder(512)
+            .append("Build: ").append(Build.FINGERPRINT).append("\n")
+            .append("Hardware: ").append(Build.BOARD).append("\n")
+            .append("Revision: ")
+            .append(SystemProperties.get("ro.revision", "")).append("\n")
+            .append("Bootloader: ").append(Build.BOOTLOADER).append("\n")
+            .append("Radio: ").append(Build.RADIO).append("\n")
+            .append("Kernel: ")
+            .append(FileUtils.readTextFile(new File("/proc/version"), 1024, "...\n"))
+            .append("\n").toString();
+
+        String recovery = RecoverySystem.handleAftermath();
+        if (recovery != null && db != null) {
+            db.addText("SYSTEM_RECOVERY_LOG", headers + recovery);
+        }
+
+        if (SystemProperties.getLong("ro.runtime.firstboot", 0) == 0) {
+            String now = Long.toString(System.currentTimeMillis());
+            SystemProperties.set("ro.runtime.firstboot", now);
+            if (db != null) db.addText("SYSTEM_BOOT", headers);
+
+            // Negative sizes mean to take the *tail* of the file (see FileUtils.readTextFile())
+            addFileToDropBox(db, prefs, headers, "/proc/last_kmsg",
+                    -LOG_SIZE, "SYSTEM_LAST_KMSG");
+            addFileToDropBox(db, prefs, headers, "/cache/recovery/log",
+                    -LOG_SIZE, "SYSTEM_RECOVERY_LOG");
+            addFileToDropBox(db, prefs, headers, "/data/dontpanic/apanic_console",
+                    -LOG_SIZE, "APANIC_CONSOLE");
+            addFileToDropBox(db, prefs, headers, "/data/dontpanic/apanic_threads",
+                    -LOG_SIZE, "APANIC_THREADS");
+        } else {
+            if (db != null) db.addText("SYSTEM_RESTART", headers);
+        }
+
+        // Scan existing tombstones (in case any new ones appeared)
+        File[] tombstoneFiles = TOMBSTONE_DIR.listFiles();
+        for (int i = 0; tombstoneFiles != null && i < tombstoneFiles.length; i++) {
+            addFileToDropBox(db, prefs, headers, tombstoneFiles[i].getPath(),
+                    LOG_SIZE, "SYSTEM_TOMBSTONE");
+        }
+
+        // Start watching for new tombstone files; will record them as they occur.
+        // This gets registered with the singleton file observer thread.
+        sTombstoneObserver = new FileObserver(TOMBSTONE_DIR.getPath(), FileObserver.CLOSE_WRITE) {
+            @Override
+            public void onEvent(int event, String path) {
+                try {
+                    String filename = new File(TOMBSTONE_DIR, path).getPath();
+                    addFileToDropBox(db, prefs, headers, filename, LOG_SIZE, "SYSTEM_TOMBSTONE");
+                } catch (IOException e) {
+                    Slog.e(TAG, "Can't log tombstone", e);
+                }
+            }
+        };
+
+        sTombstoneObserver.startWatching();
+    }
+```
+
+### SYSTEM_TOMBSTONE (Native 进程的崩溃)
+
+Tombstone 是 Android 用来记录 native 进程崩溃的 `core dump` 日志, 系统服务在启动完成后会增加一个 Observer 来侦测 tombstone 日志文件的变化,
+每当生成新的 `tombstone` 文件, 就会增加一条 `SYSTEM_TOMBSTONE` 记录到 DropBoxManager 中.
+
+## DropBoxManager 如何存储记录数据 ?
+
+DropBoxManager 使用的是文件存储, 所有的记录都存储在 `/data/system/dropbox` 目录中, 一条记录就是一个文件, 当文本文件的尺寸超过文件系统的最小区块尺寸后,
+DropBoxManager 还会自动压缩该文件, 通常文件名以调用 DropBoxManager 的 TAG 参数开头.
+
+```
+$ adb shell ls -l /data/system/dropbox
+-rw------- system   system        258 2012-11-21 11:36 SYSTEM_RESTART@1353469017940.txt
+-rw------- system   system         39 2012-11-21 11:40 event_data@1353469222884.txt
+-rw------- system   system         39 2012-11-21 12:10 event_data@1353471022975.txt
+-rw------- system   system         34 2012-11-21 18:10 event_log@1353492624170.txt
+-rw------- system   system         34 2012-11-21 18:40 event_log@1353494424296.txt
+-rw------- system   system         34 2012-11-22 10:10 event_log@1353550227432.txt
+-rw------- system   system       1528 2012-11-21 22:54 system_app_crash@1353509648395.txt
+-rw------- system   system       1877 2012-11-21 11:36 system_app_strictmode@1353469014395.txt
+-rw------- system   system       3724 2012-11-21 11:36 system_app_strictmode@1353469014924.txt.gz
+```
+
+## 如何利用 DropBoxManager ?
+
+-   利用 DropBoxManager 来记录需要持久化存储的错误日志信息
+
+    DropBoxManager 提供了 logcat 之外的另外一种错误日志记录机制, 程序可以在出错的时候自动将相关信息记录到 DropBoxManager 中. 相对于 logcat,
+    DropBoxManager 更适合于程序的自动抓错, 避免人为因素而产生的错误遗漏. 并且 DropBoxManager 是 Android 系统的公开服务, 相对于很多私有实现,
+    出现兼容性问题的几率会大大降低.
+
+-   错误自动上报
+
+    可以将 DropBoxManager 和设备的 BugReport 结合起来, 实现自动上报错误到服务器. 每当生成新的记录, DropBoxManager 就会广播一个
+    `DropBoxManager.ACTION_DROPBOX_ENTRY_ADDED` Intent, 设备的 BugReport 服务需要侦听这个 Intent, 然后触发错误的自动上报.
+
+## 参考
+
+- [Android Official Site][Android]
+- [DropBoxManager Overview][DropBoxManager]
+- [ActivityManager Service Overview][ActivityManagerService]
+- [Android StrictMode Overview][StrictMode]
+
