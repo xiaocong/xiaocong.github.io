@@ -67,6 +67,8 @@ Done, without errors.
 
 ```
 
+<!--more-->
+
 在CI系统中, 一种可行的做法是使用`shell`脚本或者`Makefile`, 先启动`http`服务, 然后异步执行测试. 这是一个可行的方案, 但是`grunt.js`本身就是一个命令行工具, 为什么还要用`shell`或者`make`了?
 
 `grunt.js`支持`alias task`, 我们可以这样定义一个任务别名:

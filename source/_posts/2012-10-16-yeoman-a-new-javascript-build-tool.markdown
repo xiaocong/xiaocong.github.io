@@ -77,6 +77,8 @@ Yeoman is fast, performant and is optimized to work best in modern browsers.
 
 虽然目前我只用到了 Bbb 模板, 但还是得赞一下其模板的齐全.
 
+<!--more-->
+
 ## 前端 Javascript 包管理
 
 在目前, 我们都是手工增加和管理前端应用中用到的 Javascript 库, 例如说 jQuery, 每次当 jQuery 发布一个新版本, 我们都不得不手工地从官网上下载最新的发布文件, 然后将这个文件复制到自己的项目中.

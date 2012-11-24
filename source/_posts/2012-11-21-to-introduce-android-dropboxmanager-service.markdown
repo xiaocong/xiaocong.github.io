@@ -54,6 +54,8 @@ Android 运行过程中, 内核, 系统进程, 用户进程等出现严重问题
     }
 ```
 
+<!--more-->
+
 ### anr (应用程序没响应, Application Not Responding, ANR)
 
 当应用程序的主线程(UI线程)长时间未能得到响应时, ActivityManagerService 会记录一次 `anr` 到 DropBoxManager中, 并弹出 `Application Not Responding` 对话框提示用户.

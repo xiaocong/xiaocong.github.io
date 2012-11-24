@@ -3,7 +3,7 @@ layout: post
 title: "开发SPA前端项目必须掌握什么知识?"
 date: 2012-08-09 21:46
 comments: true
-categories: 
+categories: [javascript, spa]
 ---
 
 这个题目有点大, 因为对于开发SPA(单页面应用, Single Page Application), 一个前端工程师需要掌握太多太多知识和工具了.
@@ -46,6 +46,8 @@ Javascript代码的书写格式非常自由, 甚至带着错都能运行下去, 
 
 进行代码质量的静态检查可以极大减少由于语法漏洞或者拼写疏忽带来的这些额外错误, 推荐使用[jshint](http://www.jshint.com/).
 如果使用CoffeeScript, 这步可以省略了, CoffeeScript编译后的代码都能通过jshint的检测.
+
+<!--more-->
 
 ## 单元测试
 

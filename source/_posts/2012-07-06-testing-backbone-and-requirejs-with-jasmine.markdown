@@ -67,6 +67,8 @@ define [use!underscore', 'use!backbone', 'model/under/test'], (_, Backbone, mode
 - [Model测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/models/contact.coffee)
 - [View测试Demo](/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/views/contactitem.coffee)
 
+<!--more-->
+
 ## 加载*测试模块*, 定义测试`runner`
 
 通过定义模块依赖, 确保在执行`runner`方法前加载所有的*测试模块*.

@@ -1,31 +1,29 @@
-<div id="header">
-  <h1><a href="{{ root_url }}/">{{ site.title }}</a></h1>
-  {% if site.subtitle %}
-    <p>{{ site.subtitle }}</p>
-  {% endif %}
+<h1 class="left"><a href="{{ root_url }}/">{{ site.title }}</a></h1>
+<nav class="menu left">{% include navigation.html %}</nav>
+<div class="right">
+	<form class="search right" action="{{ site.simple_search }}" method="get">
+		<input class="left" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:{{ site.url | shorthand_url }}">
+	</form>
+	<div class="social right">
+		{% if site.facebook_user %}
+		<a class="facebook" href="http://www.facebook.com/{{ site.facebook_user }}" title="Facebook">Facebook</a>
+		{% endif %}
+		{% if site.googleplus_user %}
+		<a class="google" href="https://plus.google.com/{{ site.googleplus_user }}" title="Google+">Google+</a>
+		{% endif %}
+		{% if site.twitter_user %}
+		<a class="twitter" href="http://twitter.com/{{ site.twitter_user }}" title="Twitter">Twitter</a>
+		{% endif %}
+		{% if site.github_user %}
+		<a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub">GitHub</a>
+		{% endif %}
+		{% if site.pinterest_user %}
+		<a class="pinterest" href="https://pinterest.com/{{ site.pinterest_user }}" title="Pinterest">Pinterest</a>
+		{% endif %}
+		{% if site.subscribe_rss %}
+		<a class="rss" href="{{ site.subscribe_rss }}" title="RSS">RSS</a>
+		{% endif %}
+	</div>
 </div>
-<ul id="social-links">
-  {% if site.subscribe_rss %}
-    <li><a class="feed" href="{{ site.subscribe_rss }}" title="RSS">RSS</a></li>
-  {% endif %}
-  {% if site.twitter_user %}
-    <li><a class="twitter" href="http://twitter.com/{{ site.twitter_user }}" title="Twitter">Twitter</a></li>
-  {% endif %}
-  {% if site.github_user %}
-    <li> <a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub">GitHub</a> </li>
-  {% endif %}
-</ul>
-<div class="clear"></div>
-<ul id="nav">
-  {% if page.current == 'blog' %}
-    <li> <a href="{{ root_url }}/" class="current">blog</a> </li>
-  {% else %}
-    <li> <a href="{{ root_url }}/">blog</a> </li>
-  {% endif %}
-
-  {% if page.current == 'archives' %}
-    <li><a href="{{ root_url }}/blog/archives" class="current">archives</a></li>
-  {% else %}
-    <li><a href="{{ root_url }}/blog/archives">archives</a></li>
-  {% endif %}
-</ul>
+{% include custom/header.html %}

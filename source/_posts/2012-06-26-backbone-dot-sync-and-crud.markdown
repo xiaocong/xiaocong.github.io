@@ -51,6 +51,9 @@ Backbone.sync方法的缺省实现是通过标准的RESTful风格的CRUD进行�
     else
       options.error "Record not found"
 ```
+
+<!--more-->
+
 localStorage属性对象的类型定义如下, 数据最后是通过HTML本地存储方法`localStorage.setItem`进行持久化存储:
 ``` coffeescript
   class Store
