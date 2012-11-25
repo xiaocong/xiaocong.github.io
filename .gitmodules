@@ -12,3 +12,6 @@
 [submodule "source/impress.js"]
 	path = source/impress.js
 	url = https://github.com/bartaz/impress.js.git
+[submodule ".themes/greyshade"]
+	path = .themes/greyshade
+	url = https://github.com/shashankmehta/greyshade.git

@@ -1,1 +1,33 @@
-{% include custom/footer.html %}
+<div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 {{ site.author }} 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        {% for post in site.posts limit: site.recent_posts %}
+          <li>
+            <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      {% if site.douban_user %}
+        <script type="text/javascript" src="http://www.douban.com/service/badge/{{ site.douban_user }}/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/{{ site.douban_user }}" class="view-douban">{{ site.douban_user }} on douban.com&raquo;</a>
+      {% else %}
+        <p>Please set your Douban ID in _config.yml</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>

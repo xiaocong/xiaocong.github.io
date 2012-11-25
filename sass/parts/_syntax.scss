@@ -38,17 +38,17 @@ $solarized: light !default;
   $base3:   $_base03;
 }
 
-$pre-bg: $gray04;
-$pre-border: $gray03;
+$pre-bg: $color-gray04;
+$pre-border: $color-gray03;
 
 article{
 	code, pre{
 		background: $pre-bg;
 		border: 1px solid $pre-border;
-		font-family: $monospace;
+		font-family: $font-mono;
 	}
 	code{
-		font-size: $meta-size;
+		font-size: 0.9em;
 		padding: 1px 3px;
 		margin: 0 3px;
 		@include border-radius(5px);
@@ -77,7 +77,7 @@ figure.code{
 	padding: 5px 15px;
 	@include border-radius(5px);
 	figcaption{
-		font-size: $meta-size;
+		font-size: 0.9em;
 		position: relative;
 		span{
 			margin: -5px -15px 0;
@@ -106,7 +106,7 @@ figure.code{
 	}
 	.line-numbers{
 		border-right: 1px solid $pre-border;
-		font-family: $monospace;
+		font-family: $font-mono;
 		padding-right: 15px;
 		text-align: right;
 	}
@@ -124,9 +124,9 @@ figure.code{
 		overflow-x: auto;
 	}
 }
-.entry .gist{
+.entry-content .gist{
 	background: $pre-bg;
-	color: $gray01;
+	color: $color-gray01;
 	padding: 30px 15px 5px;
 	margin-top: 10px;
 	border: 1px solid $pre-border;
@@ -139,18 +139,18 @@ figure.code{
 			background: none;
 			border: none;
 			pre{
-				font: $meta-size $monospace;
+				font: 0.9em $font-mono;
 				line-height: 1.5;
 			}
 		}
 		.gist-meta{
-			font: 300 $meta-size $default;
+			font: 300 0.9em $font-default;
 			line-height: 1.5;
 			margin: 0 -16px -6px;
 			padding: 5px 15px;
 			@include background(linear-gradient(top, $pre-bg, $pre-border));
 			a{
-				color: $main;
+				color: $color-main;
 				&:first-of-type{
 					position: absolute;
 					top: 5px;

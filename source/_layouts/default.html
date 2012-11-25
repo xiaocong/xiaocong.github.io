@@ -2,10 +2,20 @@
 {% include head.html %}
 
 <body>
-	<header class="inner">{% include header.html %}</header>
-	{% include banner.html %}
-	<div id="content" class="inner">{{ content | expand_urls: root_url }}</div>
-	<footer class="inner">{% include footer.html %}</footer>
-	{% include after_footer.html %}
+	<div class="container">
+		<div class="left-col">
+			<header id="header" class="inner">{% include header.html %}</header>
+		</div>		
+		<div class="mid-col">
+			{% unless page.banner == false %}
+				{% include banner.html %}
+			{% endunless %}
+			<div class="mid-col-container">
+				<div id="content" class="inner">{{ content | expand_urls: root_url }}</div>
+			</div>
+			<footer id="footer" class="inner">{% include footer.html %}</footer>
+			{% include after_footer.html %}
+		</div>
+	</div>
 </body>
 </html>
