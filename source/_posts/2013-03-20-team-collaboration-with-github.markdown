@@ -49,6 +49,8 @@ categories: [github]
 
 {% video http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4 %}
 
+---
+
 # 工具一：增加团队成员 #
 
 有两种常用的方法在[GitHub][]上建立团队合作：
@@ -84,6 +86,8 @@ categories: [github]
 进行代码变更，用git拉取和归并远程存储库中的任何变化，并最终将本地的变化git推送到远程代码库：
 
 {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png %}
+
+---
 
 # 工具二：Pull请求 #
 
@@ -157,5 +161,123 @@ GitHub有两种Pull请求方式：
 
     {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png %}
 
-9.  在经过讨论后，fork的代码库的作者可能想为这个新功能增加一些新的改动。在这种场景下，我们需要在本地计算机上checkout这个同样的分支，
-    修改，并
+9.  在经过讨论后，fork的代码库的作者可能想为这个新功能增加一些新的改动。在这种场景下，我们需要在本地计算机上checkout这个同样的分支，修改，
+    提交，并推送回GitHub。当我们再次访问原代码库的pull请求页面的时候，会发现上次提交的Pull请求已经自动更新了。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png %}
+
+## 合并一个Pull请求 ##
+
+如果你是原始代码库的所有者，你将有[两种方式](https://help.github.com/articles/merging-a-pull-request)来合并收到的Pull请求。
+
+1.  **直接在GitHub上合并**：如果我们想直接在GitHub上进行合并，必须确保没有冲突。原始库的所有者可以通过简单地点击`Merge Pull Request`按钮
+    来进行合并：
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png %}
+
+2.  **在本地计算机上进行合并**：另外一种情况，合并的时候可能会遇到冲突，点击上部的`Info`图标，GitHub有非常清晰的指导，
+    怎么从贡献者的分支上下拉代码变更到本地，合并并解决冲突。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png %}
+
+
+在软件开发团队中有很多不同的代码分支模型。这里有两种非常常用的工作流程模型：
+
+- [简单分支模型](http://scottchacon.com/2011/08/31/github-flow.html)以及Pull请求;
+- [更加广泛的分支模型](http://nvie.com/posts/a-successful-git-branching-model/).
+
+至于采用何种分支模型，取决于团队，项目，以及当时的状态。
+
+---
+
+# 工具三：错误跟踪 #
+
+在GitHub中，缺陷跟踪的中心是*问题列表(Issues)*。虽然问题列表主要是为了跟踪缺陷，但我们经常会用以下面的方式：
+
+- **缺陷**：软件中显然坏了的行为，需要进行修正的地方。
+- **功能**：需要实现的很酷很棒的新点子。
+- **待完成清单**：待完成的检查清单。
+
+让我们来探讨*问题列表*的一下特点：
+
+1.  **标签**：具有不同颜色的类别，用来帮助过滤问题。
+
+2.  **里程碑**：附加在每一个问题上的日期分类，可用于确定哪些问题需要在下一个版本解决。
+    此外，由于每个问题都定有里程碑，每当一个问题解决，它会自动更新进度条。
+
+3.  **搜索**：搜索时能自动列出匹配的问题列表和里程碑。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png %}
+
+4.  **分配**：每个问题都能分配一个人负责进行解决，同时这也能让我们知道目前我们需要工作在什么上面。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png %}
+
+5.  **自动关闭**：包含`Fixes/Fixed/Close/Closes/Closed #[问题编号]`的提交记录，将自动关闭该问题。
+
+    ```bash
+    $ git add .
+    $ git commit -m "corrected url. fixes #2"
+    $ git push origin master
+    ```
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png %}
+
+    {% blockquote %}
+    很显然，我们能将任务清单与代码提交紧密地耦合在一起。
+    {% endblockquote %}
+
+6.  **提及或者引用**：任何人在评论的时候在消息文本中包含`#[问题编号]`，将自动生成该问题的链接，使得在讨论的过程中能非常容易地提及相关的问题。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png %}
+
+---
+
+# 工具四：分析 #
+
+有两个工具-图形和网络，让我们能洞察存储库的变化。[Github图](https://github.com/blog/1093-introducing-the-new-github-graphs)
+提供了代码库的合作者，以及代码提交的直观展现，而[Github网络](https://github.com/blog/39-say-hello-to-the-network-graph-visualizer)
+可视化直观地展现了每一个贡献者和他们在所有分支上的代码提交。这些分析和图形非常强大，尤其是当在团队中工作。
+
+## 图(Graphs) ##
+
+图提供了详细的分析，包括：
+
+- **贡献者**：有哪些代码提交者？他们增加或者删除了多少代码行？
+- **代码提交活动**：在过去的一年中，这些代码提交主要发生在哪些周？
+- **代码频率**：在整个项目的生命周期的不同阶段，提交了多少代码行？
+- **记录卡**：代码提交通常发生在每一天的什么时候？
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png %}
+
+## 网络(Network) ##
+
+[GitHub网络(Network)](https://github.com/blog/39-say-hello-to-the-network-graph-visualizer)
+是一个非常强大的工具，让我们能看到每一个贡献者的代码提交，以及这些提交与其他的提交有什么关联。
+当我们作为一个整体观看这个网络的可视化展现时，我们能看到每一个库，每一个分支，和每一个提交，
+
+{% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png %}
+
+---
+
+# 工具五：项目管理 #
+
+GitHub上的*问题列表*可以定义问题和里程碑，具有一定的项目管理能力。因为其他的某些功能或现有的工作流程，有些团队可能会更倾向于另外的工具。
+在本节中，我们将看到我们如何连接Github与其他流行的项目管理工具 - [Trello](https://trello.com/)和
+[Pivotal Tracker](https://www.pivotaltracker.com/)。使用GitHub的服务钩子(hooks)，我们可以将代码提交，问题和许多其他活动自动更新到任务中。对于任何软件开发团队，这种自动化的帮助，不仅节省了时间，而且还可以提高更新的精度。
+
+## GitHub和Trello ##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
