@@ -13,6 +13,7 @@ categories: [github]
 [Pivotal Tracker]: https://www.pivotaltracker.com/ "Pivotal Tracker"
 [Travis CI]: https://travis-ci.org/ "Travis CI"
 [Hubot]: http://hubot.github.com/ "Hubot"
+[Campfire]: http://campfirenow.com/ "Campfire IM"
 
 *原文: [Team Collaboration With GitHub][]*
 
@@ -30,7 +31,7 @@ categories: [github]
 有一件事我觉得非常有用的是，可以将GitHub的维基集成到项目的源代码主线上。
 {% endblockquote %}
 本教程假定您已经熟悉[Git][]: 开放源码的分布式版本控制系统，由Linux的创世人[Linus Torvalds](http://en.wikipedia.org/wiki/Linus_Torvalds)在2005年创造的。如果您需要修改或查找有关[Git][]，请访问我们以前的[截屏教程](https://tutsplus.com/course/git-essentials/)，和一些[文章](http://net.tutsplus.com/tag/git/)。
-此外，你应该已经有一个[Github][]上的帐户，并做了一些基本的功能，如创建一个存储库，并推送到[GitHub][]上。如果没有，可以参照更多以前的教程(http://net.tutsplus.com/tag/github/)。
+此外，你应该已经有一个[Github][]上的帐户，并做了一些基本的功能，如创建一个存储库，并推送到[GitHub][]上。如果没有，可以参照更多以前的[教程](http://net.tutsplus.com/tag/github/)。
 
 在这个世界上的软件项目，不可避免的是，我们必须和一个团队一起工作来交付软件。在本教程中，我们将探索一些软件开发团队最常用的工具。这些工具包括：
 
@@ -47,7 +48,7 @@ categories: [github]
 
 如果你倾向于观看截屏操作视频，观看下面的截屏操作视频，将本教程作为旁注。
 
-{% video http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4 %}
+{% video http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4 600 338 %}
 
 ---
 
@@ -69,8 +70,11 @@ categories: [github]
 要访问组织的团队页面，你可以简单地去
 `http://github.com/organizations/[组织名称]/teams`来查看，
 或者访问`https://github.com/organizations/[组织名称]/teams/new`来创建新的具备3种不同的权限级别的团队成员，如：
+
 1. Pull Only：[提取和合并](http://www.kernel.org/pub/software/scm/git/docs/git-pull.html)另一个库或本地副本。只读访问权限。
+
 2. Push和Pull：(1)以及[更新](http://www.kernel.org/pub/software/scm/git/docs/git-push.html)远程代码仓库。读+写访问权限。
+
 3. Pull, Push和管理：(1), (2)，计费，建立团队，以及取消组织帐户。读+写+管理员权限
 
 {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png %}
@@ -119,39 +123,32 @@ GitHub有两种Pull请求方式：
     那样它会自动使用你自己的SSH密钥，而不用每次在git pull或者push时询问你的用户名和密码。
     下一步，我们将克隆一份代码库到本地计算机：
 
-    ```bash
-    $ git clone [ssh-url] [folder-name]
-    $ cd [folder-name]
-    ````
+        $ git clone [ssh-url] [folder-name]
+        $ cd [folder-name]
 
 4.  一般情况下，每一个新的功能，我们将创建一个新的Git分支。这是一个很好的做法，因为在未来，
     如果经过一番讨论后我们需要进一步更新分支，[Pull请求将被自动更新](http://stackoverflow.com/questions/9790448/how-to-update-a-pull-request)。
     让我们创建一个新的分支做一个非常简单的变化修改的readme.md文件：
 
-    ```bash
-    $ git checkout -b [new-feature]
-    ```
+        $ git checkout -b [new-feature]
 
 5.  在为这个新功能增加文件后，我们只需要将修改提交到这个新分支上，然后切换回master分支:
 
-    ```bash
-    $ git add .
-    $ git commit -m "information added in readme"
-    $ git checkout master
-    ```
+        $ git add .
+        $ git commit -m "information added in readme"
+        $ git checkout master
 
-6.  在这里，我们需要将新分支推送到远程代码仓库里。首先，我们需要检查这个新功能的分支名称以及其在远程仓库的别名，
+6.  在这里，我们需要将新分支推送到远程代码仓库里。首先，
+    我们需要检查这个新功能的分支名称以及其在远程仓库的别名，
     然后我们用`git push [git-remote-alias] [branch-name]`推送这个变更。
 
-    ```bash
-    $ git branch
-    * master
-    readme
-    $ git remote -v
-    origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (fetch)
-    origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (push)
-    $ git push origin readme
-    ```
+        $ git branch
+        * master
+        readme
+        $ git remote -v
+        origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (fetch)
+        origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (push)
+        $ git push origin readme
 
 7.  进入我们fork的代码库的GitHub页面，选择为这个新功能建立的分支，然后点击`Pull Request`按钮：
 
@@ -213,13 +210,11 @@ GitHub有两种Pull请求方式：
 
     {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png %}
 
-5.  **自动关闭**：包含`Fixes/Fixed/Close/Closes/Closed #[问题编号]`的提交记录，将自动关闭该问题。
+5.  **自动关闭**：包含`Fixes/Fixed/Close/Closes/Closed #问题编号`的提交记录，将自动关闭该问题。
 
-    ```bash
-    $ git add .
-    $ git commit -m "corrected url. fixes #2"
-    $ git push origin master
-    ```
+        $ git add .
+        $ git commit -m "corrected url. fixes #2"
+        $ git push origin master
 
     {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png %}
 
@@ -315,11 +310,9 @@ GitHub代码提交(commit)到故事(story)，自动地交付一个故事。
 4.  当我们最终提交代码修订的时候，按照格式`git commit -m "message [delivers #tracker_id]"`
     [将故事的`id`添加到提交记录里](http://pivotallabs.com/level-up-your-development-workflow-with-github-pivotal-tracker/)。
 
-    ```bash
-    $ git add .
-    $ git commit -m "Github and Pivotal Tracker hooks implemented [delivers #43903595]"
-    $ git push
-    ```
+        $ git add .
+        $ git commit -m "Github and Pivotal Tracker hooks implemented [delivers #43903595]"
+        $ git push
 
 5.  现在，返回到[Pivotal Tracker][]页面，我们将发现这个指定的故事被自动的发布出去了，附着对应的GitHub上代码提交的链接。
 
@@ -345,54 +338,46 @@ GitHub代码提交(commit)到故事(story)，自动地交付一个故事。
 
 1.  `hello.js`文件是nodejs项目。我们有目的地漏写了一个分号，为了让这个文件不能通过grunt构建工具的lint(静态代码检测工具)：
 
-    ```js
-    var http = require('http');
-    http.createServer(function (req, res) {
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('Hello World in Node!\n') // 这里没有分号，将不会通过linting
-    }).listen(1337, '127.0.0.1');
-    console.log('Server running at http://127.0.0.1:1337/');
-    ```
+        var http = require('http');
+        http.createServer(function (req, res) {
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Hello World in Node!\n') // 这里没有分号，将不会通过linting
+        }).listen(1337, '127.0.0.1');
+        console.log('Server running at http://127.0.0.1:1337/');
 
 2.  `package.json`定义依赖的包：
 
-    ```json
-    {
-      "name": "hello-team",
-      "description": "A demo for github and travis ci for team collaboration",
-      "author": "name <email@email.com>",
-      "version": "0.0.1",
-      "devDependencies": {
-        "grunt": "~0.3.17"
-      },
-      "scripts": {
-        "test": "grunt travis --verbose"
-      }
-    }
-    ```
+        {
+          "name": "hello-team",
+          "description": "A demo for github and travis ci for team collaboration",
+          "author": "name <email@email.com>",
+          "version": "0.0.1",
+          "devDependencies": {
+            "grunt": "~0.3.17"
+          },
+          "scripts": {
+            "test": "grunt travis --verbose"
+          }
+        }
 
 3.  为了简化起见，gruntjs构建工具的配置文件仅仅包含一个任务(linting)：
 
-    ```js
-    module.exports = function(grunt) {
-      grunt.initConfig({
-        lint: {
-          files: ['hello.js']
-        }
-      });
-      grunt.registerTask('default', 'lint');
-      grunt.registerTask('travis', 'lint');
-    };
-    ```
+        module.exports = function(grunt) {
+          grunt.initConfig({
+            lint: {
+              files: ['hello.js']
+            }
+          });
+          grunt.registerTask('default', 'lint');
+          grunt.registerTask('travis', 'lint');
+        };
 4.  `.travis.yml`是Travis的配置文件，确保Travis运行我们的测试：
 
-    ```yml
-    language: node_js
-    node_js:
-      - 0.8
-    ```
+        language: node_js
+        node_js:
+          - 0.8
 
-5.  接着，用GitHub帐号登录到Travis，在`repository`分页栏打开`repository hook`:
+5.  接着，用GitHub帐号登录到Travis，在`repository`选项卡打开`repository hook`:
 
     {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png %}
 
@@ -466,15 +451,133 @@ Travis CI将向我们汇报每一个Pull请求的持续集成结果，让我们�
 
 3.  **提及，快捷键和表情符号**
 
-## GitHub Wiki ##
+## GitHub维基(Wiki) ##
 
+每个GitHub代码库都可以生成一个维基，这样非常方便地将代码和文档存放在同一个存储库中。要创建维基，
+访问主标题的维基选项卡，并设置创建页面的信息。其实维基也有自己的版本，并可以将数据复制到本地机器进行
+更新，甚至是离线访问。
 
+{% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png %}
 
+有一件事我觉得非常有用的是可以将GitHub的维基整合到源代码中，这样我就不必维护两个独立的Git项目了。要做到这一点，我将Wiki作为[git子模块](http://git-scm.com/book/ch6-6.html)增加到主分支上。如果您使用的是Travis CI或任何其他CI，必须确保构建工具会忽略wiki的子模块。在Travis的CI文件`.travis.yml`中，添加以下内容：
 
+    git:
+      submodules: false
 
+接着增加一个git子模块`wiki`到主代码库中：
 
+    $ git submodule add git@github.com:[username]/[repo-name].wiki.git
+    Cloning into 'hello-team.wiki'...
+    remote: Counting objects: 6, done.
+    remote: Compressing objects: 100% (3/3), done.
+    remote: Total 6 (delta 0), reused 0 (delta 0)
+    Receiving objects: 100% (6/6), done.
+    $ git add .
+    $ git commit -m "added wiki as submodule"
+    $ git push origin master
 
+现在，维基就作为一个子模块显示在代码库项目中。
 
+{% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png %}
 
+## GitHub Hubot ##
 
+{% blockquote %}
+Hubot，总之，可以极大地增添了不少的乐趣记录，并通知小组讨论重要的提交。
+{% endblockquote %}
+
+[Hubot][]是一个简单的聊天机器人，可以检索信息，或提供通知，每当GitHub有代码提交，问题，或活动时。在一个旨在减少，甚至完全消除会议的一个团队中，[Hubot][]拥有所有团队成员的聊天接口，帮助您记录着每一个讨论。这当然促进灵活的工作时序，因为团队没有必要同时出席讨论。警告：Hubot是非常上瘾的！
+
+有了这个，让我们开始在[Heroku](http://www.heroku.com/)上设置[Hubot][]，拥有[Campfire][]聊天接口的聊天机器人！[Heroku][]和[Campfire][]，都有免费的版本供大家开始尝试。
+
+1.  我们将使用[GitHub出品的支持Campfire的Hubot](https://github.com/github/hubot)。如果你愿意，
+    也可以使用其他如Skype，IRC，GTalk等[聊天适配器](https://github.com/github/hubot/wiki)。
+
+2.  建立一个仅为[Hubot][]的[Campfire][]账号，这个账号将新建一个房间，并邀请其他人加入。
+
+3.  根据Hubot维基上给的[指示](https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Heroku)，部署Hubot到Heroku上。如果Heroku的应用程序的URL返回了一个`Cannot GET /`，别惊慌，因为默认情况下[不会得到任何返回](https://github.com/github/hubot/issues/286)。
+
+4.  从Hubot Campfire账号上，邀请你自己的账号，现在，登录你自己的Campfire账号，然后执行`Hubot help`，
+    你将得到所有Hubot支持的命令。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png %}
+
+5.  尝试几次，例如`Hubot ship it`或者`Hubot map me CERN`。
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png %}
+
+6.  下一步，我们将增加一个Hubot脚本，这里已经有[大量的脚本](https://github.com/github/hubot-scripts/tree/master/src/scripts)，附带[命令说明](http://hubot-script-catalog.herokuapp.com/)。
+
+7.  作为实例，我们将增加一个github提交脚本，以至于每次有一个新的提交，Hubot将在聊天室通知大家。将文件
+    `github-commits.coffee`放置到`scripts`目录。
+
+8.  更新`package.json`文件，根据每个脚本文件头的指示，加入新的依赖包。
+
+9.  使用下面命令再一次发布代码到Heroku：`git push heroku master`
+
+10. 浏览GitHub代码库，我们希望代码提交通知能显示在聊天室，在代码库设置下增加一个`web hook`，
+    对`github-commits`脚本，webhook将是`[HUBOT_URL]:[PORT]/hubot/gh-commits?room=[ROOM_ID]`
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png %}
+
+11. 下一次当代码库有新的代码提交，Hubot将在聊天室如此说：
+
+    {% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png %}
+
+检查其他[Github相关的Hubot的脚本](https://github.com/github/hubot-scripts)，
+或者如果您想自己写一个脚本，这里有[一个很酷的教程](http://net.tutsplus.com/tutorials/javascript-ajax/writing-hubot-plugins-with-coffeescript/)！
+总之，Hubot可以极大地增添很多乐趣在文档记录、通知小组讨论代码库发生的重要提交，问题和活动。试试看吧！
+
+关于和团队一起使用GitHub，最后要说明的是，这里有一些提高生产力的技巧：
+
+1.  **提及(Mentions)** - 在任何文本区域中，我们可以通过`@用户名`提到另外一个GitHub用户，
+    并且该用户将得到通知。
+
+2.  **快捷键** - 按`SHIFT + ?`可以查看Github上任何页面上的快捷键。
+
+3.  **表情符号** - 通过使用[表情符号](http://www.emoji-cheat-sheet.com/)，
+    Github上的文本区域还支持插入的图标。来吧，与队友一起工作时有点情趣！
+
+---
+
+# GitHub上非软件项目的合作 #
+
+我们大多数人会认为使用Github只能为软件项目。毕竟，Github产生就是为了社交编程。
+但是，也有一些很酷的使用Github的库被用于非编码项目，和他们的合作和讨论同样非常棒。
+因为这些项目是开源的，任何人都可以作出贡献，这是快速修复错误，容易报告错误，与志同道合的人有效的合作。
+只是为了好玩，这里是其中的一些：
+
+- 房屋修复: [房屋的问题跟踪](https://github.com/frabcus/house/issues?labels=building&state=open)
+- 书籍: [Little MongoDB Book](https://github.com/karlseguin/the-little-mongodb-book), [Backbone Fundamentals](https://github.com/addyosmani/backbone-fundamentals)
+- 歌词: [JSConfEU Lyrics](https://github.com/mandylauderdale/2012-JSConfEU-Lyrics)
+- 找男朋友: [boyfriend_require](https://github.com/norinori2222/boyfriend_require/blob/master/README-en.md)
+- 教导: [Wiki](https://github.com/dianakimball/mentoring)
+- 基因组数据: [Ash Dieback epidemic](https://github.com/ash-dieback-crowdsource/data)
+- 博客: [CSS Wizardry](https://github.com/csswizardry/csswizardry.github.com)
+
+你能想象[GitHub开发团队](http://news.ycombinator.com/item?id=4963433)怎么认为这些项目？
+
+{% blockquote %}
+“我们挖掘像这样一样使用GitHub的乐趣！”
+{% endblockquote %}
+
+---
+
+# 更多的资源 #
+
+- [Social Coding in GitHub](http://www.cs.cmu.edu/~xia/resources/Documents/cscw2012_Github-paper-FinalVersion-1.pdf), a research paper by Carnegie Melon University
+- [How Github uses Github to build Github](http://zachholman.com/talk/how-github-uses-github-to-build-github/) by Zac Holman
+- [Git and Github Secrets](http://zachholman.com/talk/git-github-secrets/) by Zac Holman
+- [New features in Github](https://github.com/blog/category/ship) from the Github Blog
+- Github Help: [pull requests](https://help.github.com/articles/using-pull-requests), [Fork a Repo](https://help.github.com/articles/fork-a-repo)
+- [Github features for collaboration](https://github.com/features/projects)
+- Nettuts+ Tutorials: [Git](http://net.tutsplus.com/tag/git/) and [Github](http://net.tutsplus.com/tag/github/)
+- [Lord of the Files: How Github Tamed free Software (and more)](http://www.wired.com/wiredenterprise/2012/02/github/) by Wired
+
+---
+
+# 更多合作的乐趣！ #
+
+那些都是在GitHub上积攒的协作化工具。大部分都是作为分析工具，或者用于和团队工作时节省时间的自动化工具。
+你有更多GitHub团队合作的技巧吗？让我们一起分享！
 
