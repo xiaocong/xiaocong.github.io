@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "使用 Markdown 书写开发文档"
+title: "在 Markdown 中嵌入 UML 文档"
 date: 2013-04-22 13:23
 comments: true
 categories: [markdown, uml]
@@ -22,6 +22,9 @@ categories: [markdown, uml]
 
 但是毕竟[Markdown][]只是书写语言，不是程序设计语言，如果我们需要嵌入 UML 的时候，不可避免地需要其他专业软件的支持。
 这里介绍几种利用网络服务，可以直接在[Markdown][]文档中嵌入的 UML 建模图：
+
+<!--more-->
+---
 
 ## 用例图
 
@@ -384,6 +387,8 @@ categories: [markdown, uml]
 
 
 <script type="text/javascript" src="http://www.websequencediagrams.com/service.js"></script>
+
+---
 
 ## 其他工具
 

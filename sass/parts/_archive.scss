@@ -1,49 +1,59 @@
-.archives{
+section.archive{
 	position: relative;
-	&:last-of-type{
-		&:before{
-			content: "";
-			position: absolute;
-			bottom: 0;
-			width: 200px;
-			border-top: 1px solid $color-gray04;
+	&:first-of-type{
+		border-top: 1px solid $gray05;
+		article.archive{
+			border-top: none;
+		}
+		h1.archive-title{
+			border-top: none;
+			&:before{
+				border-top: none;
+			}
 		}
 	}
-	.year{
+	&:last-of-type{
+		border-bottom: 1px solid $gray04;
+		article.archive{
+			border-bottom: none;
+		}
+	}
+	h1.archive-title{
 		line-height: 35px;
 		width: 200px;
 		position: absolute;
 		top: 0;
-		padding-top: 15px;
+		padding-top: 30px;
 		border-top: 1px solid #fff;
 		&:before{
 			content: "";
 			position: absolute;
 			top: -2px;
 			width: 100%;
-			border-top: 1px solid $color-gray04;
+			border-top: 1px solid $gray04;
 		}
 		@media screen and (max-width: 600px){
 			position: relative;
 			width: 100%;
-		}
-	}
-	article{
-		margin-left: 200px;
-		padding: 15px 0;
-		@media screen and (max-width: 600px){
-			margin-left: 0;
-			&:first-of-type{
+			& + article.archive{
 				border-top: none;
-				padding-top: 30px;
+				h1{
+					padding-top: 15px;
+				}
 			}
 		}
-		.title{
+	}
+	article.archive{
+		margin-left: 200px;
+		@media screen and (max-width: 600px){
+			margin-left: 0;
+			padding: 15px 0;
+		}
+		h1{
 			margin-bottom: 0;
 		}
 		.meta{
-			color: $color-gray02;
-			font-size: 0.9em;
+			color: $gray02;
 			line-height: 2;
 			margin-top: 15px;
 			@media screen and (max-width: 600px){
@@ -51,23 +61,25 @@
 			}
 			span{
 				margin-right: 30px;
+				padding-left: 30px;
 				@include inline-block;
-				&:before{
-					color: $color-gray03;
-					font: 1.3em $font-icon;
-					padding-right: 10px;
-				}
 			}
 			a{
-				color: $color-gray02;
+				color: $gray02;
 				@include transition(0.3s);
 				&:hover{
-					color: $color-gray01;
+					color: $gray01;
 				}
 			}
-			.date:before{content: "\f073";}
-			.tags:before{content: "\f02c";}
-			.comments:before{content: "\f075";}
+			.date{
+				background: image-url('date.png') 0 center no-repeat;
+			}
+			.tags{
+				background: image-url('tags.png') 0 center no-repeat;
+			}
+			.comments{
+				background: image-url('comments.png') 0 center no-repeat;
+			}
 		}
 	}
 }
