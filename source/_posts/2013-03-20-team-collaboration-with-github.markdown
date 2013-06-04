@@ -102,7 +102,7 @@ GitHub有两种Pull请求方式：
 
 1.  进入你想贡献修改的GitHub代码库，单击“Fork”按​​钮来创建自己的Github帐户上的代码库克隆：
 
-    {% img center http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png%}
+    {% img center http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png %}
 
 2.  这将在自己的帐户上创建一个该代码库的复制：
 
@@ -388,7 +388,7 @@ Trello任务卡能模拟简单，可视化的虚拟[任务看版](http://en.wiki
 
 对于每个提交(commit)，GitHub有个干净的接口用来进行评论，甚至是对某行代码进行评论。在进行逐行代码评审的时候，针对单行代码提出评论和问题的功能就显得非常重要了。打开提交(commit)界面的顶部的检查框，就能显示行内评论。
 
-{%img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png %}
+{% img http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png %}
 
 下面探讨一些帮助我们进行代码评审，能快速显示不同提交之间差异的URL模式：
 
