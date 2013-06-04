@@ -40,15 +40,15 @@ body
       display: block
       +replace-text("../images/icons.png", $social-link-width, $social-link-height)
       &.github:hover
-        background-position: 0 -$social-link-height
+        background-position: 0 (-$social-link-height)
       &.feed
-        background-position: -$social-link-width 0
+        background-position: (-$social-link-width) 0
         &:hover
-          background-position: -$social-link-width -$social-link-height
+          background-position: (-$social-link-width) (-$social-link-height)
       &.twitter
         background-position: -($social-link-width * 2) 0
         &:hover
-          background-position: -($social-link-width * 2) -$social-link-height
+          background-position: -($social-link-width * 2) (-$social-link-height)
 
 #nav
   @extend .flat-list
