@@ -15,3 +15,9 @@
 [submodule ".themes/greyshade"]
 	path = .themes/greyshade
 	url = https://github.com/shashankmehta/greyshade.git
+[submodule ".themes/fabric"]
+	path = .themes/fabric
+	url = https://github.com/panks/fabric.git
+[submodule ".themes/phase"]
+	path = .themes/phase
+	url = https://github.com/tommy351/hexo-theme-phase.git
