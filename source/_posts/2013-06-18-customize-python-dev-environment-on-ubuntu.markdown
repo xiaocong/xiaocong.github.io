@@ -21,6 +21,8 @@ sudo apt-get install python2.7 python2.7-dev python3.2 python3.2-dev
 sudo apt-get install build-essential libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt-dev
 {% endcodeblock %}
 
+<!--more-->
+
 ## 安装 pip 和 virtualenv
 
 `pip` 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。

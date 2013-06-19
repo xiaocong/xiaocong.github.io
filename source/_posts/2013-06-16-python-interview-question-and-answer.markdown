@@ -13,6 +13,8 @@ categories: [python]
 里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐
 给团队的 Python 初学者。
 
+<!--more-->
+
 1.  参数是如何传递的？传值还是传引用？(How are arguments passed – by
 reference of by value?)
 
