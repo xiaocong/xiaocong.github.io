@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "在Ubuntu下订制舒服的Python开发环境"
+title: "在Ubuntu下配置舒服的Python开发环境"
 date: 2013-06-18 14:37
 comments: true
 categories: [python]
