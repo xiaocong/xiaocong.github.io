@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title>App</title>
+  <link rel="stylesheet" href="css/application.css" type="text/css" charset="utf-8">
+</head>
+<body>
+  <header id="header"><h1>Backbone Contacts</h1></header>
+  <article id="article"></article>
+</body>
+  <script src="js/lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/lib/underscore.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/lib/backbone.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/lib/backbone-localstorage.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/application.js" type="text/javascript" charset="utf-8"></script>
+  <!-- contact item -->
+  <script type="text/template" id="tpl-item">
+      <%= (name ? name : "<i>No Name</i>") %>
+  </script>
+  <!-- side bar, including contacts list -->
+  <script type="text/template" id="tpl-sidebar">
+    <header>
+      <input type="search" placeholder="search" results="0" incremental="true" autofocus>
+    </header>
+    <div class="items"></div>
+    <footer>
+      <button>New Contact</button>
+    </footer>
+  </script>
+  <!-- display cotact details -->
+  <script type="text/template" id="tpl-show">
+    <header>
+      <a class="edit">Edit</a>
+    </header>
+    <div class="content">
+      <p><label>name: <%= name %></label></p>
+      <p><label>email: <%= email %></label></p>
+    </div>
+  </script>
+  <!-- edit cotact -->
+  <script type="text/template" id="tpl-edit">
+    <header>
+      <a class="save">Save</a>
+      <a class="delete">Delete</a>
+    </header>
+    <div class="content">
+      <form>
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" value="<%= name %>">
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" value="<%= email %>">
+        </label>  
+        <button>Save</button>
+      </form>
+    </div>
+  </script>
+</html>

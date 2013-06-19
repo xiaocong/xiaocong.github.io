@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: uml | 葱丝瓣酱]]></title>
+  <link href="http://xiaocong.github.io/blog/categories/uml/atom.xml" rel="self"/>
+  <link href="http://xiaocong.github.io/"/>
+  <updated>2013-06-19T17:34:51+08:00</updated>
+  <id>http://xiaocong.github.io/</id>
+  <author>
+    <name><![CDATA[Xiaocong He]]></name>
+    <email><![CDATA[xiaocong@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在 Markdown 中嵌入 UML 文档]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/04/22/writing-development-documentation-with-markdown/"/>
+    <updated>2013-04-22T13:23:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/04/22/writing-development-documentation-with-markdown</id>
+    <content type="html"><![CDATA[<p><a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>是网络书写语言，特别适合程序员书写文档：</p>
+
+<ul>
+<li>全文本格式，方便进行<code>diff</code>，<code>patch</code>和版本的管理；</li>
+<li>格式直观，简单易学，便于书写和阅读；</li>
+<li>兼容 HTML，能方便地转换为 pdf，doc等格式；</li>
+<li>支持 Linux，Windows，Mac；</li>
+<li>支持内嵌代码和语法高亮；</li>
+</ul>
+
+
+<p>估计只是方便版本管理，就能吸引很多程序员的兴趣，特别是需要团队一起参与书写文档的时候。
+感兴趣的可以参考官方网站，或者以前写的一份<a href="/slides/writing-documentation-with-markdown/">使用 Markdown 的 slides</a>。</p>
+
+<p>但是毕竟<a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>只是书写语言，不是程序设计语言，如果我们需要嵌入 UML 的时候，不可避免地需要其他专业软件的支持。
+这里介绍几种利用网络服务，可以直接在<a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>文档中嵌入的 UML 建模图：</p>
+
+<!--more-->
+
+
+<hr />
+
+<h2>用例图</h2>
+
+<ul>
+<li><p>角色(Actor)</p>
+
+<p>  使用<code>[角色名]</code>表示角色。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]" ></p></li>
+<li><p>用例(Use Case)</p>
+
+<p>  使用<code>(用例名)</code>表示用例，<code>-</code>表示角色和用例之间的关联。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout)" ></p></li>
+<li><p>备注(Notes)</p>
+
+<p>  如果用例名以<code>note:</code>开头，表明那是一个备注，可以用<code>{bg:颜色名}</code>定义备注的背景色。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login), [Customer]-(note: Cust can be registered or not{bg:beige})" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login), [Customer]-(note: Cust can be registered or not{bg:beige})" ></p></li>
+<li><p>角色继承(Actor Inheritance)</p>
+
+<p>  使用符号<code>^</code>表示角色之间的继承关系。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Cms Admin]^[User], [Customer]^[User], [Agent]^[User]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Cms Admin]^[User], [Customer]^[User], [Agent]^[User]" ></p></li>
+<li><p>扩展和包含(Extends and Includes)</p>
+
+<p>  使用<code>&gt;</code>表示用例之间的包含关系，<code>&lt;</code>表示用例的扩展。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/(Login)&lt;(Register),(Login)&lt;(Request Password Reminder),(Register)&gt;(Confirm Registration)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/scruffy/usecase/(Login)%3C(Register),(Login)%3C(Request%20Password%20Reminder),(Register)%3E(Confirm%20Registration)" ></p></li>
+<li><p>完整示例</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/usecase/(note: figure 1.2{bg:beige}), [User]-(Login),[Site Maintainer]-(Add User),(Add User)&lt;(Add Company),[Site Maintainer]-(Upload Docs),(Upload Docs)&lt;(Manage Folders),[User]-(Upload Docs), [User]-(Full Text Search Docs), (Full Text Search Docs)&gt;(Preview Doc),(Full Text Search Docs)&gt;(Download Docs), [User]-(Browse Docs), (Browse Docs)&gt;(Preview Doc), (Download Docs), [Site Maintainer]-(Post New Event To The Web Site), [User]-(View Events)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/usecase/(note:%20figure%201.2%7Bbg:beige%7D),%20[User]-(Login),[Site%20Maintainer]-(Add%20User),(Add%20User)%3C(Add%20Company),[Site%20Maintainer]-(Upload%20Docs),(Upload%20Docs)%3C(Manage%20Folders),[User]-(Upload%20Docs),%20[User]-(Full%20Text%20Search%20Docs),%20(Full%20Text%20Search%20Docs)%3E(Preview%20Doc),(Full%20Text%20Search%20Docs)%3E(Download%20Docs),%20[User]-(Browse%20Docs),%20(Browse%20Docs)%3E(Preview%20Doc),%20(Download%20Docs),%20[Site%20Maintainer]-(Post%20New%20Event%20To%20The%20Web%20Site),%20[User]-(View%20Events)" ></p></li>
+</ul>
+
+
+<p><a href="http://yuml.me/">YUML</a>支持3种图示风格，分别是：</p>
+
+<ul>
+<li>plain</li>
+<li>scruffy</li>
+<li>boring</li>
+</ul>
+
+
+<p>你可以对比下列图示的不同风格：</p>
+
+<p><img src="http://yuml.me/diagram/plain/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" >
+<img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" >
+<img src="http://yuml.me/diagram/boring/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" ></p>
+
+<h2>活动图</h2>
+
+<ul>
+<li><p>动作(Action)</p>
+
+<p>  用<code>(状态名)</code>表示一个状态，其中<code>(start)</code>和<code>(end)</code>分别表示开始状态和结束状态，箭头<code>-&gt;</code>表示状态的转换。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;(Boil Kettle)-&gt;(end)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E(Boil%20Kettle)-%3E(end)" ></p></li>
+<li><p>判断和限制(Decisions and Constraints)</p>
+
+<p>  使用<code>&lt;判断名&gt;</code>表示一个条件判断，其后跟<code>[条件]-&gt;</code>表示满足条件后状态的转换；用不同的<code>判断名</code>来标识不同的判定位置。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;&lt;a&gt;[kettle empty]-&gt;(Fill Kettle)-&gt;(Boil Kettle),&lt;a&gt;[kettle full]-&gt;(Boil Kettle)-&gt;(end)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E%3Ca%3E[kettle%20empty]-%3E(Fill%20Kettle)-%3E(Boil%20Kettle),%3Ca%3E[kettle%20full]-%3E(Boil%20Kettle)-%3E(end)" ></p></li>
+<li><p>分支合并(Fork/Join)</p>
+
+<p>  使用<code>||</code>表示分支或者合并点。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;&lt;a&gt;[kettle empty]-&gt;(Fill Kettle)-&gt;|b|,&lt;a&gt;[kettle full]-&gt;|b|-&gt;(Boil Kettle)-&gt;|c|,|b|-&gt;(Add Tea Bag)-&gt;(Add Milk)-&gt;|c|-&gt;(Pour Water)-&gt;(end),(Pour Water)-&gt;(end)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E%3Ca%3E[kettle%20empty]-%3E(Fill%20Kettle)-%3E%7Cb%7C,%3Ca%3E[kettle%20full]-%3E%7Cb%7C-%3E(Boil%20Kettle)-%3E%7Cc%7C,%7Cb%7C-%3E(Add%20Tea%20Bag)-%3E(Add%20Milk)-%3E%7Cc%7C-%3E(Pour%20Water)-%3E(end),(Pour%20Water)-%3E(end)" ></p></li>
+<li><p>对象(Objects)</p>
+
+<p>  符号<code>[]</code>表示一个对象。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;[Water]-&gt;(Fill Kettle)-&gt;(end)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E[Water]-%3E(Fill%20Kettle)-%3E(end)" ></p></li>
+<li><p>连接器名称(Connector Name)</p>
+
+<p>  在<code>-&gt;</code>中加入名称，<code>-名称&gt;</code>表示命名连接器。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-fill&gt;(Fill Kettle)-&gt;(end)" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-fill%3E(Fill%20Kettle)-%3E(end)" ></p></li>
+</ul>
+
+
+<h2>类图</h2>
+
+<ul>
+<li><p>关联(Association)</p>
+
+<p>  类名用<code>[]</code>表示，<code>-&gt;</code>表示定向关联，<code>-</code>表明关联。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]-&gt;[Billing Address]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]-%3E[Billing%20Address]" ></p></li>
+<li><p>基数(Cardinality)</p>
+
+<p>  <code>基数-基数&gt;</code>表明关联的基数，其中基数可以为<code>0</code>，<code>1</code>，<code>0..*</code>，<code>*</code>等任意定义的值。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]1-0..*[Address]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]1-0..*[Address]" ></p></li>
+<li><p>定向关联(Directional Association)</p>
+
+<p>  定向关联<code>-&gt;</code>可以定义名称：<code>-名称&gt;</code>。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Order]-billing &gt;[Address], [Order]-shipping &gt;[Address]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Order]-billing%20%3E[Address],%20[Order]-shipping%20%3E[Address]" ></p></li>
+<li><p>颜色和UTF8字符(Splash of Colour And UTF-8)</p>
+
+<p>  类图可以用<code>{bg:颜色名}</code>定义显示的背景颜色。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[❝Customer❞{bg:orange}]❶- ☂&gt;[Order{bg:green}]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[%E2%9D%9DCustomer%E2%9D%9E%7Bbg:orange%7D]%E2%9D%B6-%20%E2%98%82%3E[Order%7Bbg:green%7D]" ></p></li>
+<li><p>聚合(Aggregation)</p>
+
+<p>  聚合表示比关联更强的关联关系，使用<code>&lt;&gt;-&gt;</code>或者<code>+-&gt;</code>来表示。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Company]&lt;&gt;-1&gt;[Location], [Location]+-&gt;[Point]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Company]%3C%3E-1%3E[Location],%20[Location]+-%3E[Point]" ></p></li>
+<li><p>组成(Composition)</p>
+
+<p>  组成表示比聚合更强的关联关系，使用<code>++-&gt;</code>来表示。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Company]++-1&gt;[Location]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Company]++-1%3E[Location]" ></p></li>
+<li><p>备注(Notes)</p>
+
+<p>  使用<code>[note:注解内容]</code>表示备注，同样备注可以自定义颜色<code>{bg:颜色名}</code>。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]&lt;&gt;1-&gt;*[Order], [Customer]-[note: Aggregate Root{bg:cornsilk}]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]%3C%3E1-%3E*[Order],%20[Customer]-[note:%20Aggregate%20Root%7Bbg:cornsilk%7D]" ></p></li>
+<li><p>继承(Inheritance)</p>
+
+<p>  使用<code>^-</code>表示类的继承，右边的类是子类。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Wages]^-[Salaried], [Wages]^-[Contractor]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[Wages]%5E-[Salaried],%20[Wages]%5E-[Contractor]" ></p></li>
+<li><p>接口继承(Interface Inheritance)</p>
+
+<p>  接口继承用<code>^-.-</code>来表示。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[&lt;&lt;ITask&gt;&gt;]^-.-[NightlyBillingTask]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[%3C%3CITask%3E%3E]%5E-.-[NightlyBillingTask]" ></p></li>
+<li><p>依赖(Dependencies)</p>
+
+<p>  类的依赖用<code>-.-&gt;</code>来表示，依赖是最弱的关联关系，一般用来表示类方法的参数或者实现用到了依赖类。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[HttpContext]uses -.-&gt;[Response]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[HttpContext]uses%20-.-%3E[Response]" ></p></li>
+<li><p>接口(Interface)</p>
+
+<p>  和类名相比，接口的名称一般包含在<code>&lt;&lt;&gt;&gt;</code>中。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[&lt;&lt;IDisposable&gt;&gt;;Session]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[%3C%3CIDisposable%3E%3E;Session]" ></p></li>
+<li><p>类定义(Class with Details)</p>
+
+<p>  可以在类符号<code>[]</code>中定义类的所有成员。使用<code>|</code>表示类名与类成员变量和成员函数的分割符，不同的成员之间用<code>;</code>隔开，使用<code>+</code>，<code>-</code>分别表示公开和私有成员。</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[User|+Forename+;Surname;+HashedPassword;-Salt|+Login();+Logout()]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[User%7C+Forename+;Surname;+HashedPassword;-Salt%7C+Login();+Logout()]" ></p></li>
+<li><p>完整的示例</p>
+
+<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[note: You can stick notes on diagrams too!{bg:cornsilk}],[Customer]&lt;&gt;1-orders 0..*&gt;[Order], [Order]++*-*&gt;[LineItem], [Order]-1&gt;[DeliveryMethod], [Order]*-*&gt;[Product], [Category]&lt;-&gt;[Product], [DeliveryMethod]^[National], [DeliveryMethod]^[International]" &gt;
+</code></pre>
+
+<p>  <img src="http://yuml.me/diagram/nofunky/class/[note:%20You%20can%20stick%20notes%20on%20diagrams%20too!%7Bbg:cornsilk%7D],[Customer]%3C%3E1-orders%200..*%3E[Order],%20[Order]++*-*%3E[LineItem],%20[Order]-1%3E[DeliveryMethod],%20[Order]*-*%3E[Product],%20[Category]%3C-%3E[Product],%20[DeliveryMethod]%5E[National],%20[DeliveryMethod]%5E[International]" ></p></li>
+</ul>
+
+
+<h2>时序图</h2>
+
+<p>首先在文件头加入如下 javascript 文件：</p>
+
+<pre><code>    &lt;script type="text/javascript" src="http://www.websequencediagrams.com/service.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<ul>
+<li><p>同步/异步/返回消息(Synchronous/Asynchronous/Return Message)</p>
+
+<p>  一般使用实心箭头<code>-&gt;</code>表示同步消息或调用，开箭头<code>-&gt;&gt;</code>表示异步消息或调用，虚箭头<code>--&gt;</code>或<code>--&gt;&gt;</code>表示返回消息。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  # This is a comment.            
+  Alice-&gt;Bob: Filled arrow
+  Alice-&gt;&gt;Bob: Open arrow
+  Bob--&gt;Alice: Dotted line
+  Bob--&gt;&gt;Alice: Dotted Line, open arrow
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  # This is a comment.
+  Alice->Bob: Filled arrow
+  Alice->>Bob: Open arrow
+  Bob&mdash;>Alice: Dotted line
+  Bob&mdash;>>Alice: Dotted Line, open arrow
+  </pre></div></p></li>
+<li><p>定义参与者的顺序</p>
+
+<p>  通过<code>participant</code>可以定义<code>角色</code>在时序图中的显示顺序，而不是按照缺省的参与者被使用顺序来显示。并且可以定义参与者的别名。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  participant Bob
+  participant Alice
+  participant "I have a really\nlong name" as L
+  #
+  Alice-&gt;Bob: Authentication Request
+  Bob-&gt;Alice: Authentication Response
+  Bob-&gt;L: Log transaction
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  participant Bob
+  participant Alice
+  participant &ldquo;I have a really\nlong name&rdquo; as L
+  #
+  Alice->Bob: Authentication Request
+  Bob->Alice: Authentication Response
+  Bob->L: Log transaction
+  </pre></div></p></li>
+<li><p>自关联消息(Self-Message)</p>
+
+<p>  参与者可以发送一个消息给自己。你可以用<code>\n</code>将文字切分成多行。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  Alice-&gt;Alice: This is a signal to self.\nIt also demonstrates \nmultiline \ntext.
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  Alice->Alice: This is a signal to self.\nIt also demonstrates \nmultiline \ntext.
+  </pre></div></p></li>
+<li><p>分组消息</p>
+
+<p>  通过<code>alt/else</code>，<code>opt</code>和<code>loop</code>，将消息分组，组头显示分组定义的文本信息，<code>end</code>关键字用来结束一个分组。分组可以嵌套。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  Alice-&gt;Bob: Authentication Request
+  alt successful case
+      Bob-&gt;Alice: Authentication Accepted
+  else some kind of failure
+      Bob-&gt;Alice: Authentication Failure
+      opt
+          loop 1000 times
+              Alice-&gt;Bob: DNS Attack
+          end
+      end
+  else Another type of failure
+      Bob-&gt;Alice: Please repeat
+  end
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  Alice->Bob: Authentication Request
+  alt successful case
+      Bob->Alice: Authentication Accepted
+  else some kind of failure
+      Bob->Alice: Authentication Failure
+      opt
+          loop 1000 times
+              Alice->Bob: DNS Attack
+          end
+      end
+  else Another type of failure
+      Bob->Alice: Please repeat
+  end
+  </pre></div></p></li>
+<li><p>备注(Notes)</p>
+
+<p>  使用<code>note left of</code>，<code>note right of</code>和<code>note over</code>分别定义左/右/中显示的备注，可以包含多行，<code>end note</code>用来结束该段<code>note</code>。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  participant Alice
+  participant Bob
+  #
+  note left of Alice 
+  This is displayed 
+  left of Alice.
+  end note
+  note right of Alice: This is displayed right of Alice.
+  note over Alice: This is displayed over Alice.
+  note over Alice, Bob: This is displayed over Bob and Alice.
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  participant Alice
+  participant Bob
+  #
+  note left of Alice
+  This is displayed
+  left of Alice.
+  end note
+  note right of Alice: This is displayed right of Alice.
+  note over Alice: This is displayed over Alice.
+  note over Alice, Bob: This is displayed over Bob and Alice.
+  </pre></div></p></li>
+<li><p>生命线的激活和终止(Activation/Destruction)</p>
+
+<p>  <code>+</code>来表示激活<strong>被发送者</strong>，<code>-</code>表示终止<strong>发送者</strong>。<code>destroy</code>关键字可以将销毁该参与者。</p>
+
+<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
+  User-&gt;+A: DoWork
+  A-&gt;+B: &lt;&lt;createRequest&gt;&gt;
+  B-&gt;+C: DoWork
+  C--&gt;B: WorkDone
+  destroy C
+  B--&gt;-A: RequestCreated
+  A-&gt;User: Done
+  &lt;/pre&gt;&lt;/div&gt;
+</code></pre>
+
+<p>  <div class=wsd wsd_style="rose" ><pre>
+  User->+A: DoWork
+  A->+B: &lt;<createRequest>>
+  B->+C: DoWork
+  C&mdash;>B: WorkDone
+  destroy C
+  B&mdash;>-A: RequestCreated
+  A->User: Done
+  </pre></div></p></li>
+</ul>
+
+
+<script type="text/javascript" src="http://www.websequencediagrams.com/service.js"></script>
+
+
+<hr />
+
+<h2>其他工具</h2>
+
+<ul>
+<li><a href="http://jumly.herokuapp.com/" title="Javascript library, UML diagram rendering engine">JUMLY</a></li>
+<li><a href="https://github.com/wandernauta/yuml" title="unlike yUML webapp, it provides command line tool to render UML diagram.">yUML command line tool</a></li>
+<li><a href="https://github.com/aivarsk/scruffy" title="yUML like command line tool.">Scruffy UML</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

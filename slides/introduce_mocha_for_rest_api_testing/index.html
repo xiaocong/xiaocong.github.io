@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>Mocha: feature-rich JavaScript test framework - 葱丝瓣酱</title>
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="Mocha - javascript test framework Mocha
+Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous &hellip;">
+  
+  <meta name="viewport" content="width=device-width">
+  
+  <!-- Core and extension CSS files -->
+  <link rel="stylesheet" href="/deck.js/core/deck.core.css">
+  <link rel="stylesheet" href="/deck.js/extensions/goto/deck.goto.css">
+  <link rel="stylesheet" href="/deck.js/extensions/menu/deck.menu.css">
+  <link rel="stylesheet" href="/deck.js/extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" href="/deck.js/extensions/status/deck.status.css">
+  <link rel="stylesheet" href="/deck.js/extensions/hash/deck.hash.css">
+  <!--<link rel="stylesheet" href="/deck.js/extensions/scale/deck.scale.css">-->
+  
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" href="/deck.js/themes/style/swiss.css">
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" href="/deck.js/themes/transition/fade.css">
+
+  <script src="/deck.js/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<section class="slide">
+<h1>Mocha - javascript test framework </h1>
+</section>
+
+<section class="slide">
+<h2>Mocha</h2>
+<blockquote><p>Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub.</p><footer><strong>http://visionmedia.github.com/mocha/</strong></footer></blockquote>
+</section>
+
+<section class="slide">
+<h2>Features</h2>
+<ul>
+  <li>javascript API for running tests</li>
+  <li>sync/async support</li>
+  <li>async test timeout support</li>
+  <li>before, after, before each, after each hooks</li>
+  <li>extensible test DSLs or “interfaces”</li>
+  <li>use any assertion library you want</li>
+  <li>extensible reporting, bundled with 9+ reporters</li>
+  <li>proper exit status for CI support etc.</li>
+  <li><a href="http://visionmedia.github.com/mocha/">more&#8230;</a></li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Test requirements</h2>
+<ul>
+  <li>RESTful API</li>
+  <li>JSON data with gzip/deflate compressed</li>
+  <li>Can be integrated with CI</li>
+  <li>Readable test report</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Installation - I<h2>
+<ul>
+  <li class="slide">Install <a href="http://nodejs.org/">Node.js and npm</a></li>
+  <li class="slide">Install <a href="http://github.com/visionmedia/mocha">mocha</a><br/>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g mocha
+</span></code></pre></td></tr></table></div></figure>
+  </li>
+</ul>
+</section>
+
+<section class="slide">
+  <h2>Installation - II</h2>
+  <ul>
+  <li class="slide">Install asserting library</br>
+    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span><br/>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g should
+</span></code></pre></td></tr></table></div></figure>
+  </li>
+  <li class="slide">Install other libraries<br/>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  <span class="nv">$ </span>npm install -g request
+</span><span class='line'>  <span class="nv">$ </span>npm install -g qs
+</span></code></pre></td></tr></table></div></figure>
+  </li>
+  </ul>
+</section>
+
+<section class="slide">
+<h2>Write the first test</h2>
+<figure class='code'><figcaption><span>test.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">should</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;should&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;querystring&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">zlib</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;zlib&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Qiupu APIs: /qiupu&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;/app/all&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;show all apps.&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">request</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span>
+</span><span class='line'>        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://api.borqs.com/qiupu/app/all&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">encoding</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;accept-encoding&#39;</span><span class="o">:</span> <span class="s1">&#39;gzip,deflate&#39;</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">resp</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">resp</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">ok</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">resp</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;content-encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;gzip&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">zlib</span><span class="p">.</span><span class="nx">unzip</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">should</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">exist</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">should</span><span class="p">.</span><span class="nx">exist</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">json</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">empty</span><span class="p">;</span>
+</span><span class='line'>          <span class="nx">json</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">an</span><span class="p">.</span><span class="k">instanceof</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;package&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;app_name&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;app_liked_users&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">an</span><span class="p">.</span><span class="k">instanceof</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">done</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+</section>
+
+<section class="slide">
+<h2>Load required libraries</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">should</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;should&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;querystring&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">zlib</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;zlib&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+<ul>
+  <li><a href="https://github.com/visionmedia/should.js">should</a>: assert library</li>
+  <li><a href="https://github.com/mikeal/request">request</a>: http request library</li>
+  <li><a href="https://github.com/visionmedia/node-querystring">qs</a>: querystring for http request</li>
+  <li><a href="https://github.com/kkaefer/node-zlib">zlib</a>: gzip library</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Define test suite</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Qiupu APIs: /qiupu&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">//......</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+<ul>
+  <li>describe: test suite</li>
+  <li>before, after: functions to be run before/after test suite</li>
+  <li>beforeEach, afterEach: functions to be run before/after each test case</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Define test case</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;show all apps.&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">//......</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+<ul>
+  <li>1st param: description of the test</li>
+  <li>2nd param: test method</li>
+  <li>Param <strong>done</strong> of test method: callback function for async testing. The test will be treat as sync one without the &#8216;done&#8217; param.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Http request</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">request</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://api.borqs.com/qiupu/app/all&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">encoding</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;accept-encoding&#39;</span><span class="o">:</span> <span class="s1">&#39;gzip,deflate&#39;</span><span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">resp</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+<ul>
+  <li>The request lib supports all CRUD methods</li>
+  <li>Set encoding to null to get stream <strong>body</strong> instead of encoded one.</li>
+  <li>The callback function will be called after the http request gets returned.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Unzip http body</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">zlib</span><span class="p">.</span><span class="nx">unzip</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//......</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+</span><span class='line'>      <span class="c1">//...</span>
+</span><span class='line'>      <span class="nx">done</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+<ul>
+  <li>zlib.unzip is also an async method.</li>
+  <li>The callback function will be called after the uncompression gets finished.</li>
+  <li>Convert uncompressed content to js object using JSON.parse method.</li>
+  <li>After all testings are donw, call passed-in <strong>done</strong> method to tell the js process that the async testing is finished.</li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Asserting using should</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">resp</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">ok</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">resp</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;content-encoding&#39;</span><span class="p">,</span> <span class="s1">&#39;gzip&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">zlib</span><span class="p">.</span><span class="nx">unzip</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">should</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">exist</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">should</span><span class="p">.</span><span class="nx">exist</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">json</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">not</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">empty</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">json</span><span class="p">.</span><span class="nx">should</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">an</span><span class="p">.</span><span class="k">instanceof</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;package&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;app_name&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">json</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">should</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">property</span><span class="p">(</span><span class="s1">&#39;app_liked_users&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">an</span><span class="p">.</span><span class="k">instanceof</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">done</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+<p><a href="https://github.com/visionmedia/should.js">Should</a>: https://github.com/visionmedia/should.js</p>
+</section>
+
+<section class="slide">
+<h2>Run the test</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mocha --reporter list --timeout 5000 test.js
+</span></code></pre></td></tr></table></div></figure>
+<img src="/images/slides/screenshot-1.png">
+</section>
+
+<section class="slide">
+<h2>Simple steps to run the demo</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git://github.com/xiaocong/demo-mocha.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>demo-mocha
+</span><span class='line'><span class="nv">$ </span>npm install .
+</span><span class='line'><span class="nv">$ </span>make <span class="nb">test</span>
+</span></code></pre></td></tr></table></div></figure>
+<img src="/images/slides/screenshot-2.png">
+</section>
+
+<section class="slide">
+<h2>References</h2>
+<ul>
+  <li>Node: <a href="http://nodejs.org/">http://nodejs.org/</a></li>
+  <li>Mocha: <a href="http://visionmedia.github.com/mocha/">http://visionmedia.github.com/mocha</a></li>
+  <li>Should: <a href="https://github.com/visionmedia/should.js">https://github.com/visionmedia/should.js</a></li>
+  <li>Request: <a href="https://github.com/mikeal/request">https://github.com/mikeal/request</a></li>
+  <li>Jasmine: <a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a></li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Alternative REST API test framework</h2>
+<p>Frisby.js(<a href="http://frisbyjs.com/">http://frisbyjs.com</a>): REST API testing framework.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">frisby</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;frisby&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">frisby</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;Get Brightbit Twitter feed&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=brightbit&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectHeaderContains</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectJSON</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">place</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">val</span><span class="p">).</span><span class="nx">toMatchOrBeNull</span><span class="p">(</span><span class="s2">&quot;Oklahoma City, OK&quot;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">user</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">verified</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">location</span><span class="o">:</span> <span class="s2">&quot;Oklahoma City, OK&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://brightb.it&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectJSONTypes</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">id_str</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">retweeted</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">in_reply_to_screen_name</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">val</span><span class="p">).</span><span class="nx">toBeTypeOrNull</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">user</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">verified</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">location</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">url</span><span class="o">:</span> <span class="nb">String</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">.</span><span class="nx">toss</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+</section>
+
+<section class="slide">
+<h1>Thanks &amp; QA</h1>
+</section>
+
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+  <datalist id="goto-datalist"></datalist>
+  <input type="submit" value="Go">
+</form>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>/<span class="deck-status-total"></span>
+</p>
+
+<script src="/deck.js/jquery-1.7.min.js"></script>
+
+<!-- Deck Core and extensions -->
+<script src="/deck.js/core/deck.core.js"></script>
+<script src="/deck.js/extensions/hash/deck.hash.js"></script>
+<script src="/deck.js/extensions/menu/deck.menu.js"></script>
+<script src="/deck.js/extensions/goto/deck.goto.js"></script>
+<script src="/deck.js/extensions/status/deck.status.js"></script>
+<script src="/deck.js/extensions/navigation/deck.navigation.js"></script>
+<!--<script src="/deck.js/extensions/scale/deck.scale.js"></script>-->
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+  $.deck('.slide');
+});
+</script>
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+
+</body>
+</html>
+

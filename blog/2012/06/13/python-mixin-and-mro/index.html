@@ -1,0 +1,424 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="Python Mixin and MRO Jun 13th, 2012 什么是 mixin ? In object-oriented programming languages, a mixin is a class that provides a certain functionality &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">Python Mixin and MRO</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-13T23:09:00+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><h2>什么是 mixin ?</h2>
+
+<blockquote><p>In object-oriented programming languages, a mixin is a class that provides a certain functionality to be inherited or just reused by a subclass, while not meant for instantiation (the generation of objects of that class). Mixins are synonymous with abstract base classes. Inheriting from a mixin is not a form of specialization but is rather a means of collecting functionality. A class or object may &#8220;inherit&#8221; most or all of its functionality from one or more mixins, therefore mixins can be thought of as a mechanism of multiple inheritance.</p><footer><strong>Wikipedia</strong> <cite><a href='http://en.wikipedia.org/wiki/Mixin'>Mixin</a></cite></footer></blockquote>
+
+
+<p>简单的说, mixin 是一种类的多继承的机制.</p>
+
+<h2>什么时候需要 mixin ?</h2>
+
+<p>就如<a href="http://stackoverflow.com/questions/533631/what-is-a-mixin-and-why-are-they-useful">stackoveflow</a>
+上的回答, 有两个主要的使用 mixin 的场景:</p>
+
+<ul>
+<li>你希望给一个类提供很多可选的特征(feature).</li>
+<li>你希望在很多不同的类中使用一个特定的特征(feature).</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>例如, <a href="http://werkzeug.pocoo.org/docs/wrappers/">werkzeug</a> 的<code>request</code>, <code>response</code>系统.
+我们可以实现简单<code>request</code>如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">werkzeug</span> <span class="kn">import</span> <span class="n">BaseRequest</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Request</span><span class="p">(</span><span class="n">BaseRequest</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果我们希望支持<code>accept header</code>, 可以这样实现:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">werkzeug</span> <span class="kn">import</span> <span class="n">BaseRequest</span><span class="p">,</span> <span class="n">AcceptMixin</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Request</span><span class="p">(</span><span class="n">BaseRequest</span><span class="p">,</span> <span class="n">AcceptMixin</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果我们希望<code>request</code>对象支持<code>accept header</code>, <code>etags</code>, <code>authentication</code>, <code>user agent</code>, 可以这样实现:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">werkzeug</span> <span class="kn">import</span> <span class="n">BaseRequest</span><span class="p">,</span> <span class="n">AcceptMixin</span><span class="p">,</span> <span class="n">ETagRequestMixin</span><span class="p">,</span> <span class="n">UserAgentMixin</span><span class="p">,</span> <span class="n">AuthorizationMixin</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Request</span><span class="p">(</span><span class="n">BaseRequest</span><span class="p">,</span> <span class="n">AcceptMixin</span><span class="p">,</span> <span class="n">ETagRequestMixin</span><span class="p">,</span> <span class="n">UserAgentMixin</span><span class="p">,</span> <span class="n">AuthorizationMixin</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Mixin 的实现</h2>
+
+<p>假定我们有下面两个类需要mixin:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FeatureMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>直接定义一个类 mixin 所有的 feature</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">FeatureMixin</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通过闭包动态定义类来实现 Mixin</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">mixin</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">mixin</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">MixinClass</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">mixin</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">pass</span>
+</span><span class='line'>    <span class="n">MixinClass</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">name</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">MixinClass</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">MyClass</span> <span class="o">=</span> <span class="n">mixin</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">FeatureMixin</span><span class="p">,</span> <span class="s">&#39;MyClass&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用<code>type</code>动态构造类来实现 Mixin</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;MyClass&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">FeatureMixin</span><span class="p">),</span> <span class="p">{})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>更改<code>__bases__</code>来实现 Mixin. <em>只能 mixin <code>classic class</code></em></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FeatureMixin</span><span class="p">:</span> <span class="c"># not inherite from object</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Base</span><span class="o">.</span><span class="n">__bases__</span> <span class="o">+=</span> <span class="p">(</span><span class="n">FeatureMixin</span><span class="p">,)</span> <span class="c"># then Base should have FeatureMixin</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>MRO(Method Resolution Order)</h2>
+
+<blockquote><p>In object-oriented programming languages with multiple inheritance, the diamond problem (sometimes referred to as the &#8220;deadly diamond of death&#8221;) is an ambiguity that arises when two classes B and C inherit from A, and class D inherits from both B and C. If D calls a method defined in A (and does not override the method), and B and C have overridden that method differently, then from which class does it inherit: B, or C?</p><footer><strong>Wikipedia</strong> <cite><a href='http://en.wikipedia.org/wiki/Diamond_problem'>Diamond Problem</a></cite></footer></blockquote>
+
+
+<p>多继承时, 运行环境必须知道调用哪一个父类的方法. Python2.3开始采用<code>C3</code>方法解析顺序(<a href="http://www.python.org/getit/releases/2.3/mro/">Method Resolution Order</a>, 简称MRO)来动态解析调用的方法.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">O</span> <span class="o">=</span> <span class="nb">object</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">O</span><span class="p">):</span> <span class="k">pass</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">O</span><span class="p">):</span> <span class="k">pass</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">X</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span> <span class="k">pass</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Y</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">A</span><span class="p">):</span> <span class="k">pass</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">X</span><span class="o">.</span><span class="n">mro</span><span class="p">()</span>
+</span><span class='line'><span class="p">[</span><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">X</span><span class="s">&#39;&gt;, &lt;class &#39;</span><span class="n">__main__</span><span class="o">.</span><span class="n">A</span><span class="s">&#39;&gt;, &lt;class &#39;</span><span class="n">__main__</span><span class="o">.</span><span class="n">B</span><span class="s">&#39;&gt;, &lt;type &#39;</span><span class="nb">object</span><span class="s">&#39;&gt;]</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">Y</span><span class="o">.</span><span class="n">mro</span><span class="p">()</span>
+</span><span class='line'><span class="p">[</span><span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Y</span><span class="s">&#39;&gt;, &lt;class &#39;</span><span class="n">__main__</span><span class="o">.</span><span class="n">B</span><span class="s">&#39;&gt;, &lt;class &#39;</span><span class="n">__main__</span><span class="o">.</span><span class="n">A</span><span class="s">&#39;&gt;, &lt;type &#39;</span><span class="nb">object</span><span class="s">&#39;&gt;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参照上面代码执行的结果, 我们可以看出, <code>class X</code>的 MRO 是 <code>&lt;class '__main__.X'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;type 'object'&gt;</code>.
+当我们调用<code>X</code>实例对象的某个方法, 运行环境会按照<code>X, A, B, object</code>顺序解析该方法. 越左边的越优先,
+也就是说如果只有<code>A</code>, <code>B</code>定义了这个方法, 系统会选择最先解析到的方法, 也就是<code>A</code>的方法定义.
+同样, <code>class Y</code>的 MRO 是 <code>&lt;class '__main__.Y'&gt;, &lt;class '__main__.B'&gt;, &lt;class '__main__.A'&gt;, &lt;type 'object'&gt;</code>,
+对于<code>Y</code>来说, <code>B</code>的方法要优先于<code>A</code>进行解析.</p>
+
+<p>上面定义的类<code>X</code>和<code>Y</code>对<code>A</code>和<code>B</code>的方法解析顺序是刚好相反的, 如果有一个类继承于<code>X</code>和<code>Y</code>会出现什么结果?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">M</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span> <span class="k">pass</span>
+</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'><span class="ne">TypeError</span><span class="p">:</span> <span class="n">Error</span> <span class="n">when</span> <span class="n">calling</span> <span class="n">the</span> <span class="n">metaclass</span> <span class="n">bases</span>
+</span><span class='line'>    <span class="n">Cannot</span> <span class="n">create</span> <span class="n">a</span> <span class="n">consistent</span> <span class="n">method</span> <span class="n">resolution</span>
+</span><span class='line'><span class="n">order</span> <span class="p">(</span><span class="n">MRO</span><span class="p">)</span> <span class="k">for</span> <span class="n">bases</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的错误说明, 类的继承必须保持一致的 MRO. 由于基类<code>X</code>和<code>Y</code>的 MRO 有冲突, 因此我们不可能从<code>X</code>和<code>Y</code>继承另外一个类.</p>
+
+<p>关于 MRO 的算法可以参考官网上的<a href="http://www.python.org/getit/releases/2.3/mro/">Python 2.3 方法解析顺序</a>.</p>
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/03/20/team-collaboration-with-github/">使用GitHub进行团队合作</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

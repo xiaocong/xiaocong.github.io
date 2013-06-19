@@ -1,0 +1,450 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="使用jasmine+sinon测试backbone+requirejs项目 Jul 6th, 2012 我们必须为自己的代码写自动测试代码, 并且需要持续地对自己的代码进行回归测试, 因为: 项目成员对模块间接口的理解必须一致, 测试代码是最好的文档. &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/07/06/testing-backbone-and-requirejs-with-jasmine">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">使用jasmine+sinon测试backbone+requirejs项目</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-06T00:32:00+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><p>我们必须为自己的代码写自动测试代码, 并且需要持续地对自己的代码进行回归测试, 因为:</p>
+
+<ul>
+<li>项目成员对模块间接口的理解必须一致, 测试代码是最好的文档.</li>
+<li>谁都没十足的把握保证自己的修改不影响别人的代码.</li>
+<li>没有快速而充分的测试作为保障, 就很难提倡快速重构.</li>
+<li>让代码成为资产, 而不是债务, 减少代码的维护成本.</li>
+<li>每个人都必须为自己的代码负责.</li>
+</ul>
+
+
+<p>那么基于<a href="http://backbonejs.com/" title="Backbone.js">backbone</a>+<a href="http://requirejs.org/" title="Require.js">requirejs</a>的前端项目应当如何实施测试?</p>
+
+<p>当前已经有很多非常优秀的javascript测试框架, 包括<a href="http://pivotal.github.com/jasmine/">jasmine</a>,
+<a href="http://docs.jquery.com/QUnit">QUnit</a>, <a href="http://visionmedia.github.com/mocha/">mocha</a>.
+<a href="http://backbonejs.com/" title="Backbone.js">backbone</a>和<a href="http://requirejs.org/" title="Require.js">requirejs</a>的前端项目可以使用上述任何一种测试框架. 技术经理可以根据团队成员的技术背景, 喜好来决定选择哪一种测试框架.</p>
+
+<p>下面就以<a href="/examples/coffee-bbb-amd-backbone-rest-contacts/index.html">Contacts</a>应用为例,
+简单demo如何在项目中实现基于<a href="http://pivotal.github.com/jasmine/">jasmine</a>+<a href="http://sinonjs.org/" title="sinon.js">sinon</a>的测试用例.</p>
+
+<ul>
+<li><a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">源码</a></li>
+<li><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html">测试执行demo</a></li>
+</ul>
+
+
+<h2>工程的目录结构</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>|-coffee                <span class="c"># web应用coffeescript源代码</span>
+</span><span class='line'>|-app                   <span class="c"># coffee编译之后的web应用js文件</span>
+</span><span class='line'>|-dist
+</span><span class='line'>   |-debug              <span class="c"># concat所有js文件到一个js文件, 但未作minize</span>
+</span><span class='line'>   |-release            <span class="c"># concat所有js文件到一个js文件, 并且minize</span>
+</span><span class='line'>|-assets                <span class="c"># jquery/requirejs/underscore/backbone等库文件</span>
+</span><span class='line'>|-tests
+</span><span class='line'>   |-coffee             <span class="c"># 测试程序的coffeescript源代码</span>
+</span><span class='line'>      |-config.coffee   <span class="c"># requirejs配置文件</span>
+</span><span class='line'>      |-runner.coffee   <span class="c"># 按照requirejs模块定义规范定义的jasmine测试执行模块</span>
+</span><span class='line'>   |-js                 <span class="c"># coffee编译之后的测试程序js文件</span>
+</span><span class='line'>   |-lib                <span class="c"># jasmine/sinon等测试用库文件</span>
+</span><span class='line'>   |-SpecRunner.html    <span class="c"># 测试html文件, 用来执行broqser端测试代码</span>
+</span><span class='line'>|-index.html            <span class="c"># app html文件</span>
+</span><span class='line'>|-favicon.ico
+</span><span class='line'>|-grunt.js              <span class="c"># grunt任务配置文件</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>按照<a href="http://requirejs.org/" title="Require.js">requirejs</a>的模块定义方式定义<em>测试模块</em></h2>
+
+<p>由于<em>被测模块</em>是由<a href="http://requirejs.org/" title="Require.js">requirejs</a>进行加载的, 因此, 我们也可以遵循<a href="http://requirejs.org/" title="Require.js">requirejs</a>的模块定义方式定义<em>测试模块</em>, 确保<em>被测模块</em>在<em>测试模块</em>前加载完成:</p>
+
+<figure class='code'><figcaption><span>model_spec.coffee</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="nx">use</span><span class="o">!</span><span class="nx">underscore</span><span class="s">&#39;, &#39;</span><span class="nx">use</span><span class="o">!</span><span class="nx">backbone</span><span class="s">&#39;, &#39;</span><span class="nx">model</span><span class="o">/</span><span class="nx">under</span><span class="o">/</span><span class="nx">test</span><span class="s">&#39;], (_, Backbone, model) -&gt;</span>
+</span><span class='line'><span class="s">  describe &quot;suite description...&quot;, -&gt;</span>
+</span><span class='line'><span class="s">    it &quot;spec description...&quot;, -&gt;</span>
+</span><span class='line'><span class="s">      # test code here ...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面是测试用例的代码(<code>collection</code>, <code>model</code>, <code>view</code>各实现了一个模块的测试, 仅供demo):</p>
+
+<ul>
+<li><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/collections/contacts.coffee">Collection测试Dmeo</a></li>
+<li><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/models/contact.coffee">Model测试Demo</a></li>
+<li><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/spec/views/contactitem.coffee">View测试Demo</a></li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>加载<em>测试模块</em>, 定义测试<code>runner</code></h2>
+
+<p>通过定义模块依赖, 确保在执行<code>runner</code>方法前加载所有的<em>测试模块</em>.</p>
+
+<figure class='code'><figcaption><span>SpecRunner  (runner.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/runner.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># we should add all specs here to make sure all specs are loaded before execution.</span>
+</span><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&quot;spec/models/contact&quot;</span>
+</span><span class='line'>        <span class="s">&quot;spec/collections/contacts&quot;</span>
+</span><span class='line'>        <span class="s">&quot;spec/views/contactitem&quot;</span><span class="p">],</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">runner = </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">jasmineEnv = </span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">jasmineEnv.updateInterval = </span><span class="mi">1000</span>
+</span><span class='line'>    <span class="nv">trivialReporter = </span><span class="k">new</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">TrivialReporter</span><span class="p">()</span>
+</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">addReporter</span> <span class="nx">trivialReporter</span>
+</span><span class='line'>    <span class="nv">jasmineEnv.specFilter = </span><span class="nf">(spec) -&gt;</span>
+</span><span class='line'>      <span class="nx">trivialReporter</span><span class="p">.</span><span class="nx">specFilter</span> <span class="nx">spec</span>
+</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">execute</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>定义<a href="http://requirejs.org/" title="Require.js">requirejs</a>的配置文件, 执行测试<code>runner</code></h2>
+
+<p>由于我们希望通过一个配置文件同时加载<em>被测模块</em>和<em>测试模块</em>, 因此这里<code>require.config</code>的<code>baseUrl</code>项必须与web应用的该值保持一致.</p>
+
+<figure class='code'><figcaption><span>require.config  (config.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/config.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">require</span><span class="p">.</span><span class="nx">config</span>
+</span><span class='line'>  <span class="nv">baseUrl: </span><span class="s">&quot;../app&quot;</span>
+</span><span class='line'>  <span class="nv">paths:</span>
+</span><span class='line'>    <span class="nv">libs: </span><span class="s">&quot;../assets/js&quot;</span>
+</span><span class='line'>    <span class="nv">jquery: </span><span class="s">&#39;../assets/js/jquery/1.7.2/jquery&#39;</span>
+</span><span class='line'>    <span class="nv">underscore: </span><span class="s">&#39;../assets/js/underscore/1.3.2/underscore&#39;</span>
+</span><span class='line'>    <span class="nv">backbone: </span><span class="s">&#39;../assets/js/backbone/0.9.2/backbone&#39;</span>
+</span><span class='line'>    <span class="nv">text: </span><span class="s">&#39;../assets/js/require/plugins/text&#39;</span>
+</span><span class='line'>    <span class="nv">templates: </span><span class="s">&#39;../assets/templates&#39;</span>
+</span><span class='line'>    <span class="nv">spec: </span><span class="s">&quot;../tests/js/spec&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">shim:</span>
+</span><span class='line'>    <span class="s">&#39;backbone&#39;</span><span class="o">:</span>
+</span><span class='line'>      <span class="nv">deps: </span><span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;jquery&#39;</span><span class="p">],</span>
+</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;Backbone&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="s">&#39;underscore&#39;</span><span class="o">:</span>
+</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;_&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">require</span> <span class="p">[</span><span class="s">&quot;../tests/js/runner&quot;</span><span class="p">],</span> <span class="nf">(runner) -&gt;</span>
+</span><span class='line'>  <span class="nx">runner</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>定义<code>SpecRunner.html</code>, 用来在浏览器端执行策测试代码</h2>
+
+<figure class='code'><figcaption><span>SpecRunner.html  (SpecRunner.html)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">HTML</span> <span class="nx">PUBLIC</span> <span class="s">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span>
+</span><span class='line'>  <span class="s">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Jasmine</span> <span class="nx">Spec</span> <span class="nx">Runner</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s">&quot;lib/jasmine.css&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine-html.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/sinon.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">data</span><span class="o">-</span><span class="nx">main</span><span class="o">=</span><span class="s">&quot;js/config&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;../assets/js/require/require.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面是<a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html">测试执行</a>的结果:</p>
+
+<iframe src="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html" width="100%" scrolling="no"></iframe>
+
+
+<h2>遗留问题</h2>
+
+<ul>
+<li>由于<em>被测模块</em>的加载是由<a href="http://requirejs.org/" title="Require.js">requirejs</a>完成的, 那么如何在加载时mock<em>被测模块</em>的依赖模块?</li>
+<li>如何和CI系统集成, 提供命令行方式的浏览器环境进行测试? 尝试过<a href="http://www.envjs.com/">envjs</a>, 但<a href="http://requirejs.org/" title="Require.js">requirejs</a>总在加载模块时出错, 还没能进一步研究出错细节.</li>
+</ul>
+
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/backbone-dot-js/'>backbone.js</a>, <a class='category' href='/blog/categories/coffeescript/'>coffeescript</a>, <a class='category' href='/blog/categories/jasmine-dot-js/'>jasmine.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/require-dot-js/'>require.js</a>, <a class='category' href='/blog/categories/sinon-dot-js/'>sinon.js</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/07/06/testing-backbone-and-requirejs-with-jasmine/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/07/06/testing-backbone-and-requirejs-with-jasmine/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/03/20/team-collaboration-with-github/">使用GitHub进行团队合作</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/07/06/testing-backbone-and-requirejs-with-jasmine/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/07/06/testing-backbone-and-requirejs-with-jasmine/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

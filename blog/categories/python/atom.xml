@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | 葱丝瓣酱]]></title>
+  <link href="http://xiaocong.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://xiaocong.github.io/"/>
+  <updated>2013-06-19T17:34:51+08:00</updated>
+  <id>http://xiaocong.github.io/</id>
+  <author>
+    <name><![CDATA[Xiaocong He]]></name>
+    <email><![CDATA[xiaocong@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在Ubuntu下配置舒服的Python开发环境]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/"/>
+    <updated>2013-06-18T14:37:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/06/18/customize-python-dev-environment-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
+化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
+个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
+
+<h2>安装 Python 发布版本和 build 依赖包</h2>
+
+<p>建议至少安装 Python 2.7/3.2 版本，毕竟 Python 2.X/3.X 还是有不少区别的。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;安装 Python 发布版本，dev包必须安装，很多用pip安装包都需要编译&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo apt-get install python2.7 python2.7-dev python3.2 python3.2-dev&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;很多pip安装的包都需要libssl和libevent编译环境&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo apt-get install build-essential libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt-dev
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>安装 pip 和 virtualenv</h2>
+
+<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。
+<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;安装 pip&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo apt-get install python-pip&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;安装 virtualenv&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo pip install virtualenv
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>配置个人用 virtualenv</h2>
+
+<p>尽量在 virtualenv 下进行 Python 包的安装。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;安装 python2.7 virtualenv&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;virtualenv &amp;mdash;no-site-packages -p /usr/bin/python2.7 ~/.venv/python2.7&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;安装 python3.2 virtualenv&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;virtualenv &amp;mdash;no-site-packages -p /usr/bin/python3.2 ~/.venv/python3.2
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替
+系统 Python 环境：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;缺省激活python2.7环境&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;if <span class="o">[</span> -f ~/.venv/python2.7/bin/activate <span class="o">]</span>; <span class="k">then</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;. ~/.venv/python2.7/bin/activate
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;fi
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>安装 git 和 gitflow</h2>
+
+<p><code>git</code>是使用 github 必备，目前最好的版本管理工具。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install git
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>配置 git：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;常用的命令都设置alias，尽量少敲键盘&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;git config &amp;mdash;global alias.br branch
+</span><span class='line'>git config &amp;mdash;global alias.ci commit
+</span><span class='line'>git config &amp;mdash;global alias.co checkout
+</span><span class='line'>git config &amp;mdash;global alias.st status&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;很好看地显示git log&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;git config &amp;mdash;global alias.lg &amp;ldquo;log &amp;mdash;color &amp;mdash;graph &amp;mdash;pretty<span class="o">=</span>format:&amp;lsquo;%Cred%h%Creset &amp;ndash;%C<span class="o">(</span>yellow<span class="o">)</span>%d%Creset %s %Cgreen <span class="o">(</span>%cr<span class="o">)</span> %C<span class="o">(</span>bold blue<span class="o">)</span>&amp;lt;%an&gt;%Creset&amp;rsquo; &amp;mdash;abbrev-commit &amp;mdash;&amp;rdquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;设置用户信息&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;git config &amp;mdash;global user.name &amp;ldquo;Your Name&amp;rdquo;
+</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#121;&amp;#111;&amp;#x75;&amp;#64;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&quot;</span>&gt;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#x40;&amp;#x65;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;缺省使用颜色显示&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;git config &amp;mdash;global color.ui <span class="nb">true</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安装 <code>git-flow</code>，使用标准化 git 分支流程，参见：</p>
+
+<ul>
+<li><a href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">使用 Git Flow</a></li>
+<li><a href="http://nvie.com/posts/a-successful-git-branching-model/">一个成功的 Git 分支模型</a></li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install git-flow
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>安装 bash-it</h2>
+
+<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参
+见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://github.com/revans/bash-it.git&quot;</span>&gt;http://github.com/revans/bash-it.git&lt;/a&gt; ~/.bash_it
+</span><span class='line'>~/.bash_it/install.sh
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，
+一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
+
+<p>安装完成后将下面的代码附加到<code>~/.bashrc</code>的后面：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if</span> <span class="o">[</span> -f ~/.bash_profile <span class="o">]</span>; <span class="k">then</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;. ~/.bash_profile
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;fi
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义
+的环境变量<code>BASH_IT_THEME</code>)，编辑
+<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加
+<code>${green}$(virtualenv_prompt)</code>，如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span>&amp;ldquo;<span class="se">\n</span><span class="k">${</span><span class="nv">yellow</span><span class="k">}$(</span>ruby_version_prompt<span class="k">)${</span><span class="nv">green</span><span class="k">}$(</span>virtualenv_prompt<span class="k">)</span> <span class="k">${</span><span class="nv">purple</span><span class="k">}</span><span class="se">\h</span> <span class="k">${</span><span class="nv">reset_color</span><span class="k">}</span>in <span class="k">${</span><span class="nv">green</span><span class="k">}</span><span class="se">\w\n</span><span class="k">${</span><span class="nv">bold_cyan</span><span class="k">}$(</span>scm_char<span class="k">)${</span><span class="nv">green</span><span class="k">}$(</span>scm_prompt_info<span class="k">)</span> <span class="k">${</span><span class="nv">green</span><span class="k">}</span>→<span class="k">${</span><span class="nv">reset_color</span><span class="k">}</span> &amp;rdquo;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，
+你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
+
+<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，
+<code>virtualenv</code>，<code>rvm</code>等。</p>
+
+<h2>安装 Sublime Text 2</h2>
+
+<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，
+选择适合的版本下载安装。</p>
+
+<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见
+<a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
+
+<p>最后，按快捷键<code>Ctrl+Shift+P</code>调出命令窗口，选择<code>Package Control: Install Package</code>，安装 Python 开发常用的插件：</p>
+
+<ul>
+<li>Auto Encoding for Python</li>
+<li>BracketHighlighter</li>
+<li>Git</li>
+<li>Markdown Preview</li>
+<li>Python Auto-Complete</li>
+<li>SublimeLinter</li>
+<li>SidebarEnhancements</li>
+<li>SublimeCondeIntel</li>
+<li>sublime-github</li>
+<li>Dayle Rees Color Schemes</li>
+</ul>
+
+
+<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改
+<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代
+码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
+
+<ul>
+<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个
+个人 API 访问 token；</li>
+<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package
+Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
+<code>github_token</code>字段，保存。</li>
+</ul>
+
+
+<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，
+然后选择你自己的 Gist 即可。</p>
+
+<h2>安装并配置 Vim</h2>
+
+<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小
+的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install vim
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>然后，参考<a href="https://github.com/amix/vimrc">Amix&rsquo;s Vimrc</a>来配置 Vim。</p>
+
+<hr />
+
+<p>至此，所有的基本环境就已经配备完成，希望这些配置能对大家有所帮助，下面是配置好的界面截屏。</p>
+
+<p><img src="/images/post/bash.png"></p>
+
+<p><img src="/images/post/sublime.png"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python 面试问题]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/06/16/python-interview-question-and-answer/"/>
+    <updated>2013-06-16T12:36:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/06/16/python-interview-question-and-answer</id>
+    <content type="html"><![CDATA[<p>最近正在团队内部普及 Python 语言，有些刚接触 Python 语言的工程师在概念
+上有很多混淆的地方，刚好看到这篇文章:<a href="http://ilian.i-n-i.org/python-interview-question-and-answers/">Python面试问题</a>，
+里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐
+给团队的 Python 初学者。</p>
+
+<ol>
+<li><p>参数是如何传递的？传值还是传引用？(How are arguments passed – by
+reference of by value?)</p>
+
+<p>  这个问题的有点c/c++风格，问题的实质是当一个传入的参数在函数体内被
+更改，那么在函数返回后，函数体外的这个参数变量的值是否改变。最简短的回
+答是，"都不是"，事实上 Python 里是传对象(call by object)。</p>
+
+<p>  要弄明白这个变量的值是否在函数体外发生变化，需要明白两个概念：</p>
+
+<ul>
+<li>Python 里的对象分为有可变(mutable)和不可变(immutable)：数字(int,
+float)，字符串，元组(tuple)是不可变的，列表(list)，字典(dict)是可
+变的。</li>
+<li>所有的变量都是一个对象的引用。无论对象是否可变，这个变量都可被赋
+值为另外一个对象。</li>
+</ul>
+
+
+<p>  因此，如果传入的参数变量指向一个不可变对象，那么在函数体外这个对象
+的内容永远不会发生变化；如果当传入的参数变量指向一个可变对象，那么这个
+对象是否发生变化，取决于函数体内部是否改变了这个可变对象的内容。</p>
+
+<p>  下面的例子里，<code>changed</code>函数调用改变了传入对象的内容，<code>unchanged</code>函
+数将<code>l</code>变量赋值为一个新生成的对象<code>l = l + ["a"]</code>，但原始对象并未发生变
+化：
+  <div><script src='https://gist.github.com/5791257.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p></li>
+<li><p>什么是列表和字典推导(list and dict comprehensions)？你能给个例子吗？</p>
+
+<p>列表/字典推导是一种语法糖(syntax sugar)，用来简化列表和字典的生成。
+根据第三版的"Learning Python"，列表推导的执行速度快于通常的循环，但并
+不确保以后的 Python 版本也是这个结果。
+<div><script src='https://gist.github.com/5791279.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+<strong>列表推导是典型的 Pythonic 的代码书写方式。</strong></p></li>
+<li><p>什么是 PEP 8？</p>
+
+<p>PEP 8 定义的是 Python 代码规范，告诉你如何书写可读性强，更好维护的
+代码。详细内容请参考
+<a href="http://www.python.org/dev/peps/pep-0008/">PEP 8 官方文档</a>。Sublime
+Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符合 PEP 8 的
+规范。</p></li>
+<li><p>你使用虚拟环境(virtual environment)吗？</p>
+
+<p>很多 Python 程序员认为，包括我自己也是这样的观点，
+<a href="https://pypi.python.org/pypi/virtualenv">virtual environment</a>是一个非
+常有用的工具，用来孤立你的开发和运行环境，特别是当需要同时开发多个项目，
+基于不同的 Python 版本以及运行库的时候。每当新建一个项目，或者clone一
+个已存在项目的时候，我都会按照下面的步骤建立和使用虚拟环境：
+<div><script src='https://gist.github.com/5791351.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p></li>
+<li><p>如何计算列表里所有元素的和？如何计算列表里所有元素的乘积？</p>
+
+<p>这个问题相当简单，但需要记住一点，你需要用 Pythonic 的方式来解答这
+个问题：
+<div><script src='https://gist.github.com/5791391.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p></li>
+<li><p>你能列出列表(list)和元组(tuple)的区别吗？举例子说明用法的不同。</p>
+
+<p>列表和元组是 Python 里最基本的两个数据类型：</p>
+
+<ul>
+<li>首先，列表对象是可变的(mutable)，但元组不是；</li>
+<li>其次，元组可被哈希(hashed)，例如可以用作字典对象的键值(key)；</li>
+</ul>
+
+
+<p>至于例子，地图上的地理坐标可以用二元组表示，而地图上的路径可以用坐标
+点列表来表示。</p></li>
+<li><p>你知道<code>range</code>和<code>xrange</code>的区别吗？</p>
+
+<p><code>range</code>函数返回的是一个列表对象，<code>xrange</code>返回的是一个<code>xrange</code>对象。
+他们的主要区别是：</p>
+
+<ul>
+<li>内存的占用不同。列表对象已经在内存中存在了，而<code>xrange</code>对象永远占
+用同样的内存大小，无论需要生成的<code>range</code>有多大。</li>
+<li><code>xrange</code>对象不能使用列表对象的切片函数，也就是说
+<code>range(10)[3:5]</code>能工作，但是<code>xrange(10)[3:5]</code>就不工作了。</li>
+</ul>
+
+
+<p>类似的问题还有：<code>map</code>和<code>itertools.imap</code>的区别？<code>filter</code>和
+<code>itertools.ifilter</code>的区别？清楚这些区别，你就能知道怎样更有效地使用这
+些函数。</p></li>
+<li><p>请说出一些 python2.x 与 python3.x 之间的区别。</p>
+
+<p>如果你经常看网上的文章，你肯定能说出一些区别：</p>
+
+<ul>
+<li>python3.x 的字符串都是unicode；</li>
+<li>python3.x 中<code>print</code>是函数，而不是语句；</li>
+<li>python3.x 中使用<code>range</code>代替了<code>xrange</code>，删除了<code>xrange</code>函数；</li>
+<li>python3.x 中全部类(class)都是新类型(new style)；</li>
+<li>python3.x 支持更简单的<code>unpack</code>方式，如<code>first, *middle, last = [0, 1, 2, 3, 4, 5, 6, 7]</code></li>
+</ul>
+
+
+<p>如果你一条区别也说不出来，至少说明你对 Python 的关注度不够。</p></li>
+<li><p>什么是修饰器(Decorator)？你能说出它的用途吗？</p>
+
+<p>修饰器(Decorator)也是一种非常 Pythonic 的方式，它可以让你非常方便
+地注入(inject)或者修改函数和类的代码。换句话说，修饰器允许你包装函数和
+类方法，在执行原始代码之前和之后执行其他的代码。修饰器语法能带来很多非
+常有意思的编码方式，例如：</p>
+
+<ul>
+<li><p>内存缓存</p>
+
+<p>  <div><script src='https://gist.github.com/5791608.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p></li>
+<li><p>参数检测</p>
+
+<p>  <div><script src='https://gist.github.com/5791624.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p></li>
+</ul>
+</li>
+<li><p> <code>with</code>语句及其用法？</p>
+
+<p>简单地说，<code>with</code>语句允许你在进入和/或退出指定的代码块的时候，执行
+特定的代码。最常用的例子是使用<code>with</code>语句打开文件。为了在你自己定义的对
+象上使用<code>with</code>语句，你必须定义<code>__enter__</code>和<code>__exit__</code>方法。</p>
+
+<p>  更多的信息你可以查看<a href="http://effbot.org/zone/python-with-statement.htm">理解 Python 的 with 语句</a>。</p></li>
+</ol>
+
+
+<hr />
+
+<p>除了原文列举上述问题，下面知识点也是 Python 面试中很可能被问到的：</p>
+
+<ul>
+<li>Package/Module的定义，以及模块加载原则；</li>
+<li>如何构建你自己的类型，如列表(list)，字典(dict)，迭代器(iterator)；</li>
+<li>生成器(generator)的概念以及使用方式；</li>
+<li>built-in 类型和函数；</li>
+<li>对象属性的操作原理，如<strong>dict</strong>，<strong>getattr</strong>，<strong>getattribute</strong>，描述
+器(descriptor)；</li>
+<li>元类编程(metaclass)的概念，以及如何使用；</li>
+<li>如何进行Package/Module的打包和分发；</li>
+<li>什么是WSGI；</li>
+<li>字符串的处理和正则表达式；</li>
+<li>如何操作json和xml数据；</li>
+</ul>
+
+
+<p>另外，还必须尽可能地多了解 Python 语言最为强大的
+<a href="http://docs.python.org/2/library/">库函数</a>。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在Python中生成单体实例的方法]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/06/04/creating-a-singleton-in-python/"/>
+    <updated>2013-06-04T10:53:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/06/04/creating-a-singleton-in-python</id>
+    <content type="html"><![CDATA[<p>Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式
+编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一
+种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总
+能在这些实现方式中，根据他们的优劣，选择出最适合的方式。</p>
+
+<p>下面的内容源自<a href="http://stackoverflow.com/">StackOverflow</a>的一篇文章：
+<a href="http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python">Creating a singleton in python</a>
+。</p>
+
+<p><blockquote><p>这个问题不是为了讨论单体实例是否是有必要的，或者是反面模式，也不是为了挑起任何宗教式的战争，而是为了讨论如何用更Pythonic的方式，最佳地实现单体实例模式。</p></blockquote></p>
+
+<!--more-->
+
+
+<h2>方法1：装饰器(Decorator)</h2>
+
+<p>```python
+def singleton(class_):
+  instances = {}
+  def getinstance(*args, **kwargs):</p>
+
+<pre><code>if class_ not in instances:
+  instances[class_] = class_(*args, **kwargs)
+return instances[class_]
+</code></pre>
+
+<p>  return getinstance</p>
+
+<p>@singleton
+class MyClass(BaseClass):
+  pass</p>
+
+<p>c = MyClass()
+```</p>
+
+<p><strong>优点</strong></p>
+
+<ul>
+<li>装饰器在通常情况下比其他任何方式都要直观。</li>
+</ul>
+
+
+<p><strong>缺点</strong></p>
+
+<ul>
+<li>任何通过调用<code>MyClass()</code>能获得真的单体实例，但是<code>MyClass</code>本身却被装饰
+成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如
+<code>isinstance</code>，<code>issubclass</code>等。</li>
+<li>还能从<code>MyClass</code>继承一个子类么？</li>
+</ul>
+
+
+<h2>方法2：基类继承</h2>
+
+<p>```python
+class Singleton(object):
+  <em>instances = {}
+  def <strong>new</strong>(class</em>, *args, **kwargs):</p>
+
+<pre><code>if class_ not in class_._instances:
+  class_._instances[class_] = super(Singleton, class_).__new__(class_, *args, **kwargs)
+return class_._instances[class_]
+</code></pre>
+
+<p>class MyClass(Singleton, BaseClass): #  这里Singleton必须放在其他基类前面
+  pass</p>
+
+<p>c = MyClass()
+```</p>
+
+<p><strong>优点</strong></p>
+
+<ul>
+<li><code>MyClass</code>是真的类(class)。</li>
+</ul>
+
+
+<p><strong>缺点</strong></p>
+
+<ul>
+<li>多继承&hellip;得小心使用！</li>
+</ul>
+
+
+<h2>方法3：元类(Metaclass)</h2>
+
+<p>```python
+class Singleton(type):
+  _instances = {}
+  def <strong>call</strong>(cls, *args, **kwargs):</p>
+
+<pre><code>if cls not in cls._instances:
+  cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+return cls._instances[cls]
+</code></pre>
+
+<p>class MyClass(BaseClass):
+  <strong>metaclass</strong> = Singleton</p>
+
+<p>c = MyClass()
+```</p>
+
+<p><strong>忧点</strong></p>
+
+<ul>
+<li><code>MyClass</code>是真的类(class)</li>
+<li>魔术般地覆盖了继承的案例。</li>
+<li>有目的地使用<code>__metaclass__</code>，让阅读者明确地知道这个目的。</li>
+</ul>
+
+
+<p><strong>缺点</strong></p>
+
+<ul>
+<li>如果有的话，就是很多程序员不熟悉元类(MetaClass)。</li>
+</ul>
+
+
+<h2>方法4：装饰器(Decorator)返回相同名称的类(Class)</h2>
+
+<p>```python
+def singleton(class<em>):
+  class class_w(class</em>):</p>
+
+<pre><code>_instance = None
+def __new__(class_, *args, **kwargs):
+  if class_w._instance is None:
+      class_w._instance = super(class_w, class_).__new__(class_, *args, **kwargs)
+      class_w._instance._sealed = False
+  return class_w._instance
+def __init__(self, *args, **kwargs):
+  if self._sealed:
+    return
+  super(class_w, self).__init__(*args, **kwargs)
+  self._sealed = True
+</code></pre>
+
+<p>  class_w.<strong>name</strong> = class_.<strong>name</strong>
+  return class_w</p>
+
+<p>@singleton
+class MyClass(BaseClass):
+  pass</p>
+
+<p>c = MyClass()
+```</p>
+
+<p><strong>优点</strong></p>
+
+<ul>
+<li><code>MyClass</code>是真的类(class)</li>
+<li>魔术般地覆盖了继承的案例。</li>
+</ul>
+
+
+<p><strong>缺点</strong></p>
+
+<ul>
+<li>生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单
+体实例。通常情况下不是问题，但扩展的时候可能有麻烦。</li>
+<li>对于<code>_sealed</code>属性有什么观点了？</li>
+<li><code>MyClass</code>是另外一个具有同样名称的<code>MyClass</code>类的子类，是否有点怪诞？这
+就意味着<strong>你不能在子类的方法中通过<code>super</code>方法调用基类的相同的方法</strong>，
+因为这是递归调用。</li>
+</ul>
+
+
+<hr />
+
+<p>上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，
+元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有
+很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种
+方法就已经足够了，否则我们只能考虑方法2、3或者4。</p>
+
+<p><strong>还有没有更简单的方法了？？？</strong></p>
+
+<p>抛开固有的思维模式，<strong>keep it simple!</strong></p>
+
+<p>在<a href="http://stackoverflow.com/a/6760726/1070484">stackoverflow</a>上投票最
+多的答案是：</p>
+
+<p><blockquote><p>Modules are imported only once, everything else is overthinking. Don&rsquo;t use singletons and try not to use globals.</p></blockquote></p>
+
+<p>用代码解释就是：</p>
+
+<ul>
+<li>定义一个模块，如<code>mymodule</code></li>
+</ul>
+
+
+<p>```python</p>
+
+<h1>mymodule.py</h1>
+
+<p>class Foo(object):
+  def somemethod(self):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>some_global_variable = Foo()
+```</p>
+
+<ul>
+<li>在其他模块中引入该实例：</li>
+</ul>
+
+
+<p>```python
+from mymodule import some_global_variable as foo</p>
+
+<p>foo.somemethod()
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python mixin and MRO]]></title>
+    <link href="http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/"/>
+    <updated>2012-06-13T23:09:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro</id>
+    <content type="html"><![CDATA[<h2>什么是 mixin ?</h2>
+
+<p><blockquote><p>In object-oriented programming languages, a mixin is a class that provides a certain functionality to be inherited or just reused by a subclass, while not meant for instantiation (the generation of objects of that class). Mixins are synonymous with abstract base classes. Inheriting from a mixin is not a form of specialization but is rather a means of collecting functionality. A class or object may &ldquo;inherit&rdquo; most or all of its functionality from one or more mixins, therefore mixins can be thought of as a mechanism of multiple inheritance.</p><footer><strong>Wikipedia <a href="http://en.wikipedia.org/wiki/Mixin">http://en.wikipedia.org/wiki/Mixin</a> Mixin</strong></footer></blockquote></p>
+
+<p>简单的说, mixin 是一种类的多继承的机制.</p>
+
+<h2>什么时候需要 mixin ?</h2>
+
+<p>就如<a href="http://stackoverflow.com/questions/533631/what-is-a-mixin-and-why-are-they-useful">stackoveflow</a>
+上的回答, 有两个主要的使用 mixin 的场景:</p>
+
+<ul>
+<li>你希望给一个类提供很多可选的特征(feature).</li>
+<li>你希望在很多不同的类中使用一个特定的特征(feature).</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>例如, <a href="http://werkzeug.pocoo.org/docs/wrappers/">werkzeug</a> 的<code>request</code>, <code>response</code>系统.
+我们可以实现简单<code>request</code>如下:</p>
+
+<p>``` python
+from werkzeug import BaseRequest</p>
+
+<p>class Request(BaseRequest):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+
+<p>如果我们希望支持<code>accept header</code>, 可以这样实现:
+``` python
+from werkzeug import BaseRequest, AcceptMixin</p>
+
+<p>class Request(BaseRequest, AcceptMixin):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+
+<p>如果我们希望<code>request</code>对象支持<code>accept header</code>, <code>etags</code>, <code>authentication</code>, <code>user agent</code>, 可以这样实现:
+``` python
+from werkzeug import BaseRequest, AcceptMixin, ETagRequestMixin, UserAgentMixin, AuthorizationMixin</p>
+
+<p>class Request(BaseRequest, AcceptMixin, ETagRequestMixin, UserAgentMixin, AuthorizationMixin):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+
+<h2>Mixin 的实现</h2>
+
+<p>假定我们有下面两个类需要mixin:
+``` python
+class Base(object):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>class FeatureMixin(object):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li><p>直接定义一个类 mixin 所有的 feature
+<code>python
+class MyClass(Base, FeatureMixin):
+  pass
+</code></p></li>
+<li><p>通过闭包动态定义类来实现 Mixin
+``` python
+def mixin(base, mixin, name):
+  class MixinClass(base, mixin):
+      pass
+  MixinClass.<strong>name</strong> = name
+  return MixinClass</p></li>
+</ul>
+
+
+<p>MyClass = mixin(Base, FeatureMixin, &lsquo;MyClass&rsquo;)
+```</p>
+
+<ul>
+<li><p>使用<code>type</code>动态构造类来实现 Mixin
+<code>python
+MyClass = type('MyClass', (Base, FeatureMixin), {})
+</code></p></li>
+<li><p>更改<code>__bases__</code>来实现 Mixin. <em>只能 mixin <code>classic class</code></em>
+``` python
+class Base(object):
+  pass</p></li>
+</ul>
+
+
+<p>class FeatureMixin: # not inherite from object</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>Base.<strong>bases</strong> += (FeatureMixin,) # then Base should have FeatureMixin
+```</p>
+
+<h2>MRO(Method Resolution Order)</h2>
+
+<p><blockquote><p>In object-oriented programming languages with multiple inheritance, the diamond problem (sometimes referred to as the &ldquo;deadly diamond of death&rdquo;) is an ambiguity that arises when two classes B and C inherit from A, and class D inherits from both B and C. If D calls a method defined in A (and does not override the method), and B and C have overridden that method differently, then from which class does it inherit: B, or C?</p><footer><strong>Wikipedia <a href="http://en.wikipedia.org/wiki/Diamond_problem">http://en.wikipedia.org/wiki/Diamond_problem</a> Diamond problem</strong></footer></blockquote></p>
+
+<p>多继承时, 运行环境必须知道调用哪一个父类的方法. Python2.3开始采用<code>C3</code>方法解析顺序(<a href="http://www.python.org/getit/releases/2.3/mro/">Method Resolution Order</a>, 简称MRO)来动态解析调用的方法.</p>
+
+<p>``` python</p>
+
+<blockquote><blockquote><blockquote><p>O = object
+class A(O): pass
+class B(O): pass
+class X(A,B): pass
+class Y(B,A): pass
+X.mro()
+[<class '__main__.X'>, <class '__main__.A'>, <class '__main__.B'>, <type 'object'>]
+Y.mro()
+[<class '__main__.Y'>, <class '__main__.B'>, <class '__main__.A'>, <type 'object'>]
+```</p></blockquote></blockquote></blockquote>
+
+<p>参照上面代码执行的结果, 我们可以看出, <code>class X</code>的 MRO 是 <code>&lt;class '__main__.X'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;type 'object'&gt;</code>.
+当我们调用<code>X</code>实例对象的某个方法, 运行环境会按照<code>X, A, B, object</code>顺序解析该方法. 越左边的越优先,
+也就是说如果只有<code>A</code>, <code>B</code>定义了这个方法, 系统会选择最先解析到的方法, 也就是<code>A</code>的方法定义.
+同样, <code>class Y</code>的 MRO 是 <code>&lt;class '__main__.Y'&gt;, &lt;class '__main__.B'&gt;, &lt;class '__main__.A'&gt;, &lt;type 'object'&gt;</code>,
+对于<code>Y</code>来说, <code>B</code>的方法要优先于<code>A</code>进行解析.</p>
+
+<p>上面定义的类<code>X</code>和<code>Y</code>对<code>A</code>和<code>B</code>的方法解析顺序是刚好相反的, 如果有一个类继承于<code>X</code>和<code>Y</code>会出现什么结果?</p>
+
+<p>``` python</p>
+
+<blockquote><blockquote><blockquote><p>class M(X, Y): pass
+Traceback (most recent call last):
+  File &ldquo;<stdin>&rdquo;, line 1, in <module>
+TypeError: Error when calling the metaclass bases</p>
+
+<pre><code>Cannot create a consistent method resolution
+</code></pre>
+
+<p>order (MRO) for bases B, A
+<code>``
+上面的错误说明, 类的继承必须保持一致的 MRO. 由于基类</code>X<code>和</code>Y<code>的 MRO 有冲突, 因此我们不可能从</code>X<code>和</code>Y`继承另外一个类.</p></blockquote></blockquote></blockquote>
+
+<p>关于 MRO 的算法可以参考官网上的<a href="http://www.python.org/getit/releases/2.3/mro/">Python 2.3 方法解析顺序</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Metaclasses in Python]]></title>
+    <link href="http://xiaocong.github.io/blog/2012/06/12/python-metaclass/"/>
+    <updated>2012-06-12T22:26:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2012/06/12/python-metaclass</id>
+    <content type="html"><![CDATA[<h2>什么是 metaclass ?</h2>
+
+<p><blockquote><p>In object-oriented programming, a metaclass is a class whose instances are<br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p><footer><strong>Wikipedia <a href="http://en.wikipedia.org/wiki/Metaclass">http://en.wikipedia.org/wiki/Metaclass</a> Metaclass</strong></footer></blockquote></p>
+
+<p>简单的说, metaclass 就是 class 类型对象的 class, metaclass 的实例对象是 class 类型对象.</p>
+
+<h2>metaclass 能用来做什么 ?</h2>
+
+<p>我们就可以用 metaclass 来动态生成或者更改 class 的定义.</p>
+
+<p>下面分别是通过传统 class 方式以及 metaclass 动态定义类 <code>A</code>
+``` python 传统 class 方式定于类 A
+class A(object):</p>
+
+<pre><code>a = 'I am a string.'
+</code></pre>
+
+<p>```</p>
+
+<p><code>python metaclass 动态定义类 `A`
+A = type('A', (object,), {'a': 'I am a string.'})
+</code></p>
+
+<p>上面我们通过<code>type</code>类的实例化来生成类<code>A</code>, 如果我们想自定义类的生成, 我们可以以<code>type</code>类为基
+类派生出自定义的 metaclass.</p>
+
+<p><em>注: 本文所有代码在 python2.6 下能执行通过, 不能确保在 python3 下无误.</em></p>
+
+<!-- more -->
+
+
+<h2>继承<code>type</code>类实现 metaclass</h2>
+
+<p>我们可以从<code>type</code>类派生出新的 metaclass, 然后通过重新实现<code>__new__</code>, <code>__init__</code>,
+<code>__call__</code>来实现类或者类实例的生成.</p>
+
+<p>``` python Meta类 meta.py
+class Meta(type):</p>
+
+<pre><code>def __call__(self):
+    print 'Enter Meta.__call__: ', self
+    obj = type.__call__(self)
+    print 'Exit Meta.__call__: ', obj
+    return obj
+
+def __new__(metacls, name, bases, dictionary):
+    print 'Enter Meta.__new__:', metacls, name, bases, dictionary
+    newClass = type.__new__(metacls, name, bases, dictionary)
+    print 'Exit Meta.__new__: ', newClass
+    return newClass
+
+def __init__(cls, name, bases, dictionary):
+    print 'Enter Meta.__init__: ', cls, name, bases, dictionary
+    super(Meta, cls).__init__(name, bases, dictionary)
+    print 'Exit Meta.__init__'
+</code></pre>
+
+<p>print &lsquo;Create class A&rsquo;
+A = Meta(&lsquo;A&rsquo;, (object,), {})</p>
+
+<p>print
+print &lsquo;Create instance of class A&rsquo;
+A()
+```</p>
+
+<p>当我们运行上述的python文件, 会得到下面的输出结果:
+``` bash
+$ python meta.py
+Create class A
+Enter Meta.<strong>new</strong>: <class '__main__.Meta'> A (<type 'object'>,) {}
+Exit Meta.<strong>new</strong>:  <class '__main__.A'>
+Enter Meta.<strong>init</strong>:  <class '__main__.A'> A (<type 'object'>,) {}
+Exit Meta.<strong>init</strong></p>
+
+<p>Create instance of class A
+Enter Meta.<strong>call</strong>:  <class '__main__.A'>
+Exit Meta.<strong>call</strong>:  &lt;<strong>main</strong>.A object at 0xb76a9ccc>
+$
+```</p>
+
+<p>通过上面的输出结果, 我们可以看出:</p>
+
+<ul>
+<li><code>Meta.__new__</code>是用来生成类<code>A</code>的<strong>类型对象</strong>, 我们可以在调用<code>type.__new__</code>之前更改
+<code>dictionary</code>变量来增加/修改/删除新生成类<code>A</code>的成员变量/方法.</li>
+<li><code>Meta.__new__</code>是在生成类<code>A</code>的<strong>类型对象</strong>后被调用类进行类<code>A</code>的初始化. 第一个参数<code>cls</code>
+是已经生成的类<code>A</code>类型对象, 可以通过直接修改<code>cls</code>来修改类的定义, 例如增加成员变量.</li>
+<li><code>Meta.__call__</code>是在生成类<code>A</code>的<strong>实例对象</strong>时被调用的, 通过调用<code>type.__call__</code>可以
+生成该实例对象<code>obj</code>, 之后我们可以直接修改<code>obj</code>来实现实例对象的自定义.</li>
+</ul>
+
+
+<h2>如何使用 metaclass ?</h2>
+
+<ul>
+<li>我们可以直接调用<code>type</code>或者<code>Meta</code>来<em>动态</em>生成新的类型对象<code>A</code>:</li>
+</ul>
+
+
+<p><code>python 实例化Meta来生成新的类
+A = Meta('A', (object,), {})
+</code></p>
+
+<ul>
+<li>在定义类的时候, 重新指定该类的<code>__metaclass__</code>属性为<code>Meta</code>:</li>
+</ul>
+
+
+<p>``` python 构建类的<strong>metaclass</strong>
+class A(object):</p>
+
+<pre><code>__metaclass__ = Meta
+# other member variables/methods definition
+</code></pre>
+
+<p>```</p>
+
+<p>注意: 定义<code>__metaclass__</code>生成的类<code>A</code>会增加<code>_A__metaclass</code>成员变量, 在某些场景下需要
+了解到这个区别.</p>
+
+<h2>函数方式定义类的 metaclass</h2>
+
+<p>类的<code>__metaclass__</code>可以是一个<code>type</code>类型的子类, 也可以是一个函数, 该函数接受三个参数:</p>
+
+<ul>
+<li><em>name</em>: 字符串类型, 表示新生成类型对象的名称</li>
+<li><em>bases</em>: tuple类型, 新生成类型对象的父类列表</li>
+<li><em>properties</em>: 字典类型, 新生成类型对象的属性</li>
+</ul>
+
+
+<p>该函数必须返回新生成的类型对象. 下面例子是一个简单实现:</p>
+
+<p>``` python
+def meta_func(name, bases, properties):</p>
+
+<pre><code># you can modify bases, properties here to overide class creation
+return type(name, bases, properties)
+</code></pre>
+
+<p>class A(object):</p>
+
+<pre><code>__metaclass__ = meta_func
+</code></pre>
+
+<p>```</p>
+
+<h2>使用 metaclass 的案例</h2>
+
+<ul>
+<li>动态修改类的方法和属性, 例如给方法增加<code>decorator</code></li>
+<li>类的序列化和反序列化</li>
+<li>在生成类的时候进行接口检查和接口注册</li>
+<li>对第三方库进行<code>monkey patch</code></li>
+<li>生成代理类</li>
+<li>动态mixin</li>
+<li>控制实例对象的生成, 例如单体实例, 监控所有生成的实例对象</li>
+</ul>
+
+
+<p>搜索<a href="http://stackoverflow.com/search?tab=votes&amp;q=python%20metaclass">stackoverflow</a>
+能找到大量使用 metaclass 的设计模式.</p>
+
+<h2>使用 metaclass 的原则</h2>
+
+<p>metaclass 会降低代码的可读性, 并且很多使用 metaclass 的场景都有替代方案, 因此必须牢记下面的
+忠告:</p>
+
+<p><blockquote><p>Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don’t (the people who actually need them know with certainty that they need them, and don’t need an explanation about why).</p><footer><strong>Tim Peters</strong> <cite>Python Guru</cite></footer></blockquote></p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://gnosis.cx/publish/programming/metaclass_1.html">Metaclass Programming In Python</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Metaclass">Wikipedia: Metaclass</a></li>
+<li><a href="http://www.vrplumber.com/programming/metaclasses.pdf">Python Metaclasses: Who? Why? When?</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
