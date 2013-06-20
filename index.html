@@ -1,79 +1,146 @@
 
 <!DOCTYPE HTML>
-<html lang="zh-cn">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>葱丝瓣酱</title>
-
-  <meta name="author" content="Xiaocong He">
-  
-  <meta name="description" content="在Ubuntu下配置舒服的Python开发环境 Jun 18th, 2013 Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
+	<meta charset="utf-8">
+	<title>葱丝瓣酱</title>
+    <meta name="author" content="Xiaocong He">
+    
+	<meta name="description" content="Published on: Jun 18th, 2013 Tags: python Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
 化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
 个安装和配置步骤，基于 Ubuntu 12.04 &hellip;">
-  
-  
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <link rel="canonical" href="http://xiaocong.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+	<link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32376813-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
 </head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Xiaocong He
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
   
-<body class="default">
-  <div id="wrapper">
-    <div id="header">
-  <h1><a href="/">葱丝瓣酱</a></h1>
-  
-    <p>你真的需要呼吸吗?!</p>
-  
-</div>
-<ul id="social-links">
-  
-    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/xiaocong" class="github" title="Github"></a>
+  </li>
   
   
-    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  <!-- Google Plus -->
+  <li>
+  <a href="http://plus.google.com/106150875079575926280?rel=author" class="google" title="Google+"></a>
+  </li>
   
   
-    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/xiaocong" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
   
 </ul>
-<div class="clear"></div>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
 <ul id="nav">
-  
-    <li> <a href="/" class="current">blog</a> </li>
-  
-
-  
-    <li><a href="/blog/archives">archives</a></li>
-  
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
 </ul>
 
-    <div id="main"> 
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">
+		
+			在Ubuntu下配置舒服的Python开发环境</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
-    </h1>
-  
-  
 
 
+<time datetime="2013-06-18T14:37:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/python/'>python</a>
 
 
-
-
-  
-
-
-<time datetime="2013-06-18T14:37:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
 </div>
-
-<div class="post-content"><p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
+    </div>
+		<p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
 化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
 个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
 
@@ -92,415 +159,96 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>安装 pip 和 virtualenv</h2>
-
-<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。
-<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 安装 pip</span>
-</span><span class='line'>sudo apt-get install python-pip
-</span><span class='line'><span class="c"># 安装 virtualenv</span>
-</span><span class='line'>sudo pip install virtualenv
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>配置个人用 virtualenv</h2>
 
-<p>尽量在 virtualenv 下进行 Python 包的安装。</p>
+		
+		<a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 安装 python2.7 virtualenv</span>
-</span><span class='line'>virtualenv --no-site-packages -p /usr/bin/python2.7 ~/.venv/python2.7
-</span><span class='line'>
-</span><span class='line'><span class="c"># 安装 python3.2 virtualenv</span>
-</span><span class='line'>virtualenv --no-site-packages -p /usr/bin/python3.2 ~/.venv/python3.2
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替
-系统 Python 环境：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 缺省激活python2.7环境</span>
-</span><span class='line'><span class="k">if</span> <span class="o">[</span> -f ~/.venv/python2.7/bin/activate <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'>    . ~/.venv/python2.7/bin/activate
-</span><span class='line'><span class="k">fi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>安装 git 和 gitflow</h2>
-
-<p><code>git</code>是使用 github 必备，目前最好的版本管理工具。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install git
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>配置 git：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 常用的命令都设置alias，尽量少敲键盘</span>
-</span><span class='line'>git config --global alias.br branch
-</span><span class='line'>git config --global alias.ci commit
-</span><span class='line'>git config --global alias.co checkout
-</span><span class='line'>git config --global alias.st status
-</span><span class='line'><span class="c"># 很好看地显示git log</span>
-</span><span class='line'>git config --global alias.lg <span class="s2">&quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen (%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --&quot;</span>
-</span><span class='line'><span class="c"># 设置用户信息</span>
-</span><span class='line'>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
-</span><span class='line'>git config --global user.email you@email.com
-</span><span class='line'><span class="c"># 缺省使用颜色显示</span>
-</span><span class='line'>git config --global color.ui <span class="nb">true</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安装 <code>git-flow</code>，使用标准化 git 分支流程，参见：</p>
-
-<ul>
-<li><a href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">使用 Git Flow</a></li>
-<li><a href="http://nvie.com/posts/a-successful-git-branching-model/">一个成功的 Git 分支模型</a></li>
-</ul>
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install git-flow
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>安装 bash-it</h2>
-
-<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参
-见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone http://github.com/revans/bash-it.git ~/.bash_it
-</span><span class='line'>~/.bash_it/install.sh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，
-一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
-
-<p>安装完成后将下面的代码附加到<code>~/.bashrc</code>的后面：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if</span> <span class="o">[</span> -f ~/.bash_profile <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'>    . ~/.bash_profile
-</span><span class='line'><span class="k">fi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义
-的环境变量<code>BASH_IT_THEME</code>)，编辑
-<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加
-<code>${green}$(virtualenv_prompt)</code>，如下：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\n${yellow}$(ruby_version_prompt)${green}$(virtualenv_prompt) ${purple}\h ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} &quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，
-你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
-
-<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，
-<code>virtualenv</code>，<code>rvm</code>等。</p>
-
-<h2>安装 Sublime Text 2</h2>
-
-<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，
-选择适合的版本下载安装。</p>
-
-<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见
-<a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
-
-<p>最后，按快捷键<code>Ctrl+Shift+P</code>调出命令窗口，选择<code>Package Control: Install Package</code>，安装 Python 开发常用的插件：</p>
-
-<ul>
-<li>Auto Encoding for Python</li>
-<li>BracketHighlighter</li>
-<li>Git</li>
-<li>Markdown Preview</li>
-<li>Python Auto-Complete</li>
-<li>SublimeLinter</li>
-<li>SidebarEnhancements</li>
-<li>SublimeCondeIntel</li>
-<li>sublime-github</li>
-<li>Dayle Rees Color Schemes</li>
-</ul>
-
-
-<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改
-<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代
-码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
-
-<ul>
-<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个
-个人 API 访问 token；</li>
-<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package
-Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
-<code>github_token</code>字段，保存。</li>
-</ul>
-
-
-<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，
-然后选择你自己的 Gist 即可。</p>
-
-<h2>安装并配置 Vim</h2>
-
-<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小
-的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install vim
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后，参考<a href="https://github.com/amix/vimrc">Amix&rsquo;s Vimrc</a>来配置 Vim。</p>
-
-<hr />
-
-<p>至此，所有的基本环境就已经配备完成，希望这些配置能对大家有所帮助，下面是配置好的界面截屏。</p>
-
-<p><img src="/images/post/bash.png"></p>
-
-<p><img src="/images/post/sublime.png"></p>
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/06/16/python-interview-question-and-answer/">
+		
+			Python 面试问题</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
-    </h1>
-  
-  
 
 
+<time datetime="2013-06-16T12:36:00+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/python/'>python</a>
 
 
-
-
-  
-
-
-<time datetime="2013-06-16T12:36:00+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2013</time>
 </div>
-
-<div class="post-content"><p>最近正在团队内部普及 Python 语言，有些刚接触 Python 语言的工程师在概念
+    </div>
+		<p>最近正在团队内部普及 Python 语言，有些刚接触 Python 语言的工程师在概念
 上有很多混淆的地方，刚好看到这篇文章:<a href="http://ilian.i-n-i.org/python-interview-question-and-answers/">Python面试问题</a>，
 里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐
 给团队的 Python 初学者。</p>
 
-<ol>
-<li><p>参数是如何传递的？传值还是传引用？(How are arguments passed – by
-reference of by value?)</p>
 
-<p>  这个问题的有点c/c++风格，问题的实质是当一个传入的参数在函数体内被
-更改，那么在函数返回后，函数体外的这个参数变量的值是否改变。最简短的回
-答是，&#8221;都不是&#8221;，事实上 Python 里是传对象(call by object)。</p>
+		
+		<a href="/blog/2013/06/16/python-interview-question-and-answer/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<p>  要弄明白这个变量的值是否在函数体外发生变化，需要明白两个概念：</p>
-
-<ul>
-<li>Python 里的对象分为有可变(mutable)和不可变(immutable)：数字(int,
-float)，字符串，元组(tuple)是不可变的，列表(list)，字典(dict)是可
-变的。</li>
-<li>所有的变量都是一个对象的引用。无论对象是否可变，这个变量都可被赋
-值为另外一个对象。</li>
-</ul>
-
-
-<p>  因此，如果传入的参数变量指向一个不可变对象，那么在函数体外这个对象
-的内容永远不会发生变化；如果当传入的参数变量指向一个可变对象，那么这个
-对象是否发生变化，取决于函数体内部是否改变了这个可变对象的内容。</p>
-
-<p>  下面的例子里，<code>changed</code>函数调用改变了传入对象的内容，<code>unchanged</code>函
-数将<code>l</code>变量赋值为一个新生成的对象<code>l = l + ["a"]</code>，但原始对象并未发生变
-化：
-  <div><script src='https://gist.github.com/5791257.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p></li>
-<li><p>什么是列表和字典推导(list and dict comprehensions)？你能给个例子吗？</p>
-
-<p>列表/字典推导是一种语法糖(syntax sugar)，用来简化列表和字典的生成。
-根据第三版的&#8221;Learning Python&#8221;，列表推导的执行速度快于通常的循环，但并
-不确保以后的 Python 版本也是这个结果。
-<div><script src='https://gist.github.com/5791279.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p>
-
-<p>  <strong>列表推导是典型的 Pythonic 的代码书写方式。</strong></p></li>
-<li><p>什么是 PEP 8？</p>
-
-<p>PEP 8 定义的是 Python 代码规范，告诉你如何书写可读性强，更好维护的
-代码。详细内容请参考
-<a href="http://www.python.org/dev/peps/pep-0008/">PEP 8 官方文档</a>。Sublime
-Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符合 PEP 8 的
-规范。</p></li>
-<li><p>你使用虚拟环境(virtual environment)吗？</p>
-
-<p>很多 Python 程序员认为，包括我自己也是这样的观点，
-<a href="https://pypi.python.org/pypi/virtualenv">virtual environment</a>是一个非
-常有用的工具，用来孤立你的开发和运行环境，特别是当需要同时开发多个项目，
-基于不同的 Python 版本以及运行库的时候。每当新建一个项目，或者clone一
-个已存在项目的时候，我都会按照下面的步骤建立和使用虚拟环境：
-<div><script src='https://gist.github.com/5791351.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p></li>
-<li><p>如何计算列表里所有元素的和？如何计算列表里所有元素的乘积？</p>
-
-<p>这个问题相当简单，但需要记住一点，你需要用 Pythonic 的方式来解答这
-个问题：
-<div><script src='https://gist.github.com/5791391.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p></li>
-<li><p>你能列出列表(list)和元组(tuple)的区别吗？举例子说明用法的不同。</p>
-
-<p>列表和元组是 Python 里最基本的两个数据类型：</p>
-
-<ul>
-<li>首先，列表对象是可变的(mutable)，但元组不是；</li>
-<li>其次，元组可被哈希(hashed)，例如可以用作字典对象的键值(key)；</li>
-</ul>
-
-
-<p>至于例子，地图上的地理坐标可以用二元组表示，而地图上的路径可以用坐标
-点列表来表示。</p></li>
-<li><p>你知道<code>range</code>和<code>xrange</code>的区别吗？</p>
-
-<p><code>range</code>函数返回的是一个列表对象，<code>xrange</code>返回的是一个<code>xrange</code>对象。
-他们的主要区别是：</p>
-
-<ul>
-<li>内存的占用不同。列表对象已经在内存中存在了，而<code>xrange</code>对象永远占
-用同样的内存大小，无论需要生成的<code>range</code>有多大。</li>
-<li><code>xrange</code>对象不能使用列表对象的切片函数，也就是说
-<code>range(10)[3:5]</code>能工作，但是<code>xrange(10)[3:5]</code>就不工作了。</li>
-</ul>
-
-
-<p>类似的问题还有：<code>map</code>和<code>itertools.imap</code>的区别？<code>filter</code>和
-<code>itertools.ifilter</code>的区别？清楚这些区别，你就能知道怎样更有效地使用这
-些函数。</p></li>
-<li><p>请说出一些 python2.x 与 python3.x 之间的区别。</p>
-
-<p>如果你经常看网上的文章，你肯定能说出一些区别：</p>
-
-<ul>
-<li>python3.x 的字符串都是unicode；</li>
-<li>python3.x 中<code>print</code>是函数，而不是语句；</li>
-<li>python3.x 中使用<code>range</code>代替了<code>xrange</code>，删除了<code>xrange</code>函数；</li>
-<li>python3.x 中全部类(class)都是新类型(new style)；</li>
-<li>python3.x 支持更简单的<code>unpack</code>方式，如<code>first, *middle, last = [0, 1, 2, 3, 4, 5, 6, 7]</code></li>
-</ul>
-
-
-<p>如果你一条区别也说不出来，至少说明你对 Python 的关注度不够。</p></li>
-<li><p>什么是修饰器(Decorator)？你能说出它的用途吗？</p>
-
-<p>修饰器(Decorator)也是一种非常 Pythonic 的方式，它可以让你非常方便
-地注入(inject)或者修改函数和类的代码。换句话说，修饰器允许你包装函数和
-类方法，在执行原始代码之前和之后执行其他的代码。修饰器语法能带来很多非
-常有意思的编码方式，例如：</p>
-
-<ul>
-<li><p>内存缓存</p>
-
-<p>  <div><script src='https://gist.github.com/5791608.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p>
-
-<ul>
-<li><p>参数检测</p>
-
-<p>  <div><script src='https://gist.github.com/5791624.js'></script>
-<noscript><pre><code></code></pre></noscript></div></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p> <code>with</code>语句及其用法？</p>
-
-<p>简单地说，<code>with</code>语句允许你在进入和/或退出指定的代码块的时候，执行
-特定的代码。最常用的例子是使用<code>with</code>语句打开文件。为了在你自己定义的对
-象上使用<code>with</code>语句，你必须定义<code>__enter__</code>和<code>__exit__</code>方法。</p>
-
-<p>  更多的信息你可以查看<a href="http://effbot.org/zone/python-with-statement.htm">理解 Python 的 with 语句</a>。</p></li>
-</ol>
-
-
-<hr />
-
-<p>除了原文列举上述问题，下面知识点也是 Python 面试中很可能被问到的：</p>
-
-<ul>
-<li>Package/Module的定义，以及模块加载原则；</li>
-<li>如何构建你自己的类型，如列表(list)，字典(dict)，迭代器(iterator)；</li>
-<li>生成器(generator)的概念以及使用方式；</li>
-<li>built-in 类型和函数；</li>
-<li>对象属性的操作原理，如<strong>dict</strong>，<strong>getattr</strong>，<strong>getattribute</strong>，描述
-器(descriptor)；</li>
-<li>元类编程(metaclass)的概念，以及如何使用；</li>
-<li>如何进行Package/Module的打包和分发；</li>
-<li>什么是WSGI；</li>
-<li>字符串的处理和正则表达式；</li>
-<li>如何操作json和xml数据；</li>
-</ul>
-
-
-<p>另外，还必须尽可能地多了解 Python 语言最为强大的
-<a href="http://docs.python.org/2/library/">库函数</a>。</p>
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/06/04/creating-a-singleton-in-python/">
+		
+			在Python中生成单体实例的方法</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
-    </h1>
-  
-  
 
 
+<time datetime="2013-06-04T10:53:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/python/'>python</a>
 
 
-
-
-  
-
-
-<time datetime="2013-06-04T10:53:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
 </div>
-
-<div class="post-content"><p>Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式
+    </div>
+		<p>Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式
 编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一
 种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总
 能在这些实现方式中，根据他们的优劣，选择出最适合的方式。</p>
@@ -514,286 +262,48 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 
 
 
-<!--more-->
+
+		
+		<a href="/blog/2013/06/04/creating-a-singleton-in-python/" class="more-link">Read on &rarr;</a>
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
-<h2>方法1：装饰器(Decorator)</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">getinstance</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">class_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-</span><span class='line'>      <span class="n">instances</span><span class="p">[</span><span class="n">class_</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">instances</span><span class="p">[</span><span class="n">class_</span><span class="p">]</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">getinstance</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@singleton</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">pass</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">
+		
+			在 Markdown 中嵌入 UML 文档</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
 
 
-<p><strong>优点</strong></p>
-
-<ul>
-<li>装饰器在通常情况下比其他任何方式都要直观。</li>
-</ul>
 
 
-<p><strong>缺点</strong></p>
-
-<ul>
-<li>任何通过调用<code>MyClass()</code>能获得真的单体实例，但是<code>MyClass</code>本身却被装饰
-成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如
-<code>isinstance</code>，<code>issubclass</code>等。</li>
-<li>还能从<code>MyClass</code>继承一个子类么？</li>
-</ul>
 
 
-<h2>方法2：基类继承</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">_instances</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">class_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">class_</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
-</span><span class='line'>      <span class="n">class_</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">class_</span><span class="p">]</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">class_</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">class_</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">class_</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">BaseClass</span><span class="p">):</span> <span class="c">#  这里Singleton必须放在其他基类前面</span>
-</span><span class='line'>  <span class="k">pass</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p><strong>优点</strong></p>
-
-<ul>
-<li><code>MyClass</code>是真的类(class)。</li>
-</ul>
+  
 
 
-<p><strong>缺点</strong></p>
-
-<ul>
-<li>多继承&hellip;得小心使用！</li>
-</ul>
+<time datetime="2013-04-22T13:23:00+08:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time></div>
+      <div class="tags">Tags: 
 
 
-<h2>方法3：元类(Metaclass)</h2>
+	<a class='category' href='/blog/categories/markdown/'>markdown</a>, <a class='category' href='/blog/categories/uml/'>uml</a>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">_instances</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
-</span><span class='line'>      <span class="n">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__call__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Singleton</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>忧点</strong></p>
-
-<ul>
-<li><code>MyClass</code>是真的类(class)</li>
-<li>魔术般地覆盖了继承的案例。</li>
-<li>有目的地使用<code>__metaclass__</code>，让阅读者明确地知道这个目的。</li>
-</ul>
-
-
-<p><strong>缺点</strong></p>
-
-<ul>
-<li>如果有的话，就是很多程序员不熟悉元类(MetaClass)。</li>
-</ul>
-
-
-<h2>方法4：装饰器(Decorator)返回相同名称的类(Class)</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">class_w</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">_instance</span> <span class="o">=</span> <span class="bp">None</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">class_w</span><span class="o">.</span><span class="n">_instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-</span><span class='line'>          <span class="n">class_w</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">class_w</span><span class="p">,</span> <span class="n">class_</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>          <span class="n">class_w</span><span class="o">.</span><span class="n">_instance</span><span class="o">.</span><span class="n">_sealed</span> <span class="o">=</span> <span class="bp">False</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">class_w</span><span class="o">.</span><span class="n">_instance</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sealed</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">return</span>
-</span><span class='line'>      <span class="nb">super</span><span class="p">(</span><span class="n">class_w</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">_sealed</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>  <span class="n">class_w</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">class_</span><span class="o">.</span><span class="n">__name__</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">class_w</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@singleton</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">pass</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>优点</strong></p>
-
-<ul>
-<li><code>MyClass</code>是真的类(class)</li>
-<li>魔术般地覆盖了继承的案例。</li>
-</ul>
-
-
-<p><strong>缺点</strong></p>
-
-<ul>
-<li>生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单
-体实例。通常情况下不是问题，但扩展的时候可能有麻烦。</li>
-<li>对于<code>_sealed</code>属性有什么观点了？</li>
-<li><code>MyClass</code>是另外一个具有同样名称的<code>MyClass</code>类的子类，是否有点怪诞？这
-就意味着<strong>你不能在子类的方法中通过<code>super</code>方法调用基类的相同的方法</strong>，
-因为这是递归调用。</li>
-</ul>
-
-
-<hr />
-
-<p>上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，
-元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有
-很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种
-方法就已经足够了，否则我们只能考虑方法2、3或者4。</p>
-
-<p><strong>还有没有更简单的方法了？？？</strong></p>
-
-<p>抛开固有的思维模式，<strong>keep it simple!</strong></p>
-
-<p>在<a href="http://stackoverflow.com/a/6760726/1070484">stackoverflow</a>上投票最
-多的答案是：</p>
-
-<blockquote><p>Modules are imported only once, everything else is overthinking. Don&#8217;t use singletons and try not to use globals.</p></blockquote>
-
-
-<p>用代码解释就是：</p>
-
-<ul>
-<li>定义一个模块，如<code>mymodule</code></li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># mymodule.py</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">somemethod</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">pass</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">some_global_variable</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>在其他模块中引入该实例：</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">mymodule</span> <span class="kn">import</span> <span class="n">some_global_variable</span> <span class="k">as</span> <span class="n">foo</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">somemethod</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
- </div>
-
-  
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
-    </h1>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-22T13:23:00+08:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time>
-</div>
-
-<div class="post-content"><p><a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>是网络书写语言，特别适合程序员书写文档：</p>
+    </div>
+		<p><a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>是网络书写语言，特别适合程序员书写文档：</p>
 
 <ul>
 <li>全文本格式，方便进行<code>diff</code>，<code>patch</code>和版本的管理；</li>
@@ -810,428 +320,48 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 <p>但是毕竟<a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>只是书写语言，不是程序设计语言，如果我们需要嵌入 UML 的时候，不可避免地需要其他专业软件的支持。
 这里介绍几种利用网络服务，可以直接在<a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>文档中嵌入的 UML 建模图：</p>
 
-<!--more-->
 
+		
+		<a href="/blog/2013/04/22/writing-development-documentation-with-markdown/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<hr />
+<div class="meta">
+	
+</div>
+</article>
 
-<h2>用例图</h2>
 
-<ul>
-<li><p>角色(Actor)</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/03/20/team-collaboration-with-github/">
+		
+			使用GitHub进行团队合作</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
 
-<p>  使用<code>[角色名]</code>表示角色。</p>
 
-<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]" &gt;
-</code></pre>
 
-<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]" ></p></li>
-<li><p>用例(Use Case)</p>
 
-<p>  使用<code>(用例名)</code>表示用例，<code>-</code>表示角色和用例之间的关联。</p>
 
-<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout)" &gt;
-</code></pre>
 
-<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout)" ></p></li>
-<li><p>备注(Notes)</p>
 
-<p>  如果用例名以<code>note:</code>开头，表明那是一个备注，可以用<code>{bg:颜色名}</code>定义备注的背景色。</p>
 
-<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login), [Customer]-(note: Cust can be registered or not{bg:beige})" &gt;
-</code></pre>
+  
 
-<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login), [Customer]-(note: Cust can be registered or not{bg:beige})" ></p></li>
-<li><p>角色继承(Actor Inheritance)</p>
 
-<p>  使用符号<code>^</code>表示角色之间的继承关系。</p>
+<time datetime="2013-03-20T23:04:00+08:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
 
-<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/[Cms Admin]^[User], [Customer]^[User], [Agent]^[User]" &gt;
-</code></pre>
 
-<p>  <img src="http://yuml.me/diagram/scruffy/usecase/[Cms Admin]^[User], [Customer]^[User], [Agent]^[User]" ></p></li>
-<li><p>扩展和包含(Extends and Includes)</p>
+	<a class='category' href='/blog/categories/github/'>github</a>
 
-<p>  使用<code>&gt;</code>表示用例之间的包含关系，<code>&lt;</code>表示用例的扩展。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/scruffy/usecase/(Login)&lt;(Register),(Login)&lt;(Request Password Reminder),(Register)&gt;(Confirm Registration)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/scruffy/usecase/(Login)%3C(Register),(Login)%3C(Request%20Password%20Reminder),(Register)%3E(Confirm%20Registration)" ></p></li>
-<li><p>完整示例</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/usecase/(note: figure 1.2{bg:beige}), [User]-(Login),[Site Maintainer]-(Add User),(Add User)&lt;(Add Company),[Site Maintainer]-(Upload Docs),(Upload Docs)&lt;(Manage Folders),[User]-(Upload Docs), [User]-(Full Text Search Docs), (Full Text Search Docs)&gt;(Preview Doc),(Full Text Search Docs)&gt;(Download Docs), [User]-(Browse Docs), (Browse Docs)&gt;(Preview Doc), (Download Docs), [Site Maintainer]-(Post New Event To The Web Site), [User]-(View Events)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/usecase/(note:%20figure%201.2%7Bbg:beige%7D),%20[User]-(Login),[Site%20Maintainer]-(Add%20User),(Add%20User)%3C(Add%20Company),[Site%20Maintainer]-(Upload%20Docs),(Upload%20Docs)%3C(Manage%20Folders),[User]-(Upload%20Docs),%20[User]-(Full%20Text%20Search%20Docs),%20(Full%20Text%20Search%20Docs)%3E(Preview%20Doc),(Full%20Text%20Search%20Docs)%3E(Download%20Docs),%20[User]-(Browse%20Docs),%20(Browse%20Docs)%3E(Preview%20Doc),%20(Download%20Docs),%20[Site%20Maintainer]-(Post%20New%20Event%20To%20The%20Web%20Site),%20[User]-(View%20Events)" ></p></li>
-</ul>
-
-
-<p><a href="http://yuml.me/">YUML</a>支持3种图示风格，分别是：</p>
-
-<ul>
-<li>plain</li>
-<li>scruffy</li>
-<li>boring</li>
-</ul>
-
-
-<p>你可以对比下列图示的不同风格：</p>
-
-<p><img src="http://yuml.me/diagram/plain/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" >
-<img src="http://yuml.me/diagram/scruffy/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" >
-<img src="http://yuml.me/diagram/boring/usecase/[Customer]-(Login),[Customer]-(Logout),(login)<(Register)" ></p>
-
-<h2>活动图</h2>
-
-<ul>
-<li><p>动作(Action)</p>
-
-<p>  用<code>(状态名)</code>表示一个状态，其中<code>(start)</code>和<code>(end)</code>分别表示开始状态和结束状态，箭头<code>-&gt;</code>表示状态的转换。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;(Boil Kettle)-&gt;(end)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E(Boil%20Kettle)-%3E(end)" ></p></li>
-<li><p>判断和限制(Decisions and Constraints)</p>
-
-<p>  使用<code>&lt;判断名&gt;</code>表示一个条件判断，其后跟<code>[条件]-&gt;</code>表示满足条件后状态的转换；用不同的<code>判断名</code>来标识不同的判定位置。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;&lt;a&gt;[kettle empty]-&gt;(Fill Kettle)-&gt;(Boil Kettle),&lt;a&gt;[kettle full]-&gt;(Boil Kettle)-&gt;(end)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E%3Ca%3E[kettle%20empty]-%3E(Fill%20Kettle)-%3E(Boil%20Kettle),%3Ca%3E[kettle%20full]-%3E(Boil%20Kettle)-%3E(end)" ></p></li>
-<li><p>分支合并(Fork/Join)</p>
-
-<p>  使用<code>||</code>表示分支或者合并点。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;&lt;a&gt;[kettle empty]-&gt;(Fill Kettle)-&gt;|b|,&lt;a&gt;[kettle full]-&gt;|b|-&gt;(Boil Kettle)-&gt;|c|,|b|-&gt;(Add Tea Bag)-&gt;(Add Milk)-&gt;|c|-&gt;(Pour Water)-&gt;(end),(Pour Water)-&gt;(end)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E%3Ca%3E[kettle%20empty]-%3E(Fill%20Kettle)-%3E%7Cb%7C,%3Ca%3E[kettle%20full]-%3E%7Cb%7C-%3E(Boil%20Kettle)-%3E%7Cc%7C,%7Cb%7C-%3E(Add%20Tea%20Bag)-%3E(Add%20Milk)-%3E%7Cc%7C-%3E(Pour%20Water)-%3E(end),(Pour%20Water)-%3E(end)" ></p></li>
-<li><p>对象(Objects)</p>
-
-<p>  符号<code>[]</code>表示一个对象。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-&gt;[Water]-&gt;(Fill Kettle)-&gt;(end)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-%3E[Water]-%3E(Fill%20Kettle)-%3E(end)" ></p></li>
-<li><p>连接器名称(Connector Name)</p>
-
-<p>  在<code>-&gt;</code>中加入名称，<code>-名称&gt;</code>表示命名连接器。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/activity/(start)-fill&gt;(Fill Kettle)-&gt;(end)" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/activity/(start)-fill%3E(Fill%20Kettle)-%3E(end)" ></p></li>
-</ul>
-
-
-<h2>类图</h2>
-
-<ul>
-<li><p>关联(Association)</p>
-
-<p>  类名用<code>[]</code>表示，<code>-&gt;</code>表示定向关联，<code>-</code>表明关联。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]-&gt;[Billing Address]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]-%3E[Billing%20Address]" ></p></li>
-<li><p>基数(Cardinality)</p>
-
-<p>  <code>基数-基数&gt;</code>表明关联的基数，其中基数可以为<code>0</code>，<code>1</code>，<code>0..*</code>，<code>*</code>等任意定义的值。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]1-0..*[Address]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]1-0..*[Address]" ></p></li>
-<li><p>定向关联(Directional Association)</p>
-
-<p>  定向关联<code>-&gt;</code>可以定义名称：<code>-名称&gt;</code>。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Order]-billing &gt;[Address], [Order]-shipping &gt;[Address]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Order]-billing%20%3E[Address],%20[Order]-shipping%20%3E[Address]" ></p></li>
-<li><p>颜色和UTF8字符(Splash of Colour And UTF-8)</p>
-
-<p>  类图可以用<code>{bg:颜色名}</code>定义显示的背景颜色。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[❝Customer❞{bg:orange}]❶- ☂&gt;[Order{bg:green}]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[%E2%9D%9DCustomer%E2%9D%9E%7Bbg:orange%7D]%E2%9D%B6-%20%E2%98%82%3E[Order%7Bbg:green%7D]" ></p></li>
-<li><p>聚合(Aggregation)</p>
-
-<p>  聚合表示比关联更强的关联关系，使用<code>&lt;&gt;-&gt;</code>或者<code>+-&gt;</code>来表示。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Company]&lt;&gt;-1&gt;[Location], [Location]+-&gt;[Point]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Company]%3C%3E-1%3E[Location],%20[Location]+-%3E[Point]" ></p></li>
-<li><p>组成(Composition)</p>
-
-<p>  组成表示比聚合更强的关联关系，使用<code>++-&gt;</code>来表示。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Company]++-1&gt;[Location]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Company]++-1%3E[Location]" ></p></li>
-<li><p>备注(Notes)</p>
-
-<p>  使用<code>[note:注解内容]</code>表示备注，同样备注可以自定义颜色<code>{bg:颜色名}</code>。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Customer]&lt;&gt;1-&gt;*[Order], [Customer]-[note: Aggregate Root{bg:cornsilk}]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Customer]%3C%3E1-%3E*[Order],%20[Customer]-[note:%20Aggregate%20Root%7Bbg:cornsilk%7D]" ></p></li>
-<li><p>继承(Inheritance)</p>
-
-<p>  使用<code>^-</code>表示类的继承，右边的类是子类。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[Wages]^-[Salaried], [Wages]^-[Contractor]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[Wages]%5E-[Salaried],%20[Wages]%5E-[Contractor]" ></p></li>
-<li><p>接口继承(Interface Inheritance)</p>
-
-<p>  接口继承用<code>^-.-</code>来表示。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[&lt;&lt;ITask&gt;&gt;]^-.-[NightlyBillingTask]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[%3C%3CITask%3E%3E]%5E-.-[NightlyBillingTask]" ></p></li>
-<li><p>依赖(Dependencies)</p>
-
-<p>  类的依赖用<code>-.-&gt;</code>来表示，依赖是最弱的关联关系，一般用来表示类方法的参数或者实现用到了依赖类。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[HttpContext]uses -.-&gt;[Response]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[HttpContext]uses%20-.-%3E[Response]" ></p></li>
-<li><p>接口(Interface)</p>
-
-<p>  和类名相比，接口的名称一般包含在<code>&lt;&lt;&gt;&gt;</code>中。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[&lt;&lt;IDisposable&gt;&gt;;Session]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[%3C%3CIDisposable%3E%3E;Session]" ></p></li>
-<li><p>类定义(Class with Details)</p>
-
-<p>  可以在类符号<code>[]</code>中定义类的所有成员。使用<code>|</code>表示类名与类成员变量和成员函数的分割符，不同的成员之间用<code>;</code>隔开，使用<code>+</code>，<code>-</code>分别表示公开和私有成员。</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[User|+Forename+;Surname;+HashedPassword;-Salt|+Login();+Logout()]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[User%7C+Forename+;Surname;+HashedPassword;-Salt%7C+Login();+Logout()]" ></p></li>
-<li><p>完整的示例</p>
-
-<pre><code>  &lt;img src="http://yuml.me/diagram/nofunky/class/[note: You can stick notes on diagrams too!{bg:cornsilk}],[Customer]&lt;&gt;1-orders 0..*&gt;[Order], [Order]++*-*&gt;[LineItem], [Order]-1&gt;[DeliveryMethod], [Order]*-*&gt;[Product], [Category]&lt;-&gt;[Product], [DeliveryMethod]^[National], [DeliveryMethod]^[International]" &gt;
-</code></pre>
-
-<p>  <img src="http://yuml.me/diagram/nofunky/class/[note:%20You%20can%20stick%20notes%20on%20diagrams%20too!%7Bbg:cornsilk%7D],[Customer]%3C%3E1-orders%200..*%3E[Order],%20[Order]++*-*%3E[LineItem],%20[Order]-1%3E[DeliveryMethod],%20[Order]*-*%3E[Product],%20[Category]%3C-%3E[Product],%20[DeliveryMethod]%5E[National],%20[DeliveryMethod]%5E[International]" ></p></li>
-</ul>
-
-
-<h2>时序图</h2>
-
-<p>首先在文件头加入如下 javascript 文件：</p>
-
-<pre><code>    &lt;script type="text/javascript" src="http://www.websequencediagrams.com/service.js"&gt;&lt;/script&gt;
-</code></pre>
-
-<ul>
-<li><p>同步/异步/返回消息(Synchronous/Asynchronous/Return Message)</p>
-
-<p>  一般使用实心箭头<code>-&gt;</code>表示同步消息或调用，开箭头<code>-&gt;&gt;</code>表示异步消息或调用，虚箭头<code>--&gt;</code>或<code>--&gt;&gt;</code>表示返回消息。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  # This is a comment.            
-  Alice-&gt;Bob: Filled arrow
-  Alice-&gt;&gt;Bob: Open arrow
-  Bob--&gt;Alice: Dotted line
-  Bob--&gt;&gt;Alice: Dotted Line, open arrow
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  # This is a comment.
-  Alice->Bob: Filled arrow
-  Alice->>Bob: Open arrow
-  Bob&mdash;>Alice: Dotted line
-  Bob&mdash;>>Alice: Dotted Line, open arrow
-  </pre></div></p></li>
-<li><p>定义参与者的顺序</p>
-
-<p>  通过<code>participant</code>可以定义<code>角色</code>在时序图中的显示顺序，而不是按照缺省的参与者被使用顺序来显示。并且可以定义参与者的别名。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  participant Bob
-  participant Alice
-  participant "I have a really\nlong name" as L
-  #
-  Alice-&gt;Bob: Authentication Request
-  Bob-&gt;Alice: Authentication Response
-  Bob-&gt;L: Log transaction
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  participant Bob
-  participant Alice
-  participant &ldquo;I have a really\nlong name&rdquo; as L
-  #
-  Alice->Bob: Authentication Request
-  Bob->Alice: Authentication Response
-  Bob->L: Log transaction
-  </pre></div></p></li>
-<li><p>自关联消息(Self-Message)</p>
-
-<p>  参与者可以发送一个消息给自己。你可以用<code>\n</code>将文字切分成多行。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  Alice-&gt;Alice: This is a signal to self.\nIt also demonstrates \nmultiline \ntext.
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  Alice->Alice: This is a signal to self.\nIt also demonstrates \nmultiline \ntext.
-  </pre></div></p></li>
-<li><p>分组消息</p>
-
-<p>  通过<code>alt/else</code>，<code>opt</code>和<code>loop</code>，将消息分组，组头显示分组定义的文本信息，<code>end</code>关键字用来结束一个分组。分组可以嵌套。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  Alice-&gt;Bob: Authentication Request
-  alt successful case
-      Bob-&gt;Alice: Authentication Accepted
-  else some kind of failure
-      Bob-&gt;Alice: Authentication Failure
-      opt
-          loop 1000 times
-              Alice-&gt;Bob: DNS Attack
-          end
-      end
-  else Another type of failure
-      Bob-&gt;Alice: Please repeat
-  end
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  Alice->Bob: Authentication Request
-  alt successful case
-      Bob->Alice: Authentication Accepted
-  else some kind of failure
-      Bob->Alice: Authentication Failure
-      opt
-          loop 1000 times
-              Alice->Bob: DNS Attack
-          end
-      end
-  else Another type of failure
-      Bob->Alice: Please repeat
-  end
-  </pre></div></p></li>
-<li><p>备注(Notes)</p>
-
-<p>  使用<code>note left of</code>，<code>note right of</code>和<code>note over</code>分别定义左/右/中显示的备注，可以包含多行，<code>end note</code>用来结束该段<code>note</code>。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  participant Alice
-  participant Bob
-  #
-  note left of Alice 
-  This is displayed 
-  left of Alice.
-  end note
-  note right of Alice: This is displayed right of Alice.
-  note over Alice: This is displayed over Alice.
-  note over Alice, Bob: This is displayed over Bob and Alice.
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  participant Alice
-  participant Bob
-  #
-  note left of Alice
-  This is displayed
-  left of Alice.
-  end note
-  note right of Alice: This is displayed right of Alice.
-  note over Alice: This is displayed over Alice.
-  note over Alice, Bob: This is displayed over Bob and Alice.
-  </pre></div></p></li>
-<li><p>生命线的激活和终止(Activation/Destruction)</p>
-
-<p>  <code>+</code>来表示激活<strong>被发送者</strong>，<code>-</code>表示终止<strong>发送者</strong>。<code>destroy</code>关键字可以将销毁该参与者。</p>
-
-<pre><code>  &lt;div class=wsd wsd_style="rose" &gt;&lt;pre&gt;
-  User-&gt;+A: DoWork
-  A-&gt;+B: &lt;&lt;createRequest&gt;&gt;
-  B-&gt;+C: DoWork
-  C--&gt;B: WorkDone
-  destroy C
-  B--&gt;-A: RequestCreated
-  A-&gt;User: Done
-  &lt;/pre&gt;&lt;/div&gt;
-</code></pre>
-
-<p>  <div class=wsd wsd_style="rose" ><pre>
-  User->+A: DoWork
-  A->+B: &lt;<createRequest>>
-  B->+C: DoWork
-  C&mdash;>B: WorkDone
-  destroy C
-  B&mdash;>-A: RequestCreated
-  A->User: Done
-  </pre></div></p></li>
-</ul>
-
-
-<script type="text/javascript" src="http://www.websequencediagrams.com/service.js"></script>
-
-
-<hr />
-
-<h2>其他工具</h2>
-
-<ul>
-<li><a href="http://jumly.herokuapp.com/" title="Javascript library, UML diagram rendering engine">JUMLY</a></li>
-<li><a href="https://github.com/wandernauta/yuml" title="unlike yUML webapp, it provides command line tool to render UML diagram.">yUML command line tool</a></li>
-<li><a href="https://github.com/aivarsk/scruffy" title="yUML like command line tool.">Scruffy UML</a></li>
-</ul>
 
 </div>
- </div>
-
-  
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2013/03/20/team-collaboration-with-github/">使用GitHub进行团队合作</a>
-    </h1>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-20T23:04:00+08:00" pubdate data-updated="true">Mar 20<span>th</span>, 2013</time>
-</div>
-
-<div class="post-content"><p><em>原文: <a href="http://net.tutsplus.com/articles/general/team-collaboration-with-github/" title="使用GitHub进行团队合作">Team Collaboration With GitHub</a></em></p>
+    </div>
+		<p><em>原文: <a href="http://net.tutsplus.com/articles/general/team-collaboration-with-github/" title="使用GitHub进行团队合作">Team Collaboration With GitHub</a></em></p>
 
 <hr />
 
@@ -1266,534 +396,48 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 
 <p><video width='600' height='338' preload='none' controls poster=''><source src='http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></video></p>
 
-<!-- more -->
 
+		
+		<a href="/blog/2013/03/20/team-collaboration-with-github/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<hr />
-
-<h1>工具一：增加团队成员</h1>
-
-<p>有两种常用的方法在<a href="http://github.com" title="GitHub">GitHub</a>上建立团队合作：</p>
-
-<ul>
-<li><strong>组织</strong> &ndash; 组织的所有者可以针对不同的代码仓库建立不同访问权限的团队。</li>
-<li><strong>合作者</strong> &ndash; 代码仓库的所有者可以为单个仓库增加具备只读或者读写权限的协作者。</li>
-</ul>
-
-
-<h2>组织</h2>
-
-<p>如果您监管几个团队，想为每个团队设置不同的权限级别，或者为不同的代码仓库增加不同的成员组织(Organizations)将是最好的选择。任何GitHub用户帐户已经可以创建免费的开源代码库的组织。要创建一个组织，只需浏览您的<a href="https://github.com/settings/organizations">组织设置页面</a>：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-org.png"></p>
-
-<p>要访问组织的团队页面，你可以简单地去页面<code>http://github.com/organizations/[组织名称]/teams</code>来查看，或者访问页面<code>https://github.com/organizations/[组织名称]/teams/new</code>来创建新的具备3种不同的权限级别的团队成员，如：</p>
-
-<ol>
-<li><p>Pull Only：<a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">提取和合并</a>另一个库或本地副本。只读访问权限。</p></li>
-<li><p>Push和Pull：(1)以及<a href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">更新</a>远程代码仓库。读+写访问权限。</p></li>
-<li><p>Pull, Push和管理：(1), (2)，计费，建立团队，以及取消组织帐户。读+写+管理员权限</p></li>
-</ol>
-
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png"></p>
-
-<h2>合作者</h2>
-
-<p><strong>合作者</strong>主要用于读写访问个人账号所拥有的代码仓库。你可以通过<code>https://github.com/[用户名]/[代码仓库名称]/settings/collaboration</code>来增加<a href="https://help.github.com/articles/how-do-i-add-a-collaborator">合作者</a>(其他github个人账号)。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-collaborator.png"></p>
-
-<p>一旦做到这一点，每个合作者将会看到代码库页面的访问状态的变化。在拥有对代码库的写访问权限后，我们可以做一个git克隆，进行代码变更，用git拉取和归并远程存储库中的任何变化，并最终将本地的变化git推送到远程代码库：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png"></p>
-
-<hr />
-
-<h1>工具二：Pull请求(Pull request)</h1>
-
-<p><a href="https://help.github.com/articles/using-pull-requests">Pull请求</a>是一个非常棒的方式，通过fork一个新的代码库用来独立开发，并将变更贡献回原始代码库。在一天结束的时候，如果我们愿意，我们可以发送一个pull请求给代码库所有者，来合并我们的代码更改。Pull请求本身可以引起合作者之间的评论，包括代码质量，功能，甚至总体战略等。</p>
-
-<p>现在让我们浏览一个<a href="https://help.github.com/articles/using-pull-requests">pull请求</a>的基本步骤。</p>
-
-<h2>发起一个Pull请求</h2>
-
-<p>GitHub有两种Pull请求方式：</p>
-
-<ol>
-<li>Fork &amp; Pull 方式 &ndash; 用于在公共库中，我们没有推送(push)权限。</li>
-<li>共享库方式 &ndash; 用于私有代码仓库，我们有推送(push)权限。这种情况下没有必要进行fork。</li>
-</ol>
-
-
-<p>下面的工作流程是在两个用户(原始代码库拥有者，和fork代码库拥有者)之间的fork-pull方式：</p>
-
-<ol>
-<li><p>进入你想贡献修改的GitHub代码库，单击“Fork”按​​钮来创建自己的Github帐户上的代码库克隆：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png"></p></li>
-<li><p>这将在自己的帐户上创建一个该代码库的复制：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-forked.png"></p></li>
-<li><p><a href="https://help.github.com/articles/why-is-git-always-asking-for-my-password">选择 SSH URL</a>,那样它会自动使用你自己的SSH密钥，而不用每次在git pull或者push时询问你的用户名和密码。下一步，我们将克隆一份代码库到本地计算机：</p>
-
-<pre><code>$ git clone [ssh-url] [folder-name]
-$ cd [folder-name]
-</code></pre></li>
-<li><p>一般情况下，每一个新的功能，我们将创建一个新的Git分支。这是一个很好的做法，因为在未来，如果经过一番讨论后我们需要进一步更新分支，<a href="http://stackoverflow.com/questions/9790448/how-to-update-a-pull-request">Pull请求将被自动更新</a>。让我们创建一个新的分支做一个非常简单的变化修改的readme.md文件：</p>
-
-<pre><code>$ git checkout -b [new-feature]
-</code></pre></li>
-<li><p>在为这个新功能增加文件后，我们只需要将修改提交到这个新分支上，然后切换回master分支:</p>
-
-<pre><code>$ git add .
-$ git commit -m "information added in readme"
-$ git checkout master
-</code></pre></li>
-<li><p>在这里，我们需要将新分支推送到远程代码仓库里。首先，我们需要检查这个新功能的分支名称以及其在远程仓库的别名，然后我们用<code>git push [git-remote-alias] [branch-name]</code>推送这个变更。</p>
-
-<pre><code>$ git branch
-* master
-readme
-$ git remote -v
-origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (fetch)
-origin  git@github.com:[forked-repo-owner-username]/[repo-name].git (push)
-$ git push origin readme
-</code></pre></li>
-<li><p>进入我们fork的代码库的GitHub页面，选择为这个新功能建立的分支，然后点击<code>Pull Request</code>按钮：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request.png"></p></li>
-<li><p>提交Pull请求后，页面将直接跳转到原始库的Pull请求页面，我们将看到我们提交的Pull请求，作为一个新的问题，以及作为一个新的pull请求。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png"></p></li>
-<li><p>在经过讨论后，fork的代码库的作者可能想为这个新功能增加一些新的改动。在这种场景下，我们需要在本地计算机上checkout这个同样的分支，修改，提交，并推送回GitHub。当我们再次访问原代码库的pull请求页面的时候，会发现上次提交的Pull请求已经自动更新了。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png"></p></li>
-</ol>
-
-
-<h2>合并一个Pull请求</h2>
-
-<p>如果你是原始代码库的所有者，你将有<a href="https://help.github.com/articles/merging-a-pull-request">两种方式</a>来合并收到的Pull请求。</p>
-
-<ol>
-<li><p><strong>直接在GitHub上合并</strong>：如果我们想直接在GitHub上进行合并，必须确保没有冲突。原始库的所有者可以通过简单地点击<code>Merge Pull Request</code>按钮来进行合并：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png"></p></li>
-<li><p><strong>在本地计算机上进行合并</strong>：另外一种情况，合并的时候可能会遇到冲突，点击上部的<code>Info</code>图标，GitHub有非常清晰的指导，怎么从贡献者的分支上下拉代码变更到本地，合并并解决冲突。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png"></p></li>
-</ol>
-
-
-<p>在软件开发团队中有很多不同的代码分支模型。这里有两种非常常用的工作流程模型：</p>
-
-<ul>
-<li><a href="http://scottchacon.com/2011/08/31/github-flow.html">简单分支模型</a>以及Pull请求;</li>
-<li><a href="http://nvie.com/posts/a-successful-git-branching-model/">更加广泛的分支模型</a>.</li>
-</ul>
-
-
-<p>至于采用何种分支模型，取决于团队，项目，以及当时的状态。</p>
-
-<hr />
-
-<h1>工具三：错误跟踪</h1>
-
-<p>在GitHub中，缺陷跟踪的中心是<em>问题列表(Issues)</em>。虽然问题列表主要是为了跟踪缺陷，但我们经常会用以下面的方式：</p>
-
-<ul>
-<li><strong>缺陷</strong>：软件中显然坏了的行为，需要进行修正的地方。</li>
-<li><strong>功能</strong>：需要实现的很酷很棒的新点子。</li>
-<li><strong>待完成清单</strong>：待完成的检查清单。</li>
-</ul>
-
-
-<p>让我们来探讨<em>问题列表</em>的一下特点：</p>
-
-<ol>
-<li><p><strong>标签</strong>：具有不同颜色的类别，用来帮助过滤问题。</p></li>
-<li><p><strong>里程碑</strong>：附加在每一个问题上的日期分类，可用于确定哪些问题需要在下一个版本解决。
-此外，由于每个问题都定有里程碑，每当一个问题解决，它会自动更新进度条。</p></li>
-<li><p><strong>搜索</strong>：搜索时能自动列出匹配的问题列表和里程碑。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png"></p></li>
-<li><p><strong>分配</strong>：每个问题都能分配一个人负责进行解决，同时这也能让我们知道目前我们需要工作在什么上面。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png"></p></li>
-<li><p><strong>自动关闭</strong>：包含<code>Fixes/Fixed/Close/Closes/Closed #问题编号</code>的提交记录，将自动关闭该问题。</p>
-
-<pre><code>$ git add .
-$ git commit -m "corrected url. fixes #2"
-$ git push origin master
-</code></pre>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png"></p>
-
-<p><blockquote><p>很显然，我们能将任务清单与代码提交紧密地耦合在一起。</p></blockquote></p></li>
-<li><p><strong>提及或者引用</strong>：任何人在评论的时候在消息文本中包含<code>#[问题编号]</code>，将自动生成该问题的链接，使得在讨论的过程中能非常容易地提及相关的问题。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png"></p></li>
-</ol>
-
-
-<hr />
-
-<h1>工具四：分析</h1>
-
-<p>有两个工具-图形和网络，让我们能洞察存储库的变化。<a href="https://github.com/blog/1093-introducing-the-new-github-graphs">Github图</a>
-提供了代码库的合作者，以及代码提交的直观展现，而<a href="https://github.com/blog/39-say-hello-to-the-network-graph-visualizer">Github网络</a>可视化直观地展现了每一个贡献者和他们在所有分支上的代码提交。这些分析和图形非常强大，尤其是当在团队中工作。</p>
-
-<h2>图(Graphs)</h2>
-
-<p>图提供了详细的分析，包括：</p>
-
-<ul>
-<li><strong>贡献者</strong>：有哪些代码提交者？他们增加或者删除了多少代码行？</li>
-<li><strong>代码提交活动</strong>：在过去的一年中，这些代码提交主要发生在哪些周？</li>
-<li><strong>代码频率</strong>：在整个项目的生命周期的不同阶段，提交了多少代码行？</li>
-<li><p><strong>记录卡</strong>：代码提交通常发生在每一天的什么时候？</p>
-
-<p>  <img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png"></p></li>
-</ul>
-
-
-<h2>网络(Network)</h2>
-
-<p><a href="https://github.com/blog/39-say-hello-to-the-network-graph-visualizer">GitHub网络(Network)</a>是一个非常强大的工具，让我们能看到每一个贡献者的代码提交，以及这些提交与其他的提交有什么关联。当我们作为一个整体观看这个网络的可视化展现时，我们能看到每一个库，每一个分支，和每一个提交，</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png"></p>
-
-<hr />
-
-<h1>工具五：项目管理</h1>
-
-<p>GitHub上的<em>问题列表</em>可以定义问题和里程碑，具有一定的项目管理能力。因为其他的某些功能或现有的工作流程，有些团队可能会更倾向于另外的工具。在本节中，我们将看到我们如何连接Github与其他流行的项目管理工具 &ndash; <a href="http://trello.com" title="Trello">Trello</a>和<a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>。使用GitHub的服务钩子(hooks，我们可以将代码提交，问题和许多其他活动自动更新到任务中。对于任何软件开发团队，这种自动化的帮助，不仅节省了时间，而且还可以提高更新的。</p>
-
-<h2>GitHub和Trello</h2>
-
-<p><a href="http://trello.com" title="Trello">Trello</a>提供了一直简单而直观的方式管理任务。使用<a href="http://en.wikipedia.org/wiki/Agile_software_development">敏捷开发</a>的方式，
-Trello任务卡能模拟简单，可视化的虚拟<a href="http://en.wikipedia.org/wiki/Kanban_board">任务看版</a>。作为实例，
-当GitHub代码库收到一个Pull请求的时候，我们将利用GitHub的钩子(Hooks)服务，自动在Trello里生成一个任务卡。
-让我们来看看实现这个功能的具体步骤：</p>
-
-<ol>
-<li><p>首先注册一个Trello帐号，并建立一个新的Trello看版(Board)。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello.png"></p></li>
-<li><p>访问GitHub <code>repository &gt; Settings &gt; Service Hooks &gt; Trello</code>。</p></li>
-<li><p>通过<code>Install Note #1</code>描述的方法获得认证用的令牌(Token)。</p></li>
-<li><p>通过<code>Install Note #2</code>给的链接获得json格式的任务列表(list) id。BOARDID是我们访问网站看版的URL中的一部分<code>https://trello.com/board/[BOARD-NAME]/[BOARDID]</code>。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-listid.png"></p></li>
-<li><p>回到GitHub的钩子服务，输入我们得到的<code>list id</code>和<code>token</code>，激活这个hook，可以通过<code>Test Hook</code>按钮来测试每次收到新的Pull请求时，是否自动更新看版内容。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hook-trello-hooks.png"></p></li>
-<li><p>当下次收到新的Pull请求时，Trello看版就会自动生成一个Pull请求任务卡。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello-update.png"></p></li>
-</ol>
-
-
-<h2>GitHub和Pivotal Tracker</h2>
-
-<p><a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>是另外一个轻量级的项目管理工具，通过基于故事(story)的计划，让组员能对任何变化和进度进行回应，非常容易进行协作开发。
-基于项目当前的进度，能生成可视化的图表来分析团队的开发速度，迭代burn-up图，以及当前发布的burn-down图。在下面的例子中，
-我们通过关联一个GitHub代码提交(commit)到故事(story)，自动地交付一个故事。</p>
-
-<ol>
-<li><p>在<a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>上新建一个项目，并生成一个需要交付的故事(story)。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pivotal.png"></p></li>
-<li><p>访问<code>Profile &gt; API Token</code>，复制给定的API令牌(token)。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-token.png"></p></li>
-<li><p>返回到GitHub页面访问<code>repository &gt; Settings &gt; Service Hooks &gt; Pivotal Tracker</code>，粘贴刚才复制的<code>token</code>，激活，并保存设置。
-这样我们就能够在提交代码的时候自动交付对应的故事(story)。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-hook.png"></p></li>
-<li><p>当我们最终提交代码修订的时候，按照格式<code>git commit -m "message [delivers #tracker_id]"</code>
-<a href="http://pivotallabs.com/level-up-your-development-workflow-with-github-pivotal-tracker/">将故事的<code>id</code>添加到提交记录里</a>。</p>
-
-<pre><code>$ git add .
-$ git commit -m "Github and Pivotal Tracker hooks implemented [delivers #43903595]"
-$ git push
-</code></pre></li>
-<li><p>现在，返回到<a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>页面，我们将发现这个指定的故事被自动的发布出去了，附着对应的GitHub上代码提交的链接。</p></li>
-</ol>
-
-
-<p>通过<a href="http://trello.com" title="Trello">Trello</a>和<a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>实例，非常清楚的一点是我们能紧密地将我们的任务和代码提交绑定在一起。
-当作为一个团队进行工作的时候，这将节省大量的时间，并且提高工作记录的精确度。非常好的消息是，
-如果你已经使用了其他项目管理工具，例如<a href="http://asana.com/">Asana</a>，<a href="http://basecamp.com/">Basecamp</a>，
-或者其他的，你能够用类似的方式添加hook。如果没有你目前正在使用的项目管理工具的hook，
-<a href="https://github.com/github/github-services">自力更生自己做一个！</a></p>
-
-<p><img class="center" src="http://a.adroll.com/a/BP4/SZ6/BP4SZ645NZEA5HWYECKZAE.jpg"></p>
-
-<hr />
-
-<h1>工具六：持续集成</h1>
-
-<p>对于团队软件开发来说，持续集成(CI)是一个非常重要的部分。CI确保当开发人员提交代码改动的时候，将触发自动的构建(build)，包括测试，用来快速地检测软件集成的错误。这将毫无疑问地减少集成过程中的错误，提高快速开发迭代的效率。在下面的例子里，我们将看到如何与<a href="http://github.com" title="GitHub">GitHub</a>一起使用<a href="https://travis-ci.org/" title="Travis CI">Travis CI</a>，自动检测错误，并且在所有测试通过后进行代码合并。</p>
-
-<h2>设置 Travis CI</h2>
-
-<p>这里我们使用基于<a href="http://nodejs.org/">node.js</a>服务器，基于[grunt.js][<a href="http://gruntjs.com/">http://gruntjs.com/</a>]作为构建工具的&#8221;Hello-World&#8221;应用，来设置Travis CI项目。下面是项目中的文件：</p>
-
-<ol>
-<li><p><code>hello.js</code>文件是nodejs项目。我们有目的地漏写了一个分号，为了让这个文件不能通过grunt构建工具的lint(静态代码检测工具)：</p>
-
-<pre><code>var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World in Node!\n') // 这里没有分号，将不会通过linting
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
-</code></pre></li>
-<li><p><code>package.json</code>定义依赖的包：</p>
-
-<pre><code>{
-  "name": "hello-team",
-  "description": "A demo for github and travis ci for team collaboration",
-  "author": "name &lt;email@email.com&gt;",
-  "version": "0.0.1",
-  "devDependencies": {
-    "grunt": "~0.3.17"
-  },
-  "scripts": {
-    "test": "grunt travis --verbose"
-  }
-}
-</code></pre></li>
-<li><p>为了简化起见，gruntjs构建工具的配置文件仅仅包含一个任务(linting)：</p>
-
-<pre><code>module.exports = function(grunt) {
-  grunt.initConfig({
-    lint: {
-      files: ['hello.js']
-    }
-  });
-  grunt.registerTask('default', 'lint');
-  grunt.registerTask('travis', 'lint');
-};
-</code></pre></li>
-<li><p><code>.travis.yml</code>是Travis的配置文件，确保Travis运行我们的测试：</p>
-
-<pre><code>language: node_js
-node_js:
-  - 0.8
-</code></pre></li>
-<li><p>接着，用GitHub帐号登录到Travis，在<code>repository</code>选项卡打开<code>repository hook</code>:</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png"></p></li>
-<li><p>如果上述步骤还不能触发构建，我们将不得不手工配置<code>hook</code>，在Travis的profile栏复制token。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-token.png"></p></li>
-<li><p>返回到GitHub代码库，使用复制的token设置Travis Hook：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-hook.png"></p></li>
-<li><p>第一次，我们必须手工做一次<code>git push</code>来触发Travis构建，如果一切ok，我们可以访问<code>http://travis-ci.org/[用户名]/[repo名]</code>查看构建的结果。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-pass.png"></p></li>
-</ol>
-
-
-<h2>Travis CI 和 Pull 请求(Pull request)</h2>
-
-<p>以前没有持续集成的Pull请求流程，步骤大概是(1)提交pull请求(2)合并(3)测试来看是否通过或者失败。带有持续集成hook的Pull请求流程将反转(2)和(3)步骤，Travis CI将向我们汇报每一个Pull请求的持续集成结果，让我们能够知道这个Pull请求是否足够好，并快速作出判断是否合并进主线。下面我们来看这是怎样做到的：</p>
-
-<ol>
-<li><p>提交一个附带通过构建结果的Pull请求。Travis将做所有的一切，让我们在合并前就能知道这个合并是否足够好。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-pass.png"></p></li>
-<li><p>如果这个Pull请求使得构建失败，Travis同样会警告你：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-fail.png"></p></li>
-<li><p>如果我们点击红色的警告链接，浏览器将跳转到Travis页面，显示这次构建的详细信息。</p></li>
-</ol>
-
-
-<p>因为自动的构建和及时地通知，<a href="https://travis-ci.org/" title="Travis CI">Travis CI</a>对团队来说非常有帮助，它能极大地缩短我们更正错误的周期。如果你使用另外一个非常有名的持续集成工具<a href="http://jenkins-ci.org/">Jenkins</a>，你能用相似的步骤设置hook服务。</p>
-
-<hr />
-
-<h1>工具七：代码评审</h1>
-
-<p>对于每个提交(commit)，GitHub有个干净的接口用来进行评论，甚至是对某行代码进行评论。在进行逐行代码评审的时候，针对单行代码提出评论和问题的功能就显得非常重要了。打开提交(commit)界面的顶部的检查框，就能显示行内评论。</p>
-
-<p><img src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png"></p>
-
-<p>下面探讨一些帮助我们进行代码评审，能快速显示不同提交之间差异的URL模式：</p>
-
-<ol>
-<li><p><strong>对比branch/tags/SHA1</strong>：使用URL模式<code>https://github.com/[username]/[repo-name]/compare/[starting-SHA1]...[ending-SHA1]</code>。
-可以用分支或者标签名代替<code>SHA1</code>。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-url.png"></p></li>
-<li><p><strong>去除空格进行对比</strong>：增加<code>?w=1</code>到对比的URL尾部。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-whitespace.png"></p></li>
-<li><p><strong>Diff</strong>：增加<code>.diff</code>到URL的后面能得到<code>git diff</code>输出的纯文本信息。在写脚本的时候，这个功能非常有用。</p></li>
-<li><p><strong>Patch</strong>：增加<code>.patch</code>到URL的后面能得到<a href="http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html">电子邮件补丁提交格式</a>的<code>git diff</code>输出的信息。</p></li>
-<li><p><strong>行链接</strong>：在查看文件时，点击任何行号，GitHub将会在URL后面增加一个<code>#行号</code>，并且将该行的背景颜色置成黄色。这能干净利落地标识代码文件的某一行。我们同样能通过增加<code>#开始行号-结束行号</code>来指定一个范围。这里是<a href="https://github.com/NETTUTS/team-collaboration-github/blob/master/.travis.yml#L4">行链接</a>和<a href="https://github.com/NETTUTS/team-collaboration-github/blob/master/.travis.yml#L2-3">行范围链接</a>的例子。</p></li>
-</ol>
-
-
-<hr />
-
-<h1>工具八：文档</h1>
-
-<p>在这段，我们将探讨两种文档方法：</p>
-
-<ol>
-<li><p><strong>正式文档</strong>：使用GitHub Wiki生成正式的项目文档。</p></li>
-<li><p><strong>非正式文档</strong>：使用GitHub <a href="http://hubot.github.com/" title="Hubot">Hubot</a>来归档团队内部的讨论，以及与<a href="http://hubot.github.com/" title="Hubot">Hubot</a>互动而自动获得的非常有趣的信息。</p></li>
-<li><p><strong>提及，快捷键和表情符号</strong></p></li>
-</ol>
-
-
-<h2>GitHub维基(Wiki)</h2>
-
-<p>每个GitHub代码库都可以生成一个维基，这样非常方便地将代码和文档存放在同一个存储库中。要创建维基，访问主标题的维基选项卡，并设置创建页面的信息。其实维基也有自己的版本，并可以将数据复制到本地机器进行更新，甚至是离线访问。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png"></p>
-
-<p>有一件事我觉得非常有用的是可以将GitHub的维基整合到源代码中，这样我就不必维护两个独立的Git项目了。要做到这一点，我将Wiki作为<a href="http://git-scm.com/book/ch6-6.html">git子模块</a>增加到主分支上。如果您使用的是Travis CI或任何其他CI，必须确保构建工具会忽略wiki的子模块。在Travis的CI文件<code>.travis.yml</code>中，添加以下内容：</p>
-
-<pre><code>git:
-  submodules: false
-</code></pre>
-
-<p>接着增加一个git子模块<code>wiki</code>到主代码库中：</p>
-
-<pre><code>$ git submodule add git@github.com:[username]/[repo-name].wiki.git
-Cloning into 'hello-team.wiki'...
-remote: Counting objects: 6, done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 6 (delta 0), reused 0 (delta 0)
-Receiving objects: 100% (6/6), done.
-$ git add .
-$ git commit -m "added wiki as submodule"
-$ git push origin master
-</code></pre>
-
-<p>现在，维基就作为一个子模块显示在代码库项目中。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png"></p>
-
-<h2>GitHub Hubot</h2>
-
-<blockquote><p>Hubot，总之，可以极大地增添了不少的乐趣记录，并通知小组讨论重要的提交。</p></blockquote>
-
-
-<p><a href="http://hubot.github.com/" title="Hubot">Hubot</a>是一个简单的聊天机器人，可以检索信息，或提供通知，每当GitHub有代码提交，问题，或活动时。在一个旨在减少，甚至完全消除会议的一个团队中，<a href="http://hubot.github.com/" title="Hubot">Hubot</a>拥有所有团队成员的聊天接口，帮助您记录着每一个讨论。这当然促进灵活的工作时序，因为团队没有必要同时出席讨论。警告：Hubot是非常上瘾的！</p>
-
-<p>有了这个，让我们开始在<a href="http://www.heroku.com/">Heroku</a>上设置<a href="http://hubot.github.com/" title="Hubot">Hubot</a>，拥有<a href="http://campfirenow.com/" title="Campfire IM">Campfire</a>聊天接口的聊天机器人！[Heroku][]和<a href="http://campfirenow.com/" title="Campfire IM">Campfire</a>，都有免费的版本供大家开始尝试。</p>
-
-<ol>
-<li><p>我们将使用<a href="https://github.com/github/hubot">GitHub出品的支持Campfire的Hubot</a>。如果你愿意，也可以使用其他如Skype，IRC，GTalk等<a href="https://github.com/github/hubot/wiki">聊天适配器</a>。</p></li>
-<li><p>建立一个仅为<a href="http://hubot.github.com/" title="Hubot">Hubot</a>的<a href="http://campfirenow.com/" title="Campfire IM">Campfire</a>账号，这个账号将新建一个房间，并邀请其他人加入。</p></li>
-<li><p>根据Hubot维基上给的<a href="https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Heroku">指示</a>，部署Hubot到Heroku上。如果Heroku的应用程序的URL返回了一个<code>Cannot GET /</code>，别惊慌，因为默认情况下<a href="https://github.com/github/hubot/issues/286">不会得到任何返回</a>。</p></li>
-<li><p>从Hubot Campfire账号上，邀请你自己的账号，现在，登录你自己的Campfire账号，然后执行<code>Hubot help</code>，你将得到所有Hubot支持的命令。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png"></p></li>
-<li><p>尝试几次，例如<code>Hubot ship it</code>或者<code>Hubot map me CERN</code>。</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png"></p></li>
-<li><p>下一步，我们将增加一个Hubot脚本，这里已经有<a href="https://github.com/github/hubot-scripts/tree/master/src/scripts">大量的脚本</a>，附带<a href="http://hubot-script-catalog.herokuapp.com/">命令说明</a>。</p></li>
-<li><p>作为实例，我们将增加一个github提交脚本，以至于每次有一个新的提交，Hubot将在聊天室通知大家。将文件<code>github-commits.coffee</code>放置到<code>scripts</code>目录。</p></li>
-<li><p>更新<code>package.json</code>文件，根据每个脚本文件头的指示，加入新的依赖包。</p></li>
-<li><p>使用下面命令再一次发布代码到Heroku：<code>git push heroku master</code></p></li>
-<li><p>浏览GitHub代码库，我们希望代码提交通知能显示在聊天室，在代码库设置下增加一个<code>web hook</code>，对<code>github-commits</code>脚本，webhook将是<code>[HUBOT_URL]:[PORT]/hubot/gh-commits?room=[ROOM_ID]</code></p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png"></p></li>
-<li><p>下一次当代码库有新的代码提交，Hubot将在聊天室如此说：</p>
-
-<p><img class="center" src="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png"></p></li>
-</ol>
-
-
-<p>检查其他<a href="https://github.com/github/hubot-scripts">Github相关的Hubot的脚本</a>，或者如果您想自己写一个脚本，这里有<a href="http://net.tutsplus.com/tutorials/javascript-ajax/writing-hubot-plugins-with-coffeescript/">一个很酷的教程</a>！总之，Hubot可以极大地增添很多乐趣在文档记录、通知小组讨论代码库发生的重要提交，问题和活动。试试看吧！</p>
-
-<p>关于和团队一起使用GitHub，最后要说明的是，这里有一些提高生产力的技巧：</p>
-
-<ol>
-<li><p><strong>提及(Mentions)</strong> &ndash; 在任何文本区域中，我们可以通过<code>@用户名</code>提到另外一个GitHub用户，并且该用户将得到通知。</p></li>
-<li><p><strong>快捷键</strong> &ndash; 按<code>SHIFT + ?</code>可以查看Github上任何页面上的快捷键。</p></li>
-<li><p><strong>表情符号</strong> &ndash; 通过使用<a href="http://www.emoji-cheat-sheet.com/">表情符号</a>，Github上的文本区域还支持插入的图标。来吧，与队友一起工作时有点情趣！</p></li>
-</ol>
-
-
-<hr />
-
-<h1>GitHub上非软件项目的合作</h1>
-
-<p>我们大多数人会认为使用Github只能为软件项目。毕竟，Github产生就是为了社交编程。但是，也有一些很酷的使用Github的库被用于非编码项目，和他们的合作和讨论同样非常棒。因为这些项目是开源的，任何人都可以作出贡献，这是快速修复错误，容易报告错误，与志同道合的人有效的合作。只是为了好玩，这里是其中的一些：</p>
-
-<ul>
-<li>房屋修复: <a href="https://github.com/frabcus/house/issues?labels=building&amp;state=open">房屋的问题跟踪</a></li>
-<li>书籍: <a href="https://github.com/karlseguin/the-little-mongodb-book">Little MongoDB Book</a>, <a href="https://github.com/addyosmani/backbone-fundamentals">Backbone Fundamentals</a></li>
-<li>歌词: <a href="https://github.com/mandylauderdale/2012-JSConfEU-Lyrics">JSConfEU Lyrics</a></li>
-<li>找男朋友: <a href="https://github.com/norinori2222/boyfriend_require/blob/master/README-en.md">boyfriend_require</a></li>
-<li>教导: <a href="https://github.com/dianakimball/mentoring">Wiki</a></li>
-<li>基因组数据: <a href="https://github.com/ash-dieback-crowdsource/data">Ash Dieback epidemic</a></li>
-<li>博客: <a href="https://github.com/csswizardry/csswizardry.github.com">CSS Wizardry</a></li>
-</ul>
-
-
-<p>你能想象<a href="http://news.ycombinator.com/item?id=4963433">GitHub开发团队</a>怎么认为这些项目？</p>
-
-<blockquote><p>“我们挖掘像这样一样使用GitHub的乐趣！”</p></blockquote>
-
-
-<hr />
-
-<h1>更多的资源</h1>
-
-<ul>
-<li><a href="http://www.cs.cmu.edu/~xia/resources/Documents/cscw2012_Github-paper-FinalVersion-1.pdf">Social Coding in GitHub</a>, a research paper by Carnegie Melon University</li>
-<li><a href="http://zachholman.com/talk/how-github-uses-github-to-build-github/">How Github uses Github to build Github</a> by Zac Holman</li>
-<li><a href="http://zachholman.com/talk/git-github-secrets/">Git and Github Secrets</a> by Zac Holman</li>
-<li><a href="https://github.com/blog/category/ship">New features in Github</a> from the Github Blog</li>
-<li>Github Help: <a href="https://help.github.com/articles/using-pull-requests">pull requests</a>, <a href="https://help.github.com/articles/fork-a-repo">Fork a Repo</a></li>
-<li><a href="https://github.com/features/projects">Github features for collaboration</a></li>
-<li>Nettuts+ Tutorials: <a href="http://net.tutsplus.com/tag/git/">Git</a> and <a href="http://net.tutsplus.com/tag/github/">Github</a></li>
-<li><a href="http://www.wired.com/wiredenterprise/2012/02/github/">Lord of the Files: How Github Tamed free Software (and more)</a> by Wired</li>
-</ul>
-
-
-<hr />
-
-<h1>更多合作的乐趣！</h1>
-
-<p>那些都是在GitHub上积攒的协作化工具。大部分都是作为分析工具，或者用于和团队工作时节省时间的自动化工具。你有更多GitHub团队合作的技巧吗？让我们一起分享！</p>
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/21/to-introduce-android-dropboxmanager-service/">
+		
+			介绍 Android DropBoxManager Service</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/11/21/to-introduce-android-dropboxmanager-service/">介绍 Android DropBoxManager Service</a>
-    </h1>
-  
-  
 
 
+<time datetime="2012-11-21T11:59:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/android/'>android</a>
 
 
-
-
-  
-
-
-<time datetime="2012-11-21T11:59:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
 </div>
-
-<div class="post-content"><h2>什么是 DropBoxManager ?</h2>
+    </div>
+		<h2>什么是 DropBoxManager ?</h2>
 
 <blockquote><p>Enqueues chunks of data (from various sources &#8211; application crashes, kernel log records, etc.). The queue is size bounded and will drop old data if the enqueued data exceeds the maximum size. You can think of this as a persistent, system-wide, blob-oriented &#8220;logcat&#8221;.</p></blockquote>
 
@@ -1854,530 +498,48 @@ Android 运行过程中, 内核, 系统进程, 用户进程等出现严重问题
 
 
 
-<!--more-->
+
+		
+		<a href="/blog/2012/11/21/to-introduce-android-dropboxmanager-service/" class="more-link">Read on &rarr;</a>
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
-<h3>anr (应用程序没响应, Application Not Responding, ANR)</h3>
-
-<p>当应用程序的主线程(UI线程)长时间未能得到响应时, ActivityManagerService 会记录一次 <code>anr</code> 到 DropBoxManager中, 并弹出 <code>Application Not Responding</code> 对话框提示用户.</p>
-
-<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="kt">void</span> <span class="nf">appNotResponding</span><span class="o">(</span><span class="n">ProcessRecord</span> <span class="n">app</span><span class="o">,</span> <span class="n">ActivityRecord</span> <span class="n">activity</span><span class="o">,</span>
-</span><span class='line'>        <span class="n">ActivityRecord</span> <span class="n">parent</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">aboveSystem</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">annotation</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">//......</span>
-</span><span class='line'>    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;anr&quot;</span><span class="o">,</span> <span class="n">app</span><span class="o">,</span> <span class="n">app</span><span class="o">.</span><span class="na">processName</span><span class="o">,</span> <span class="n">activity</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="n">annotation</span><span class="o">,</span>
-</span><span class='line'>            <span class="n">cpuInfo</span><span class="o">,</span> <span class="n">tracesFile</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>    <span class="c1">//......</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/10/16/yeoman-a-new-javascript-build-tool/">
+		
+			Yeoman: 一个新的 Javascript 构建工具</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
 
 
-<h3>wtf (What a Terrible Failure)</h3>
-
-<p>&lsquo;android.util.Log&rsquo; 类提供了静态的 <code>wtf</code> 函数, 应用程序可以在代码中用来主动报告一个不应当发生的情况. 依赖于系统设置,
-这个函数会通过 ActivityManagerService 增加一个 <code>wtf</code> 记录到 DropBoxManager中, 并/或终止当前应用程序进程.</p>
-
-<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">handleApplicationWtf</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">app</span><span class="o">,</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span>
-</span><span class='line'>        <span class="n">ApplicationErrorReport</span><span class="o">.</span><span class="na">CrashInfo</span> <span class="n">crashInfo</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">ProcessRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">findAppProcess</span><span class="o">(</span><span class="n">app</span><span class="o">,</span> <span class="s">&quot;WTF&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">app</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;system_server&quot;</span>
-</span><span class='line'>            <span class="o">:</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;unknown&quot;</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">processName</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">EventLog</span><span class="o">.</span><span class="na">writeEvent</span><span class="o">(</span><span class="n">EventLogTags</span><span class="o">.</span><span class="na">AM_WTF</span><span class="o">,</span>
-</span><span class='line'>            <span class="n">UserHandle</span><span class="o">.</span><span class="na">getUserId</span><span class="o">(</span><span class="n">Binder</span><span class="o">.</span><span class="na">getCallingUid</span><span class="o">()),</span> <span class="n">Binder</span><span class="o">.</span><span class="na">getCallingPid</span><span class="o">(),</span>
-</span><span class='line'>            <span class="n">processName</span><span class="o">,</span>
-</span><span class='line'>            <span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">info</span><span class="o">.</span><span class="na">flags</span><span class="o">,</span>
-</span><span class='line'>            <span class="n">tag</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">.</span><span class="na">exceptionMessage</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;wtf&quot;</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">processName</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">.</span><span class="na">pid</span> <span class="o">!=</span> <span class="n">Process</span><span class="o">.</span><span class="na">myPid</span><span class="o">()</span> <span class="o">&amp;&amp;</span>
-</span><span class='line'>            <span class="n">Settings</span><span class="o">.</span><span class="na">Global</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">(),</span>
-</span><span class='line'>                    <span class="n">Settings</span><span class="o">.</span><span class="na">Global</span><span class="o">.</span><span class="na">WTF_IS_FATAL</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">crashApplication</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>strict_mode (StrictMode Violation)</h3>
-
-<p><a href="http://developer.android.com/reference/android/os/StrictMode.html">StrictMode</a> (严格模式), 顾名思义, 就是在比正常模式检测得更严格, 通常用来监测不应当在主线程执行的网络, 文件等操作.
-任何 StrictMode 违例都会被 ActivityManagerService 在 DropBoxManager 中记录为一次 <code>strict_mode</code> 违例.</p>
-
-<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleApplicationStrictModeViolation</span><span class="o">(</span>
-</span><span class='line'>        <span class="n">IBinder</span> <span class="n">app</span><span class="o">,</span>
-</span><span class='line'>        <span class="kt">int</span> <span class="n">violationMask</span><span class="o">,</span>
-</span><span class='line'>        <span class="n">StrictMode</span><span class="o">.</span><span class="na">ViolationInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">ProcessRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">findAppProcess</span><span class="o">(</span><span class="n">app</span><span class="o">,</span> <span class="s">&quot;StrictMode&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">((</span><span class="n">violationMask</span> <span class="o">&amp;</span> <span class="n">StrictMode</span><span class="o">.</span><span class="na">PENALTY_DROPBOX</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Integer</span> <span class="n">stackFingerprint</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
-</span><span class='line'>        <span class="kt">boolean</span> <span class="n">logIt</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-</span><span class='line'>        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">stackFingerprint</span><span class="o">))</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">logIt</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-</span><span class='line'>                <span class="c1">// TODO: sub-sample into EventLog for these, with</span>
-</span><span class='line'>                <span class="c1">// the info.durationMillis?  Then we&#39;d get</span>
-</span><span class='line'>                <span class="c1">// the relative pain numbers, without logging all</span>
-</span><span class='line'>                <span class="c1">// the stack traces repeatedly.  We&#39;d want to do</span>
-</span><span class='line'>                <span class="c1">// likewise in the client code, which also does</span>
-</span><span class='line'>                <span class="c1">// dup suppression, before the Binder call.</span>
-</span><span class='line'>            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>                <span class="k">if</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">MAX_DUP_SUPPRESSED_STACKS</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>                <span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">stackFingerprint</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">logIt</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">logStrictModeViolationToDropBox</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">info</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="c1">//......</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>lowmem (低内存)</h3>
-
-<p>在内存不足的时候, Android 会终止后台应用程序来释放内存, 但如果没有后台应用程序可被释放时, ActivityManagerService 就会在 DropBoxManager 中记录一次 <code>lowmem</code>.</p>
-
-<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">switch</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">what</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="c1">//...</span>
-</span><span class='line'>        <span class="k">case</span> <span class="nl">REPORT_MEM_USAGE:</span> <span class="o">{</span>
-</span><span class='line'>            <span class="c1">//......</span>
-</span><span class='line'>            <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="n">StringBuilder</span> <span class="n">dropBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">1024</span><span class="o">);</span>
-</span><span class='line'>                    <span class="n">StringBuilder</span> <span class="n">logBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">1024</span><span class="o">);</span>
-</span><span class='line'>                    <span class="c1">//......</span>
-</span><span class='line'>                    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;lowmem&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&quot;system_server&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
-</span><span class='line'>                            <span class="kc">null</span><span class="o">,</span> <span class="n">tag</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="n">dropBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>                    <span class="c1">//......</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>            <span class="o">};</span>
-</span><span class='line'>            <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</span><span class='line'>            <span class="k">break</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>        <span class="c1">//......</span>
-</span><span class='line'>    <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>watchdog</h3>
-
-<p>如果 WatchDog 监测到系统进程(<code>system_server</code>)出现问题, 会增加一条 <code>watchdog</code> 记录到 DropBoxManager 中, 并终止系统进程的执行.</p>
-
-<figure class='code'><figcaption><span>Watchdog</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/Watchdog.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="cm">/** This class calls its monitor every minute. Killing this process if they don&#39;t return **/</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Watchdog</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">//......</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kt">boolean</span> <span class="n">waitedHalf</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="c1">//......</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1">// If we got here, that means that the system is most likely hung.</span>
-</span><span class='line'>            <span class="c1">// First collect stack traces from all threads of the system process.</span>
-</span><span class='line'>            <span class="c1">// Then kill this process so that the system will restart.</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1">//......</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1">// Try to add the error to the dropbox, but assuming that the ActivityManager</span>
-</span><span class='line'>            <span class="c1">// itself may be deadlocked.  (which has happened, causing this statement to</span>
-</span><span class='line'>            <span class="c1">// deadlock and the watchdog as a whole to be ineffective)</span>
-</span><span class='line'>            <span class="n">Thread</span> <span class="n">dropboxThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="s">&quot;watchdogWriteToDropbox&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                        <span class="n">mActivity</span><span class="o">.</span><span class="na">addErrorToDropBox</span><span class="o">(</span>
-</span><span class='line'>                                <span class="s">&quot;watchdog&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&quot;system_server&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
-</span><span class='line'>                                <span class="n">name</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">stack</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>                    <span class="o">}</span>
-</span><span class='line'>                <span class="o">};</span>
-</span><span class='line'>            <span class="n">dropboxThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</span><span class='line'>            <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">dropboxThread</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>  <span class="c1">// wait up to 2 seconds for it to return.</span>
-</span><span class='line'>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ignored</span><span class="o">)</span> <span class="o">{}</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c1">//......</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//......</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+  
 
 
-<h3>netstats_error</h3>
-
-<p>NetworkStatsService 负责收集并持久化存储网络状态的统计数据, 当遇到明显的网络状态错误时, 它会增加一条 <code>netstats_error</code> 记录到 DropBoxManager.</p>
-
-<h3>BATTERY_DISCHARGE_INFO</h3>
-
-<p>BatteryService 负责检测充电状态, 并更新手机电池信息. 当遇到明显的 discharge 事件, 它会增加一条 <code>BATTERY_DISCHARGE_INFO</code> 记录到 DropBoxManager.</p>
-
-<h3>系统服务(System Serve)启动完成后的检测</h3>
-
-<p>系统服务(System Serve)启动完成后会进行一系列自检, 包括:</p>
-
-<ul>
-<li><p>开机</p>
-
-<p>每次开机都会增加一条 <code>SYSTEM_BOOT</code> 记录.</p></li>
-<li><p>System Server 重启</p>
-
-<p>如果系统服务(System Server)不是开机后的第一次启动, 会增加一条 <code>SYSTEM_RESTART</code> 记录, 正常情况下系统服务(System Server)在一次开机中只会启动一次,
-启动第二次就意味着 bug.</p></li>
-<li><p>Kernel Panic (内核错误)</p>
-
-<p>发生 Kernel Panic 时, Kernel 会记录一些 log 信息到文件系统, 因为 Kernel 已经挂掉了, 当然这时不可能有其他机会来记录错误信息了. 唯一能检测 Kernel Panic
-的办法就是在手机启动后检查这些 log 文件是否存在, 如果存在则意味着上一次手机是因为 Kernel Panic 而宕机, 并记录这些日志到 DropBoxManager 中.
-DropBoxManager 记录 TAG 名称和对应的文件名分别是:</p>
-
-<ul>
-<li><code>SYSTEM_LAST_KMSG</code>, 如果 <code>/proc/last_kmsg</code> 存在.</li>
-<li><code>APANIC_CONSOLE</code>, 如果 <code>/data/dontpanic/apanic_console</code> 存在.</li>
-<li><code>APANIC_THREADS</code>, 如果 <code>/data/dontpanic/apanic_threads</code> 存在.</li>
-</ul>
-</li>
-<li><p>系统恢复(System Recovery)</p>
-
-<p>通过检测文件 <code>/cache/recovery/log</code> 是否存在来检测设备是否因为系统恢复而重启, 并增加一条 <code>SYSTEM_RECOVERY_LOG</code> 记录到 DropBoxManager 中.</p></li>
-</ul>
+<time datetime="2012-10-16T12:59:00+08:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
 
 
-<figure class='code'><figcaption><span>System Server BootReceiver</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/BootReceiver.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">logBootEvents</span><span class="o">(</span><span class="n">Context</span> <span class="n">ctx</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="n">DropBoxManager</span> <span class="n">db</span> <span class="o">=</span> <span class="o">(</span><span class="n">DropBoxManager</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">DROPBOX_SERVICE</span><span class="o">);</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getSharedPreferences</span><span class="o">(</span><span class="s">&quot;log_files&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">512</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Build: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">FINGERPRINT</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Hardware: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">BOARD</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Revision: &quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">SystemProperties</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;ro.revision&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">)).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Bootloader: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">BOOTLOADER</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Radio: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">RADIO</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Kernel: &quot;</span><span class="o">)</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">FileUtils</span><span class="o">.</span><span class="na">readTextFile</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;/proc/version&quot;</span><span class="o">),</span> <span class="mi">1024</span><span class="o">,</span> <span class="s">&quot;...\n&quot;</span><span class="o">))</span>
-</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">String</span> <span class="n">recovery</span> <span class="o">=</span> <span class="n">RecoverySystem</span><span class="o">.</span><span class="na">handleAftermath</span><span class="o">();</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">recovery</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_RECOVERY_LOG&quot;</span><span class="o">,</span> <span class="n">headers</span> <span class="o">+</span> <span class="n">recovery</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">SystemProperties</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">&quot;ro.runtime.firstboot&quot;</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">String</span> <span class="n">now</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
-</span><span class='line'>        <span class="n">SystemProperties</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;ro.runtime.firstboot&quot;</span><span class="o">,</span> <span class="n">now</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_BOOT&quot;</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// Negative sizes mean to take the *tail* of the file (see FileUtils.readTextFile())</span>
-</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/proc/last_kmsg&quot;</span><span class="o">,</span>
-</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_LAST_KMSG&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/cache/recovery/log&quot;</span><span class="o">,</span>
-</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_RECOVERY_LOG&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/data/dontpanic/apanic_console&quot;</span><span class="o">,</span>
-</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;APANIC_CONSOLE&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/data/dontpanic/apanic_threads&quot;</span><span class="o">,</span>
-</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;APANIC_THREADS&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_RESTART&quot;</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Scan existing tombstones (in case any new ones appeared)</span>
-</span><span class='line'>    <span class="n">File</span><span class="o">[]</span> <span class="n">tombstoneFiles</span> <span class="o">=</span> <span class="n">TOMBSTONE_DIR</span><span class="o">.</span><span class="na">listFiles</span><span class="o">();</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">tombstoneFiles</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tombstoneFiles</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">tombstoneFiles</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getPath</span><span class="o">(),</span>
-</span><span class='line'>                <span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_TOMBSTONE&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Start watching for new tombstone files; will record them as they occur.</span>
-</span><span class='line'>    <span class="c1">// This gets registered with the singleton file observer thread.</span>
-</span><span class='line'>    <span class="n">sTombstoneObserver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileObserver</span><span class="o">(</span><span class="n">TOMBSTONE_DIR</span><span class="o">.</span><span class="na">getPath</span><span class="o">(),</span> <span class="n">FileObserver</span><span class="o">.</span><span class="na">CLOSE_WRITE</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="nd">@Override</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="kt">int</span> <span class="n">event</span><span class="o">,</span> <span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">TOMBSTONE_DIR</span><span class="o">,</span> <span class="n">path</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span>
-</span><span class='line'>                <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">filename</span><span class="o">,</span> <span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_TOMBSTONE&quot;</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">Slog</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Can&#39;t log tombstone&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">sTombstoneObserver</span><span class="o">.</span><span class="na">startWatching</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+	<a class='category' href='/blog/categories/bbb/'>bbb</a>, <a class='category' href='/blog/categories/grunt-dot-js/'>grunt.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/yeoman/'>yeoman</a>
 
-
-<h3>SYSTEM_TOMBSTONE (Native 进程的崩溃)</h3>
-
-<p>Tombstone 是 Android 用来记录 native 进程崩溃的 <code>core dump</code> 日志, 系统服务在启动完成后会增加一个 Observer 来侦测 tombstone 日志文件的变化,
-每当生成新的 <code>tombstone</code> 文件, 就会增加一条 <code>SYSTEM_TOMBSTONE</code> 记录到 DropBoxManager 中.</p>
-
-<h2>DropBoxManager 如何存储记录数据 ?</h2>
-
-<p>DropBoxManager 使用的是文件存储, 所有的记录都存储在 <code>/data/system/dropbox</code> 目录中, 一条记录就是一个文件, 当文本文件的尺寸超过文件系统的最小区块尺寸后,
-DropBoxManager 还会自动压缩该文件, 通常文件名以调用 DropBoxManager 的 TAG 参数开头.</p>
-
-<figure class='code'><figcaption><span>System Server BootReceiver</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/BootReceiver.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">$</span> <span class="n">adb</span> <span class="n">shell</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">dropbox</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>        <span class="mi">258</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">SYSTEM_RESTART</span><span class="err">@</span><span class="mi">1353469017940</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">39</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">40</span> <span class="n">event_data</span><span class="err">@</span><span class="mi">1353469222884</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">39</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">12</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_data</span><span class="err">@</span><span class="mi">1353471022975</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">18</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353492624170</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">18</span><span class="o">:</span><span class="mi">40</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353494424296</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span> <span class="mi">10</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353550227432</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">1528</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">22</span><span class="o">:</span><span class="mi">54</span> <span class="n">system_app_crash</span><span class="err">@</span><span class="mi">1353509648395</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">1877</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">system_app_strictmode</span><span class="err">@</span><span class="mi">1353469014395</span><span class="o">.</span><span class="na">txt</span>
-</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">3724</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">system_app_strictmode</span><span class="err">@</span><span class="mi">1353469014924</span><span class="o">.</span><span class="na">txt</span><span class="o">.</span><span class="na">gz</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>如何利用 DropBoxManager ?</h2>
-
-<ul>
-<li><p>利用 DropBoxManager 来记录需要持久化存储的错误日志信息</p>
-
-<p>DropBoxManager 提供了 logcat 之外的另外一种错误日志记录机制, 程序可以在出错的时候自动将相关信息记录到 DropBoxManager 中. 相对于 logcat,
-DropBoxManager 更适合于程序的自动抓错, 避免人为因素而产生的错误遗漏. 并且 DropBoxManager 是 Android 系统的公开服务, 相对于很多私有实现,
-出现兼容性问题的几率会大大降低.</p></li>
-<li><p>错误自动上报</p>
-
-<p>可以将 DropBoxManager 和设备的 BugReport 结合起来, 实现自动上报错误到服务器. 每当生成新的记录, DropBoxManager 就会广播一个
-<code>DropBoxManager.ACTION_DROPBOX_ENTRY_ADDED</code> Intent, 设备的 BugReport 服务需要侦听这个 Intent, 然后触发错误的自动上报.</p></li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.android.com">Android Official Site</a></li>
-<li><a href="http://developer.android.com/reference/android/os/DropBoxManager.html">DropBoxManager Overview</a></li>
-<li><a href="http://developer.android.com/reference/android/app/ActivityManager.html">ActivityManager Service Overview</a></li>
-<li><a href="http://developer.android.com/reference/android/os/StrictMode.html">Android StrictMode Overview</a></li>
-</ul>
 
 </div>
- </div>
-
-  
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/10/16/yeoman-a-new-javascript-build-tool/">Yeoman: 一个新的 Javascript 构建工具</a>
-    </h1>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T12:59:00+08:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
-</div>
-
-<div class="post-content"><p><a href="http://gruntjs.com/" title="Grunt is a task-based command line build tool for JavaScript projects.">Grunt</a> 是一个非常优秀的 Javascript 构建工具, 虽然它的 Build-in 的任务非常有限, 但是它提供了一套非常灵活的插件机制, 可以进行任务扩展. 目前在官网上的第三方任务插件数目已经达到 160+, 并且在持续增长中&hellip; 对于通用的功能基本上都能找到对应的任务插件, 当然你也可以自己写扩展任务来满足特殊的构建需求.</p>
+    </div>
+		<p><a href="http://gruntjs.com/" title="Grunt is a task-based command line build tool for JavaScript projects.">Grunt</a> 是一个非常优秀的 Javascript 构建工具, 虽然它的 Build-in 的任务非常有限, 但是它提供了一套非常灵活的插件机制, 可以进行任务扩展. 目前在官网上的第三方任务插件数目已经达到 160+, 并且在持续增长中&hellip; 对于通用的功能基本上都能找到对应的任务插件, 当然你也可以自己写扩展任务来满足特殊的构建需求.</p>
 
 <p>我通常会直接使用 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>, 因为 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 已经收集齐了我想用到的任务插件, 非常顺手.</p>
 
@@ -2439,55 +601,48 @@ Backbone:
 
 <p>虽然目前我只用到了 Bbb 模板, 但还是得赞一下其模板的齐全.</p>
 
-<!--more-->
 
+		
+		<a href="/blog/2012/10/16/yeoman-a-new-javascript-build-tool/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<h2>前端 Javascript 包管理</h2>
-
-<p>在目前, 我们都是手工增加和管理前端应用中用到的 Javascript 库, 例如说 jQuery, 每次当 jQuery 发布一个新版本, 我们都不得不手工地从官网上下载最新的发布文件, 然后将这个文件复制到自己的项目中.</p>
-
-<p>Yemoman 可以让我们省掉这种麻烦的手工操作. 它集成了前端 Javascript 包管理应用 <a href="https://github.com/twitter/bower">Bower</a>, 我们只需要简单地运行 <code>yeoman install jquery</code>, 或者 <code>yeoman update jquery</code> 就能安装或者更新 jQuery 库文件.</p>
-
-<h2>监测文件更新并自动重新加载应用</h2>
-
-<p>每次当源文件有了修改, 无论是 HTML, CSS, Markdown 文件, 还是脚本文件, 或者其他需要预处理的 CoffeeScript, Sass 等文件, Yeoman 带来的活动加载监测进程会自动重新加载你的页面.
-在调试的过程中, 这个功能的确能帮你省不少手工刷新的麻烦:&ndash;).</p>
-
-<p>使用 <code>yeoman server</code> 就能运行一个本地 Web 服务器, 监测文件的变化并实时重新加载应用.</p>
-
-<h2>强大的构建系统</h2>
-
-<p>Yeoman 也是基于 <a href="http://gruntjs.com/" title="Grunt is a task-based command line build tool for JavaScript projects.">grunt</a>, 并且额外开发了一些高度定制的构建任务. 对我来说比较新鲜的构建任务是图片的优化, 使用 OptiPNG 和 JPEGTran 优化图片来减少图片的下载时间, 初步测试的结果是能减少大约 30% 图片大小, 这在以前的项目中还没尝试过.</p>
-
-<hr />
-
-<p>最后, 下面是使用 Yeoman 重构后的地址本应用的<a href="/examples/yeoman-contacts/dist/">演示</a>和<a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/yeoman-contacts">源码</a>.</p>
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/">
+		
+			在Backbone项目中使用backbone.layoutmanager来组织页面布局</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/">在Backbone项目中使用backbone.layoutmanager来组织页面布局</a>
-    </h1>
-  
-  
 
 
+<time datetime="2012-10-09T19:20:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/backbone-dot-js-backbone-dot-layoutmanager-bbb/'>backbone.js backbone.layoutmanager bbb</a>
 
 
-
-
-  
-
-
-<time datetime="2012-10-09T19:20:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
 </div>
-
-<div class="post-content"><p><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 的 <code>init</code> 命令生成的初始化模板工程中包含有 <a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 插件, 该插件提供了一种页面的结构化组织方式, 将 <code>Backbone Views</code> 组装成页面布局 <code>Layout</code>.</p>
+    </div>
+		<p><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 的 <code>init</code> 命令生成的初始化模板工程中包含有 <a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 插件, 该插件提供了一种页面的结构化组织方式, 将 <code>Backbone Views</code> 组装成页面布局 <code>Layout</code>.</p>
 
 <p><a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主要的目的是提供一种规则来管理 <code>Backbone.View</code> 的渲染, 程序员只需要遵循这套规则, 就能简化页面渲染的实现.
 <a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主页已经很详细地介绍了使用方法, 这里就不再赘述. 下面是个人感觉在学习使用过程中感觉应当注意的几点:</p>
@@ -2612,32 +767,48 @@ Backbone:
 
 
 <p> <p><a href="http://vimeo.com/32765088">backbone.layoutmanager</a> from <a href="http://vimeo.com/user5699767">tbranyen</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/08/09/what-you-should-know-for-spa-project/">
+		
+			开发SPA前端项目必须掌握什么知识?</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/08/09/what-you-should-know-for-spa-project/">开发SPA前端项目必须掌握什么知识?</a>
-    </h1>
-  
-  
 
 
+<time datetime="2012-08-09T21:46:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/spa/'>spa</a>
 
 
-
-
-  
-
-
-<time datetime="2012-08-09T21:46:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time>
 </div>
-
-<div class="post-content"><p>这个题目有点大, 因为对于开发SPA(单页面应用, Single Page Application), 一个前端工程师需要掌握太多太多知识和工具了.
+    </div>
+		<p>这个题目有点大, 因为对于开发SPA(单页面应用, Single Page Application), 一个前端工程师需要掌握太多太多知识和工具了.
 这里只说我自己最近半年在摸索和研究前端SPA相关技术的过程中的一些经验和总结.</p>
 
 <h2>选择合适的开发IDE</h2>
@@ -2678,164 +849,48 @@ Backbone:
 <p>进行代码质量的静态检查可以极大减少由于语法漏洞或者拼写疏忽带来的这些额外错误, 推荐使用<a href="http://www.jshint.com/">jshint</a>.
 如果使用CoffeeScript, 这步可以省略了, CoffeeScript编译后的代码都能通过jshint的检测.</p>
 
-<!--more-->
 
+		
+		<a href="/blog/2012/08/09/what-you-should-know-for-spa-project/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<h2>单元测试</h2>
-
-<p>单元测试是一个非常大的话题, 我没有办法用简短的一段话或者一篇文章将单元测试涉及到的方法和工具都介绍清楚.</p>
-
-<p>技术大牛们都不愿意做单元测试, 当然, 很少有软件工程师愿意承认自己不是技术大牛:).
-因为人员, 时间或者其他各种因素, 很多软件工程师们都愿意首先舍弃单元测试, 去保证功能的实现.</p>
-
-<p>这里我不想挑起争论, 但我的经验的确是, 从个人角度上看, 单元测试能很大加深程序员对代码的理解程度, 加速个人能力的提升;
-从项目角度上看, 技术经理需要权衡当前的开发, 回归测试和后继的代码维护成本之间的平衡, 然后决定是否实施单元测试,
-以及多少程度的单元测试, 这是技术经理的职责.</p>
-
-<p>在前端web应用中比较常用的单元测试框架包括：</p>
-
-<ul>
-<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>
-<li><a href="http://docs.jquery.com/QUnit">QUnit</a></li>
-<li><a href="http://visionmedia.github.com/mocha/">Mocha</a></li>
-</ul>
-
-
-<p>Mock库可以采用<a href="http://sinonjs.org/">SinonJS</a>. 如果愿意, 还可以采用<a href="http://github.com/visionmedia/should.js">Should</a>,
-<a href="https://github.com/LearnBoost/expect.js">Expect</a>, <a href="http://chaijs.com/">Chai</a>等Assertion库.</p>
-
-<p>另外, 如果希望在持续集成中加入对测试的支持, 还需要加入Non-GUI浏览器的支持, 目前采用比较多的方案是:</p>
-
-<ul>
-<li><a href="http://phantomjs.org/">PhantomJS</a></li>
-<li><a href="http://zombie.labnotes.org/">Zombie</a></li>
-</ul>
-
-
-<p>由于<a href="http://zombie.labnotes.org/">Zombie</a>当前的版本还不能支持<a href="http://requirejs.org/">RequireJS</a>, 因此我更倾向于使用<a href="http://phantomjs.org/">PhantomJS</a>.</p>
-
-<h2>Minification &amp; Concatenation</h2>
-
-<p>为了提高web应用的加载速度, 必须对Javascript文件, CSS文件进行Minification和Concatenation, 根据经验, 优化后的代码加载速度比优化前的要提高数倍.</p>
-
-<p>常用的工具包括:</p>
-
-<ul>
-<li><a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a></li>
-<li><a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a></li>
-<li><a href="https://github.com/mishoo/UglifyJS/">UglifyJS</a></li>
-</ul>
-
-
-<p>大部分开源的JavaScript构建工具都集成了对这些工具的支持, 因此没必要在这些工具上面花太多精力.
-使用了<a href="http://requirejs.org/">RequireJS</a>的应用, 可以直接使用其自带的<a href="http://requirejs.org/docs/optimization.html">r.js</a>进行代码优化.</p>
-
-<h2>构建和部署</h2>
-
-<p>任何web应用工程都需要构建和部署, 一个自动化的构建和部署脚本能让编程人员更加专注于应用本身, 而不被繁琐的流程所困扰.
-自动化的构建和部署是一个web前端项目最基本的要求, 当项目开始的时候, 项目组最好能在头两个迭代周期就完成自动化的构建和部署脚本的开发.</p>
-
-<p>目前使用比较多的构建工具有:</p>
-
-<ul>
-<li><a href="https://github.com/moxiecode/js-build-tools">js-build-tools</a></li>
-<li><a href="https://github.com/jcoglan/jake/">jake</a></li>
-<li>CoffeeScript自带的<a href="http://coffeescript.org/#cake">cake</a></li>
-<li>make</li>
-<li><a href="https://github.com/cowboy/grunt">grunt</a></li>
-</ul>
-
-
-<p>我个人比较倾向于<a href="https://github.com/cowboy/grunt">grunt</a>, 如果工程中用了<a href="http://requirejs.org/">RequireJS</a>,
-<a href="https://github.com/backbone-boilerplate/grunt-bbb">bbb</a>(grunt扩展)是更好的选择.</p>
-
-<p>在<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">网络地址本例子工程</a>中,
-我使用<code>grunt/bbb</code>开发了构建和部署脚本, 可以完成:</p>
-
-<ul>
-<li>文件的复制和清除</li>
-<li>CoffeeScript的编译</li>
-<li>JSHint</li>
-<li>Minification &amp; Concatenation</li>
-<li>在Phantom环境下运行Jasmine单元测试</li>
-<li>Debug/Release Web服务器</li>
-</ul>
-
-
-<p>感兴趣的人可以去看看上述例子工程的<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts/grunt.js">grunt.js</a>配置文件,
-也可以将这个例子工程作为web前端项目的模板.</p>
-
-<p><strong>下面的几点感触和具体的技术细节无关, 但是我个人觉得, 对于每个想以编程作为自己职业规划的程序员来说, 这几点尤其重要.</strong></p>
-
-<h2>了解业界的技术发展动态</h2>
-
-<p>软件技术发展很快, 对于热爱技术的程序员来说, 必须经常更新自己的知识, 才能保证自己不会落伍.
-因此, 每天都需要花一定时间去阅读, 了解行业最新的技术发展动态.</p>
-
-<p>我的习惯是用Google Reader订阅几个经常更新的前端技术相关的RSS:</p>
-
-<ul>
-<li><a href="http://addyosmani.com/blog/">Addy Osmani&rsquo;s Blog</a></li>
-<li><a href="http://dailyjs.com/">DailyJS</a></li>
-<li><a href="http://www.mhtml5.com/">HTML5研究小组</a></li>
-</ul>
-
-
-<p>另外, 有些邮件周报也很不错:</p>
-
-<ul>
-<li><a href="http://javascriptweekly.com/">JavaScript Weekly</a></li>
-<li><a href="http://html5weekly.com/">HTML5 Weekly</a></li>
-</ul>
-
-
-<h2>多阅读开源代码, 最好参与感兴趣的开源项目</h2>
-
-<p><a href="http://github.com/">GitHub</a>是一个非常有用的站点, 在上面能看到那些大牛们是怎么讨论问题, 如何思考问题, 以及如何实现或者修正的.
-阅读开源项目的文档能了解概要, 如果需要了解细节, 最有效的方式是阅读代码, 特别是看针对问题的提交记录.</p>
-
-<h2>善于利用互联网工具</h2>
-
-<h3>遇到问题的时候, 要知道如何去寻找问题的答案</h3>
-
-<p><a href="http://stackoverflow.com/">StackOverflow</a>是一个非常有名的编程问答站点, 我所遇到的大部分编程问题都能在上面找到答案,
-即便没有答案, 也能找到其他人对这个问题的考虑. 另外, 别忘了强大的<a href="http://www.google.com/">Google Search</a>. 如果Google被墙, 可以考虑用<a href="http://www.bing.com/">Bing</a>.
-我不喜欢<a href="http://www.baidu.com/">百度</a>, 因为其搜索的命中率太低了.</p>
-
-<h3>善于使用云端的工具</h3>
-
-<p>选择合适的工具对于软件项目来说, 可以极大地提高工作效率, 起到事半功倍的效果. 好的商业软件大多需要支付巨额的费用, 并且搞不好还水土不服.
-为了控制成本, 可以多尝试尝试云端的工具. 在<a href="http://www.zhihu.com/question/20114578">知乎</a>上有关于这些工具的讨论, 大家有兴趣可以去看看别人怎么做的.</p>
-
-<h3>多参与技术社区活动, 学会分享</h3>
-
-<p>多参加技术社区的活动, 包括线上的技术解答, 以及线下的技术讲座等. 分享越多, 获得也就越多.</p>
+<div class="meta">
+	
 </div>
- </div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/07/20/integrate-requirejs-slash-backbone-slash-jasmine-front-end-project-with-ci-using-bbb-slash-gruntjs/">
+		
+			Requirejs/Backbone/Jasmine前端项目和持续继承</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
 
   
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/07/20/integrate-requirejs-slash-backbone-slash-jasmine-front-end-project-with-ci-using-bbb-slash-gruntjs/">Requirejs/Backbone/Jasmine前端项目和持续继承</a>
-    </h1>
-  
-  
 
 
+<time datetime="2012-07-20T11:03:00+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
 
 
+	<a class='category' href='/blog/categories/backbone-dot-js/'>backbone.js</a>, <a class='category' href='/blog/categories/bbb/'>bbb</a>, <a class='category' href='/blog/categories/coffeescript/'>coffeescript</a>, <a class='category' href='/blog/categories/grunt-dot-js/'>grunt.js</a>, <a class='category' href='/blog/categories/jasmine-dot-js/'>jasmine.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/phantom-dot-js/'>phantom.js</a>, <a class='category' href='/blog/categories/require-dot-js/'>require.js</a>
 
 
-
-
-  
-
-
-<time datetime="2012-07-20T11:03:00+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time>
 </div>
-
-<div class="post-content"><p><a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-rest-contacts/dist/release/">Contact</a>(<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">源代码</a>)示例项目使用了<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>作为项目构建工具,
+    </div>
+		<p><a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-rest-contacts/dist/release/">Contact</a>(<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">源代码</a>)示例项目使用了<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>作为项目构建工具,
 作为<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>的扩展, <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>能很方便地完成:</p>
 
 <ul>
@@ -2917,304 +972,44 @@ Backbone:
 
 
 
-<!--more-->
 
+		
+		<a href="/blog/2012/07/20/integrate-requirejs-slash-backbone-slash-jasmine-front-end-project-with-ci-using-bbb-slash-gruntjs/" class="more-link">Read on &rarr;</a>
+	</div>
 
-<p>在CI系统中, 一种可行的做法是使用<code>shell</code>脚本或者<code>Makefile</code>, 先启动<code>http</code>服务, 然后异步执行测试. 这是一个可行的方案, 但是<code>grunt.js</code>本身就是一个命令行工具, 为什么还要用<code>shell</code>或者<code>make</code>了?</p>
-
-<p><code>grunt.js</code>支持<code>alias task</code>, 我们可以这样定义一个任务别名:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;default server jasmine&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>执行<code>test</code>任务等价于按照顺序执行<code>default</code>, <code>server</code>, <code>jasmine</code>任务. 我们希望这样能工作, 可惜的是, <code>bbb</code>的<code>server</code>任务是阻塞式的, 不会退出,
-也就是说, 在它后面的<code>jasmine</code>任务永远不会被执行.</p>
-
-<p>我们希望执行一个<code>server</code>任务, 它能异步启动一个非阻塞的<code>http</code>服务, 后面的任务可以使用这个服务, 并且当<code>grunt</code>进程退出的时候, 该<code>http</code>服务能自动退出.
-下面代码是用<code>node</code>的<code>connect</code>实现的满足这个要求的<code>staticserver</code>任务:</p>
-
-<figure class='code'><figcaption><span>staticserver.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="cm">/*</span>
-</span><span class='line'><span class="cm"> * grunt</span>
-</span><span class='line'><span class="cm"> * https://github.com/cowboy/grunt</span>
-</span><span class='line'><span class="cm"> *</span>
-</span><span class='line'><span class="cm"> * Copyright (c) 2012 &quot;Cowboy&quot; Ben Alman</span>
-</span><span class='line'><span class="cm"> * Licensed under the MIT license.</span>
-</span><span class='line'><span class="cm"> * http://benalman.com/about/license/</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Nodejs libs.</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// External libs.</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// ==========================================================================</span>
-</span><span class='line'>  <span class="c1">// TASKS</span>
-</span><span class='line'>  <span class="c1">// ==========================================================================</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;staticserver&#39;</span><span class="p">,</span> <span class="s1">&#39;Start a static web server.&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Get values from config, or use defaults.</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;server.port&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">8000</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;server.base&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">middleware</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>      <span class="c1">// Serve static files.</span>
-</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">base</span><span class="p">),</span>
-</span><span class='line'>      <span class="c1">// Make empty directories browsable. (overkill?)</span>
-</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="nx">directory</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// If --debug was specified, enable logging.</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;grunt&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;[D] server :method :url :status &#39;</span> <span class="o">+</span>
-</span><span class='line'>        <span class="s1">&#39;:res[content-length] - :response-time ms&#39;</span><span class="p">).</span><span class="nx">magenta</span><span class="p">);</span>
-</span><span class='line'>      <span class="nx">middleware</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">connect</span><span class="p">.</span><span class="nx">logger</span><span class="p">(</span><span class="s1">&#39;grunt&#39;</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Start server.</span>
-</span><span class='line'>    <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;Starting static web server on port &#39;</span> <span class="o">+</span> <span class="nx">port</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">connect</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">middleware</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>假如你看过<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>的代码, 你应当能看出来, 这其实就是<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>自带的<code>server</code>任务, 只是为了避免和<code>bbb</code>的<code>server</code>任务命名冲突, 这里将任务注册的名称从<code>server</code>换成了<code>staticserver</code>.</p>
-
-<p>将<code>staticserver.js</code>文件和其他<code>gruntjs</code> <code>task</code>文件一样存放在<code>&lt;工程目录&gt;/tasks</code>目录下, 确保这个任务能正确加载. 然后, 如下注册一个<code>alias task</code>命名为<code>test</code>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="c1">// Register test task, which will compile app and run the server and then do test.</span>
-</span><span class='line'>  <span class="c1">// Here we use &#39;staticserver&#39; task (pure grunt static server) for testing.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;default staticserver jasmine&#39;</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>运行这个<code>test</code>任务就能到下面的输出:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="p">.</span><span class="o">/</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bbb</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">bbb</span> <span class="nx">test</span>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:0&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:1&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:2&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:3&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
-</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;coffee:app&quot;</span> <span class="p">(</span><span class="nx">coffee</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;lint:beforeconcat&quot;</span> <span class="p">(</span><span class="nx">lint</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Lint</span> <span class="nx">free</span><span class="p">.</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;coffee:spec&quot;</span> <span class="p">(</span><span class="nx">coffee</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;staticserver&quot;</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Starting</span> <span class="kr">static</span> <span class="nx">web</span> <span class="nx">server</span> <span class="nx">on</span> <span class="nx">port</span> <span class="mi">8000</span><span class="p">.</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;jasmine:all&quot;</span> <span class="p">(</span><span class="nx">jasmine</span><span class="p">)</span> <span class="nx">task</span>
-</span><span class='line'><span class="nx">Running</span> <span class="nx">specs</span> <span class="k">for</span> <span class="nx">SpecRunner</span><span class="p">.</span><span class="nx">html</span>
-</span><span class='line'><span class="p">.............</span>
-</span><span class='line'><span class="o">&gt;&gt;</span> <span class="mi">31</span> <span class="nx">assertions</span> <span class="nx">passed</span> <span class="k">in</span> <span class="mi">13</span> <span class="nx">specs</span> <span class="p">(</span><span class="mi">2256</span><span class="nx">ms</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">Done</span><span class="p">,</span> <span class="nx">without</span> <span class="nx">errors</span><span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">示例程序源代码</a></li>
-<li><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a></li>
-<li><a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a></li>
-<li><a href="http://phantomjs.org/">Phantomjs</a></li>
-</ul>
-
+<div class="meta">
+	
 </div>
- </div>
+</article>
 
+<nav id="pagenavi">
+    
+    
+        <a href="/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav>
 
-<div id="pagination">
-  
-    <a class="prev" href="/blog/page/2/">&laquo;Previous</a>
-  
-  
-</div>
- </div>
-    <div id="footer">
-  <div class="panels">
-    <div class="license">
-      <h2>License</h2>
-      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
     </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
 
-    <div class="posts">
-      <h2>Recent Posts</h2>
-      <ul>
-        
-          <li>
-            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/03/20/team-collaboration-with-github/">使用GitHub进行团队合作</a>
-          </li>
-        
-      </ul>
-    </div>
-
-    <div class="douban">
-      <h2>Reading</h2>
-      
-        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
-        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
-      
-    </div>
-  </div>
-
-  <p class="powered">
-    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
-  </p>
+    Xiaocong He
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
 </div>
 
-  </div> <!-- #wrapper end -->
 
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-32376813-1']);
-    _gaq.push(['_trackPageview']);
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-  
 
 <script type="text/javascript">
       var disqus_shortname = 'xiaocong';
@@ -3230,38 +1025,17 @@ Backbone:
 </script>
 
 
-  
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
-  
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
 
-
-  
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
 </body>
 </html>

@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-19T17:42:35+08:00</updated>
+  <updated>2013-06-20T18:29:03+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -35,6 +35,11 @@
 </span><span class='line'><span class="c"># 很多pip安装的包都需要libssl和libevent编译环境</span>
 </span><span class='line'>sudo apt-get install build-essential libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt-dev
 </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
 
 
 <h2>安装 pip 和 virtualenv</h2>
@@ -248,6 +253,9 @@ Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>�
 上有很多混淆的地方，刚好看到这篇文章:<a href="http://ilian.i-n-i.org/python-interview-question-and-answers/">Python面试问题</a>，
 里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐
 给团队的 Python 初学者。</p>
+
+<!--more-->
+
 
 <ol>
 <li><p>参数是如何传递的？传值还是传引用？(How are arguments passed – by
