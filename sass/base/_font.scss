@@ -1,4 +1,17 @@
-$default: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-$monospace: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+$font-default: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-mono: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
 
-$meta-size: 0.9em;
+$font-icon: FontAwesome;
+$font-icon-path: "/font/fontawesome-webfont";
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('#{$font-icon-path}.eot');
+	src: url('#{$font-icon-path}.eot?#iefix') format('embedded-opentype'),
+		url('#{$font-icon-path}.woff') format('woff'),
+		url('#{$font-icon-path}.ttf') format('truetype'),
+		url('#{$font-icon-path}.svgz#FontAwesomeRegular') format('svg'),
+		url('#{$font-icon-path}.svg#FontAwesomeRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

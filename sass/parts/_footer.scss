@@ -1,6 +1,12 @@
 footer{
-	padding: 15px 0;
-	border-top: 1px solid $gray05;
+	padding: 20px 0;
 	text-align: center;
-	font-size: $meta-size;
+	font-size: 0.6em;
+    color: #666;
+}
+footer a{
+    color: #123;
+}
+footer a:hover{
+    color: #456;
 }

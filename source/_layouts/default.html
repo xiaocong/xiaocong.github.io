@@ -2,10 +2,27 @@
 {% include head.html %}
 
 <body>
-	<header class="inner">{% include header.html %}</header>
-	{% include banner.html %}
-	<div id="content" class="inner">{{ content | expand_urls: root_url }}</div>
-	<footer class="inner">{% include footer.html %}</footer>
-	{% include after_footer.html %}
+    <div id="wrapper">
+    <header id="header" class="inner">{% include header.html %}</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        {{ content | expand_urls: root_url }}
+    </div>
+    <footer id="footer">
+    {% include footer.html %}
+    </footer>
+    {% include after_footer.html %}
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
 </body>
 </html>

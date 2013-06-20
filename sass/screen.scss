@@ -1,5 +1,9 @@
 @import "compass";
 
+@import "custom/color";
+
 @import "base";
 @import "parts";
-@import "plugin";
+@import "plugins";
+
+@import "base/animate";

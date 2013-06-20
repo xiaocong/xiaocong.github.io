@@ -1,23 +1,15 @@
 ---
-layout: base
+layout: default
 single: true
 ---
 
-{% include article.html %}
-
-<div class="post-single">
-  <div class="post-meta">
-    {% include post/categories.html %}
-    {% unless page.sharing == false %}
-      {% include post/sharing.html %}
-    {% endunless %}
-  </div>
-  <div class="clear"></div>
-
-  {% if site.disqus_short_name and page.comments == true %}
-    <div id="comments">
-      <h2>Comments</h1>
-      <div id="disqus_thread" aria-live="polite"></div>
-    </div>
-  {% endif %}
-</div>
+<article class="post">{% include article.html %}</article>
+{% unless page.sharing == false %}
+	{% include post/sharing.html %}
+{% endunless %}
+{% if site.disqus_short_name and page.comments == true %}
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
+</section>
+{% endif %}
