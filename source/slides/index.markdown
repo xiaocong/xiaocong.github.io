@@ -10,3 +10,4 @@ footer: true
 - [Mocha - javascript test framework](/slides/introduce_mocha_for_rest_api_testing/)
 - [Monkeyrunner - Android function/stability test framework](/slides/writing-monkeyrunner-tests/)
 - [Markdown - Network writing language](/slides/writing-documentation-with-markdown/)
+- [Idiomatic Python Code](/slides/idiomatic-python-code/)
