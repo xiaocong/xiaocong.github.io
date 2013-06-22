@@ -115,6 +115,10 @@ pre .status {
   font-weight: bold;
 }
 
+pre .keyword {
+  color: #772
+}
+
 pre .markdown .emphasis {
   font-style: italic;
 }
