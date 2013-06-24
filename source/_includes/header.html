@@ -1,13 +1,31 @@
-<!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        {{ site.author }}
-    </div>
-</h1>
-<br>
+<div id="header">
+  <h1><a href="{{ root_url }}/">{{ site.title }}</a></h1>
+  {% if site.subtitle %}
+    <p>{{ site.subtitle }}</p>
+  {% endif %}
+</div>
+<ul id="social-links">
+  {% if site.subscribe_rss %}
+    <li><a class="feed" href="{{ site.subscribe_rss }}" title="RSS">RSS</a></li>
+  {% endif %}
+  {% if site.twitter_user %}
+    <li><a class="twitter" href="http://twitter.com/{{ site.twitter_user }}" title="Twitter">Twitter</a></li>
+  {% endif %}
+  {% if site.github_user %}
+    <li> <a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub">GitHub</a> </li>
+  {% endif %}
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  {% if page.current == 'blog' %}
+    <li> <a href="{{ root_url }}/" class="current">blog</a> </li>
+  {% else %}
+    <li> <a href="{{ root_url }}/">blog</a> </li>
+  {% endif %}
 
-{% include social.html %}
-
-{% include navigation.html %}
-
-{% include custom/header.html %}
+  {% if page.current == 'archives' %}
+    <li><a href="{{ root_url }}/blog/archives" class="current">archives</a></li>
+  {% else %}
+    <li><a href="{{ root_url }}/blog/archives">archives</a></li>
+  {% endif %}
+</ul>

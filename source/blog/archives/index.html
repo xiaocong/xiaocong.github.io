@@ -1,8 +1,11 @@
 ---
-layout: default
-title: Blog Archives
+layout: base
+title: Archives
+current: archives
 ---
 
-{% for post in site.posts reverse %}
-	{% include archive_post.html %}
-{% endfor %}
+<div id="archives">
+  {% for post in site.posts reverse %}
+    {% include archive_post.html %}
+  {% endfor %}
+</div>

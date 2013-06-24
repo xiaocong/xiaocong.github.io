@@ -1,19 +1,11 @@
-{% capture date %}{{ post.date }}{% endcapture %}
-{% capture this_year %}{{ date | date: "%Y" }}{% endcapture %}
+{% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
 {% unless year == this_year %}
-	{% assign year = this_year %}
-	{% unless forloop.first %}
-		</section>
-	{% endunless %}
-	<section class="archives"><h1 class="year">{{ date | date: "%Y" }}</h1>
+  {% assign year = this_year %}
+  <h2 class="year">{{ year }}</h2>
 {% endunless %}
-<article>
-  <h2 class="title"><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h2>
-	<div class="meta">
-		<span class="date">{{ date | date: "%b %e" }}</span>
-		<span class="tags">{% include post/categories.html %}</span>
-	    {% if site.disqus_short_name and post.comments == true and site.disqus_show_comment_count == true %}
-	    <span class="comments"><a href="{{ root_url }}{{ post.url }}#disqus_thread">Comments</a></span>
-	    {% endif %}
-	</div>
-</article>
+
+{% capture category %}{{ post.categories | size }}{% endcapture %}
+<div class="post-line">
+  <h1><a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a></h1>
+  <time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='month'>%b</span> <span class='day'>%d</span> <span class='year'>%Y</span>"}}</time>
+</div>
