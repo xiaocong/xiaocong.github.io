@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bbb | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/bbb/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-24T14:09:13+08:00</updated>
+  <updated>2013-06-24T14:14:59+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -24,7 +24,12 @@
 
 <p>对我而言 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 已经足够用了, 尽管这样, 在第一次尝试 <a href="http://yeoman.io/" title="Yeoman is a robust and opinionated set of tools, libraries, and a workflow that can help developers quickly build beautiful, compelling web apps.">Yeoman</a> 之后, 我还是忍不住想向大家推荐这个新的工具.</p>
 
-<p><blockquote><p>Yeoman is a robust and opinionated client-side stack, comprised of tools and frameworks that can help developers quickly build beautiful web applications. We take care of providing everything needed to get started without any of the normal headaches associated with a manual setup.<br/>With a modular architecture that can scale out of the box, we leverage the success and lessons learned from several open-source communities to ensure the stack developers use is as intelligent as possible.<br/>As firm believers in good documentation and well thought out build processes, Yeoman includes support for linting, testing, minification and much more, so developers can focus on solutions rather than worrying about the little things.<br/>Yeoman is fast, performant and is optimized to work best in modern browsers.</p><footer><strong>Yeoman Community <a href="http://yeoman.io/whyyeoman.html">http://yeoman.io/whyyeoman.html</a> WHY YEOMAN?</strong></footer></blockquote></p>
+<p>{% blockquote Yeoman Community <a href="http://yeoman.io/whyyeoman.html">http://yeoman.io/whyyeoman.html</a> WHY YEOMAN? %}
+Yeoman is a robust and opinionated client-side stack, comprised of tools and frameworks that can help developers quickly build beautiful web applications. We take care of providing everything needed to get started without any of the normal headaches associated with a manual setup.
+With a modular architecture that can scale out of the box, we leverage the success and lessons learned from several open-source communities to ensure the stack developers use is as intelligent as possible.
+As firm believers in good documentation and well thought out build processes, Yeoman includes support for linting, testing, minification and much more, so developers can focus on solutions rather than worrying about the little things.
+Yeoman is fast, performant and is optimized to work best in modern browsers.
+{% endblockquote %}</p>
 
 <p>想对比其他 Javascript 构建工具, Yeoman 具有下面非常吸引人的特点:</p>
 
@@ -542,86 +547,7 @@ grunt.initConfig({
 </code>
 <code>bbb</code>和<code>grunt</code>没有内置文件复制任务, 因此我们需要自己实现这个任务. 这里直接采用
 <a href="https://github.com/jquery/jquery-ui/blob/master/grunt.js#L392">jquery-ui</a>的实现.
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>copy  (copy.js)</span> <a href='/examples/bbb-amd-backbone-contacts/tasks/copy.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Copy multitask definition, copied from jquery grunt.js file.</span>
-</span><span class='line'><span class="c1">// It takes src/dest/rename/strip params.</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerMultiTask</span><span class="p">(</span> <span class="s2">&quot;copy&quot;</span><span class="p">,</span> <span class="s2">&quot;Copy files to destination folder and replace @VERSION with pkg.version&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">function</span> <span class="nx">replaceVersion</span><span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">source</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/@VERSION/g</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span> <span class="s2">&quot;pkg.version&quot;</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kd">function</span> <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="sr">/(js|css)$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">src</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">process</span><span class="o">:</span> <span class="nx">replaceVersion</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">expandFiles</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">src</span> <span class="p">),</span>
-</span><span class='line'>      <span class="nx">target</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">dest</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">strip</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">fileName</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">strip</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span> <span class="s2">&quot;^&quot;</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">).</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/[\-\[\]{}()*+?.,\\\^$|#\s]/g</span><span class="p">,</span> <span class="s2">&quot;\\$&amp;&quot;</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">fileName</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">targetFile</span> <span class="o">=</span> <span class="nx">strip</span> <span class="o">?</span> <span class="nx">fileName</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">fileName</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">targetFile</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>    <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Copied &quot;</span> <span class="o">+</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span> <span class="nx">fileName</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span><span class="p">[</span> <span class="nx">fileName</span> <span class="p">],</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">renameCount</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Renamed &quot;</span> <span class="o">+</span> <span class="nx">renameCount</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+{% include_code copy lang:javascript bbb-amd-backbone-contacts/tasks/copy.js %}
 <code>grunt.js</code>配置文件中需要加载该任务:
 <code>javascript
 grunt.loadTasks("tasks");  //加载所有在'tasks/'目录下的`task`.
@@ -672,362 +598,21 @@ grunt.registerTask("release", "debug copy:release mincss min");
 
 
 <p>至此, 所有的任务都已经定义完成. 下面是完整的<code>grunt.js</code>文件.
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>gruntfile  (grunt.js)</span> <a href='/examples/bbb-amd-backbone-contacts/grunt.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This is the main application configuration file.  It is a Grunt</span>
-</span><span class='line'><span class="c1">// configuration file, which you can learn more about here:</span>
-</span><span class='line'><span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/configuring.md</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// define the debug/release directories for distribution.</span>
-</span><span class='line'>    <span class="c1">// TODO, maybe remove it later. I don&#39;t like hardcode, but sometimes</span>
-</span><span class='line'>    <span class="c1">// hardcode is more simple.</span>
-</span><span class='line'>    <span class="nx">dirs</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span> <span class="c1">// debug files under the folder</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span> <span class="c1">// release files under the folder</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The clean task ensures all files are removed from the dist/ directory so</span>
-</span><span class='line'>    <span class="c1">// that no files linger from previous builds.</span>
-</span><span class='line'>    <span class="nx">clean</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span><span class="p">],</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The lint task will run the build configuration and the application</span>
-</span><span class='line'>    <span class="c1">// JavaScript through JSHint and report any errors.  You can change the</span>
-</span><span class='line'>    <span class="c1">// options for this task, by reading this:</span>
-</span><span class='line'>    <span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/task_lint.md</span>
-</span><span class='line'>    <span class="nx">lint</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">beforeconcat</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;app/**/*.js&quot;</span>
-</span><span class='line'>      <span class="p">],</span>
-</span><span class='line'>      <span class="nx">afterconcat</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The jshint option for scripturl is set to lax, because the anchor</span>
-</span><span class='line'>    <span class="c1">// override inside main.js needs to test for them so as to not accidentally</span>
-</span><span class='line'>    <span class="c1">// route.</span>
-</span><span class='line'>    <span class="nx">jshint</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">scripturl</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The copy task is to copy files from source to distribution directory.</span>
-</span><span class='line'>    <span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;assets/css/**/*.css&quot;</span><span class="p">,</span> <span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
-</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
-</span><span class='line'>        <span class="p">},</span>
-</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
-</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
-</span><span class='line'>        <span class="p">},</span>
-</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The concatenate task is used here to merge the require.js into the</span>
-</span><span class='line'>    <span class="c1">// application code.  It&#39;s named dist/debug/assets/js/require/require.js,</span>
-</span><span class='line'>    <span class="c1">//because we want to only load one script file in index.html.</span>
-</span><span class='line'>    <span class="nx">concat</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;assets/js/require/require.js&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// This task uses the MinCSS Node.js project to take all your CSS files in</span>
-</span><span class='line'>    <span class="c1">// order and concatenate them into a single CSS file named index.css.  It</span>
-</span><span class='line'>    <span class="c1">// also minifies all the CSS as well.  This is named index.css, because we</span>
-</span><span class='line'>    <span class="c1">// only want to load one stylesheet in index.html.</span>
-</span><span class='line'>    <span class="nx">mincss</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/release/assets/css/index.css&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;assets/css/application.css&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Takes the built require.js file and minifies it for filesize benefits.</span>
-</span><span class='line'>    <span class="nx">min</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/release/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Running the server without specifying an action will run the defaults,</span>
-</span><span class='line'>    <span class="c1">// port: 8080 and host: 127.0.0.1.  If you would like to change these</span>
-</span><span class='line'>    <span class="c1">// defaults, simply add in the properties `port` and `host` respectively.</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">// Changing the defaults might look something like this:</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">// server: {</span>
-</span><span class='line'>    <span class="c1">//   host: &quot;127.0.0.1&quot;, port: 9001</span>
-</span><span class='line'>    <span class="c1">//   debug: { ... can set host and port here too ...</span>
-</span><span class='line'>    <span class="c1">//  }</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">//  To learn more about using the server task, please refer to the code</span>
-</span><span class='line'>    <span class="c1">//  until documentation has been written.</span>
-</span><span class='line'>    <span class="c1">// Run below commands will cause:</span>
-</span><span class='line'>    <span class="c1">// $ bbb server</span>
-</span><span class='line'>    <span class="c1">//      Run server under . folder. It uses require.js to load all needed</span>
-</span><span class='line'>    <span class="c1">//      js files, templates and css files.</span>
-</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
-</span><span class='line'>    <span class="c1">//      Run server under dist/debug folder. All js files are merged into one</span>
-</span><span class='line'>    <span class="c1">//      require.js. Make sure you run &#39;bbb debug&#39; firstly.</span>
-</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
-</span><span class='line'>    <span class="c1">//      Run server under dist/release folder.</span>
-</span><span class='line'>    <span class="c1">//      All js files are merged into one require.js and minized. All css</span>
-</span><span class='line'>    <span class="c1">//      files are merged into one and minized.</span>
-</span><span class='line'>    <span class="c1">//      Make sure you run &#39;bbb release&#39; firstly.</span>
-</span><span class='line'>    <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">base</span><span class="o">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;assets&quot;</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release/assets&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// This task uses James Burke&#39;s excellent r.js AMD build tool.  In the</span>
-</span><span class='line'>    <span class="c1">// future other builders may be contributed as drop-in alternatives.</span>
-</span><span class='line'>    <span class="nx">requirejs</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">// Include the main configuration file</span>
-</span><span class='line'>      <span class="nx">mainConfigFile</span><span class="o">:</span> <span class="s2">&quot;app/config.js&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Output file</span>
-</span><span class='line'>      <span class="nx">out</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Root application module</span>
-</span><span class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Do not wrap everything in an IIFE</span>
-</span><span class='line'>      <span class="nx">wrap</span><span class="o">:</span> <span class="kc">false</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// load tasks from tasks/ folder.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The default task will remove all contents inside the dist/ folder, lint</span>
-</span><span class='line'>  <span class="c1">// all your code.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;clean lint:beforeconcat&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The debug task will remove all contents inside the dist/ folder, lint all</span>
-</span><span class='line'>  <span class="c1">// js code under app/ folder, copy files to dist/debug folder, combine all</span>
-</span><span class='line'>  <span class="c1">// application files into require.js, and then concat real require.js with</span>
-</span><span class='line'>  <span class="c1">// the application require.js file.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;default copy:debug requirejs concat&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The release task will perform debug task, copy files to dist/release folder,</span>
-</span><span class='line'>  <span class="c1">// minmize css file, and minimize require.js into dist/release.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">,</span> <span class="s2">&quot;debug copy:release mincss min&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% include_code gruntfile lang:javascript bbb-amd-backbone-contacts/grunt.js %}</p>
 
 <h2>运行</h2>
 
 <ul>
-<li><p>运行 HTTP 服务器于<a href="/examples/bbb-amd-backbone-contacts/index.html">开发版本</a>:
+<li><p>运行 HTTP 服务器于<a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/index.html">开发版本</a>:
 <code>javascript
 $ bbb server
 </code></p></li>
-<li><p>发布文件到<code>dist/debug/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/debug/index.html">debug 版本</a>:
+<li><p>发布文件到<code>dist/debug/</code>目录, 并运行 HTTP 服务器于 <a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/dist/debug/index.html">debug 版本</a>:
 <code>javascript
 $ bbb debug
 $ bbb server:debug
 </code></p></li>
-<li><p>发布文件到<code>dist/release/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/release/index.html">release 版本</a>:
+<li><p>发布文件到<code>dist/release/</code>目录, 并运行 HTTP 服务器于 <a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/dist/release/index.html">release 版本</a>:
 <code>javascript
 $ bbb release
 $ bbb server:release

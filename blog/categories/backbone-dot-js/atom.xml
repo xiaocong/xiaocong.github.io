@@ -4,7 +4,7 @@
   <title><![CDATA[Category: backbone.js | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/backbone-dot-js/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-24T14:09:13+08:00</updated>
+  <updated>2013-06-24T14:14:59+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -296,120 +296,17 @@ define [use!underscore', &lsquo;use!backbone&rsquo;, &lsquo;model/under/test&rsq
 
 <p>通过定义模块依赖, 确保在执行<code>runner</code>方法前加载所有的<em>测试模块</em>.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SpecRunner  (runner.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/runner.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># we should add all specs here to make sure all specs are loaded before execution.</span>
-</span><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&quot;spec/models/contact&quot;</span>
-</span><span class='line'>        <span class="s">&quot;spec/collections/contacts&quot;</span>
-</span><span class='line'>        <span class="s">&quot;spec/views/contactitem&quot;</span><span class="p">],</span> <span class="nf">-&gt;</span>
-</span><span class='line'>  <span class="nv">runner = </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="nv">jasmineEnv = </span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">()</span>
-</span><span class='line'>    <span class="nv">jasmineEnv.updateInterval = </span><span class="mi">1000</span>
-</span><span class='line'>    <span class="nv">trivialReporter = </span><span class="k">new</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">TrivialReporter</span><span class="p">()</span>
-</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">addReporter</span> <span class="nx">trivialReporter</span>
-</span><span class='line'>    <span class="nv">jasmineEnv.specFilter = </span><span class="nf">(spec) -&gt;</span>
-</span><span class='line'>      <span class="nx">trivialReporter</span><span class="p">.</span><span class="nx">specFilter</span> <span class="nx">spec</span>
-</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">execute</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code SpecRunner lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/coffee/runner.coffee %}</p>
 
 <h2>定义<a href="http://requirejs.org/" title="Require.js">requirejs</a>的配置文件, 执行测试<code>runner</code></h2>
 
 <p>由于我们希望通过一个配置文件同时加载<em>被测模块</em>和<em>测试模块</em>, 因此这里<code>require.config</code>的<code>baseUrl</code>项必须与web应用的该值保持一致.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>require.config  (config.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/config.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">require</span><span class="p">.</span><span class="nx">config</span>
-</span><span class='line'>  <span class="nv">baseUrl: </span><span class="s">&quot;../app&quot;</span>
-</span><span class='line'>  <span class="nv">paths:</span>
-</span><span class='line'>    <span class="nv">libs: </span><span class="s">&quot;../assets/js&quot;</span>
-</span><span class='line'>    <span class="nv">jquery: </span><span class="s">&#39;../assets/js/jquery/1.7.2/jquery&#39;</span>
-</span><span class='line'>    <span class="nv">underscore: </span><span class="s">&#39;../assets/js/underscore/1.3.2/underscore&#39;</span>
-</span><span class='line'>    <span class="nv">backbone: </span><span class="s">&#39;../assets/js/backbone/0.9.2/backbone&#39;</span>
-</span><span class='line'>    <span class="nv">text: </span><span class="s">&#39;../assets/js/require/plugins/text&#39;</span>
-</span><span class='line'>    <span class="nv">templates: </span><span class="s">&#39;../assets/templates&#39;</span>
-</span><span class='line'>    <span class="nv">spec: </span><span class="s">&quot;../tests/js/spec&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nv">shim:</span>
-</span><span class='line'>    <span class="s">&#39;backbone&#39;</span><span class="o">:</span>
-</span><span class='line'>      <span class="nv">deps: </span><span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;jquery&#39;</span><span class="p">],</span>
-</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;Backbone&#39;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="s">&#39;underscore&#39;</span><span class="o">:</span>
-</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;_&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">require</span> <span class="p">[</span><span class="s">&quot;../tests/js/runner&quot;</span><span class="p">],</span> <span class="nf">(runner) -&gt;</span>
-</span><span class='line'>  <span class="nx">runner</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code require.config lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/coffee/config.coffee %}</p>
 
 <h2>定义<code>SpecRunner.html</code>, 用来在浏览器端执行策测试代码</h2>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SpecRunner.html  (SpecRunner.html)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">HTML</span> <span class="nx">PUBLIC</span> <span class="s">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span>
-</span><span class='line'>  <span class="s">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Jasmine</span> <span class="nx">Spec</span> <span class="nx">Runner</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s">&quot;lib/jasmine.css&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine-html.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/sinon.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">data</span><span class="o">-</span><span class="nx">main</span><span class="o">=</span><span class="s">&quot;js/config&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;../assets/js/require/require.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code SpecRunner.html lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html %}</p>
 
 <p>下面是<a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html">测试执行</a>的结果:</p>
 
@@ -431,7 +328,9 @@ define [use!underscore', &lsquo;use!backbone&rsquo;, &lsquo;model/under/test&rsq
     <link href="http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/"/>
     <updated>2012-06-26T01:33:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud</id>
-    <content type="html"><![CDATA[<p><blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone <a href="http://documentcloud.github.com/backbone/#Sync">http://documentcloud.github.com/backbone/#Sync</a> Backbone.sync</strong></footer></blockquote></p>
+    <content type="html"><![CDATA[<p>{% blockquote Backbone <a href="http://documentcloud.github.com/backbone/#Sync">http://documentcloud.github.com/backbone/#Sync</a> Backbone.sync %}
+Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.
+{% endblockquote %}</p>
 
 <p>Backbone.sync的函数定义是<code>function(method, model, [options])</code>:</p>
 
@@ -523,42 +422,12 @@ destroy: (model) -&gt;
 
 <p><code>``
 在定义Collection对象的时候, 需要定义其localStorage属性为上面定义的</code>Store`类型:
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;use!underscore&#39;</span><span class="p">,</span> <span class="s">&#39;use!backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">,</span> <span class="s">&#39;store&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact, Store) -&gt;</span>
-</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
-</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
-</span><span class='line'>    <span class="nv">localStorage: </span><span class="k">new</span> <span class="nx">Store</span><span class="p">(</span><span class="s">&#39;my-contacts&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">)</span>
-</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% include_code lang:coffeescript coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee %}</p>
 
 <h2>Backbone.sync标准CRUD REST接口</h2>
 
 <p>如果采用标准的CRUD REST接口进行数据交换, 那就不用重载Backbone.sync方法, 只需要定义Collection的url属性(字符串或者方法)即可.
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact) -&gt;</span>
-</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
-</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
-</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;http://xiaocong.herokuapp.com/contacts/&#39;</span>
-</span><span class='line'>    <span class="nv">parse: </span><span class="nf">(resp) -&gt;</span>
-</span><span class='line'>      <span class="nx">resp</span><span class="p">.</span><span class="nx">results</span>
-</span><span class='line'>  <span class="p">)</span>
-</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% include_code lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee %}</p>
 
 <p>其中<code>http://xiaocong.herokuapp.com/contacts/</code>实现了标准的CRUD REST接口:</p>
 
@@ -959,86 +828,7 @@ grunt.initConfig({
 </code>
 <code>bbb</code>和<code>grunt</code>没有内置文件复制任务, 因此我们需要自己实现这个任务. 这里直接采用
 <a href="https://github.com/jquery/jquery-ui/blob/master/grunt.js#L392">jquery-ui</a>的实现.
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>copy  (copy.js)</span> <a href='/examples/bbb-amd-backbone-contacts/tasks/copy.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Copy multitask definition, copied from jquery grunt.js file.</span>
-</span><span class='line'><span class="c1">// It takes src/dest/rename/strip params.</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerMultiTask</span><span class="p">(</span> <span class="s2">&quot;copy&quot;</span><span class="p">,</span> <span class="s2">&quot;Copy files to destination folder and replace @VERSION with pkg.version&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">function</span> <span class="nx">replaceVersion</span><span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">source</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/@VERSION/g</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span> <span class="s2">&quot;pkg.version&quot;</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kd">function</span> <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="sr">/(js|css)$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">src</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">process</span><span class="o">:</span> <span class="nx">replaceVersion</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">expandFiles</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">src</span> <span class="p">),</span>
-</span><span class='line'>      <span class="nx">target</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">dest</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">strip</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">fileName</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">strip</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span> <span class="s2">&quot;^&quot;</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">).</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/[\-\[\]{}()*+?.,\\\^$|#\s]/g</span><span class="p">,</span> <span class="s2">&quot;\\$&amp;&quot;</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">fileName</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">targetFile</span> <span class="o">=</span> <span class="nx">strip</span> <span class="o">?</span> <span class="nx">fileName</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">fileName</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">targetFile</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>    <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Copied &quot;</span> <span class="o">+</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span> <span class="nx">fileName</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span><span class="p">[</span> <span class="nx">fileName</span> <span class="p">],</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">renameCount</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Renamed &quot;</span> <span class="o">+</span> <span class="nx">renameCount</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+{% include_code copy lang:javascript bbb-amd-backbone-contacts/tasks/copy.js %}
 <code>grunt.js</code>配置文件中需要加载该任务:
 <code>javascript
 grunt.loadTasks("tasks");  //加载所有在'tasks/'目录下的`task`.
@@ -1089,362 +879,21 @@ grunt.registerTask("release", "debug copy:release mincss min");
 
 
 <p>至此, 所有的任务都已经定义完成. 下面是完整的<code>grunt.js</code>文件.
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>gruntfile  (grunt.js)</span> <a href='/examples/bbb-amd-backbone-contacts/grunt.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This is the main application configuration file.  It is a Grunt</span>
-</span><span class='line'><span class="c1">// configuration file, which you can learn more about here:</span>
-</span><span class='line'><span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/configuring.md</span>
-</span><span class='line'><span class="c1">//</span>
-</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// define the debug/release directories for distribution.</span>
-</span><span class='line'>    <span class="c1">// TODO, maybe remove it later. I don&#39;t like hardcode, but sometimes</span>
-</span><span class='line'>    <span class="c1">// hardcode is more simple.</span>
-</span><span class='line'>    <span class="nx">dirs</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span> <span class="c1">// debug files under the folder</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span> <span class="c1">// release files under the folder</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The clean task ensures all files are removed from the dist/ directory so</span>
-</span><span class='line'>    <span class="c1">// that no files linger from previous builds.</span>
-</span><span class='line'>    <span class="nx">clean</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span><span class="p">],</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The lint task will run the build configuration and the application</span>
-</span><span class='line'>    <span class="c1">// JavaScript through JSHint and report any errors.  You can change the</span>
-</span><span class='line'>    <span class="c1">// options for this task, by reading this:</span>
-</span><span class='line'>    <span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/task_lint.md</span>
-</span><span class='line'>    <span class="nx">lint</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">beforeconcat</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;app/**/*.js&quot;</span>
-</span><span class='line'>      <span class="p">],</span>
-</span><span class='line'>      <span class="nx">afterconcat</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The jshint option for scripturl is set to lax, because the anchor</span>
-</span><span class='line'>    <span class="c1">// override inside main.js needs to test for them so as to not accidentally</span>
-</span><span class='line'>    <span class="c1">// route.</span>
-</span><span class='line'>    <span class="nx">jshint</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">scripturl</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The copy task is to copy files from source to distribution directory.</span>
-</span><span class='line'>    <span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;assets/css/**/*.css&quot;</span><span class="p">,</span> <span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
-</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
-</span><span class='line'>        <span class="p">},</span>
-</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
-</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
-</span><span class='line'>        <span class="p">},</span>
-</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// The concatenate task is used here to merge the require.js into the</span>
-</span><span class='line'>    <span class="c1">// application code.  It&#39;s named dist/debug/assets/js/require/require.js,</span>
-</span><span class='line'>    <span class="c1">//because we want to only load one script file in index.html.</span>
-</span><span class='line'>    <span class="nx">concat</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;assets/js/require/require.js&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// This task uses the MinCSS Node.js project to take all your CSS files in</span>
-</span><span class='line'>    <span class="c1">// order and concatenate them into a single CSS file named index.css.  It</span>
-</span><span class='line'>    <span class="c1">// also minifies all the CSS as well.  This is named index.css, because we</span>
-</span><span class='line'>    <span class="c1">// only want to load one stylesheet in index.html.</span>
-</span><span class='line'>    <span class="nx">mincss</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/release/assets/css/index.css&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;assets/css/application.css&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Takes the built require.js file and minifies it for filesize benefits.</span>
-</span><span class='line'>    <span class="nx">min</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s2">&quot;dist/release/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
-</span><span class='line'>      <span class="p">]</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Running the server without specifying an action will run the defaults,</span>
-</span><span class='line'>    <span class="c1">// port: 8080 and host: 127.0.0.1.  If you would like to change these</span>
-</span><span class='line'>    <span class="c1">// defaults, simply add in the properties `port` and `host` respectively.</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">// Changing the defaults might look something like this:</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">// server: {</span>
-</span><span class='line'>    <span class="c1">//   host: &quot;127.0.0.1&quot;, port: 9001</span>
-</span><span class='line'>    <span class="c1">//   debug: { ... can set host and port here too ...</span>
-</span><span class='line'>    <span class="c1">//  }</span>
-</span><span class='line'>    <span class="c1">//</span>
-</span><span class='line'>    <span class="c1">//  To learn more about using the server task, please refer to the code</span>
-</span><span class='line'>    <span class="c1">//  until documentation has been written.</span>
-</span><span class='line'>    <span class="c1">// Run below commands will cause:</span>
-</span><span class='line'>    <span class="c1">// $ bbb server</span>
-</span><span class='line'>    <span class="c1">//      Run server under . folder. It uses require.js to load all needed</span>
-</span><span class='line'>    <span class="c1">//      js files, templates and css files.</span>
-</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
-</span><span class='line'>    <span class="c1">//      Run server under dist/debug folder. All js files are merged into one</span>
-</span><span class='line'>    <span class="c1">//      require.js. Make sure you run &#39;bbb debug&#39; firstly.</span>
-</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
-</span><span class='line'>    <span class="c1">//      Run server under dist/release folder.</span>
-</span><span class='line'>    <span class="c1">//      All js files are merged into one require.js and minized. All css</span>
-</span><span class='line'>    <span class="c1">//      files are merged into one and minized.</span>
-</span><span class='line'>    <span class="c1">//      Make sure you run &#39;bbb release&#39; firstly.</span>
-</span><span class='line'>    <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">base</span><span class="o">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;assets&quot;</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release/assets&quot;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// This task uses James Burke&#39;s excellent r.js AMD build tool.  In the</span>
-</span><span class='line'>    <span class="c1">// future other builders may be contributed as drop-in alternatives.</span>
-</span><span class='line'>    <span class="nx">requirejs</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">// Include the main configuration file</span>
-</span><span class='line'>      <span class="nx">mainConfigFile</span><span class="o">:</span> <span class="s2">&quot;app/config.js&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Output file</span>
-</span><span class='line'>      <span class="nx">out</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Root application module</span>
-</span><span class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Do not wrap everything in an IIFE</span>
-</span><span class='line'>      <span class="nx">wrap</span><span class="o">:</span> <span class="kc">false</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// load tasks from tasks/ folder.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The default task will remove all contents inside the dist/ folder, lint</span>
-</span><span class='line'>  <span class="c1">// all your code.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;clean lint:beforeconcat&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The debug task will remove all contents inside the dist/ folder, lint all</span>
-</span><span class='line'>  <span class="c1">// js code under app/ folder, copy files to dist/debug folder, combine all</span>
-</span><span class='line'>  <span class="c1">// application files into require.js, and then concat real require.js with</span>
-</span><span class='line'>  <span class="c1">// the application require.js file.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;default copy:debug requirejs concat&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// The release task will perform debug task, copy files to dist/release folder,</span>
-</span><span class='line'>  <span class="c1">// minmize css file, and minimize require.js into dist/release.</span>
-</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">,</span> <span class="s2">&quot;debug copy:release mincss min&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% include_code gruntfile lang:javascript bbb-amd-backbone-contacts/grunt.js %}</p>
 
 <h2>运行</h2>
 
 <ul>
-<li><p>运行 HTTP 服务器于<a href="/examples/bbb-amd-backbone-contacts/index.html">开发版本</a>:
+<li><p>运行 HTTP 服务器于<a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/index.html">开发版本</a>:
 <code>javascript
 $ bbb server
 </code></p></li>
-<li><p>发布文件到<code>dist/debug/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/debug/index.html">debug 版本</a>:
+<li><p>发布文件到<code>dist/debug/</code>目录, 并运行 HTTP 服务器于 <a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/dist/debug/index.html">debug 版本</a>:
 <code>javascript
 $ bbb debug
 $ bbb server:debug
 </code></p></li>
-<li><p>发布文件到<code>dist/release/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/release/index.html">release 版本</a>:
+<li><p>发布文件到<code>dist/release/</code>目录, 并运行 HTTP 服务器于 <a href="{{%20root_url%20}}/examples/bbb-amd-backbone-contacts/dist/release/index.html">release 版本</a>:
 <code>javascript
 $ bbb release
 $ bbb server:release
@@ -1489,7 +938,11 @@ $ bbb server:release
 
 <p>Backbone解决的是将用户数据，页面显示，以及流程控制模块化，而AMD解决的是将不同功能的代码封装到小的代码单元，代码单元功能的注册，以及代码依赖。</p>
 
-<p><blockquote><p>What are JavaScript modules? What is their purpose?<br/>&ndash; Definition: how to encapsulate a piece of code into a useful unit, and how to register its capability/export a value for the module.<br/>&ndash; Dependency References: how to refer to other units of code.</p><footer><strong>requirejs <a href="http://requirejs.org/docs/whyamd.html#purposes">http://requirejs.org/docs/whyamd.html#purposes</a> Why AMD?</strong></footer></blockquote></p>
+<p>{% blockquote requirejs <a href="http://requirejs.org/docs/whyamd.html#purposes">http://requirejs.org/docs/whyamd.html#purposes</a> Why AMD? %}
+What are JavaScript modules? What is their purpose?
+&ndash; Definition: how to encapsulate a piece of code into a useful unit, and how to register its capability/export a value for the module.
+&ndash; Dependency References: how to refer to other units of code.
+{% endblockquote %}</p>
 
 <h2>如何使用AMD/RequireJS?</h2>
 
@@ -1542,42 +995,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>Model: Contact</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Contact  (contact.js)</span> <a href='/examples/amd-backbone-contacts/js/models/contact.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">Contact</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">defaults</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;unamed&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">email</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">filter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="p">{</span><span class="c1">//helper function for user search</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">||</span> <span class="nx">query</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">query</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">query</span> <span class="o">=</span> <span class="nx">query</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">Contact</span><span class="p">;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Contact lang:javascript amd-backbone-contacts/js/models/contact.js %}</p>
 
 <ul>
 <li><em>这里<code>Contact</code>模块返回的是<code>Contact</code>定义，而不是一个实例，引用该对象的其他模块必须通过<code>new</code>生成实例对象。</em></li>
@@ -1586,34 +1004,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>Collection: Contacts</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Contacts  (contacts.js)</span> <a href='/examples/amd-backbone-contacts/js/collections/contacts.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;models/contact&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;store&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">Contact</span><span class="p">,</span> <span class="nx">Store</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">Contacts</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">model</span><span class="o">:</span> <span class="nx">Contact</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">localStorage</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Store</span><span class="p">(</span><span class="s1">&#39;my-contacts&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">Contacts</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Contacts lang:javascript amd-backbone-contacts/js/collections/contacts.js %}</p>
 
 <ul>
 <li><em>与<code>Contact</code>返回定义不同的是，因为该网页应用只需要一个全局<code>Contacts</code>实例对象，因此这里可以返回<code>new</code>生成的<code>Contacts</code>实例对象。</em></li>
@@ -1623,96 +1014,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>View: ContactItem</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ContactItemView  (contactitem.js)</span> <a href='/examples/amd-backbone-contacts/js/views/contactitem.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;namespace&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;text!templates/item.html&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">global</span><span class="p">,</span> <span class="nx">tplItem</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// contact item view</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ContactItemView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;item&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">tplItem</span><span class="p">),</span>
-</span><span class='line'>    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;click&#39;</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="c1">// initialize</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;select&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="c1">// render the contact item</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()));</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">select</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">)</span>
-</span><span class='line'>        <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;contacts/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">cid</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">trigger</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">active</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">deactive</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">ContactItemView</span><span class="p">;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code ContactItemView lang:javascript amd-backbone-contacts/js/views/contactitem.js %}</p>
 
 <ul>
 <li><em>返回<code>ContactItemView</code>定义。</em></li>
@@ -1722,103 +1024,11 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h4>item template</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Contact Item View Template (item.html)</span> <a href='/examples/amd-backbone-contacts/templates/item.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="err">&lt;</span>%= (name ? name : &quot;<span class="nt">&lt;i&gt;</span>No Name<span class="nt">&lt;/i&gt;</span>&quot;) %&gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Contact Item View Template amd-backbone-contacts/templates/item.html %}</p>
 
 <h3>View: Sidebar</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SidebarView  (contactitem.js)</span> <a href='/examples/amd-backbone-contacts/js/views/contactitem.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;namespace&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;text!templates/item.html&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">global</span><span class="p">,</span> <span class="nx">tplItem</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// contact item view</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ContactItemView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;item&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">tplItem</span><span class="p">),</span>
-</span><span class='line'>    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;click&#39;</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="c1">// initialize</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;select&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;destroy&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">remove</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="c1">// render the contact item</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()));</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">select</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">)</span>
-</span><span class='line'>        <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;contacts/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">cid</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">trigger</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">active</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">deactive</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">ContactItemView</span><span class="p">;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code SidebarView lang:javascript amd-backbone-contacts/js/views/contactitem.js %}</p>
 
 <ul>
 <li><em>返回<code>SidebarView</code>全局实例对象。</em></li>
@@ -1829,105 +1039,13 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h4>sidebar template</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Sidebar View Template (sidebar.html)</span> <a href='/examples/amd-backbone-contacts/templates/sidebar.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;header&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;search&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;search&quot;</span> <span class="na">results=</span><span class="s">&quot;0&quot;</span> <span class="na">incremental=</span><span class="s">&quot;true&quot;</span> <span class="na">autofocus</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;/header&gt;</span>
-</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;items&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</span><span class='line'><span class="nt">&lt;footer&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;button&gt;</span>New Contact<span class="nt">&lt;/button&gt;</span>
-</span><span class='line'><span class="nt">&lt;/footer&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Sidebar View Template amd-backbone-contacts/templates/sidebar.html %}</p>
 
 <h3>View: Edit, Show 和 Main</h3>
 
 <h4><code>ShowView</code>用于显示选中<code>Contact</code>的详细内容：</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ShowView  (show.js)</span> <a href='/examples/amd-backbone-contacts/js/views/show.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;namespace&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;text!templates/show.html&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">global</span><span class="p">,</span> <span class="nx">tplShow</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// show selected contact details</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ShowView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">tplShow</span><span class="p">),</span>
-</span><span class='line'>    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;click .edit&#39;</span><span class="o">:</span> <span class="s1">&#39;edit&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;edit&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()));</span>
-</span><span class='line'>      <span class="k">else</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">edit</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">)</span>
-</span><span class='line'>        <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;contacts/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">cid</span> <span class="o">+</span> <span class="s1">&#39;/edit&#39;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">trigger</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">ShowView</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code ShowView lang:javascript amd-backbone-contacts/js/views/show.js %}</p>
 
 <ul>
 <li><em>返回<code>ShowView</code>全局实例对象。</em></li>
@@ -1937,135 +1055,11 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h5>show template</h5>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Show View Template (show.html)</span> <a href='/examples/amd-backbone-contacts/templates/show.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;header&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;edit&quot;</span><span class="nt">&gt;</span>Edit<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'><span class="nt">&lt;/header&gt;</span>
-</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;&lt;label&gt;</span>name: <span class="err">&lt;</span>%= name %&gt;<span class="nt">&lt;/label&gt;&lt;/p&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;p&gt;&lt;label&gt;</span>email: <span class="err">&lt;</span>%= email %&gt;<span class="nt">&lt;/label&gt;&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Show View Template amd-backbone-contacts/templates/show.html %}</p>
 
 <h4><code>EditView</code>用于编辑选中<code>Contact</code>的详细内容：</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>EditView  (edit.js)</span> <a href='/examples/amd-backbone-contacts/js/views/edit.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;namespace&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;text!templates/edit.html&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">global</span><span class="p">,</span> <span class="nx">tplEdit</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// edit selected contact</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">EditView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;edit&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">tplEdit</span><span class="p">),</span>
-</span><span class='line'>    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;submit form&#39;</span><span class="o">:</span> <span class="s1">&#39;submit&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;click .save&#39;</span><span class="o">:</span> <span class="s1">&#39;submit&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;click .delete&#39;</span><span class="o">:</span> <span class="s1">&#39;remove&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="s1">&#39;remove&#39;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()));</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">change</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">submit</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">form</span><span class="p">());</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">)</span>
-</span><span class='line'>        <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;contacts/&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">cid</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">trigger</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">form</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form [name=&quot;name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span>
-</span><span class='line'>        <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form [name=&quot;email&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
-</span><span class='line'>      <span class="p">};</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">&amp;&amp;</span> <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">)</span>
-</span><span class='line'>        <span class="nx">global</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">trigger</span><span class="o">:</span> <span class="kc">true</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">EditView</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code EditView lang:javascript amd-backbone-contacts/js/views/edit.js %}</p>
 
 <ul>
 <li><em>返回<code>EditView</code>全局实例对象。</em></li>
@@ -2075,113 +1069,11 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h5>edit template</h5>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Edit View Template (edit.html)</span> <a href='/examples/amd-backbone-contacts/templates/edit.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;header&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;save&quot;</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;delete&quot;</span><span class="nt">&gt;</span>Delete<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'><span class="nt">&lt;/header&gt;</span>
-</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;form&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;span&gt;</span>Name<span class="nt">&lt;/span&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;&lt;%= name %&gt;&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;span&gt;</span>Email<span class="nt">&lt;/span&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;email&quot;</span> <span class="na">name=</span><span class="s">&quot;email&quot;</span> <span class="na">value=</span><span class="s">&quot;&lt;%= email %&gt;&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;button&gt;</span>Save<span class="nt">&lt;/button&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/form&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Edit View Template amd-backbone-contacts/templates/edit.html %}</p>
 
 <h4><code>MainView</code>是<code>ShowView</code>和<code>EditView</code>的容器：</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>EditView  (main.js)</span> <a href='/examples/amd-backbone-contacts/js/views/main.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/show&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/edit&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">showView</span><span class="p">,</span> <span class="nx">editView</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// main view for show and view</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">MainView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;main stack&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">editView</span> <span class="o">=</span> <span class="nx">editView</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">showView</span> <span class="o">=</span> <span class="nx">showView</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">showView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">editView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">edit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">showView</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">editView</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">editView</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">editView</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">showView</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">showView</span><span class="p">.</span><span class="nx">change</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">MainView</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code EditView lang:javascript amd-backbone-contacts/js/views/main.js %}</p>
 
 <ul>
 <li><em>返回<code>MainView</code>全局实例对象，其功能就是根据用户的操作，显示<code>ShowView</code>或者<code>EditView</code>。</em></li>
@@ -2190,76 +1082,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>View: App</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (app.js)</span> <a href='/examples/amd-backbone-contacts/js/views/app.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/sidebar&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/main&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">sidebarView</span><span class="p">,</span> <span class="nx">mainView</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;contacts&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">sidebar</span> <span class="o">=</span> <span class="nx">sidebarView</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">main</span> <span class="o">=</span> <span class="nx">mainView</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">vdiv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div /&gt;&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;vdivide&#39;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sidebar</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">vdiv</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
-</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#article&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">sidebar</span><span class="p">.</span><span class="nx">active</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">edit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">sidebar</span><span class="p">.</span><span class="nx">active</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">main</span><span class="p">.</span><span class="nx">edit</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">AppView</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/views/app.js %}</p>
 
 <ul>
 <li><em>返回全局<code>AppView</code>全局实例对象，包含有<code>SidebarView</code>和<code>MainView</code>。</em></li>
@@ -2270,219 +1093,11 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <p>全局实例对象，用于存放所有的全局定义和实例对象，同时扩展了<code>Backbone.Events</code>的功能，可以提供模块间的pub/sub服务。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (namespace.js)</span> <a href='/examples/amd-backbone-contacts/js/namespace.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">){</span>
-</span><span class='line'>  <span class="c1">//Context to store global variable.</span>
-</span><span class='line'>  <span class="c1">// It also provides the pubsub service for other modules.</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">global</span> <span class="o">=</span> <span class="p">{};</span>
-</span><span class='line'>  <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">global</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">global</span><span class="p">;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/namespace.js %}</p>
 
 <h3>store</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (store.js)</span> <a href='/examples/amd-backbone-contacts/js/store.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Filename: store.js</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// A simple module to replace `Backbone.sync` with *localStorage*-based</span>
-</span><span class='line'>  <span class="c1">// persistence. Models are given GUIDS, and saved into a JSON object. Simple</span>
-</span><span class='line'>  <span class="c1">// as that.</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Generate four random hex digits.</span>
-</span><span class='line'>  <span class="kd">function</span> <span class="nx">S4</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>     <span class="k">return</span> <span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">())</span><span class="o">*</span><span class="mh">0x10000</span><span class="p">)</span><span class="o">|</span><span class="mi">0</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Generate a pseudo-GUID by concatenating random hexadecimal.</span>
-</span><span class='line'>  <span class="kd">function</span> <span class="nx">guid</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>     <span class="k">return</span> <span class="p">(</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">()</span><span class="o">+</span><span class="nx">S4</span><span class="p">());</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Our Store is represented by a single JS object in *localStorage*. Create it</span>
-</span><span class='line'>  <span class="c1">// with a meaningful name, like the name you&#39;d give a table.</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">Store</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">(</span><span class="nx">store</span> <span class="o">&amp;&amp;</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">store</span><span class="p">))</span> <span class="o">||</span> <span class="p">{};</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">Store</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Save the current state of the **Store** to *localStorage*.</span>
-</span><span class='line'>    <span class="nx">save</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Add a model, giving it a (hopefully)-unique GUID, if it doesn&#39;t already</span>
-</span><span class='line'>    <span class="c1">// have an id of it&#39;s own.</span>
-</span><span class='line'>    <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="nx">model</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">guid</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">model</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Update a model by replacing its copy in `this.data`.</span>
-</span><span class='line'>    <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">model</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Retrieve a model from `this.data` by id.</span>
-</span><span class='line'>    <span class="nx">find</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Return the array of all models currently in storage.</span>
-</span><span class='line'>    <span class="nx">findAll</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Delete a model from `this.data`, returning it.</span>
-</span><span class='line'>    <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">];</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Override `Backbone.sync` to use delegate to the model or collection&#39;s</span>
-</span><span class='line'>  <span class="c1">// *localStorage* property, which should be an instance of `Store`.</span>
-</span><span class='line'>  <span class="nx">Backbone</span><span class="p">.</span><span class="nx">sync</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">model</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">resp</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">localStorage</span> <span class="o">||</span> <span class="nx">model</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;read&quot;</span><span class="o">:</span>    <span class="nx">resp</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">id</span> <span class="o">?</span> <span class="nx">store</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="o">:</span> <span class="nx">store</span><span class="p">.</span><span class="nx">findAll</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;create&quot;</span><span class="o">:</span>  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>                            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;update&quot;</span><span class="o">:</span>  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>                            <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;delete&quot;</span><span class="o">:</span>  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">destroy</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>                           <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">options</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">resp</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">options</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Record not found&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">Store</span><span class="p">;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/store.js %}</p>
 
 <ul>
 <li><em>返回本地存储<code>Store</code>定义。</em></li>
@@ -2491,72 +1106,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>router</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (router.js)</span> <a href='/examples/amd-backbone-contacts/js/router.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Filename: router.js</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;collections/contacts&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/app&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">contacts</span><span class="p">,</span> <span class="nx">appView</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">//Router</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">AppRouter</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">routes</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;&#39;</span><span class="o">:</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;contacts/:id&#39;</span><span class="o">:</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;contacts/:id/edit&#39;</span><span class="o">:</span> <span class="s1">&#39;edit&#39;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">appView</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getContact</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">edit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">appView</span><span class="p">.</span><span class="nx">edit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getContact</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">getContact</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>          <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">getByCid</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="nx">AppRouter</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/router.js %}</p>
 
 <ul>
 <li><em>返回全局<code>AppRouter</code>实例对象，提供客户端的页面内路由，并将页面内路由绑定到对应的事件响应函数。</em></li>
@@ -2565,60 +1115,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>app</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (app.js)</span> <a href='/examples/amd-backbone-contacts/js/app.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Filename: app.js</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;collections/contacts&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;router&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;views/app&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s1">&#39;namespace&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">,</span> <span class="nx">contacts</span><span class="p">,</span> <span class="nx">appRouter</span><span class="p">,</span> <span class="nx">appView</span><span class="p">,</span> <span class="nx">global</span><span class="p">){</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">initialize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// assign global variable</span>
-</span><span class='line'>    <span class="nx">global</span><span class="p">.</span><span class="nx">app</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">contacts</span> <span class="o">:</span> <span class="nx">contacts</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">router</span> <span class="o">:</span> <span class="nx">appRouter</span><span class="p">,</span>
-</span><span class='line'>      <span class="nx">view</span> <span class="o">:</span> <span class="nx">appView</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>    <span class="c1">// fetch data</span>
-</span><span class='line'>    <span class="nx">contacts</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
-</span><span class='line'>    <span class="c1">//start</span>
-</span><span class='line'>    <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">initialize</span><span class="o">:</span> <span class="nx">initialize</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/app.js %}</p>
 
 <ul>
 <li><em>返回全局初始化函数，供初始化javascript脚本调用。</em></li>
@@ -2627,24 +1124,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>main</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (main.js)</span> <a href='/examples/amd-backbone-contacts/js/main.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Filename: main.js</span>
-</span><span class='line'><span class="nx">require</span><span class="p">([</span>
-</span><span class='line'>  <span class="s1">&#39;app&#39;</span>
-</span><span class='line'><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">app</span><span class="p">){</span>
-</span><span class='line'>  <span class="c1">// The &quot;app&quot; dependency is passed in as &quot;App&quot;</span>
-</span><span class='line'>  <span class="c1">// Again, the other dependencies passed in are not &quot;AMD&quot; therefore don&#39;t pass a parameter to this function</span>
-</span><span class='line'>  <span class="nx">app</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/main.js %}</p>
 
 <ul>
 <li><em>这里用到了<code>require</code>，而不是模块定义所用的<code>define</code>。</em></li>
@@ -2654,72 +1134,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 
 <h3>config</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (config.js)</span> <a href='/examples/amd-backbone-contacts/js/config.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Require.js allows us to configure shortcut alias</span>
-</span><span class='line'><span class="c1">// Their usage will become more apparent futher along in the tutorial.</span>
-</span><span class='line'><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
-</span><span class='line'>  <span class="c1">// Initialize the application with the main application file</span>
-</span><span class='line'>  <span class="nx">deps</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">],</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// JavaScript folders</span>
-</span><span class='line'>    <span class="nx">libs</span><span class="o">:</span> <span class="s2">&quot;libs&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">// Libraries</span>
-</span><span class='line'>    <span class="nx">jquery</span><span class="o">:</span> <span class="s1">&#39;libs/jquery/1.7.2/jquery&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">underscore</span><span class="o">:</span> <span class="s1">&#39;libs/underscore/1.3.2/underscore&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">backbone</span><span class="o">:</span> <span class="s1">&#39;libs/backbone/0.9.2/backbone&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">// requirejs plugins</span>
-</span><span class='line'>    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;libs/require/plugins/text&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">use</span><span class="o">:</span> <span class="s1">&#39;libs/require/plugins/use&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">order</span><span class="o">:</span> <span class="s1">&#39;libs/require/plugins/order&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">//template</span>
-</span><span class='line'>    <span class="nx">templates</span><span class="o">:</span> <span class="s1">&#39;../templates&#39;</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">use</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">backbone</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">deps</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;use!underscore&quot;</span><span class="p">,</span> <span class="s2">&quot;jquery&quot;</span><span class="p">],</span>
-</span><span class='line'>      <span class="nx">attach</span><span class="o">:</span> <span class="s2">&quot;Backbone&quot;</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">underscore</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">attach</span><span class="o">:</span> <span class="s2">&quot;_&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code AppView lang:javascript amd-backbone-contacts/js/config.js %}</p>
 
 <ul>
 <li><em>AMD配置文件，定义了用到的javascript库及其对应路径，包含<code>Backbone</code>的插件库。</em></li>
@@ -2730,34 +1145,7 @@ define(&lsquo;module1&rsquo;, [&lsquo;jquery&rsquo;] , function ($) {</p>
 <h3>index.html</h3>
 
 <p>在<code>index.html</code>中只需要一个javascript加载语句：
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>AppView  (index.html)</span> <a href='/examples/amd-backbone-contacts/index.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">charset</span><span class="o">=</span><span class="nx">utf</span><span class="o">-</span><span class="mi">8</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">App</span><span class="o">&lt;</span><span class="err">/title&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;css/application.css&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span> <span class="nx">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">data</span><span class="o">-</span><span class="nx">main</span><span class="o">=</span><span class="s2">&quot;js/config&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;js/libs/require/require.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/head&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">header</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="o">&gt;&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">AMD</span><span class="o">-</span><span class="nx">Backbone</span> <span class="nx">Contacts</span><span class="o">&lt;</span><span class="err">/h1&gt;&lt;/header&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">article</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;article&quot;</span><span class="o">&gt;&lt;</span><span class="err">/article&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/body&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/html&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+{% include_code AppView lang:javascript amd-backbone-contacts/index.html %}</p>
 
 <h2>关于AMD/RequireJS的一些思考</h2>
 

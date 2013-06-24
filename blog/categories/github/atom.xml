@@ -4,7 +4,7 @@
   <title><![CDATA[Category: github | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-24T14:09:13+08:00</updated>
+  <updated>2013-06-24T14:14:59+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -28,7 +28,9 @@
 
 <h1>GitHub和软件合作</h1>
 
-<p><blockquote><p>有一件事我觉得非常有用的是，可以将GitHub的维基集成到项目的源代码主线上。</p></blockquote>
+<p>{% blockquote %}
+有一件事我觉得非常有用的是，可以将GitHub的维基集成到项目的源代码主线上。
+{% endblockquote %}
 本教程假定您已经熟悉<a href="http://git-scm.com/" title="git">Git</a> &ndash; 开放源码的分布式版本控制系统，由Linux的创世人<a href="http://en.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds</a>在2005年创造的。如果您需要修改或查找有关<a href="http://git-scm.com/" title="git">Git</a>，请访问我们以前的<a href="https://tutsplus.com/course/git-essentials/">截屏教程</a>，和一些<a href="http://net.tutsplus.com/tag/git/">文章</a>。此外，你应该已经有一个<a href="http://github.com" title="GitHub">Github</a>上的帐户，并做了一些基本的功能，如创建一个存储库，并推送到<a href="http://github.com" title="GitHub">GitHub</a>上。如果没有，可以参照更多以前的<a href="http://net.tutsplus.com/tag/github/">教程</a>。</p>
 
 <p>在这个世界上的软件项目，不可避免的是，我们必须和一个团队一起工作来交付软件。在本教程中，我们将探索一些软件开发团队最常用的工具。这些工具包括：</p>
@@ -49,7 +51,7 @@
 
 <p>如果你倾向于观看截屏操作视频，可以观看下面的截屏操作视频，而将本教程作为旁注。</p>
 
-<p><video width='600' height='338' preload='none' controls poster=''><source src='http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4">http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4</a>' ></video></p>
+<p>{% video <a href="http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4">http://tutsplus-media.s3.amazonaws.com/net.tutsplus.com/video/4-Team-Collaboration-With-GitHub.mp4</a> 600 338 %}</p>
 
 <!-- more -->
 
@@ -70,7 +72,7 @@
 
 <p>如果您监管几个团队，想为每个团队设置不同的权限级别，或者为不同的代码仓库增加不同的成员组织(Organizations)将是最好的选择。任何GitHub用户帐户已经可以创建免费的开源代码库的组织。要创建一个组织，只需浏览您的<a href="https://github.com/settings/organizations">组织设置页面</a>：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-org.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-org.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-org.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-org.png</a> %}</p>
 
 <p>要访问组织的团队页面，你可以简单地去页面<code>http://github.com/organizations/[组织名称]/teams</code>来查看，或者访问页面<code>https://github.com/organizations/[组织名称]/teams/new</code>来创建新的具备3种不同的权限级别的团队成员，如：</p>
 
@@ -81,17 +83,17 @@
 </ol>
 
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-create-team.png</a> %}</p>
 
 <h2>合作者</h2>
 
 <p><strong>合作者</strong>主要用于读写访问个人账号所拥有的代码仓库。你可以通过<code>https://github.com/[用户名]/[代码仓库名称]/settings/collaboration</code>来增加<a href="https://help.github.com/articles/how-do-i-add-a-collaborator">合作者</a>(其他github个人账号)。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-collaborator.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-collaborator.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-collaborator.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-collaborator.png</a> %}</p>
 
 <p>一旦做到这一点，每个合作者将会看到代码库页面的访问状态的变化。在拥有对代码库的写访问权限后，我们可以做一个git克隆，进行代码变更，用git拉取和归并远程存储库中的任何变化，并最终将本地的变化git推送到远程代码库：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-access.png</a> %}</p>
 
 <hr />
 
@@ -116,10 +118,10 @@
 <ol>
 <li><p>进入你想贡献修改的GitHub代码库，单击“Fork”按​​钮来创建自己的Github帐户上的代码库克隆：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-fork.png</a> %}</p></li>
 <li><p>这将在自己的帐户上创建一个该代码库的复制：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-forked.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-forked.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-forked.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-forked.png</a> %}</p></li>
 <li><p><a href="https://help.github.com/articles/why-is-git-always-asking-for-my-password">选择 SSH URL</a>,那样它会自动使用你自己的SSH密钥，而不用每次在git pull或者push时询问你的用户名和密码。下一步，我们将克隆一份代码库到本地计算机：</p>
 
 <pre><code>$ git clone [ssh-url] [folder-name]
@@ -147,13 +149,13 @@ $ git push origin readme
 </code></pre></li>
 <li><p>进入我们fork的代码库的GitHub页面，选择为这个新功能建立的分支，然后点击<code>Pull Request</code>按钮：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request.png</a> %}</p></li>
 <li><p>提交Pull请求后，页面将直接跳转到原始库的Pull请求页面，我们将看到我们提交的Pull请求，作为一个新的问题，以及作为一个新的pull请求。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-sent.png</a> %}</p></li>
 <li><p>在经过讨论后，fork的代码库的作者可能想为这个新功能增加一些新的改动。在这种场景下，我们需要在本地计算机上checkout这个同样的分支，修改，提交，并推送回GitHub。当我们再次访问原代码库的pull请求页面的时候，会发现上次提交的Pull请求已经自动更新了。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-request-2.png</a> %}</p></li>
 </ol>
 
 
@@ -164,10 +166,10 @@ $ git push origin readme
 <ol>
 <li><p><strong>直接在GitHub上合并</strong>：如果我们想直接在GitHub上进行合并，必须确保没有冲突。原始库的所有者可以通过简单地点击<code>Merge Pull Request</code>按钮来进行合并：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge.png</a> %}</p></li>
 <li><p><strong>在本地计算机上进行合并</strong>：另外一种情况，合并的时候可能会遇到冲突，点击上部的<code>Info</code>图标，GitHub有非常清晰的指导，怎么从贡献者的分支上下拉代码变更到本地，合并并解决冲突。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-merge-conflict.png</a> %}</p></li>
 </ol>
 
 
@@ -202,10 +204,10 @@ $ git push origin readme
 此外，由于每个问题都定有里程碑，每当一个问题解决，它会自动更新进度条。</p></li>
 <li><p><strong>搜索</strong>：搜索时能自动列出匹配的问题列表和里程碑。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue.png</a> %}</p></li>
 <li><p><strong>分配</strong>：每个问题都能分配一个人负责进行解决，同时这也能让我们知道目前我们需要工作在什么上面。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-issue-new.png</a> %}</p></li>
 <li><p><strong>自动关闭</strong>：包含<code>Fixes/Fixed/Close/Closes/Closed #问题编号</code>的提交记录，将自动关闭该问题。</p>
 
 <pre><code>$ git add .
@@ -213,12 +215,14 @@ $ git commit -m "corrected url. fixes #2"
 $ git push origin master
 </code></pre>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-close.png</a> %}</p>
 
-<p><blockquote><p>很显然，我们能将任务清单与代码提交紧密地耦合在一起。</p></blockquote></p></li>
+<p>{% blockquote %}
+很显然，我们能将任务清单与代码提交紧密地耦合在一起。
+{% endblockquote %}</p></li>
 <li><p><strong>提及或者引用</strong>：任何人在评论的时候在消息文本中包含<code>#[问题编号]</code>，将自动生成该问题的链接，使得在讨论的过程中能非常容易地提及相关的问题。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-mention.png</a> %}</p></li>
 </ol>
 
 
@@ -239,7 +243,7 @@ $ git push origin master
 <li><strong>代码频率</strong>：在整个项目的生命周期的不同阶段，提交了多少代码行？</li>
 <li><p><strong>记录卡</strong>：代码提交通常发生在每一天的什么时候？</p>
 
-<p>  <img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png</a>"></p></li>
+<p>  {% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-graphs.png</a> %}</p></li>
 </ul>
 
 
@@ -247,7 +251,7 @@ $ git push origin master
 
 <p><a href="https://github.com/blog/39-say-hello-to-the-network-graph-visualizer">GitHub网络(Network)</a>是一个非常强大的工具，让我们能看到每一个贡献者的代码提交，以及这些提交与其他的提交有什么关联。当我们作为一个整体观看这个网络的可视化展现时，我们能看到每一个库，每一个分支，和每一个提交，</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-network.png</a> %}</p>
 
 <hr />
 
@@ -265,18 +269,18 @@ Trello任务卡能模拟简单，可视化的虚拟<a href="http://en.wikipedia.
 <ol>
 <li><p>首先注册一个Trello帐号，并建立一个新的Trello看版(Board)。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello.png</a> %}</p></li>
 <li><p>访问GitHub <code>repository &gt; Settings &gt; Service Hooks &gt; Trello</code>。</p></li>
 <li><p>通过<code>Install Note #1</code>描述的方法获得认证用的令牌(Token)。</p></li>
 <li><p>通过<code>Install Note #2</code>给的链接获得json格式的任务列表(list) id。BOARDID是我们访问网站看版的URL中的一部分<code>https://trello.com/board/[BOARD-NAME]/[BOARDID]</code>。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-listid.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-listid.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-listid.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-listid.png</a> %}</p></li>
 <li><p>回到GitHub的钩子服务，输入我们得到的<code>list id</code>和<code>token</code>，激活这个hook，可以通过<code>Test Hook</code>按钮来测试每次收到新的Pull请求时，是否自动更新看版内容。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hook-trello-hooks.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hook-trello-hooks.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hook-trello-hooks.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hook-trello-hooks.png</a> %}</p></li>
 <li><p>当下次收到新的Pull请求时，Trello看版就会自动生成一个Pull请求任务卡。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello-update.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello-update.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello-update.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-trello-update.png</a> %}</p></li>
 </ol>
 
 
@@ -289,14 +293,14 @@ Trello任务卡能模拟简单，可视化的虚拟<a href="http://en.wikipedia.
 <ol>
 <li><p>在<a href="https://www.pivotaltracker.com/" title="Pivotal Tracker">Pivotal Tracker</a>上新建一个项目，并生成一个需要交付的故事(story)。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pivotal.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pivotal.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pivotal.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pivotal.png</a> %}</p></li>
 <li><p>访问<code>Profile &gt; API Token</code>，复制给定的API令牌(token)。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-token.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-token.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-token.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-token.png</a> %}</p></li>
 <li><p>返回到GitHub页面访问<code>repository &gt; Settings &gt; Service Hooks &gt; Pivotal Tracker</code>，粘贴刚才复制的<code>token</code>，激活，并保存设置。
 这样我们就能够在提交代码的时候自动交付对应的故事(story)。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-hook.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-tracker-hook.png</a> %}</p></li>
 <li><p>当我们最终提交代码修订的时候，按照格式<code>git commit -m "message [delivers #tracker_id]"</code>
 <a href="http://pivotallabs.com/level-up-your-development-workflow-with-github-pivotal-tracker/">将故事的<code>id</code>添加到提交记录里</a>。</p>
 
@@ -314,7 +318,7 @@ $ git push
 或者其他的，你能够用类似的方式添加hook。如果没有你目前正在使用的项目管理工具的hook，
 <a href="https://github.com/github/github-services">自力更生自己做一个！</a></p>
 
-<p><img class="center <a" src="href="http://a.adroll.com/a/BP4/SZ6/BP4SZ645NZEA5HWYECKZAE.jpg">http://a.adroll.com/a/BP4/SZ6/BP4SZ645NZEA5HWYECKZAE.jpg</a>"></p>
+<p>{% img center <a href="http://a.adroll.com/a/BP4/SZ6/BP4SZ645NZEA5HWYECKZAE.jpg">http://a.adroll.com/a/BP4/SZ6/BP4SZ645NZEA5HWYECKZAE.jpg</a> %}</p>
 
 <hr />
 
@@ -371,16 +375,16 @@ node_js:
 </code></pre></li>
 <li><p>接着，用GitHub帐号登录到Travis，在<code>repository</code>选项卡打开<code>repository hook</code>:</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-on.png</a> %}</p></li>
 <li><p>如果上述步骤还不能触发构建，我们将不得不手工配置<code>hook</code>，在Travis的profile栏复制token。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-token.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-token.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-token.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-token.png</a> %}</p></li>
 <li><p>返回到GitHub代码库，使用复制的token设置Travis Hook：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-hook.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-hook.png</a> %}</p></li>
 <li><p>第一次，我们必须手工做一次<code>git push</code>来触发Travis构建，如果一切ok，我们可以访问<code>http://travis-ci.org/[用户名]/[repo名]</code>查看构建的结果。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-pass.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-pass.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-pass.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-travis-pass.png</a> %}</p></li>
 </ol>
 
 
@@ -391,10 +395,10 @@ node_js:
 <ol>
 <li><p>提交一个附带通过构建结果的Pull请求。Travis将做所有的一切，让我们在合并前就能知道这个合并是否足够好。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-pass.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-pass.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-pass.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-pass.png</a> %}</p></li>
 <li><p>如果这个Pull请求使得构建失败，Travis同样会警告你：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-fail.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-fail.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-fail.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-pull-fail.png</a> %}</p></li>
 <li><p>如果我们点击红色的警告链接，浏览器将跳转到Travis页面，显示这次构建的详细信息。</p></li>
 </ol>
 
@@ -407,7 +411,7 @@ node_js:
 
 <p>对于每个提交(commit)，GitHub有个干净的接口用来进行评论，甚至是对某行代码进行评论。在进行逐行代码评审的时候，针对单行代码提出评论和问题的功能就显得非常重要了。打开提交(commit)界面的顶部的检查框，就能显示行内评论。</p>
 
-<p><img class="<a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png</a>"></p>
+<p>{% img <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-inline.png</a> %}</p>
 
 <p>下面探讨一些帮助我们进行代码评审，能快速显示不同提交之间差异的URL模式：</p>
 
@@ -415,10 +419,10 @@ node_js:
 <li><p><strong>对比branch/tags/SHA1</strong>：使用URL模式<code>https://github.com/[username]/[repo-name]/compare/[starting-SHA1]...[ending-SHA1]</code>。
 可以用分支或者标签名代替<code>SHA1</code>。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-url.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-url.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-url.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-url.png</a> %}</p></li>
 <li><p><strong>去除空格进行对比</strong>：增加<code>?w=1</code>到对比的URL尾部。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-whitespace.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-whitespace.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-whitespace.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-whitespace.png</a> %}</p></li>
 <li><p><strong>Diff</strong>：增加<code>.diff</code>到URL的后面能得到<code>git diff</code>输出的纯文本信息。在写脚本的时候，这个功能非常有用。</p></li>
 <li><p><strong>Patch</strong>：增加<code>.patch</code>到URL的后面能得到<a href="http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html">电子邮件补丁提交格式</a>的<code>git diff</code>输出的信息。</p></li>
 <li><p><strong>行链接</strong>：在查看文件时，点击任何行号，GitHub将会在URL后面增加一个<code>#行号</code>，并且将该行的背景颜色置成黄色。这能干净利落地标识代码文件的某一行。我们同样能通过增加<code>#开始行号-结束行号</code>来指定一个范围。这里是<a href="https://github.com/NETTUTS/team-collaboration-github/blob/master/.travis.yml#L4">行链接</a>和<a href="https://github.com/NETTUTS/team-collaboration-github/blob/master/.travis.yml#L2-3">行范围链接</a>的例子。</p></li>
@@ -442,7 +446,7 @@ node_js:
 
 <p>每个GitHub代码库都可以生成一个维基，这样非常方便地将代码和文档存放在同一个存储库中。要创建维基，访问主标题的维基选项卡，并设置创建页面的信息。其实维基也有自己的版本，并可以将数据复制到本地机器进行更新，甚至是离线访问。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-wiki.png</a> %}</p>
 
 <p>有一件事我觉得非常有用的是可以将GitHub的维基整合到源代码中，这样我就不必维护两个独立的Git项目了。要做到这一点，我将Wiki作为<a href="http://git-scm.com/book/ch6-6.html">git子模块</a>增加到主分支上。如果您使用的是Travis CI或任何其他CI，必须确保构建工具会忽略wiki的子模块。在Travis的CI文件<code>.travis.yml</code>中，添加以下内容：</p>
 
@@ -465,11 +469,13 @@ $ git push origin master
 
 <p>现在，维基就作为一个子模块显示在代码库项目中。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png</a>"></p>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-submodule.png</a> %}</p>
 
 <h2>GitHub Hubot</h2>
 
-<p><blockquote><p>Hubot，总之，可以极大地增添了不少的乐趣记录，并通知小组讨论重要的提交。</p></blockquote></p>
+<p>{% blockquote %}
+Hubot，总之，可以极大地增添了不少的乐趣记录，并通知小组讨论重要的提交。
+{% endblockquote %}</p>
 
 <p><a href="http://hubot.github.com/" title="Hubot">Hubot</a>是一个简单的聊天机器人，可以检索信息，或提供通知，每当GitHub有代码提交，问题，或活动时。在一个旨在减少，甚至完全消除会议的一个团队中，<a href="http://hubot.github.com/" title="Hubot">Hubot</a>拥有所有团队成员的聊天接口，帮助您记录着每一个讨论。这当然促进灵活的工作时序，因为团队没有必要同时出席讨论。警告：Hubot是非常上瘾的！</p>
 
@@ -481,20 +487,20 @@ $ git push origin master
 <li><p>根据Hubot维基上给的<a href="https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Heroku">指示</a>，部署Hubot到Heroku上。如果Heroku的应用程序的URL返回了一个<code>Cannot GET /</code>，别惊慌，因为默认情况下<a href="https://github.com/github/hubot/issues/286">不会得到任何返回</a>。</p></li>
 <li><p>从Hubot Campfire账号上，邀请你自己的账号，现在，登录你自己的Campfire账号，然后执行<code>Hubot help</code>，你将得到所有Hubot支持的命令。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot.png</a> %}</p></li>
 <li><p>尝试几次，例如<code>Hubot ship it</code>或者<code>Hubot map me CERN</code>。</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-commands.png</a> %}</p></li>
 <li><p>下一步，我们将增加一个Hubot脚本，这里已经有<a href="https://github.com/github/hubot-scripts/tree/master/src/scripts">大量的脚本</a>，附带<a href="http://hubot-script-catalog.herokuapp.com/">命令说明</a>。</p></li>
 <li><p>作为实例，我们将增加一个github提交脚本，以至于每次有一个新的提交，Hubot将在聊天室通知大家。将文件<code>github-commits.coffee</code>放置到<code>scripts</code>目录。</p></li>
 <li><p>更新<code>package.json</code>文件，根据每个脚本文件头的指示，加入新的依赖包。</p></li>
 <li><p>使用下面命令再一次发布代码到Heroku：<code>git push heroku master</code></p></li>
 <li><p>浏览GitHub代码库，我们希望代码提交通知能显示在聊天室，在代码库设置下增加一个<code>web hook</code>，对<code>github-commits</code>脚本，webhook将是<code>[HUBOT_URL]:[PORT]/hubot/gh-commits?room=[ROOM_ID]</code></p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-hook.png</a> %}</p></li>
 <li><p>下一次当代码库有新的代码提交，Hubot将在聊天室如此说：</p>
 
-<p><img class="center <a" src="href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png</a>"></p></li>
+<p>{% img center <a href="http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png">http://cdn.tutsplus.com/net.tutsplus.com/authors/sayanee-basu/github-team-hubot-ghcommit.png</a> %}</p></li>
 </ol>
 
 
@@ -528,7 +534,9 @@ $ git push origin master
 
 <p>你能想象<a href="http://news.ycombinator.com/item?id=4963433">GitHub开发团队</a>怎么认为这些项目？</p>
 
-<p><blockquote><p>“我们挖掘像这样一样使用GitHub的乐趣！”</p></blockquote></p>
+<p>{% blockquote %}
+“我们挖掘像这样一样使用GitHub的乐趣！”
+{% endblockquote %}</p>
 
 <hr />
 
