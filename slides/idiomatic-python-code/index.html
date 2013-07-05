@@ -151,7 +151,7 @@ result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
 
 
 
-<div id="dict-op-1" class="step" data-x="-2500">
+<div id="dict-op-1" class="step" data-x="-2500" data-y="-500">
   <h3>字典键值列表</h3>
   <ul>
     <li>不推荐</li>
@@ -171,7 +171,7 @@ result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
 
 
 
-<div id="dict-op-2" class="step" data-x="-1500">
+<div id="dict-op-2" class="step" data-x="-1500" data-y="-500">
   <h3>字典键值判断</h3>
   <ul>
     <li>不推荐</li>
@@ -188,7 +188,7 @@ result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
 
 
 
-<div id="dict-default" class="step" data-x="-500">
+<div id="dict-default" class="step" data-x="-500" data-y="-500">
   <h3>字典 get 和 setdefault 方法</h3>
   <ul>
     <li>不推荐</li>
@@ -214,7 +214,7 @@ for (portfolio, equity, position) in data:
 
 
 
-<div id="testing-true-false" class="step" data-x="500">
+<div id="testing-true-false" class="step" data-x="500" data-y="-500">
   <h3>判断真伪</h3>
   <ul>
     <li>不推荐</li>
@@ -237,7 +237,7 @@ if items:
 
 
 
-<div id="enumerate" class="step" data-x="1500">
+<div id="enumerate" class="step" data-x="1500" data-y="-500">
   <h3>遍历列表以及索引</h3>
   <ul>
     <li>不推荐</li>
@@ -262,7 +262,7 @@ for i, item in enumerate(items):
 
 
 
-<div id="list-comprehensions" class="step" data-x="2500">
+<div id="list-comprehensions" class="step" data-x="2500" data-y="-500">
   <h3>列表推导</h3>
   <ul>
     <li>不推荐</li>
@@ -280,7 +280,7 @@ for item in a_list:
 
 
 
-<div id="nested-list-comprehensions" class="step" data-x="-2500" data-y="1000">
+<div id="nested-list-comprehensions" class="step" data-x="-2500" data-y="0">
   <h3>列表推导-嵌套</h3>
   <ul>
     <li>不推荐</li>
@@ -302,7 +302,7 @@ for item in gen:
 
 
 
-<div id="product" class="step" data-x="-1500" data-y="1000">
+<div id="product" class="step" data-x="-1500" data-y="0">
   <h3>循环嵌套</h3>
   <ul>
     <li>不推荐</li>
@@ -322,7 +322,7 @@ for x, y, z in product(x_list, y_list, z_list):
 
 
 
-<div id="generator" class="step" data-x="-500" data-y="1000">
+<div id="generator" class="step" data-x="-500" data-y="0">
   <h3>尽量使用生成器代替列表</h3>
   <ul>
     <li>不推荐</li>
@@ -349,7 +349,7 @@ for x, y, z in product(x_list, y_list, z_list):
 
 
 
-<div id="generator-first" class="step" data-x="500" data-y="1000">
+<div id="generator-first" class="step" data-x="500" data-y="0">
   <h3>中间结果尽量使用imap/ifilter代替map/filter</h3>
   <ul>
     <li>不推荐</li>
@@ -366,7 +366,7 @@ reduce(rf, ifilter(ff, imap(mf, a_list)))</code></pre>
 
 
 
-<div id="built-in-any" class="step" data-x="1500" data-y="1000">
+<div id="built-in-any" class="step" data-x="1500" data-y="0">
   <h3>使用any/all函数</h3>
   <ul>
     <li>不推荐</li>
@@ -388,7 +388,7 @@ if found:
 
 
 
-<div id="property" class="step" data-x="2500" data-y="1000">
+<div id="property" class="step" data-x="2500" data-y="0">
   <h3>属性(property)</h3>
   <ul>
     <li>不推荐</li>
@@ -413,6 +413,75 @@ if found:
     def __getHour(self):
         return self.__hour
     hour = property(__getHour, __setHour)</code></pre>
+</div>
+
+
+
+
+<div id="open-file" class="step" data-x="-2500" data-y="500">
+  <h3>使用 with 处理文件打开</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">f = open("some_file.txt")
+try:
+    data = f.read()
+    # 其他文件操作..
+finally:
+    f.close()</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">with open("some_file.txt") as f:
+    data = f.read()
+    # 其他文件操作...</code></pre>
+</div>
+
+
+
+
+<div id="ignore-exception" class="step" data-x="-1500" data-y="500">
+  <h3>使用 with 忽视异常</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">try:
+    os.remove("somefile.txt")
+except OSError:
+    pass</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">from contextlib import ignored
+
+with ignored(OSError):
+    os.remove("somefile.txt")</code></pre>
+</div>
+
+
+
+
+<div id="lock" class="step" data-x="-500" data-y="500">
+  <h3>使用 with 处理加锁</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">import threading
+lock = threading.Lock()
+
+lock.acquire()
+try:
+    # 互斥操作...
+finally:
+    lock.release()</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">import threading
+lock = threading.Lock()
+
+with lock:
+    # 互斥操作...</code></pre>
 </div>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: android | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-24T14:14:59+08:00</updated>
+  <updated>2013-07-05T12:43:05+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -20,9 +20,7 @@
     <id>http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service</id>
     <content type="html"><![CDATA[<h2>什么是 DropBoxManager ?</h2>
 
-<p>{% blockquote %}
-Enqueues chunks of data (from various sources &mdash; application crashes, kernel log records, etc.). The queue is size bounded and will drop old data if the enqueued data exceeds the maximum size. You can think of this as a persistent, system-wide, blob-oriented &ldquo;logcat&rdquo;.
-{% endblockquote %}</p>
+<p><blockquote><p>Enqueues chunks of data (from various sources &mdash; application crashes, kernel log records, etc.). The queue is size bounded and will drop old data if the enqueued data exceeds the maximum size. You can think of this as a persistent, system-wide, blob-oriented &ldquo;logcat&rdquo;.</p></blockquote></p>
 
 <p>DropBoxManager 是 <a href="http://www.android.com">Android</a> 在 Froyo(API level 8) 引入的用来持续化存储系统数据的机制, 主要用于记录
 Android 运行过程中, 内核, 系统进程, 用户进程等出现严重问题时的 log, 可以认为这是一个可持续存储的系统级别的

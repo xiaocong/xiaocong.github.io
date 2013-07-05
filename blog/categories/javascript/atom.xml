@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-06-24T14:14:59+08:00</updated>
+  <updated>2013-07-05T12:43:05+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -24,12 +24,7 @@
 
 <p>对我而言 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 已经足够用了, 尽管这样, 在第一次尝试 <a href="http://yeoman.io/" title="Yeoman is a robust and opinionated set of tools, libraries, and a workflow that can help developers quickly build beautiful, compelling web apps.">Yeoman</a> 之后, 我还是忍不住想向大家推荐这个新的工具.</p>
 
-<p>{% blockquote Yeoman Community <a href="http://yeoman.io/whyyeoman.html">http://yeoman.io/whyyeoman.html</a> WHY YEOMAN? %}
-Yeoman is a robust and opinionated client-side stack, comprised of tools and frameworks that can help developers quickly build beautiful web applications. We take care of providing everything needed to get started without any of the normal headaches associated with a manual setup.
-With a modular architecture that can scale out of the box, we leverage the success and lessons learned from several open-source communities to ensure the stack developers use is as intelligent as possible.
-As firm believers in good documentation and well thought out build processes, Yeoman includes support for linting, testing, minification and much more, so developers can focus on solutions rather than worrying about the little things.
-Yeoman is fast, performant and is optimized to work best in modern browsers.
-{% endblockquote %}</p>
+<p><blockquote><p>Yeoman is a robust and opinionated client-side stack, comprised of tools and frameworks that can help developers quickly build beautiful web applications. We take care of providing everything needed to get started without any of the normal headaches associated with a manual setup.<br/>With a modular architecture that can scale out of the box, we leverage the success and lessons learned from several open-source communities to ensure the stack developers use is as intelligent as possible.<br/>As firm believers in good documentation and well thought out build processes, Yeoman includes support for linting, testing, minification and much more, so developers can focus on solutions rather than worrying about the little things.<br/>Yeoman is fast, performant and is optimized to work best in modern browsers.</p><footer><strong>Yeoman Community <a href="http://yeoman.io/whyyeoman.html">http://yeoman.io/whyyeoman.html</a> WHY YEOMAN?</strong></footer></blockquote></p>
 
 <p>想对比其他 Javascript 构建工具, Yeoman 具有下面非常吸引人的特点:</p>
 
@@ -574,17 +569,120 @@ define [use!underscore', &lsquo;use!backbone&rsquo;, &lsquo;model/under/test&rsq
 
 <p>通过定义模块依赖, 确保在执行<code>runner</code>方法前加载所有的<em>测试模块</em>.</p>
 
-<p>{% include_code SpecRunner lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/coffee/runner.coffee %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SpecRunner  (runner.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/runner.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># we should add all specs here to make sure all specs are loaded before execution.</span>
+</span><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&quot;spec/models/contact&quot;</span>
+</span><span class='line'>        <span class="s">&quot;spec/collections/contacts&quot;</span>
+</span><span class='line'>        <span class="s">&quot;spec/views/contactitem&quot;</span><span class="p">],</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">runner = </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">jasmineEnv = </span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">jasmineEnv.updateInterval = </span><span class="mi">1000</span>
+</span><span class='line'>    <span class="nv">trivialReporter = </span><span class="k">new</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">TrivialReporter</span><span class="p">()</span>
+</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">addReporter</span> <span class="nx">trivialReporter</span>
+</span><span class='line'>    <span class="nv">jasmineEnv.specFilter = </span><span class="nf">(spec) -&gt;</span>
+</span><span class='line'>      <span class="nx">trivialReporter</span><span class="p">.</span><span class="nx">specFilter</span> <span class="nx">spec</span>
+</span><span class='line'>    <span class="nx">jasmineEnv</span><span class="p">.</span><span class="nx">execute</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>定义<a href="http://requirejs.org/" title="Require.js">requirejs</a>的配置文件, 执行测试<code>runner</code></h2>
 
 <p>由于我们希望通过一个配置文件同时加载<em>被测模块</em>和<em>测试模块</em>, 因此这里<code>require.config</code>的<code>baseUrl</code>项必须与web应用的该值保持一致.</p>
 
-<p>{% include_code require.config lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/coffee/config.coffee %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>require.config  (config.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/coffee/config.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">require</span><span class="p">.</span><span class="nx">config</span>
+</span><span class='line'>  <span class="nv">baseUrl: </span><span class="s">&quot;../app&quot;</span>
+</span><span class='line'>  <span class="nv">paths:</span>
+</span><span class='line'>    <span class="nv">libs: </span><span class="s">&quot;../assets/js&quot;</span>
+</span><span class='line'>    <span class="nv">jquery: </span><span class="s">&#39;../assets/js/jquery/1.7.2/jquery&#39;</span>
+</span><span class='line'>    <span class="nv">underscore: </span><span class="s">&#39;../assets/js/underscore/1.3.2/underscore&#39;</span>
+</span><span class='line'>    <span class="nv">backbone: </span><span class="s">&#39;../assets/js/backbone/0.9.2/backbone&#39;</span>
+</span><span class='line'>    <span class="nv">text: </span><span class="s">&#39;../assets/js/require/plugins/text&#39;</span>
+</span><span class='line'>    <span class="nv">templates: </span><span class="s">&#39;../assets/templates&#39;</span>
+</span><span class='line'>    <span class="nv">spec: </span><span class="s">&quot;../tests/js/spec&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">shim:</span>
+</span><span class='line'>    <span class="s">&#39;backbone&#39;</span><span class="o">:</span>
+</span><span class='line'>      <span class="nv">deps: </span><span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;jquery&#39;</span><span class="p">],</span>
+</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;Backbone&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="s">&#39;underscore&#39;</span><span class="o">:</span>
+</span><span class='line'>      <span class="nv">exports: </span><span class="s">&#39;_&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">require</span> <span class="p">[</span><span class="s">&quot;../tests/js/runner&quot;</span><span class="p">],</span> <span class="nf">(runner) -&gt;</span>
+</span><span class='line'>  <span class="nx">runner</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>定义<code>SpecRunner.html</code>, 用来在浏览器端执行策测试代码</h2>
 
-<p>{% include_code SpecRunner.html lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SpecRunner.html  (SpecRunner.html)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">HTML</span> <span class="nx">PUBLIC</span> <span class="s">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span>
+</span><span class='line'>  <span class="s">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Jasmine</span> <span class="nx">Spec</span> <span class="nx">Runner</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s">&quot;lib/jasmine.css&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/jasmine-html.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;lib/sinon.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">data</span><span class="o">-</span><span class="nx">main</span><span class="o">=</span><span class="s">&quot;js/config&quot;</span> <span class="nx">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s">&quot;../assets/js/require/require.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>下面是<a href="/examples/coffee-bbb-amd-backbone-rest-contacts/tests/SpecRunner.html">测试执行</a>的结果:</p>
 
@@ -606,9 +704,7 @@ define [use!underscore', &lsquo;use!backbone&rsquo;, &lsquo;model/under/test&rsq
     <link href="http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/"/>
     <updated>2012-06-26T01:33:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud</id>
-    <content type="html"><![CDATA[<p>{% blockquote Backbone <a href="http://documentcloud.github.com/backbone/#Sync">http://documentcloud.github.com/backbone/#Sync</a> Backbone.sync %}
-Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.
-{% endblockquote %}</p>
+    <content type="html"><![CDATA[<p><blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone <a href="http://documentcloud.github.com/backbone/#Sync">http://documentcloud.github.com/backbone/#Sync</a> Backbone.sync</strong></footer></blockquote></p>
 
 <p>Backbone.sync的函数定义是<code>function(method, model, [options])</code>:</p>
 
@@ -700,12 +796,42 @@ destroy: (model) -&gt;
 
 <p><code>``
 在定义Collection对象的时候, 需要定义其localStorage属性为上面定义的</code>Store`类型:
-{% include_code lang:coffeescript coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;use!underscore&#39;</span><span class="p">,</span> <span class="s">&#39;use!backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">,</span> <span class="s">&#39;store&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact, Store) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">localStorage: </span><span class="k">new</span> <span class="nx">Store</span><span class="p">(</span><span class="s">&#39;my-contacts&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>Backbone.sync标准CRUD REST接口</h2>
 
 <p>如果采用标准的CRUD REST接口进行数据交换, 那就不用重载Backbone.sync方法, 只需要定义Collection的url属性(字符串或者方法)即可.
-{% include_code lang:coffeescript coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee %}</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;http://xiaocong.herokuapp.com/contacts/&#39;</span>
+</span><span class='line'>    <span class="nv">parse: </span><span class="nf">(resp) -&gt;</span>
+</span><span class='line'>      <span class="nx">resp</span><span class="p">.</span><span class="nx">results</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>其中<code>http://xiaocong.herokuapp.com/contacts/</code>实现了标准的CRUD REST接口:</p>
 
