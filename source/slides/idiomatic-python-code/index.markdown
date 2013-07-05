@@ -92,7 +92,7 @@ for s in colors:
 result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
 </div>
 
-<div id="dict-op-1" class="step" data-x="-2500">
+<div id="dict-op-1" class="step" data-x="-2500" data-y="-500">
   <h3>字典键值列表</h3>
   <ul>
     <li>不推荐</li>
@@ -109,7 +109,7 @@ result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
 # 生成静态的键值列表。  </code></pre>
 </div>
 
-<div id="dict-op-2" class="step" data-x="-1500">
+<div id="dict-op-2" class="step" data-x="-1500" data-y="-500">
   <h3>字典键值判断</h3>
   <ul>
     <li>不推荐</li>
@@ -123,7 +123,7 @@ result = ''.join(colors)  #  没有额外的内存分配  </code></pre>
     # ...do something with d[key]  </code></pre>
 </div>
 
-<div id="dict-default" class="step" data-x="-500">
+<div id="dict-default" class="step" data-x="-500" data-y="-500">
   <h3>字典 get 和 setdefault 方法</h3>
   <ul>
     <li>不推荐</li>
@@ -146,7 +146,7 @@ for (portfolio, equity, position) in data:
     navs[portfolio] += position * prices[equity]</code></pre>
 </div>
 
-<div id="testing-true-false" class="step" data-x="500">
+<div id="testing-true-false" class="step" data-x="500" data-y="-500">
   <h3>判断真伪</h3>
   <ul>
     <li>不推荐</li>
@@ -166,7 +166,7 @@ if items:
     # ...  </code></pre>
 </div>
 
-<div id="enumerate" class="step" data-x="1500">
+<div id="enumerate" class="step" data-x="1500" data-y="-500">
   <h3>遍历列表以及索引</h3>
   <ul>
     <li>不推荐</li>
@@ -188,7 +188,7 @@ for i, item in enumerate(items):
     print i, item</code></pre>
 </div>
 
-<div id="list-comprehensions" class="step" data-x="2500">
+<div id="list-comprehensions" class="step" data-x="2500" data-y="-500">
   <h3>列表推导</h3>
   <ul>
     <li>不推荐</li>
@@ -203,7 +203,7 @@ for item in a_list:
   <pre><code class="python">new_list = [fn(item) for item in a_list if condition(item)]  </code></pre>
 </div>
 
-<div id="nested-list-comprehensions" class="step" data-x="-2500" data-y="1000">
+<div id="nested-list-comprehensions" class="step" data-x="-2500" data-y="0">
   <h3>列表推导-嵌套</h3>
   <ul>
     <li>不推荐</li>
@@ -222,7 +222,7 @@ for item in gen:
     # do something...  </code></pre>
 </div>
 
-<div id="product" class="step" data-x="-1500" data-y="1000">
+<div id="product" class="step" data-x="-1500" data-y="0">
   <h3>循环嵌套</h3>
   <ul>
     <li>不推荐</li>
@@ -239,7 +239,7 @@ for x, y, z in product(x_list, y_list, z_list):
     # do something for x, y, z  </code></pre>
 </div>
 
-<div id="generator" class="step" data-x="-500" data-y="1000">
+<div id="generator" class="step" data-x="-500" data-y="0">
   <h3>尽量使用生成器代替列表</h3>
   <ul>
     <li>不推荐</li>
@@ -263,7 +263,7 @@ for x, y, z in product(x_list, y_list, z_list):
   <p><sup>*</sup>尽量用生成器代替列表，除非必须用到列表特有的函数。</p>
 </div>
 
-<div id="generator-first" class="step" data-x="500" data-y="1000">
+<div id="generator-first" class="step" data-x="500" data-y="0">
   <h3>中间结果尽量使用imap/ifilter代替map/filter</h3>
   <ul>
     <li>不推荐</li>
@@ -277,7 +277,7 @@ reduce(rf, ifilter(ff, imap(mf, a_list)))</code></pre>
   <p><sup>*</sup>lazy evaluation 会带来更高的内存使用效率，特别是当处理大数据操作的时候。</p>
 </div>
 
-<div id="built-in-any" class="step" data-x="1500" data-y="1000">
+<div id="built-in-any" class="step" data-x="1500" data-y="0">
   <h3>使用any/all函数</h3>
   <ul>
     <li>不推荐</li>
@@ -296,7 +296,7 @@ if found:
     # do something if found...  </code></pre>
 </div>
 
-<div id="property" class="step" data-x="2500" data-y="1000">
+<div id="property" class="step" data-x="2500" data-y="0">
   <h3>属性(property)</h3>
   <ul>
     <li>不推荐</li>
@@ -321,6 +321,66 @@ if found:
     def __getHour(self):
         return self.__hour
     hour = property(__getHour, __setHour)</code></pre>
+</div>
+
+<div id="open-file" class="step" data-x="-2500" data-y="500">
+  <h3>使用 with 处理文件打开</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">f = open("some_file.txt")
+try:
+    data = f.read()
+    # 其他文件操作..
+finally:
+    f.close()</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">with open("some_file.txt") as f:
+    data = f.read()
+    # 其他文件操作...</code></pre>
+</div>
+
+<div id="ignore-exception" class="step" data-x="-1500" data-y="500">
+  <h3>使用 with 忽视异常</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">try:
+    os.remove("somefile.txt")
+except OSError:
+    pass</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">from contextlib import ignored
+
+with ignored(OSError):
+    os.remove("somefile.txt")</code></pre>
+</div>
+
+<div id="lock" class="step" data-x="-500" data-y="500">
+  <h3>使用 with 处理加锁</h3>
+  <ul>
+    <li>不推荐</li>
+  </ul>
+  <pre><code class="python">import threading
+lock = threading.Lock()
+
+lock.acquire()
+try:
+    # 互斥操作...
+finally:
+    lock.release()</code></pre>
+  <ul>
+    <li>推荐</li>
+  </ul>
+  <pre><code class="python">import threading
+lock = threading.Lock()
+
+with lock:
+    # 互斥操作...</code></pre>
 </div>
 
 <div id="thanks" class="step" data-scale="5">
