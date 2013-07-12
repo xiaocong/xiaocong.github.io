@@ -441,7 +441,7 @@ finally:
 
 
 <div id="ignore-exception" class="step" data-x="-1500" data-y="500">
-  <h3>使用 with 忽视异常</h3>
+  <h3>使用 with 忽视异常(仅限Python 3)</h3>
   <ul>
     <li>不推荐</li>
   </ul>
@@ -452,7 +452,7 @@ except OSError:
   <ul>
     <li>推荐</li>
   </ul>
-  <pre><code class="python">from contextlib import ignored
+  <pre><code class="python">from contextlib import ignored  # Python 3 only
 
 with ignored(OSError):
     os.remove("somefile.txt")</code></pre>
