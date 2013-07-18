@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-07-12T17:52:16+08:00</updated>
+  <updated>2013-07-18T12:07:33+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[符合语言习惯的Python编程]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/07/18/idiomatic-python-code/"/>
+    <updated>2013-07-18T12:02:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/07/18/idiomatic-python-code</id>
+    <content type="html"><![CDATA[<p>给 Team 内部培训用的 Slides：<a href="/slides/idiomatic-python-code/">符合语言习惯的Python编程</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[在Ubuntu下配置舒服的Python开发环境]]></title>
@@ -170,7 +179,7 @@
 </span><span class='line'>&lt;h1&gt;设置用户信息&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;git config &amp;mdash;global user.name &amp;ldquo;Your Name&amp;rdquo;
-</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#121;&amp;#x6f;&amp;#117;&amp;#x40;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#46;&amp;#x63;&amp;#111;&amp;#109;&quot;</span>&gt;&amp;#121;&amp;#x6f;&amp;#x75;&amp;#x40;&amp;#101;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/p&gt;
+</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#121;&amp;#x6f;&amp;#x75;&amp;#64;&amp;#101;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&quot;</span>&gt;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#64;&amp;#101;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;缺省使用颜色显示&lt;/h1&gt;
 </span><span class='line'>
@@ -844,192 +853,6 @@ TypeError: Error when calling the metaclass bases</p>
 上面的错误说明, 类的继承必须保持一致的 MRO. 由于基类</code>X<code>和</code>Y<code>的 MRO 有冲突, 因此我们不可能从</code>X<code>和</code>Y`继承另外一个类.</p></blockquote></blockquote></blockquote>
 
 <p>关于 MRO 的算法可以参考官网上的<a href="http://www.python.org/getit/releases/2.3/mro/">Python 2.3 方法解析顺序</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Metaclasses in Python]]></title>
-    <link href="http://xiaocong.github.io/blog/2012/06/12/python-metaclass/"/>
-    <updated>2012-06-12T22:26:00+08:00</updated>
-    <id>http://xiaocong.github.io/blog/2012/06/12/python-metaclass</id>
-    <content type="html"><![CDATA[<h2>什么是 metaclass ?</h2>
-
-<p><blockquote><p>In object-oriented programming, a metaclass is a class whose instances are<br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p><footer><strong>Wikipedia <a href="http://en.wikipedia.org/wiki/Metaclass">http://en.wikipedia.org/wiki/Metaclass</a> Metaclass</strong></footer></blockquote></p>
-
-<p>简单的说, metaclass 就是 class 类型对象的 class, metaclass 的实例对象是 class 类型对象.</p>
-
-<h2>metaclass 能用来做什么 ?</h2>
-
-<p>我们就可以用 metaclass 来动态生成或者更改 class 的定义.</p>
-
-<p>下面分别是通过传统 class 方式以及 metaclass 动态定义类 <code>A</code>
-``` python 传统 class 方式定于类 A
-class A(object):</p>
-
-<pre><code>a = 'I am a string.'
-</code></pre>
-
-<p>```</p>
-
-<p><code>python metaclass 动态定义类 `A`
-A = type('A', (object,), {'a': 'I am a string.'})
-</code></p>
-
-<p>上面我们通过<code>type</code>类的实例化来生成类<code>A</code>, 如果我们想自定义类的生成, 我们可以以<code>type</code>类为基
-类派生出自定义的 metaclass.</p>
-
-<p><em>注: 本文所有代码在 python2.6 下能执行通过, 不能确保在 python3 下无误.</em></p>
-
-<!-- more -->
-
-
-<h2>继承<code>type</code>类实现 metaclass</h2>
-
-<p>我们可以从<code>type</code>类派生出新的 metaclass, 然后通过重新实现<code>__new__</code>, <code>__init__</code>,
-<code>__call__</code>来实现类或者类实例的生成.</p>
-
-<p>``` python Meta类 meta.py
-class Meta(type):</p>
-
-<pre><code>def __call__(self):
-    print 'Enter Meta.__call__: ', self
-    obj = type.__call__(self)
-    print 'Exit Meta.__call__: ', obj
-    return obj
-
-def __new__(metacls, name, bases, dictionary):
-    print 'Enter Meta.__new__:', metacls, name, bases, dictionary
-    newClass = type.__new__(metacls, name, bases, dictionary)
-    print 'Exit Meta.__new__: ', newClass
-    return newClass
-
-def __init__(cls, name, bases, dictionary):
-    print 'Enter Meta.__init__: ', cls, name, bases, dictionary
-    super(Meta, cls).__init__(name, bases, dictionary)
-    print 'Exit Meta.__init__'
-</code></pre>
-
-<p>print &lsquo;Create class A&rsquo;
-A = Meta(&lsquo;A&rsquo;, (object,), {})</p>
-
-<p>print
-print &lsquo;Create instance of class A&rsquo;
-A()
-```</p>
-
-<p>当我们运行上述的python文件, 会得到下面的输出结果:
-``` bash
-$ python meta.py
-Create class A
-Enter Meta.<strong>new</strong>: <class '__main__.Meta'> A (<type 'object'>,) {}
-Exit Meta.<strong>new</strong>:  <class '__main__.A'>
-Enter Meta.<strong>init</strong>:  <class '__main__.A'> A (<type 'object'>,) {}
-Exit Meta.<strong>init</strong></p>
-
-<p>Create instance of class A
-Enter Meta.<strong>call</strong>:  <class '__main__.A'>
-Exit Meta.<strong>call</strong>:  &lt;<strong>main</strong>.A object at 0xb76a9ccc>
-$
-```</p>
-
-<p>通过上面的输出结果, 我们可以看出:</p>
-
-<ul>
-<li><code>Meta.__new__</code>是用来生成类<code>A</code>的<strong>类型对象</strong>, 我们可以在调用<code>type.__new__</code>之前更改
-<code>dictionary</code>变量来增加/修改/删除新生成类<code>A</code>的成员变量/方法.</li>
-<li><code>Meta.__new__</code>是在生成类<code>A</code>的<strong>类型对象</strong>后被调用类进行类<code>A</code>的初始化. 第一个参数<code>cls</code>
-是已经生成的类<code>A</code>类型对象, 可以通过直接修改<code>cls</code>来修改类的定义, 例如增加成员变量.</li>
-<li><code>Meta.__call__</code>是在生成类<code>A</code>的<strong>实例对象</strong>时被调用的, 通过调用<code>type.__call__</code>可以
-生成该实例对象<code>obj</code>, 之后我们可以直接修改<code>obj</code>来实现实例对象的自定义.</li>
-</ul>
-
-
-<h2>如何使用 metaclass ?</h2>
-
-<ul>
-<li>我们可以直接调用<code>type</code>或者<code>Meta</code>来<em>动态</em>生成新的类型对象<code>A</code>:</li>
-</ul>
-
-
-<p><code>python 实例化Meta来生成新的类
-A = Meta('A', (object,), {})
-</code></p>
-
-<ul>
-<li>在定义类的时候, 重新指定该类的<code>__metaclass__</code>属性为<code>Meta</code>:</li>
-</ul>
-
-
-<p>``` python 构建类的<strong>metaclass</strong>
-class A(object):</p>
-
-<pre><code>__metaclass__ = Meta
-# other member variables/methods definition
-</code></pre>
-
-<p>```</p>
-
-<p>注意: 定义<code>__metaclass__</code>生成的类<code>A</code>会增加<code>_A__metaclass</code>成员变量, 在某些场景下需要
-了解到这个区别.</p>
-
-<h2>函数方式定义类的 metaclass</h2>
-
-<p>类的<code>__metaclass__</code>可以是一个<code>type</code>类型的子类, 也可以是一个函数, 该函数接受三个参数:</p>
-
-<ul>
-<li><em>name</em>: 字符串类型, 表示新生成类型对象的名称</li>
-<li><em>bases</em>: tuple类型, 新生成类型对象的父类列表</li>
-<li><em>properties</em>: 字典类型, 新生成类型对象的属性</li>
-</ul>
-
-
-<p>该函数必须返回新生成的类型对象. 下面例子是一个简单实现:</p>
-
-<p>``` python
-def meta_func(name, bases, properties):</p>
-
-<pre><code># you can modify bases, properties here to overide class creation
-return type(name, bases, properties)
-</code></pre>
-
-<p>class A(object):</p>
-
-<pre><code>__metaclass__ = meta_func
-</code></pre>
-
-<p>```</p>
-
-<h2>使用 metaclass 的案例</h2>
-
-<ul>
-<li>动态修改类的方法和属性, 例如给方法增加<code>decorator</code></li>
-<li>类的序列化和反序列化</li>
-<li>在生成类的时候进行接口检查和接口注册</li>
-<li>对第三方库进行<code>monkey patch</code></li>
-<li>生成代理类</li>
-<li>动态mixin</li>
-<li>控制实例对象的生成, 例如单体实例, 监控所有生成的实例对象</li>
-</ul>
-
-
-<p>搜索<a href="http://stackoverflow.com/search?tab=votes&amp;q=python%20metaclass">stackoverflow</a>
-能找到大量使用 metaclass 的设计模式.</p>
-
-<h2>使用 metaclass 的原则</h2>
-
-<p>metaclass 会降低代码的可读性, 并且很多使用 metaclass 的场景都有替代方案, 因此必须牢记下面的
-忠告:</p>
-
-<p><blockquote><p>Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don’t (the people who actually need them know with certainty that they need them, and don’t need an explanation about why).</p><footer><strong>Tim Peters</strong> <cite>Python Guru</cite></footer></blockquote></p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://gnosis.cx/publish/programming/metaclass_1.html">Metaclass Programming In Python</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Metaclass">Wikipedia: Metaclass</a></li>
-<li><a href="http://www.vrplumber.com/programming/metaclasses.pdf">Python Metaclasses: Who? Why? When?</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

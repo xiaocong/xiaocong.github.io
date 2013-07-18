@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-07-12T17:52:16+08:00</updated>
+  <updated>2013-07-18T12:07:33+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[符合语言习惯的Python编程]]></title>
+    <link href="http://xiaocong.github.io/blog/2013/07/18/idiomatic-python-code/"/>
+    <updated>2013-07-18T12:02:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2013/07/18/idiomatic-python-code</id>
+    <content type="html"><![CDATA[<p>给 Team 内部培训用的 Slides：<a href="http://xiaocong.github.io/slides/idiomatic-python-code/">符合语言习惯的Python编程</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[在Ubuntu下配置舒服的Python开发环境]]></title>

@@ -7,7 +7,11 @@
 
   <meta name="author" content="Xiaocong He">
   
-  <meta name="description" content="使用jasmine+sinon测试backbone+requirejs项目 Jul 6th, 2012 我们必须为自己的代码写自动测试代码, 并且需要持续地对自己的代码进行回归测试, 因为: 项目成员对模块间接口的理解必须一致, 测试代码是最好的文档. &hellip;">
+  <meta name="description" content="Requirejs/Backbone/Jasmine前端项目和持续继承 Jul 20th, 2012 Contact(源代码)示例项目使用了bbb作为项目构建工具,
+作为gruntjs的扩展, bbb能很方便地完成: Coffeescript的编译
+文件的清除和复制
+源代码lint
+编译LESS &hellip;">
   
   
 
@@ -48,6 +52,335 @@
 </ul>
 
     <div id="main"> 
+
+  
+  <div class="post"> <div class="post-header">
+  
+    <h1 class="post-title">
+      <a href="/blog/2012/07/20/integrate-requirejs-slash-backbone-slash-jasmine-front-end-project-with-ci-using-bbb-slash-gruntjs/">Requirejs/Backbone/Jasmine前端项目和持续继承</a>
+    </h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-20T11:03:00+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><p><a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-rest-contacts/dist/release/">Contact</a>(<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">源代码</a>)示例项目使用了<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>作为项目构建工具,
+作为<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>的扩展, <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>能很方便地完成:</p>
+
+<ul>
+<li>Coffeescript的编译</li>
+<li>文件的清除和复制</li>
+<li>源代码lint</li>
+<li>编译LESS</li>
+<li>优化requirejs模块</li>
+<li>js/css文件的合并和优化</li>
+<li>文件的压缩, 打包</li>
+<li>内置调试http服务器</li>
+</ul>
+
+
+<p>并且项目中还使用<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>进行<a href="http://pivotal.github.com/jasmine/">jasmine</a>单元测试代码的编译. 所有的操作都可以通过定义<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>任务并以命令行方式进行运行, 唯一的一个例外是<a href="http://pivotal.github.com/jasmine/">jasmine</a>测试执行需要启动浏览器执行.
+如果要在项目中实施持续集成, 就必须不能依赖浏览器而以命令行方式执行测试.</p>
+
+<p>曾经尝试过<a href="http://www.envjs.com/">envjs</a>, 但在当前的实现中, <a href="http://www.envjs.com/">envjs</a>还不能顺利运行<a href="http://requirejs.org/">requirejs</a>的异步模块加载(<a href="https://github.com/envjs/env-js/issues/7">issue</a>).
+<a href="http://phantomjs.org/">Phantomjs</a>是另外一种方案, 它可以很顺利地集成<a href="http://pivotal.github.com/jasmine/">jasmine</a>以及<a href="http://requirejs.org/">requirejs</a>, 但是如果需要集成得很好, 必须得实现一个<a href="http://pivotal.github.com/jasmine/">jasmine</a>的<code>reporter</code>用来和<a href="http://phantomjs.org/">Phantomjs</a>进行通讯,
+并且还得实现一个<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>任务插件, 用来调用<a href="http://phantomjs.org/">Phantomjs</a>执行测试, 以及生成测试报告. 这个工作量不大, 我也曾经完成了一个最简单的<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>任务来调用<a href="http://phantomjs.org/">Phantomjs</a>. 正在想着怎样进行重构的时候,
+突然发现最新的<a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>已经悄然导入了<a href="https://github.com/creynders/grunt-jasmine-task">grunt-jasmine-task</a>, 一个利用<a href="http://phantomjs.org/">Phantomjs</a>执行<a href="http://pivotal.github.com/jasmine/">jasmine</a>测试的<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>任务插件.</p>
+
+<p>Ok, 那一切就简单了. 现在仅仅需要修改<code>grunt.js</code>配置文件来定义项目的<code>jasmine</code>任务. 当然, 之前必须安装<a href="http://phantomjs.org/">Phantomjs</a>(<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>网站上有关于如何安装的<a href="https://github.com/cowboy/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed">faq</a>).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">// jasmine task is to run specs using phantom, before running it, you must</span>
+</span><span class='line'>    <span class="c1">// make sure you have installed phantom following instruction on</span>
+</span><span class='line'>    <span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed</span>
+</span><span class='line'>    <span class="nx">jasmine</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">all</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">src</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;http://localhost:8000/tests/SpecRunner.html&#39;</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">300000</span> <span class="c1">//in milliseconds</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>启动<code>http</code>服务:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./node_modules/bbb/bin/bbb server
+</span><span class='line'>Running <span class="s2">&quot;server&quot;</span> task
+</span><span class='line'>Listening on http://127.0.0.1:8000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在另一个终端运行<code>jasmine</code>任务:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./node_modules/bbb/bin/bbb jasmine
+</span><span class='line'>Running <span class="s2">&quot;jasmine:all&quot;</span> <span class="o">(</span>jasmine<span class="o">)</span> task
+</span><span class='line'>Running specs <span class="k">for </span>SpecRunner.html
+</span><span class='line'>.............
+</span><span class='line'>&gt;&gt; 31 assertions passed in 13 specs <span class="o">(</span>1451ms<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>Done, without errors.
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>在CI系统中, 一种可行的做法是使用<code>shell</code>脚本或者<code>Makefile</code>, 先启动<code>http</code>服务, 然后异步执行测试. 这是一个可行的方案, 但是<code>grunt.js</code>本身就是一个命令行工具, 为什么还要用<code>shell</code>或者<code>make</code>了?</p>
+
+<p><code>grunt.js</code>支持<code>alias task</code>, 我们可以这样定义一个任务别名:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;default server jasmine&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行<code>test</code>任务等价于按照顺序执行<code>default</code>, <code>server</code>, <code>jasmine</code>任务. 我们希望这样能工作, 可惜的是, <code>bbb</code>的<code>server</code>任务是阻塞式的, 不会退出,
+也就是说, 在它后面的<code>jasmine</code>任务永远不会被执行.</p>
+
+<p>我们希望执行一个<code>server</code>任务, 它能异步启动一个非阻塞的<code>http</code>服务, 后面的任务可以使用这个服务, 并且当<code>grunt</code>进程退出的时候, 该<code>http</code>服务能自动退出.
+下面代码是用<code>node</code>的<code>connect</code>实现的满足这个要求的<code>staticserver</code>任务:</p>
+
+<figure class='code'><figcaption><span>staticserver.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm"> * grunt</span>
+</span><span class='line'><span class="cm"> * https://github.com/cowboy/grunt</span>
+</span><span class='line'><span class="cm"> *</span>
+</span><span class='line'><span class="cm"> * Copyright (c) 2012 &quot;Cowboy&quot; Ben Alman</span>
+</span><span class='line'><span class="cm"> * Licensed under the MIT license.</span>
+</span><span class='line'><span class="cm"> * http://benalman.com/about/license/</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Nodejs libs.</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// External libs.</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// ==========================================================================</span>
+</span><span class='line'>  <span class="c1">// TASKS</span>
+</span><span class='line'>  <span class="c1">// ==========================================================================</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;staticserver&#39;</span><span class="p">,</span> <span class="s1">&#39;Start a static web server.&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Get values from config, or use defaults.</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;server.port&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">8000</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">&#39;server.base&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">middleware</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>      <span class="c1">// Serve static files.</span>
+</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">base</span><span class="p">),</span>
+</span><span class='line'>      <span class="c1">// Make empty directories browsable. (overkill?)</span>
+</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="nx">directory</span><span class="p">(</span><span class="nx">base</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// If --debug was specified, enable logging.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">grunt</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">connect</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;grunt&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;[D] server :method :url :status &#39;</span> <span class="o">+</span>
+</span><span class='line'>        <span class="s1">&#39;:res[content-length] - :response-time ms&#39;</span><span class="p">).</span><span class="nx">magenta</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">middleware</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">connect</span><span class="p">.</span><span class="nx">logger</span><span class="p">(</span><span class="s1">&#39;grunt&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Start server.</span>
+</span><span class='line'>    <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s1">&#39;Starting static web server on port &#39;</span> <span class="o">+</span> <span class="nx">port</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">connect</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">middleware</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>假如你看过<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>的代码, 你应当能看出来, 这其实就是<a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a>自带的<code>server</code>任务, 只是为了避免和<code>bbb</code>的<code>server</code>任务命名冲突, 这里将任务注册的名称从<code>server</code>换成了<code>staticserver</code>.</p>
+
+<p>将<code>staticserver.js</code>文件和其他<code>gruntjs</code> <code>task</code>文件一样存放在<code>&lt;工程目录&gt;/tasks</code>目录下, 确保这个任务能正确加载. 然后, 如下注册一个<code>alias task</code>命名为<code>test</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="c1">// Register test task, which will compile app and run the server and then do test.</span>
+</span><span class='line'>  <span class="c1">// Here we use &#39;staticserver&#39; task (pure grunt static server) for testing.</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;default staticserver jasmine&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>运行这个<code>test</code>任务就能到下面的输出:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="p">.</span><span class="o">/</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bbb</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">bbb</span> <span class="nx">test</span>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:0&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:1&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:2&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;clean:3&quot;</span> <span class="p">(</span><span class="nx">clean</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">app</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">debug</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">dist</span><span class="o">/</span><span class="nx">release</span>
+</span><span class='line'><span class="nx">Removing</span><span class="o">:</span> <span class="nx">tests</span><span class="o">/</span><span class="nx">js</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;coffee:app&quot;</span> <span class="p">(</span><span class="nx">coffee</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;lint:beforeconcat&quot;</span> <span class="p">(</span><span class="nx">lint</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Lint</span> <span class="nx">free</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;coffee:spec&quot;</span> <span class="p">(</span><span class="nx">coffee</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;staticserver&quot;</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Starting</span> <span class="kr">static</span> <span class="nx">web</span> <span class="nx">server</span> <span class="nx">on</span> <span class="nx">port</span> <span class="mi">8000</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Running</span> <span class="s2">&quot;jasmine:all&quot;</span> <span class="p">(</span><span class="nx">jasmine</span><span class="p">)</span> <span class="nx">task</span>
+</span><span class='line'><span class="nx">Running</span> <span class="nx">specs</span> <span class="k">for</span> <span class="nx">SpecRunner</span><span class="p">.</span><span class="nx">html</span>
+</span><span class='line'><span class="p">.............</span>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="mi">31</span> <span class="nx">assertions</span> <span class="nx">passed</span> <span class="k">in</span> <span class="mi">13</span> <span class="nx">specs</span> <span class="p">(</span><span class="mi">2256</span><span class="nx">ms</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Done</span><span class="p">,</span> <span class="nx">without</span> <span class="nx">errors</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">示例程序源代码</a></li>
+<li><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a></li>
+<li><a href="https://github.com/cowboy/grunt" title="task-based command line build tool for JavaScript projects">gruntjs</a></li>
+<li><a href="http://phantomjs.org/">Phantomjs</a></li>
+</ul>
+
+</div>
+ </div>
 
   
   <div class="post"> <div class="post-header">
@@ -4458,6 +4791,10 @@ grunt 内置 task, Minify js 文件.</li>
       <ul>
         
           <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
             <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
           </li>
         
@@ -4471,10 +4808,6 @@ grunt 内置 task, Minify js 文件.</li>
         
           <li>
             <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/03/20/team-collaboration-with-github/">使用GitHub进行团队合作</a>
           </li>
         
       </ul>
