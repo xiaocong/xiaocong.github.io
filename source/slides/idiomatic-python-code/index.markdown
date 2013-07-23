@@ -383,6 +383,14 @@ with lock:
     # 互斥操作...</code></pre>
 </div>
 
+<div id="references" class="step" data-scale="2">
+  <h2>参考</h2>
+  <ul>
+    <li><p style="font-size:60%">Idiomatic Python: http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html</p></li>
+    <li><p style="font-size:60%">Python Code Style: http://docs.python-guide.org/en/latest/writing/style.html</p></li>
+  </ul>
+</div>
+
 <div id="thanks" class="step" data-scale="5">
   <h1>谢谢 !</h1>
 </div>
