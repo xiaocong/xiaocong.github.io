@@ -11,3 +11,4 @@ footer: true
 - [Monkeyrunner - Android function/stability test framework](/slides/writing-monkeyrunner-tests/)
 - [Markdown - Network writing language](/slides/writing-documentation-with-markdown/)
 - [Idiomatic Python Code](/slides/idiomatic-python-code/)
+- [Android UiAutomator and Python](/slides/android-uiautomator-and-python/)

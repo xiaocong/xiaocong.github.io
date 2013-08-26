@@ -1,0 +1,345 @@
+---
+layout: impress
+title: "使用Python脚步语言编写Android UiAutomator测试用例"
+date: 2013-06-21 14:59
+---
+
+<div id="main" class="step" >
+  <h1>pypi: uiautomator</h1>
+  <p class="footer">
+    <span>Jul 2013</span> ·
+    <span>He, Xiaocong</span>
+  </p>
+</div>
+
+<div id="uiautomator" class="step" data-x="-2500" data-y="-1000">
+  <h2>什么是Android UiAutomator？</h2>
+  <p/>
+  <p class="substep"><a href="http://developer.android.com/tools/help/uiautomator/index.html">Android UiAutomator</a>: http://developer.android.com/tools/help/uiautomator/index.html</p>
+</div>
+
+<div id="pros-and-cons" class="step" data-x="-1500" data-y="-1000">
+  <h3>优点</h3>
+  <ul>
+    <li>能根据文本，描述等属性定位需要操作的UI元素</li>
+    <li>支持多种UI操作，包括点击，按键，托拽，手势等</li>
+    <li>支持自定义Watcher来处理测试过程中的意外，如呼入电话，ANR对话框</li>
+    <li>可以对整个设备进行跨应用（进程）的测试</li>
+    <li>使用强大的Java语言，对Android开发者友好</li>
+  </ul>
+  <h3>缺点</h3>
+  <ul>
+    <li>只支持API level 16+ (Android 4.1+)</li>
+    <li>编译，运行的步骤复杂（Java的特点...）</li>
+    <li>使用笨重的Java语言...</li>
+    <li>这不是单元测试的工具</li>
+  </ul>
+</div>
+
+<div id="python-uiautomator" class="step" data-x="-500" data-y="-1000">
+  <h2>pypi: uiautomator</h2>
+  <p/>
+  <p class="substep"><a href="https://github.com/xiaocong/uiautomator">https://github.com/xiaocong/uiautomator</a></p>
+</div>
+
+<div id="install" class="step" data-x="500" data-y="-1000">
+  <h3>安装</h3>
+  <pre><code class="shell">$ [sudo] pip install uiautomator</code></pre>
+</div>
+
+<div id="first-usage" class="step" data-x="1500" data-y="-1000">
+  <h3>初步使用uiautomator</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+d.screen.on()
+d(resourceId="android:id/glow_pad_view").swipe.down()
+d(text="Camera").click()
+d.press.back()
+d.press.power()</code></pre>
+  <p class="substep">在原生Android 4.3 锁屏界面运行如上代码得到如下结果：</p>
+  <ul>
+    <li>点亮屏幕</li>
+    <li>向下滑动解锁图标</li>
+    <li>点击文本"Camera"所在的区域</li>
+    <li>按"回退(back)"键</li>
+    <li>按"电源(power)"键，等价于灭屏操作</li>
+  </ul>
+</div>
+
+<div id="device-functions" class="step" data-x="2500" data-y="-1000">
+  <h3>设备操作</h3>
+  <ul>
+    <li>获取设备信息</li>
+    <li>点亮/熄灭屏幕</li>
+    <li>坐标点击</li>
+    <li>屏幕托拽操作</li>
+    <li>按键操作</li>
+    <li>获得/设置设备的Orientation</li>
+    <li>截取屏幕图片</li>
+    <li>Dump界面的层次结构</li>
+    <li>打开通知和快速设置界面</li>
+    <li>设置Watcher</li>
+  </ul>
+</div>
+
+<div id="device-info" class="step" data-x="-2500" data-y="-500">
+  <h3>设备操作 - 获取设备信息</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+d.info</code></pre>
+  <p>获得如下信息：</p>
+  <pre><code class="python">{ u'displayRotation': 0,
+  u'displaySizeDpY': 640,
+  u'displaySizeDpX': 360,
+  u'currentPackageName': u'com.android.launcher',
+  u'productName': u'takju',
+  u'displayWidth': 720,
+  u'sdkInt': 18,
+  u'displayHeight': 1184,
+  u'naturalOrientation': True
+}</code></pre>
+</div>
+
+<div id="screen-onoff" class="step" data-x="-1500" data-y="-500">
+  <h3>设备操作 - 屏幕</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 点亮屏幕
+d.screen.on()
+# 关闭屏幕
+d.screen.off()</code></pre>
+  <p>类似于：</p>
+  <pre><code class="python">d.wakeup()   # screen on
+d.sleep()  # screen off</code></pre>
+</div>
+
+<div id="device-click" class="step" data-x="-500" data-y="-500">
+  <h3>设备操作 - 坐标点击</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 点击屏幕坐标点(x, y)
+d.click(x, y)</code></pre>
+</div>
+
+<div id="device-drag" class="step" data-x="500" data-y="-500">
+  <h3>设备操作 - 托拽</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 从屏幕坐标点(sx, sy)托拽到(ex, ey)
+d.drag(sx, sy, ex, ey)</code></pre>
+</div>
+
+<div id="device-press-key" class="step" data-x="1500" data-y="-500">
+  <h3>设备操作 - 按软/硬键</h3>
+  <pre><code class="python"># 按 Home 键
+d.press.home()
+# 下面与上面等价
+d.press("home")</code></pre>
+  <p>下面是所有按键的定义：</p>
+  <ul>
+    <li>home, back, recent, menu, search</li>
+    <li>left, right, top, bottom, center</li>
+    <li>enter, delete(del), power, camera</li>
+    <li>volume_up, volume_down, volume_mute</li>
+  </ul>
+</div>
+
+<div id="device-orientation" class="step" data-x="2500" data-y="-500">
+  <h3>设备操作 - Orientation</h3>
+  <pre><code class="python"># 获得 orientation
+d.orientation
+
+# 设置 Orientation
+d.orientation = "left"  # or "right", "natural"
+
+# 冻结/解除冻结屏幕rotation
+d.freeze_rotation()
+d.freeze_rotation(False)</code></pre>
+  <p>支持的Orientation包括：</p>
+  <ul>
+    <li>right or r</li>
+    <li>left or l</li>
+    <li>natural or n</li>
+    <li>upsidedown or u(不能被设置)</li>
+  </ul>
+</div>
+
+<div id="screenshot-and-dump" class="step" data-x="-2500" data-y="0">
+  <h3>设备操作 - 截屏和dump</h3>
+  <p>截屏</p>
+  <pre><code class="python"># 截屏并保存为本地 home.png
+d.screenshot("home.png")</code></pre>
+  <p>Dump</p>
+  <pre><code class="python"># Dump hierarchy 到本地文件 home.xml
+d.dump("home.xml")</code></pre>
+</div>
+
+<div id="device-open-notification" class="step" data-x="-1500" data-y="0">
+  <h3>设备操作 - 打开通知和快速设置</h3>
+  <pre><code class="python"># 打开通知
+d.open.notification()
+
+# 打开快速设置
+d.open.quick_settings()</code></pre>
+</div>
+
+<div id="device-watcher" class="step" data-x="-500" data-y="0">
+  <h3>设备操作 - Watcher</h3>
+  <pre><code class="python"># 注册watcher
+d.watcher("CLOSE-ANR-DIALOG") \
+ .when(text="ANR") \
+ .click(className="android.widget.Button", text="Force Close")
+
+# 注册watcher， 当满足条件是按back和home键
+d.watcher("CLOSE-ANR-DIALOG") \
+ .when(text="ANR") \
+ .press.back.home()</code></pre>
+  <p></p>
+</div>
+
+<div id="uiobject-functions" class="step" data-x="500" data-y="0">
+  <h3>UI对象操作</h3>
+  <ul>
+    <li>获取UI对象信息</li>
+    <li>点击或者长点击</li>
+    <li>文本编辑</li>
+    <li>对象托拽</li>
+    <li>滑动</li>
+    <li>滚动和快速滚动</li>
+    <li>手势</li>
+    <li>等待直到出现或者消失</li>
+  </ul>
+</div>
+
+<div id="selector" class="step" data-x="1500" data-y="0">
+  <h3>UI对象 - 选择器</h3>
+  <pre><code class="python"># 选择text为 Settings的UI对象
+d(text="Settings")
+# 选择标准Button UI对象
+d(className="android.widget.Button")
+# UI对象属性
+d(className="android.widget.Button").info</code></pre>
+  <p>常用的选择器参数</p>
+  <ul>
+    <li>文本: text</li>
+    <li>描述: description</li>
+    <li>类型: className</li>
+    <li>选择: checked</li>
+    <li>可滚动: scrollable</li>
+    <li>......</li>
+  </ul>
+</div>
+
+<div id="selector-click" class="step" data-x="2500" data-y="0">
+  <h3>UI对象 - 点击</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 点击text为 Settings的UI对象
+d(text="Settings").click()
+# 长点击text为 Settings的UI对象
+d(text="Settings").long_click()</code></pre>
+</div>
+
+<div id="selector-text" class="step" data-x="-2500" data-y="500">
+  <h3>UI对象 - 可编辑文本</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 获得text属性
+d(className="android.widget.EditText").text
+# 设置可编辑文本
+d(text="Email").set_text("xiaocong@gmail.com")
+# 清除可编辑文本
+d(text="xiaocong@gmail.com").clear_text()</code></pre>
+</div>
+
+<div id="selector-drag" class="step" data-x="-1500" data-y="500">
+  <h3>UI对象 - 推拽</h3>
+  <pre><code class="python">from uiautomator import device as d
+
+# 推拽一个UI对象到另外一个UI对象
+d(text="Clock").drag.to(text="Calculator")
+# 推拽一个UI对象到坐标(x, y)
+d(text="Clock").drag.to(x, y)</code></pre>
+</div>
+
+<div id="selector-swipe" class="step" data-x="-500" data-y="500">
+  <h3>UI对象 - Swipe</h3>
+  <pre><code class="python"># 向右滑动
+d(resourceId="com.android.launcher:id/workspace").swipe.right()
+# 或者这样写
+d(resourceId="com.android.launcher:id/workspace").swipe("left")</code></pre>
+  <p>支持4个方向的滑动：left, right, up, down</p>
+</div>
+
+<div id="selector-scroll" class="step" data-x="500" data-y="500">
+  <h3>UI对象 - Scroll</h3>
+  <pre><code class="python"># 水平向前滚动
+d(scrollable=True).scroll.horiz.forward()
+# 垂直滚动到开始
+d(scrollable=True).scroll.vert.toBeginning()
+# 水平滚动，直到目标UI对象出现
+d(scrollable=True).scroll.horiz.to(text="Clock")</code></pre>
+  <p>支持2个维度的滚动：horiz和vert</p>
+  <p>支持5种的滚动目标：forward, backward, toBeginning, toEnd, to</p>
+</div>
+
+<div id="selector-Fling" class="step" data-x="1500" data-y="500">
+  <h3>UI对象 - Fling</h3>
+  <pre><code class="python"># 水平向前快速滚动
+d(scrollable=True).fling.horiz.forward()
+# 垂直快速滚动到开始
+d(scrollable=True).fling.vert.toBeginning()</code></pre>
+  <p>支持2个维度的滚动：horiz和vert</p>
+  <p>支持4种的滚动目标：forward, backward, toBeginning, toEnd</p>
+</div>
+
+<div id="selector-gesture" class="step" data-x="2500" data-y="500">
+  <h3>UI对象 - 手势</h3>
+  <pre><code class="python">from uiautomator import device as d, point
+
+# 双指挤入
+d(resourceId="com.android.gallery3d:id/gl_root_view") \
+ .pinch.In()
+# 双指挤开
+d(resourceId="com.android.gallery3d:id/gl_root_view") \
+ .pinch.In()
+# 双点手势
+d(resourceId="com.android.gallery3d:id/gl_root_view") \
+ .gesture(point(sx1, sy1), point(sx2, sy2)) \
+ .to(point(ex1, ey1), point(ex2, ey2))</code></pre>
+</div>
+
+<div id="selector-gesture" class="step" data-x="-2500" data-y="1000">
+  <h3>UI对象 - 存在，等待出现或者消失</h3>
+  <pre><code class="python"># 存在与否
+d(text="Clock").exists
+# 或者
+d.exists(text="Clock")
+# 等待直到出现
+d(text="Clock").wait.exists(timeout=5000)
+# 等待直到消失
+d(text="Clock").wait.gone(timeout=5000)</code></pre>
+</div>
+
+<div id="integration" class="step" data-scale="2">
+  <h2>可以集成的Python测试框架</h2>
+  <ul>
+    <li><p style="font-size:60%">Python unittest: http://docs.python.org/2/library/unittest.html</p></li>
+    <li><p style="font-size:60%">Nose: https://github.com/nose-devs/nose</p></li>
+    <li><p style="font-size:60%">Lettuce: http://lettuce.it/</p></li>
+  </ul>
+</div>
+
+<div id="references" class="step" data-scale="2">
+  <h2>参考</h2>
+  <ul>
+    <li><p style="font-size:60%">Android uiautomator: http://developer.android.com/tools/help/uiautomator/index.html</p></li>
+    <li><p style="font-size:60%">Github Repo: https://github.com/xiaocong/uiautomator</p></li>
+  </ul>
+</div>
+
+<div id="thanks" class="step" data-scale="5">
+  <h1>谢谢 !</h1>
+</div>
+
+<div id="overview" class="step" data-scale="10"></div>
