@@ -7,7 +7,7 @@
 
   <meta name="author" content="Xiaocong He">
   
-  <meta name="description" content="符合语言习惯的Python编程 Jul 18th, 2013 给 Team 内部培训用的 Slides：符合语言习惯的Python编程 在Ubuntu下配置舒服的Python开发环境 Jun 18th, 2013 Ubuntu 提供了一个良好的 Python 开发环境， &hellip;">
+  <meta name="description" content="Android Uiautomator的python包 Aug 26th, 2013 随着Android的快速演进，先后经历了Android测试框架从InstrumentationTest, Robotium, Monkeyrunner, 直到 uiautomator 的变化，从目前来看， &hellip;">
   
   
 
@@ -48,6 +48,44 @@
 </ul>
 
     <div id="main"> 
+
+  
+  <div class="post"> <div class="post-header">
+  
+    <h1 class="post-title">
+      <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android Uiautomator的python包</a>
+    </h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-26T17:59:00+08:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time>
+</div>
+
+<div class="post-content"><p>随着Android的快速演进，先后经历了Android测试框架从InstrumentationTest, Robotium, Monkeyrunner, 直到 uiautomator 的变化，从目前来看，对于独立的QA团队来说，uiautomator是最适合的Android测试框架.</p>
+
+<p>就我个人的体会，沉重的Java语言及其繁琐的工具链，是阻碍uiautomator推广的障碍，个人更喜欢Python和Javascript的快速开发和方便的工具链。
+为了更方便地利用uiautomator，花了两周时间实现了Android uiautomator的Python Wrapper模块并开源出来：</p>
+
+<ul>
+<li><a href="https://pypi.python.org/pypi/uiautomator">pypi: uiautomator</a></li>
+<li><a href="/slides/android-uiautomator-and-python/">uiautomator.py slides</a></li>
+<li><a href="https://github.com/xiaocong/uiautomator">github source code</a></li>
+</ul>
+
+
+<p>希望下一步能有时间完成相应的nodejs模块。</p>
+</div>
+ </div>
 
   
   <div class="post"> <div class="post-header">
@@ -2647,204 +2685,6 @@ Backbone:
 </div>
  </div>
 
-  
-  <div class="post"> <div class="post-header">
-  
-    <h1 class="post-title">
-      <a href="/blog/2012/08/09/what-you-should-know-for-spa-project/">开发SPA前端项目必须掌握什么知识?</a>
-    </h1>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-09T21:46:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time>
-</div>
-
-<div class="post-content"><p>这个题目有点大, 因为对于开发SPA(单页面应用, Single Page Application), 一个前端工程师需要掌握太多太多知识和工具了.
-这里只说我自己最近半年在摸索和研究前端SPA相关技术的过程中的一些经验和总结.</p>
-
-<h2>选择合适的开发IDE</h2>
-
-<p>一个好的IDE可以让你敲键盘的次数大大减少, 我个人推荐使用<a href="http://www.sublimetext.com/">Sublime Text</a>, 速递快, 功能强大, 可扩充, 这也是我目前正在使用的IDE.</p>
-
-<h2>选择合适的开发语言</h2>
-
-<p>呃, 难道还有别的选择? 开发前端应用不都是用Javascript么? 对的, 因为现在有了<a href="http://coffeescript.org/">CoffeeScript</a>.
-相比于Javascript的类C++/Java静态语言语法, CoffeeScript提供了更贴近自然语言的动态语言语法, 更少的代码, 更少的语法漏洞, 更好的代码可读性.</p>
-
-<h2>选择合适的Javascript前端MVC框架</h2>
-
-<p>Javascript程序很难调试, 特别是当代码行数超过一定量级之后.
-为了让程序逻辑更有条例, 与服务器端的web框架类似, 前端也有很多Javascript库或者框架提供了MVC或类MVC架构.
-按照MVC架构进行设计, 可以很清晰地将Module(数据模块), View(页面展示), Controller(用户行为响应控制)进行分离.
-对于小型web应用来说, 这可能无关紧要, 甚至MVC带来的弊端会掩盖它的优点, 但对于一个超过上千行的web应用来说,
-一个清晰的程序架构可以极大地减少模块间的耦合性.</p>
-
-<p>大家可以仔细看一下<a href="http://codebrief.com/2012/01/the-top-10-javascript-mvc-frameworks-reviewed/">Top 10 Javascript MVC框架的对比</a>.
-我个人感觉, <a href="http://documentcloud.github.com/backbone/">Backbone</a>的代码更紧凑一些, 开发社区也比较活跃.</p>
-
-<h2>模块定义与加载管理</h2>
-
-<p>Javascript语言自身不提供代码的加载管理, 当JavaScript代码分成多个模块, 处于不同文件中时,
-如何管理模块之间的依赖关系以及文件的加载顺序, 就会变成一个非常棘手的事情. 并且JavaScript自身不提供名字空间的管理, 不同模块,
-不同的JavaScript库之间的都有可能出现命名冲突.</p>
-
-<p><a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD(Asynchronous Module Definition)</a>是用来规范如何定义模块及其依赖项, 以及如何异步加载模块.
-大家可以参考<a href="http://twitter.com/addyosmani">Addy Osmani</a>的博文<a href="http://addyosmani.com/writing-modular-js/">Writing Modular JavaScript With AMD, CommonJS &amp; ES Harmony</a>来了解具体的细节.</p>
-
-<p>目前前端使用最广泛的前端AMD库应当是<a href="http://requirejs.org/">RequireJS</a>.</p>
-
-<h2>代码质量静态检查</h2>
-
-<p>Javascript代码的书写格式非常自由, 甚至带着错都能运行下去, 这也是为什么JavaScript代码很难调试的原因之一.</p>
-
-<p>进行代码质量的静态检查可以极大减少由于语法漏洞或者拼写疏忽带来的这些额外错误, 推荐使用<a href="http://www.jshint.com/">jshint</a>.
-如果使用CoffeeScript, 这步可以省略了, CoffeeScript编译后的代码都能通过jshint的检测.</p>
-
-<!--more-->
-
-
-<h2>单元测试</h2>
-
-<p>单元测试是一个非常大的话题, 我没有办法用简短的一段话或者一篇文章将单元测试涉及到的方法和工具都介绍清楚.</p>
-
-<p>技术大牛们都不愿意做单元测试, 当然, 很少有软件工程师愿意承认自己不是技术大牛:).
-因为人员, 时间或者其他各种因素, 很多软件工程师们都愿意首先舍弃单元测试, 去保证功能的实现.</p>
-
-<p>这里我不想挑起争论, 但我的经验的确是, 从个人角度上看, 单元测试能很大加深程序员对代码的理解程度, 加速个人能力的提升;
-从项目角度上看, 技术经理需要权衡当前的开发, 回归测试和后继的代码维护成本之间的平衡, 然后决定是否实施单元测试,
-以及多少程度的单元测试, 这是技术经理的职责.</p>
-
-<p>在前端web应用中比较常用的单元测试框架包括：</p>
-
-<ul>
-<li><a href="http://pivotal.github.com/jasmine/">Jasmine</a></li>
-<li><a href="http://docs.jquery.com/QUnit">QUnit</a></li>
-<li><a href="http://visionmedia.github.com/mocha/">Mocha</a></li>
-</ul>
-
-
-<p>Mock库可以采用<a href="http://sinonjs.org/">SinonJS</a>. 如果愿意, 还可以采用<a href="http://github.com/visionmedia/should.js">Should</a>,
-<a href="https://github.com/LearnBoost/expect.js">Expect</a>, <a href="http://chaijs.com/">Chai</a>等Assertion库.</p>
-
-<p>另外, 如果希望在持续集成中加入对测试的支持, 还需要加入Non-GUI浏览器的支持, 目前采用比较多的方案是:</p>
-
-<ul>
-<li><a href="http://phantomjs.org/">PhantomJS</a></li>
-<li><a href="http://zombie.labnotes.org/">Zombie</a></li>
-</ul>
-
-
-<p>由于<a href="http://zombie.labnotes.org/">Zombie</a>当前的版本还不能支持<a href="http://requirejs.org/">RequireJS</a>, 因此我更倾向于使用<a href="http://phantomjs.org/">PhantomJS</a>.</p>
-
-<h2>Minification &amp; Concatenation</h2>
-
-<p>为了提高web应用的加载速度, 必须对Javascript文件, CSS文件进行Minification和Concatenation, 根据经验, 优化后的代码加载速度比优化前的要提高数倍.</p>
-
-<p>常用的工具包括:</p>
-
-<ul>
-<li><a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a></li>
-<li><a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a></li>
-<li><a href="https://github.com/mishoo/UglifyJS/">UglifyJS</a></li>
-</ul>
-
-
-<p>大部分开源的JavaScript构建工具都集成了对这些工具的支持, 因此没必要在这些工具上面花太多精力.
-使用了<a href="http://requirejs.org/">RequireJS</a>的应用, 可以直接使用其自带的<a href="http://requirejs.org/docs/optimization.html">r.js</a>进行代码优化.</p>
-
-<h2>构建和部署</h2>
-
-<p>任何web应用工程都需要构建和部署, 一个自动化的构建和部署脚本能让编程人员更加专注于应用本身, 而不被繁琐的流程所困扰.
-自动化的构建和部署是一个web前端项目最基本的要求, 当项目开始的时候, 项目组最好能在头两个迭代周期就完成自动化的构建和部署脚本的开发.</p>
-
-<p>目前使用比较多的构建工具有:</p>
-
-<ul>
-<li><a href="https://github.com/moxiecode/js-build-tools">js-build-tools</a></li>
-<li><a href="https://github.com/jcoglan/jake/">jake</a></li>
-<li>CoffeeScript自带的<a href="http://coffeescript.org/#cake">cake</a></li>
-<li>make</li>
-<li><a href="https://github.com/cowboy/grunt">grunt</a></li>
-</ul>
-
-
-<p>我个人比较倾向于<a href="https://github.com/cowboy/grunt">grunt</a>, 如果工程中用了<a href="http://requirejs.org/">RequireJS</a>,
-<a href="https://github.com/backbone-boilerplate/grunt-bbb">bbb</a>(grunt扩展)是更好的选择.</p>
-
-<p>在<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts">网络地址本例子工程</a>中,
-我使用<code>grunt/bbb</code>开发了构建和部署脚本, 可以完成:</p>
-
-<ul>
-<li>文件的复制和清除</li>
-<li>CoffeeScript的编译</li>
-<li>JSHint</li>
-<li>Minification &amp; Concatenation</li>
-<li>在Phantom环境下运行Jasmine单元测试</li>
-<li>Debug/Release Web服务器</li>
-</ul>
-
-
-<p>感兴趣的人可以去看看上述例子工程的<a href="https://github.com/xiaocong/xiaocong.github.com/tree/master/examples/coffee-bbb-amd-backbone-rest-contacts/grunt.js">grunt.js</a>配置文件,
-也可以将这个例子工程作为web前端项目的模板.</p>
-
-<p><strong>下面的几点感触和具体的技术细节无关, 但是我个人觉得, 对于每个想以编程作为自己职业规划的程序员来说, 这几点尤其重要.</strong></p>
-
-<h2>了解业界的技术发展动态</h2>
-
-<p>软件技术发展很快, 对于热爱技术的程序员来说, 必须经常更新自己的知识, 才能保证自己不会落伍.
-因此, 每天都需要花一定时间去阅读, 了解行业最新的技术发展动态.</p>
-
-<p>我的习惯是用Google Reader订阅几个经常更新的前端技术相关的RSS:</p>
-
-<ul>
-<li><a href="http://addyosmani.com/blog/">Addy Osmani&rsquo;s Blog</a></li>
-<li><a href="http://dailyjs.com/">DailyJS</a></li>
-<li><a href="http://www.mhtml5.com/">HTML5研究小组</a></li>
-</ul>
-
-
-<p>另外, 有些邮件周报也很不错:</p>
-
-<ul>
-<li><a href="http://javascriptweekly.com/">JavaScript Weekly</a></li>
-<li><a href="http://html5weekly.com/">HTML5 Weekly</a></li>
-</ul>
-
-
-<h2>多阅读开源代码, 最好参与感兴趣的开源项目</h2>
-
-<p><a href="http://github.com/">GitHub</a>是一个非常有用的站点, 在上面能看到那些大牛们是怎么讨论问题, 如何思考问题, 以及如何实现或者修正的.
-阅读开源项目的文档能了解概要, 如果需要了解细节, 最有效的方式是阅读代码, 特别是看针对问题的提交记录.</p>
-
-<h2>善于利用互联网工具</h2>
-
-<h3>遇到问题的时候, 要知道如何去寻找问题的答案</h3>
-
-<p><a href="http://stackoverflow.com/">StackOverflow</a>是一个非常有名的编程问答站点, 我所遇到的大部分编程问题都能在上面找到答案,
-即便没有答案, 也能找到其他人对这个问题的考虑. 另外, 别忘了强大的<a href="http://www.google.com/">Google Search</a>. 如果Google被墙, 可以考虑用<a href="http://www.bing.com/">Bing</a>.
-我不喜欢<a href="http://www.baidu.com/">百度</a>, 因为其搜索的命中率太低了.</p>
-
-<h3>善于使用云端的工具</h3>
-
-<p>选择合适的工具对于软件项目来说, 可以极大地提高工作效率, 起到事半功倍的效果. 好的商业软件大多需要支付巨额的费用, 并且搞不好还水土不服.
-为了控制成本, 可以多尝试尝试云端的工具. 在<a href="http://www.zhihu.com/question/20114578">知乎</a>上有关于这些工具的讨论, 大家有兴趣可以去看看别人怎么做的.</p>
-
-<h3>多参与技术社区活动, 学会分享</h3>
-
-<p>多参加技术社区的活动, 包括线上的技术解答, 以及线下的技术讲座等. 分享越多, 获得也就越多.</p>
-</div>
- </div>
-
 
 <div id="pagination">
   
@@ -2865,6 +2705,10 @@ Backbone:
       <ul>
         
           <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
             <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
           </li>
         
@@ -2878,10 +2722,6 @@ Backbone:
         
           <li>
             <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/04/22/writing-development-documentation-with-markdown/">在 Markdown 中嵌入 UML 文档</a>
           </li>
         
       </ul>
