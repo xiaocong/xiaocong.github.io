@@ -7,9 +7,7 @@
 
   <meta name="author" content="Xiaocong He">
   
-  <meta name="description" content="在Ubuntu下配置舒服的Python开发环境 Jun 18th, 2013 Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
-化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
-个安装和配置步骤，基于 Ubuntu 12.04 &hellip;">
+  <meta name="description" content="在Ubuntu下配置舒服的Python开发环境 Jun 18th, 2013 Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一个安装和配置步骤，基于 Ubuntu 12.04 &hellip;">
   
   
 
@@ -68,9 +66,7 @@
 <time datetime="2013-06-18T14:37:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
 </div>
 
-<div class="post-content"><p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
-化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
-个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
+<div class="post-content"><p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
 
 <h2>安装 Python 发布版本和 build 依赖包</h2>
 
@@ -94,8 +90,7 @@
 
 <h2>安装 pip 和 virtualenv</h2>
 
-<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。
-<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
+<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -125,8 +120,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替
-系统 Python 环境：</p>
+<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替系统 Python 环境：</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -192,8 +186,7 @@
 
 <h2>安装 bash-it</h2>
 
-<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参
-见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
+<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -202,8 +195,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，
-一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
+<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
 
 <p>安装完成后将下面的代码附加到<code>~/.bashrc</code>的后面：</p>
 
@@ -216,29 +208,22 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义
-的环境变量<code>BASH_IT_THEME</code>)，编辑
-<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加
-<code>${green}$(virtualenv_prompt)</code>，如下：</p>
+<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>)，编辑<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加<code>${green}$(virtualenv_prompt)</code>，如下：</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\n${yellow}$(ruby_version_prompt)${green}$(virtualenv_prompt) ${purple}\h ${reset_color}in ${green}\w\n${bold_cyan}$(scm_char)${green}$(scm_prompt_info) ${green}→${reset_color} &quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，
-你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
+<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
 
-<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，
-<code>virtualenv</code>，<code>rvm</code>等。</p>
+<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，<code>virtualenv</code>，<code>rvm</code>等。</p>
 
 <h2>安装 Sublime Text 2</h2>
 
-<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，
-选择适合的版本下载安装。</p>
+<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，选择适合的版本下载安装。</p>
 
-<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见
-<a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
+<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见 <a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
 
 <p>最后，按快捷键<code>Ctrl+Shift+P</code>调出命令窗口，选择<code>Package Control: Install Package</code>，安装 Python 开发常用的插件：</p>
 
@@ -256,26 +241,20 @@
 </ul>
 
 
-<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改
-<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代
-码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
+<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
 
 <ul>
-<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个
-个人 API 访问 token；</li>
-<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package
-Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
+<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个个人 API 访问 token；</li>
+<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
 <code>github_token</code>字段，保存。</li>
 </ul>
 
 
-<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，
-然后选择你自己的 Gist 即可。</p>
+<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，然后选择你自己的 Gist 即可。</p>
 
 <h2>安装并配置 Vim</h2>
 
-<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小
-的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
+<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install vim

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-08-26T18:39:19+08:00</updated>
+  <updated>2013-10-15T15:15:44+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -18,10 +18,9 @@
     <link href="http://xiaocong.github.io/blog/2013/08/26/android-uiautomator-and-python/"/>
     <updated>2013-08-26T17:59:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2013/08/26/android-uiautomator-and-python</id>
-    <content type="html"><![CDATA[<p>随着Android的快速演进，先后经历了Android测试框架从InstrumentationTest, Robotium, Monkeyrunner, 直到 uiautomator 的变化，从目前来看，对于独立的QA团队来说，uiautomator是最适合的Android测试框架.</p>
+    <content type="html"><![CDATA[<p>随着Android的快速演进，先后经历了 Android 测试框架从 InstrumentationTest, Robotium, Monkeyrunner, 直到 uiautomator 的变化，从目前来看，对于独立的QA团队来说，uiautomator 是最适合的 Android 测试框架.</p>
 
-<p>就我个人的体会，沉重的Java语言及其繁琐的工具链，是阻碍uiautomator推广的障碍，个人更喜欢Python和Javascript的快速开发和方便的工具链。
-为了更方便地利用uiautomator，花了两周时间实现了Android uiautomator的Python Wrapper模块并开源出来：</p>
+<p>就我个人的体会，沉重的 Java 语言及其繁琐的工具链，是阻碍 uiautomator 推广的障碍，个人更喜欢 Python 和 Javascript 的快速开发和方便的工具链。为了更方便地利用 uiautomator，花了两周时间实现了 Android uiautomator 的 Python Wrapper 模块并开源出来：</p>
 
 <ul>
 <li><a href="https://pypi.python.org/pypi/uiautomator">pypi: uiautomator</a></li>
@@ -30,7 +29,7 @@
 </ul>
 
 
-<p>希望下一步能有时间完成相应的nodejs模块。</p>
+<p>希望下一步能有时间完成相应的 nodejs 模块。</p>
 ]]></content>
   </entry>
   
@@ -48,9 +47,7 @@
     <link href="http://xiaocong.github.io/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/"/>
     <updated>2013-06-18T14:37:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2013/06/18/customize-python-dev-environment-on-ubuntu</id>
-    <content type="html"><![CDATA[<p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大
-化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一
-个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
+    <content type="html"><![CDATA[<p>Ubuntu 提供了一个良好的 Python 开发环境，但如果想使我们的开发效率最大化，还需要进行很多定制化的安装和配置。下面的是我们团队开发人员推荐的一个安装和配置步骤，基于 Ubuntu 12.04 桌面版本标准安装。</p>
 
 <h2>安装 Python 发布版本和 build 依赖包</h2>
 
@@ -81,8 +78,7 @@
 
 <h2>安装 pip 和 virtualenv</h2>
 
-<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。
-<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
+<p><code>pip</code> 是 Python 的包管理工具，建议 Python 的包都用 pip 进行管理。<code>virtualenv</code>是 Python 多版本管理的利器，不同版本的开发调试全靠它了。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -128,8 +124,7 @@
 </span><span class='line'>&lt;p&gt;virtualenv &amp;mdash;no-site-packages -p /usr/bin/python3.2 ~/.venv/python3.2
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替
-系统 Python 环境：</p>
+<p>然后将下面的代码增加到<code>~/.bashrc</code>的最后面，缺省使用 virtualenv 来代替系统 Python 环境：</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -200,7 +195,7 @@
 </span><span class='line'>&lt;h1&gt;设置用户信息&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;git config &amp;mdash;global user.name &amp;ldquo;Your Name&amp;rdquo;
-</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#64;&amp;#101;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d;&quot;</span>&gt;&amp;#x79;&amp;#111;&amp;#x75;&amp;#x40;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x79;&amp;#111;&amp;#x75;&amp;#64;&amp;#x65;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d;&quot;</span>&gt;&amp;#121;&amp;#x6f;&amp;#x75;&amp;#x40;&amp;#101;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109;&lt;/a&gt;&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;缺省使用颜色显示&lt;/h1&gt;
 </span><span class='line'>
@@ -221,8 +216,7 @@
 
 <h2>安装 bash-it</h2>
 
-<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参
-见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
+<p><code>bash-it</code>可以美化你的 bash 环境，让你更高效地使用控制台终端，详细信息参见<a href="https://github.com/revans/bash-it">bash-it github 网站</a></p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -230,8 +224,7 @@
 </span><span class='line'>~/.bash_it/install.sh
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，
-一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
+<p>安装的时候可以选择所有的 alias/plugins/completion，如果自定义选择，一定将<code>virtualenv</code>, <code>git</code>插件选择上。</p>
 
 <p>安装完成后将下面的代码附加到<code>~/.bashrc</code>的后面：</p>
 
@@ -249,28 +242,21 @@
 </span><span class='line'>&lt;p&gt;fi
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义
-的环境变量<code>BASH_IT_THEME</code>)，编辑
-<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加
-<code>${green}$(virtualenv_prompt)</code>，如下：</p>
+<p><code>bash-it</code>安装完成后缺省使用 bobby 样式(可以参见<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>)，编辑<code>~/.bash_it/themes/bobby/bobby.theme.bash</code>，在<code>PS1</code>的定义里增加<code>${green}$(virtualenv_prompt)</code>，如下：</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span>&amp;ldquo;<span class="se">\n</span><span class="k">${</span><span class="nv">yellow</span><span class="k">}$(</span>ruby_version_prompt<span class="k">)${</span><span class="nv">green</span><span class="k">}$(</span>virtualenv_prompt<span class="k">)</span> <span class="k">${</span><span class="nv">purple</span><span class="k">}</span><span class="se">\h</span> <span class="k">${</span><span class="nv">reset_color</span><span class="k">}</span>in <span class="k">${</span><span class="nv">green</span><span class="k">}</span><span class="se">\w\n</span><span class="k">${</span><span class="nv">bold_cyan</span><span class="k">}$(</span>scm_char<span class="k">)${</span><span class="nv">green</span><span class="k">}$(</span>scm_prompt_info<span class="k">)</span> <span class="k">${</span><span class="nv">green</span><span class="k">}</span>→<span class="k">${</span><span class="nv">reset_color</span><span class="k">}</span> &amp;rdquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，
-你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
+<p>注：样式定义参加文件<code>~/.bash_profile</code>里定义的环境变量<code>BASH_IT_THEME</code>，你也将其值更改成其他<code>~/.bash_it/themes</code>里定义的样式。</p>
 
-<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，
-<code>virtualenv</code>，<code>rvm</code>等。</p>
+<p>最后重启终端，你将看到一个不一样的<code>bash</code>，支持显示<code>git</code>分支，<code>virtualenv</code>，<code>rvm</code>等。</p>
 
 <h2>安装 Sublime Text 2</h2>
 
-<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，
-选择适合的版本下载安装。</p>
+<p>在浏览器进入 <a href="http://www.sublimetext.com/2">Sublime Text 2 官网</a>，选择适合的版本下载安装。</p>
 
-<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见
-<a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
+<p>安装完成后还需要安装<code>Sublime Text 2</code>的<code>Package Control</code>。安装细节参见 <a href="http://wbond.net/sublime_packages/package_control/installation">Sublime Packages 安装</a>。</p>
 
 <p>最后，按快捷键<code>Ctrl+Shift+P</code>调出命令窗口，选择<code>Package Control: Install Package</code>，安装 Python 开发常用的插件：</p>
 
@@ -288,26 +274,20 @@
 </ul>
 
 
-<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改
-<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代
-码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
+<p>这里推荐一下插件 sublime-github，能在 Sublime 里查看，增加，修改<a href="https://gist.github.com">GitHub Gist</a>。如果你和团队都使用 Github Gist 来存储自己常用的代码片段，这将非常方便大家去迅速查找和共享解决常见问题的代码片段。</p>
 
 <ul>
-<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个
-个人 API 访问 token；</li>
-<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package
-Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
+<li>首先进入<a href="https://github.com/settings/applications">github</a> 新建一个个人 API 访问 token；</li>
+<li>运行 Sublime，选择菜单<code>Preferences</code>&ndash;><code>Package Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>，将上面生成的<code>token</code>复制到
 <code>github_token</code>字段，保存。</li>
 </ul>
 
 
-<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，
-然后选择你自己的 Gist 即可。</p>
+<p>之后你就可以按快捷键<code>Ctrl+Shift+P</code>，选择<code>GitHub: Open Gist in Editor</code>，然后选择你自己的 Gist 即可。</p>
 
 <h2>安装并配置 Vim</h2>
 
-<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小
-的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
+<p>有了 Sublime Text，大部分情况下都不需要 Vi 了，但的确有些时候进行很小的改动还是用 Vi 最方便。Ubuntu的缺省安装应当已经包括了 Vim，如果没有，运行下面命令安装 Vim。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install vim
@@ -330,76 +310,113 @@ Settings</code>&ndash;><code>GitHub</code>&ndash;><code>Settings-Default</code>�
     <link href="http://xiaocong.github.io/blog/2013/06/16/python-interview-question-and-answer/"/>
     <updated>2013-06-16T12:36:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2013/06/16/python-interview-question-and-answer</id>
-    <content type="html"><![CDATA[<p>最近正在团队内部普及 Python 语言，有些刚接触 Python 语言的工程师在概念
-上有很多混淆的地方，刚好看到这篇文章:<a href="http://ilian.i-n-i.org/python-interview-question-and-answers/">Python面试问题</a>，
-里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐
-给团队的 Python 初学者。</p>
+    <content type="html"><![CDATA[<p>最近正在团队内部普及 Python 语言，有些刚接触 Python 语言的工程师在概念上有很多混淆的地方，刚好看到这篇文章:<a href="http://ilian.i-n-i.org/python-interview-question-and-answers/">Python面试问题</a>，里面列举的问题都是关于 Python 基本的常识或者容易混淆的知识点，因此推荐给团队的 Python 初学者。</p>
 
 <!--more-->
 
 
 <ol>
-<li><p>参数是如何传递的？传值还是传引用？(How are arguments passed – by
-reference of by value?)</p>
+<li><p>参数是如何传递的？传值还是传引用？(How are arguments passed – by reference of by value?)</p>
 
-<p>  这个问题的有点c/c++风格，问题的实质是当一个传入的参数在函数体内被
-更改，那么在函数返回后，函数体外的这个参数变量的值是否改变。最简短的回
-答是，"都不是"，事实上 Python 里是传对象(call by object)。</p>
+<p>这个问题的有点c/c++风格，问题的实质是当一个传入的参数在函数体内被更改，那么在函数返回后，函数体外的这个参数变量的值是否改变。最简短的回答是，"都不是"，事实上 Python 里是传对象(call by object)。</p>
 
-<p>  要弄明白这个变量的值是否在函数体外发生变化，需要明白两个概念：</p>
+<p>要弄明白这个变量的值是否在函数体外发生变化，需要明白两个概念：</p>
 
 <ul>
-<li>Python 里的对象分为有可变(mutable)和不可变(immutable)：数字(int,
-float)，字符串，元组(tuple)是不可变的，列表(list)，字典(dict)是可
-变的。</li>
-<li>所有的变量都是一个对象的引用。无论对象是否可变，这个变量都可被赋
-值为另外一个对象。</li>
+<li>Python 里的对象分为有可变(mutable)和不可变(immutable)：数字(int, float)，字符串，元组(tuple)是不可变的，列表(list)，字典(dict)是可变的。</li>
+<li>所有的变量都是一个对象的引用。无论对象是否可变，这个变量都可被赋值为另外一个对象。</li>
 </ul>
 
 
-<p>  因此，如果传入的参数变量指向一个不可变对象，那么在函数体外这个对象
-的内容永远不会发生变化；如果当传入的参数变量指向一个可变对象，那么这个
-对象是否发生变化，取决于函数体内部是否改变了这个可变对象的内容。</p>
+<p>因此，如果传入的参数变量指向一个不可变对象，那么在函数体外这个对象的内容永远不会发生变化；如果当传入的参数变量指向一个可变对象，那么这个对象是否发生变化，取决于函数体内部是否改变了这个可变对象的内容。</p>
 
-<p>  下面的例子里，<code>changed</code>函数调用改变了传入对象的内容，<code>unchanged</code>函
-数将<code>l</code>变量赋值为一个新生成的对象<code>l = l + ["a"]</code>，但原始对象并未发生变
-化：
-  <div><script src='https://gist.github.com/5791257.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-</p></li>
+<p>下面的例子里，<code>changed</code>函数调用改变了传入对象的内容，<code>unchanged</code>函数将<code>l</code>变量赋值为一个新生成的对象<code>l = l + ["a"]</code>，但原始对象并未发生变化：</p>
+
+<pre><code>def changed(l):
+    l.append("a")  #  change the original object
+
+def unchanged(l):
+    l = l + ["a"]  # l + ["a"] will create a new list, instead of changing the original object
+
+l1 = []
+changed(l1)
+# l1 == ["a"]
+
+l2 = []
+unchanged(l2)
+# l2 == []
+</code></pre></li>
 <li><p>什么是列表和字典推导(list and dict comprehensions)？你能给个例子吗？</p>
 
-<p>列表/字典推导是一种语法糖(syntax sugar)，用来简化列表和字典的生成。
-根据第三版的"Learning Python"，列表推导的执行速度快于通常的循环，但并
-不确保以后的 Python 版本也是这个结果。
-<div><script src='https://gist.github.com/5791279.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
+<p>列表/字典推导是一种语法糖(syntax sugar)，用来简化列表和字典的生成。根据第三版的"Learning Python"，列表推导的执行速度快于通常的循环，但并不确保以后的 Python 版本也是这个结果。</p>
 
-<strong>列表推导是典型的 Pythonic 的代码书写方式。</strong></p></li>
+<pre><code># simple iteration
+a = []
+for x in range(10):
+    a.append(x*2)
+# a == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+# list comprehension
+a = [x*2 for x in range(10)]
+
+# dict comprehension
+a = {x: x*2 for x in range(10)}
+# a == {0: 0, 1: 2, 2: 4, 3: 6, 4: 8, 5: 10, 6: 12, 7: 14, 8: 16, 9: 18
+
+# set comprehension
+a = {x**2 for x in range(10) if x % 2 == 0}
+# a == set([0, 16, 4, 64, 36])
+</code></pre>
+
+<p><strong>列表推导是典型的 Pythonic 的代码书写方式。</strong></p></li>
 <li><p>什么是 PEP 8？</p>
 
-<p>PEP 8 定义的是 Python 代码规范，告诉你如何书写可读性强，更好维护的
-代码。详细内容请参考
-<a href="http://www.python.org/dev/peps/pep-0008/">PEP 8 官方文档</a>。Sublime
-Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符合 PEP 8 的
-规范。</p></li>
+<p>PEP 8 定义的是 Python 代码规范，告诉你如何书写可读性强，更好维护的代码。详细内容请参考<a href="http://www.python.org/dev/peps/pep-0008/">PEP 8 官方文档</a>。Sublime Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符合 PEP 8 的规范。</p></li>
 <li><p>你使用虚拟环境(virtual environment)吗？</p>
 
-<p>很多 Python 程序员认为，包括我自己也是这样的观点，
-<a href="https://pypi.python.org/pypi/virtualenv">virtual environment</a>是一个非
-常有用的工具，用来孤立你的开发和运行环境，特别是当需要同时开发多个项目，
-基于不同的 Python 版本以及运行库的时候。每当新建一个项目，或者clone一
-个已存在项目的时候，我都会按照下面的步骤建立和使用虚拟环境：
-<div><script src='https://gist.github.com/5791351.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-</p></li>
+<p>很多 Python 程序员认为，包括我自己也是这样的观点，<a href="https://pypi.python.org/pypi/virtualenv">virtual environment</a>是一个非常有用的工具，用来孤立你的开发和运行环境，特别是当需要同时开发多个项目，基于不同的 Python 版本以及运行库的时候。每当新建一个项目，或者clone一个已存在项目的时候，我都会按照下面的步骤建立和使用虚拟环境：</p>
+
+<pre><code># create virtual env
+virtualenv --no-site-packages --python=python3.2 ./venv
+
+# activate virtual env
+source ./venv/bin/activate
+# install requirements
+pip install -r requirements.txt
+
+#.....
+# update requirements
+pip freeze &gt; requirements.txt
+</code></pre></li>
 <li><p>如何计算列表里所有元素的和？如何计算列表里所有元素的乘积？</p>
 
-<p>这个问题相当简单，但需要记住一点，你需要用 Pythonic 的方式来解答这
-个问题：
-<div><script src='https://gist.github.com/5791391.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-</p></li>
+<p>这个问题相当简单，但需要记住一点，你需要用 Pythonic 的方式来解答这个问题：</p>
+
+<pre><code># 计算列表内所有元素的和, 包括基本loop方式，sum函数方式，以及使用reduce函数
+
+# the basic way
+s = 0
+for x in range(10):
+    s += x
+
+# the right way
+s = sum(range(10))
+
+# the other way
+from operator import add
+s = reduce(add, range(10))
+
+# 计算列表内所有元素的乘积
+
+# the basic way
+s = 1
+for x in range(1, 10):
+    s = s * x
+
+# the other way
+from operator import mul
+reduce(mul, range(1, 10))
+</code></pre></li>
 <li><p>你能列出列表(list)和元组(tuple)的区别吗？举例子说明用法的不同。</p>
 
 <p>列表和元组是 Python 里最基本的两个数据类型：</p>
@@ -410,12 +427,10 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 </ul>
 
 
-<p>至于例子，地图上的地理坐标可以用二元组表示，而地图上的路径可以用坐标
-点列表来表示。</p></li>
+<p>至于例子，地图上的地理坐标可以用二元组表示，而地图上的路径可以用坐标点列表来表示。</p></li>
 <li><p>你知道<code>range</code>和<code>xrange</code>的区别吗？</p>
 
-<p><code>range</code>函数返回的是一个列表对象，<code>xrange</code>返回的是一个<code>xrange</code>对象。
-他们的主要区别是：</p>
+<p><code>range</code>函数返回的是一个列表对象，<code>xrange</code>返回的是一个<code>xrange</code>对象。他们的主要区别是：</p>
 
 <ul>
 <li>内存的占用不同。列表对象已经在内存中存在了，而<code>xrange</code>对象永远占
@@ -425,9 +440,7 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 </ul>
 
 
-<p>类似的问题还有：<code>map</code>和<code>itertools.imap</code>的区别？<code>filter</code>和
-<code>itertools.ifilter</code>的区别？清楚这些区别，你就能知道怎样更有效地使用这
-些函数。</p></li>
+<p>类似的问题还有：<code>map</code>和<code>itertools.imap</code>的区别？<code>filter</code>和<code>itertools.ifilter</code>的区别？清楚这些区别，你就能知道怎样更有效地使用这些函数。</p></li>
 <li><p>请说出一些 python2.x 与 python3.x 之间的区别。</p>
 
 <p>如果你经常看网上的文章，你肯定能说出一些区别：</p>
@@ -444,31 +457,70 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
 <p>如果你一条区别也说不出来，至少说明你对 Python 的关注度不够。</p></li>
 <li><p>什么是修饰器(Decorator)？你能说出它的用途吗？</p>
 
-<p>修饰器(Decorator)也是一种非常 Pythonic 的方式，它可以让你非常方便
-地注入(inject)或者修改函数和类的代码。换句话说，修饰器允许你包装函数和
-类方法，在执行原始代码之前和之后执行其他的代码。修饰器语法能带来很多非
-常有意思的编码方式，例如：</p>
+<p>修饰器(Decorator)也是一种非常 Pythonic 的方式，它可以让你非常方便地注入(inject)或者修改函数和类的代码。换句话说，修饰器允许你包装函数和类方法，在执行原始代码之前和之后执行其他的代码。修饰器语法能带来很多非常有意思的编码方式，例如：</p>
 
 <ul>
 <li><p>内存缓存</p>
 
-<p>  <div><script src='https://gist.github.com/5791608.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-</p></li>
+<pre><code>  def memoize(f):
+      memo = {}  #  将结果缓存在memo字典对象中，key是参数，value是结果。
+      def helper(x):
+          if x not in memo:            
+              memo[x] = f(x)
+          return memo[x]
+      return helper
+
+  # 修饰fib函数，任何fib函数的调用，将首先察看是否已经有缓存的结果
+  @memoize
+  def fib(n):
+      if n == 0:
+          return 0
+      elif n == 1:
+          return 1
+      else:
+          return fib(n-1) + fib(n-2)
+
+  print(fib(40))  #  102334155
+</code></pre></li>
 <li><p>参数检测</p>
 
-<p>  <div><script src='https://gist.github.com/5791624.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-</p></li>
+<pre><code>  def argument_test_natural_number(f):
+      def helper(x):
+          if type(x) == int and x &gt; 0:
+              return f(x)
+          else:
+              raise Exception("Argument is not an integer")
+      return helper
+
+  @argument_test_natural_number
+  def faculty(n):
+      if n == 1:
+          return 1
+      else:
+          return n * faculty(n-1)
+
+  for i in range(1,10):
+      print(i, faculty(i))
+  # 1 1
+  # 2 2
+  # 3 6
+  # 4 24
+  # 5 120
+  # 6 720
+  # 7 5040
+  # 8 40320
+  # 9 362880
+
+  faculty(-1) # 使用非法的参数调用faculty函数，这将raise一个exception
+  # Exception: Argument is not an integer
+</code></pre></li>
 </ul>
 </li>
 <li><p> <code>with</code>语句及其用法？</p>
 
-<p>简单地说，<code>with</code>语句允许你在进入和/或退出指定的代码块的时候，执行
-特定的代码。最常用的例子是使用<code>with</code>语句打开文件。为了在你自己定义的对
-象上使用<code>with</code>语句，你必须定义<code>__enter__</code>和<code>__exit__</code>方法。</p>
+<p>简单地说，<code>with</code>语句允许你在进入和/或退出指定的代码块的时候，执行特定的代码。最常用的例子是使用<code>with</code>句打开文件。为了在你自己定义的对象上使用<code>with</code>语句，你必须定义<code>__enter__</code>和<code>__exit__</code>方法。</p>
 
-<p>  更多的信息你可以查看<a href="http://effbot.org/zone/python-with-statement.htm">理解 Python 的 with 语句</a>。</p></li>
+<p>更多的信息你可以查看<a href="http://effbot.org/zone/python-with-statement.htm">理解 Python 的 with 语句</a>。</p></li>
 </ol>
 
 
@@ -501,13 +553,9 @@ Text编辑工具带有 PEP 8 格式检测插件，所存盘的文件都应当符
     <link href="http://xiaocong.github.io/blog/2013/06/04/creating-a-singleton-in-python/"/>
     <updated>2013-06-04T10:53:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2013/06/04/creating-a-singleton-in-python</id>
-    <content type="html"><![CDATA[<p>Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式
-编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一
-种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总
-能在这些实现方式中，根据他们的优劣，选择出最适合的方式。</p>
+    <content type="html"><![CDATA[<p>Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总能在这些实现方式中，根据他们的优劣，选择出最适合的方式。</p>
 
-<p>下面的内容源自<a href="http://stackoverflow.com/">StackOverflow</a>的一篇文章：
-<a href="http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python">Creating a singleton in python</a>
+<p>下面的内容源自<a href="http://stackoverflow.com/">StackOverflow</a>的一篇文章：<a href="http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python">Creating a singleton in python</a>
 。</p>
 
 <p><blockquote><p>这个问题不是为了讨论单体实例是否是有必要的，或者是反面模式，也不是为了挑起任何宗教式的战争，而是为了讨论如何用更Pythonic的方式，最佳地实现单体实例模式。</p></blockquote></p>
@@ -546,9 +594,7 @@ class MyClass(BaseClass):
 <p><strong>缺点</strong></p>
 
 <ul>
-<li>任何通过调用<code>MyClass()</code>能获得真的单体实例，但是<code>MyClass</code>本身却被装饰
-成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如
-<code>isinstance</code>，<code>issubclass</code>等。</li>
+<li>任何通过调用<code>MyClass()</code>能获得真的单体实例，但是<code>MyClass</code>本身却被装饰成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如<code>isinstance</code>，<code>issubclass</code>等。</li>
 <li>还能从<code>MyClass</code>继承一个子类么？</li>
 </ul>
 
@@ -659,21 +705,15 @@ class MyClass(BaseClass):
 <p><strong>缺点</strong></p>
 
 <ul>
-<li>生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单
-体实例。通常情况下不是问题，但扩展的时候可能有麻烦。</li>
+<li>生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单体实例。通常情况下不是问题，但扩展的时候可能有麻烦。</li>
 <li>对于<code>_sealed</code>属性有什么观点了？</li>
-<li><code>MyClass</code>是另外一个具有同样名称的<code>MyClass</code>类的子类，是否有点怪诞？这
-就意味着<strong>你不能在子类的方法中通过<code>super</code>方法调用基类的相同的方法</strong>，
-因为这是递归调用。</li>
+<li><code>MyClass</code>是另外一个具有同样名称的<code>MyClass</code>类的子类，是否有点怪诞？这就意味着<strong>你不能在子类的方法中通过<code>super</code>方法调用基类的相同的方法</strong>，因为这是递归调用。</li>
 </ul>
 
 
 <hr />
 
-<p>上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，
-元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有
-很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种
-方法就已经足够了，否则我们只能考虑方法2、3或者4。</p>
+<p>上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种方法就已经足够了，否则我们只能考虑方法2、3或者4。</p>
 
 <p><strong>还有没有更简单的方法了？？？</strong></p>
 
