@@ -8,14 +8,10 @@ categories: [python]
 
 [StackOverflow]:  http://stackoverflow.com/
 
-Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式
-编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一
-种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总
-能在这些实现方式中，根据他们的优劣，选择出最适合的方式。
+Python是很强力的编程语言，它即支持面向对象编程的特征，也支持很多函数式编程的特征，同时还是一门动态语言。由于Python语言特征的多样性，对于同一种设计需求，我们可以采用多种完全不同的方式进行实现。优秀的软件工程师总能在这些实现方式中，根据他们的优劣，选择出最适合的方式。
 
 
-下面的内容源自[StackOverflow][]的一篇文章：
-[Creating a singleton in python](http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python)
+下面的内容源自[StackOverflow][]的一篇文章：[Creating a singleton in python](http://stackoverflow.com/questions/6760685/creating-a-singleton-in-python)
 。
 
 {% blockquote %}
@@ -48,9 +44,7 @@ c = MyClass()
 
 **缺点**
 
-- 任何通过调用`MyClass()`能获得真的单体实例，但是`MyClass`本身却被装饰
-  成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如
-  `isinstance`，`issubclass`等。
+- 任何通过调用`MyClass()`能获得真的单体实例，但是`MyClass`本身却被装饰成一个函数(function)了，也就是说不能使用任何类方法和与类相关的函数如`isinstance`，`issubclass`等。
 - 还能从`MyClass`继承一个子类么？
 
 ## 方法2：基类继承
@@ -136,19 +130,13 @@ c = MyClass()
 
 **缺点**
 
-- 生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单
-  体实例。通常情况下不是问题，但扩展的时候可能有麻烦。
+- 生成一个新类有额外的开销没？每定义一个类，实际上生成了两个类来实现单体实例。通常情况下不是问题，但扩展的时候可能有麻烦。
 - 对于`_sealed`属性有什么观点了？
-- `MyClass`是另外一个具有同样名称的`MyClass`类的子类，是否有点怪诞？这
-  就意味着**你不能在子类的方法中通过`super`方法调用基类的相同的方法**，
-  因为这是递归调用。
+- `MyClass`是另外一个具有同样名称的`MyClass`类的子类，是否有点怪诞？这就意味着**你不能在子类的方法中通过`super`方法调用基类的相同的方法**，因为这是递归调用。
 
 ---
 
-上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，
-元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有
-很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种
-方法就已经足够了，否则我们只能考虑方法2、3或者4。
+上面列出了四种不同的方式实现了单体实例，分别用到了装饰器(Decorator)，元类(MetaClass)，和多继承(Multiple Inheritance)等语言特征(实际上还有很多其他实现方式)。如果程序中用不到类(class)相关的函数和方法，第一种方法就已经足够了，否则我们只能考虑方法2、3或者4。
 
 **还有没有更简单的方法了？？？**
 
