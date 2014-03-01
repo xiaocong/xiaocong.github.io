@@ -21,3 +21,9 @@
 [submodule ".themes/phase"]
 	path = .themes/phase
 	url = https://github.com/tommy351/hexo-theme-phase.git
+[submodule ".themes/darkstripes"]
+	path = .themes/darkstripes
+	url = git://github.com/amelandri/darkstripes.git
+[submodule ".themes/OctoPanel"]
+	path = .themes/OctoPanel
+	url = git://github.com/ConnorAtherton/OctoPanel.git

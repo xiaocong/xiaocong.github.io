@@ -1,16 +1,28 @@
-// This File is imported last, and will override other styles in the cascade
-// Add styles here to make changes without digging in too much
+//This is the main GREYSHADE css file.
 
+html {
+  height: 100%;
+}
 
 body {
 	background: #3D4349;
 	font-family: "Open Sans", "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+	height: 100%;
+	color: #333;
+}
+
+::selection, ::-moz-selection, ::-webkit-selection {
+  background-color: $greyshade;
+  color: $color-background;
 }
 
 #header {
 	height: auto;
 	border-bottom: none;
-
+	.subtitle {
+		color: #999;
+		font-style: italic;
+	}
 	#sub-nav {
 		float: none;
 		position: relative;
@@ -33,7 +45,7 @@ body {
 		float: none;
 		margin-left: 0px;
 
-		ul { 
+		ul {
 			li {
 				margin-left: 0px;
 				display: block;
@@ -46,6 +58,9 @@ body {
 }
 
 .container {
+  position: relative;
+  min-height: 100%;
+
 	.credit-box {
 		color: #AAA;
 		font-size: .8em;
@@ -58,9 +73,22 @@ body {
 		}
 	}
 	.mid-col {
-		float: right;
+		position: absolute;
+  		right: 0;
+  		min-height: 100%;
 		width: 77%;
-		background: whitesmoke;
+		background: white;
+		#banner {
+			width: 100%;
+			small {
+			margin-right: 70px;
+			}
+		}
+		footer.inner {
+		  text-align: center;
+		  margin: 0px 70px 0px 40px;
+		  width: auto;
+		}
 		.mid-col-container {
 			padding: 0px 70px 0px 40px;
 			#content {
@@ -72,9 +100,38 @@ body {
 					}
 					.entry-content {
 						margin-left: 0px;
+						line-height: 1.5em;
+						.more-link:before {
+							line-height: 1.2em;
+						}
+						.more-link {
+							padding-left: 20px;
+						}
+						.gist .gist-file .gist-data {
+							.line_numbers {
+								line-height: inherit;
+							}
+							pre {
+								line-height: inherit;
+							}
+						}
+						h2 {
+							font-size: 1.3em;
+							color: #574C4C;
+							border-bottom: none;
+						}
+						h2::before {
+							border-bottom: none;
+						}
 						blockquote {
 							border-left: 5px solid $greyshade;
 							background: #FCFCFC;
+						}
+						table {
+							line-height: 1.2em;
+							td {
+								text-align: left;
+							}
 						}
 					}
 					.meta {
@@ -101,14 +158,14 @@ body {
 							-webkit-transition: color 0.3s;
 							-moz-transition: color 0.3s;
 							-o-transition: color 0.3s;
-							transition: color 0.3s;	
+							transition: color 0.3s;
 						}
 						a:hover {
 							color: $greyshade;
 							-webkit-transition: color 0.3s;
 							-moz-transition: color 0.3s;
 							-o-transition: color 0.3s;
-							transition: color 0.3s;	
+							transition: color 0.3s;
 						}
 					}
 				}
@@ -118,9 +175,22 @@ body {
 			width: 100%;
 		}
 	}
+	.left-col:hover {
+		opacity: 1;
+	}
 	.left-col {
-		width: 16%;
+		width: 23%;
 		position: fixed;
+		opacity: .3;
+		-webkit-transition: all .2s ease-in;
+		-moz-transition: all .2s ease-in;
+		-o-transition: all .2s ease-in;
+		-ms-transition: all .2s ease-in;
+		transition: all .2s ease-in;
+		height: 100%;
+		.intrude-less {
+			width: 80%;
+		}
 		#header {
 			width: 100%;
 			padding: 20% 0% 0% 15%;
@@ -190,6 +260,10 @@ body {
 		.left-col {
 			position: relative;
 			width: 100%;
+			opacity: 1;
+			.intrude-less {
+				margin: auto auto;
+			}
 			#header {
 				padding: 40px 0px;
 				text-align: center;
@@ -197,7 +271,7 @@ body {
 					display: block;
 				}
 				#main-nav {
-						ul {	
+						ul {
 							display: block;
 							li {
 								display: inline;
