@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2014-03-02T12:55:38+08:00</updated>
+  <updated>2014-03-02T13:03:22+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Android Uiautomator的python包]]></title>
+    <title type="html"><![CDATA[Android uiautomator的python包]]></title>
     <link href="http://xiaocong.github.io/blog/2013/08/26/android-uiautomator-and-python/"/>
     <updated>2013-08-26T17:59:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2013/08/26/android-uiautomator-and-python</id>
@@ -2293,7 +2293,7 @@ DropBoxManager 更适合于程序的自动抓错, 避免人为因素而产生的
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Yeoman: 一个新的 Javascript 构建工具]]></title>
+    <title type="html"><![CDATA[Yeoman: 一个新的 javascript 构建工具]]></title>
     <link href="http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/"/>
     <updated>2012-10-16T12:59:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool</id>
@@ -3964,7 +3964,7 @@ Backbone:
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Python Mixin and MRO]]></title>
+    <title type="html"><![CDATA[Python mixin and MRO]]></title>
     <link href="http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro/"/>
     <updated>2012-06-13T23:09:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2012/06/13/python-mixin-and-mro</id>
