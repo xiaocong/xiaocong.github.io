@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2014-03-02T13:22:08+08:00</updated>
+  <updated>2014-03-02T13:38:22+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -195,7 +195,7 @@
 </span><span class='line'>&lt;h1&gt;设置用户信息&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;git config &amp;mdash;global user.name &amp;ldquo;Your Name&amp;rdquo;
-</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x79;&amp;#x6f;&amp;#117;&amp;#x40;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&quot;</span>&gt;&amp;#x79;&amp;#x6f;&amp;#117;&amp;#x40;&amp;#x65;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;&lt;/p&gt;
+</span><span class='line'>git config &amp;mdash;global user.email &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#108;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x79;&amp;#111;&amp;#x75;&amp;#x40;&amp;#x65;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;</span>&gt;&amp;#x79;&amp;#x6f;&amp;#x75;&amp;#64;&amp;#101;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;缺省使用颜色显示&lt;/h1&gt;
 </span><span class='line'>
