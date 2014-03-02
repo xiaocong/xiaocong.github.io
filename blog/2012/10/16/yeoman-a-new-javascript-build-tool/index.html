@@ -1,0 +1,311 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="Yeoman: 一个新的 Javascript 构建工具 Oct 16th, 2012 Grunt 是一个非常优秀的 Javascript 构建工具, 虽然它的 Build-in 的任务非常有限, 但是它提供了一套非常灵活的插件机制, 可以进行任务扩展. 目前在官网上的第三方任务插件数目已经达到 &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">Yeoman: 一个新的 Javascript 构建工具</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T12:59:00+08:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><p><a href="http://gruntjs.com/" title="Grunt is a task-based command line build tool for JavaScript projects.">Grunt</a> 是一个非常优秀的 Javascript 构建工具, 虽然它的 Build-in 的任务非常有限, 但是它提供了一套非常灵活的插件机制, 可以进行任务扩展. 目前在官网上的第三方任务插件数目已经达到 160+, 并且在持续增长中&hellip; 对于通用的功能基本上都能找到对应的任务插件, 当然你也可以自己写扩展任务来满足特殊的构建需求.</p>
+
+<p>我通常会直接使用 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a>, 因为 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 已经收集齐了我想用到的任务插件, 非常顺手.</p>
+
+<p>对我而言 <a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 已经足够用了, 尽管这样, 在第一次尝试 <a href="http://yeoman.io/" title="Yeoman is a robust and opinionated set of tools, libraries, and a workflow that can help developers quickly build beautiful, compelling web apps.">Yeoman</a> 之后, 我还是忍不住想向大家推荐这个新的工具.</p>
+
+<blockquote><p>Yeoman is a robust and opinionated client-side stack, comprised of tools and frameworks that can help developers quickly build beautiful web applications. We take care of providing everything needed to get started without any of the normal headaches associated with a manual setup.<br/>With a modular architecture that can scale out of the box, we leverage the success and lessons learned from several open-source communities to ensure the stack developers use is as intelligent as possible.<br/>As firm believers in good documentation and well thought out build processes, Yeoman includes support for linting, testing, minification and much more, so developers can focus on solutions rather than worrying about the little things.<br/>Yeoman is fast, performant and is optimized to work best in modern browsers.</p><footer><strong>Yeoman Community</strong> <cite><a href='http://yeoman.io/whyyeoman.html'>WHY YEOMAN?</a></cite></footer></blockquote>
+
+
+<p>想对比其他 Javascript 构建工具, Yeoman 具有下面非常吸引人的特点:</p>
+
+<h2>根据定制模板快速生成程序框架</h2>
+
+<p><a href="http://yeoman.io/" title="Yeoman is a robust and opinionated set of tools, libraries, and a workflow that can help developers quickly build beautiful, compelling web apps.">Yeoman</a> 能根据你选择的框架初始化生成程序框架, 目前已经支持大量的程序模板, 看趋势似乎是想把所有框架的初始化模板都包含进去:</p>
+
+<pre><code>Yeoman:
+  generator
+  controller
+
+Angular:
+  angular:service
+  angular:all
+  angular:directive
+  angular:view
+  angular:route
+  angular:filter
+  angular:controller
+  angular:app
+
+Testacular:
+  testacular:app
+
+Quickstart:
+  quickstart:all
+
+Bbb:
+  bbb:all
+
+Ember:
+  ember:controller
+  ember:all
+  ember:view
+  ember:model
+  ember:app
+
+Chromeapp:
+  chromeapp:all
+
+Ember-starter:
+  ember-starter:all
+
+Backbone:
+  backbone:model
+  backbone:view
+  backbone:router
+  backbone:collection
+  backbone:app
+  backbone:all
+</code></pre>
+
+<p>虽然目前我只用到了 Bbb 模板, 但还是得赞一下其模板的齐全.</p>
+
+<!--more-->
+
+
+<h2>前端 Javascript 包管理</h2>
+
+<p>在目前, 我们都是手工增加和管理前端应用中用到的 Javascript 库, 例如说 jQuery, 每次当 jQuery 发布一个新版本, 我们都不得不手工地从官网上下载最新的发布文件, 然后将这个文件复制到自己的项目中.</p>
+
+<p>Yemoman 可以让我们省掉这种麻烦的手工操作. 它集成了前端 Javascript 包管理应用 <a href="https://github.com/twitter/bower">Bower</a>, 我们只需要简单地运行 <code>yeoman install jquery</code>, 或者 <code>yeoman update jquery</code> 就能安装或者更新 jQuery 库文件.</p>
+
+<h2>监测文件更新并自动重新加载应用</h2>
+
+<p>每次当源文件有了修改, 无论是 HTML, CSS, Markdown 文件, 还是脚本文件, 或者其他需要预处理的 CoffeeScript, Sass 等文件, Yeoman 带来的活动加载监测进程会自动重新加载你的页面.
+在调试的过程中, 这个功能的确能帮你省不少手工刷新的麻烦:&ndash;).</p>
+
+<p>使用 <code>yeoman server</code> 就能运行一个本地 Web 服务器, 监测文件的变化并实时重新加载应用.</p>
+
+<h2>强大的构建系统</h2>
+
+<p>Yeoman 也是基于 <a href="http://gruntjs.com/" title="Grunt is a task-based command line build tool for JavaScript projects.">grunt</a>, 并且额外开发了一些高度定制的构建任务. 对我来说比较新鲜的构建任务是图片的优化, 使用 OptiPNG 和 JPEGTran 优化图片来减少图片的下载时间, 初步测试的结果是能减少大约 30% 图片大小, 这在以前的项目中还没尝试过.</p>
+
+<hr />
+
+<p>最后, 下面是使用 Yeoman 重构后的地址本应用的<a href="/examples/yeoman-contacts/dist/">演示</a>和<a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/yeoman-contacts">源码</a>.</p>
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/bbb/'>bbb</a>, <a class='category' href='/blog/categories/grunt-dot-js/'>grunt.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/yeoman/'>yeoman</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,785 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="介绍 Android DropBoxManager Service Nov 21st, 2012 什么是 DropBoxManager ? Enqueues chunks of data (from various sources &#8211; application crashes, &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">介绍 Android DropBoxManager Service</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-21T11:59:00+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2012</time>
+</div>
+
+<div class="post-content"><h2>什么是 DropBoxManager ?</h2>
+
+<blockquote><p>Enqueues chunks of data (from various sources &#8211; application crashes, kernel log records, etc.). The queue is size bounded and will drop old data if the enqueued data exceeds the maximum size. You can think of this as a persistent, system-wide, blob-oriented &#8220;logcat&#8221;.</p></blockquote>
+
+
+<p>DropBoxManager 是 <a href="http://www.android.com">Android</a> 在 Froyo(API level 8) 引入的用来持续化存储系统数据的机制, 主要用于记录
+Android 运行过程中, 内核, 系统进程, 用户进程等出现严重问题时的 log, 可以认为这是一个可持续存储的系统级别的
+<a href="http://developer.android.com/tools/help/logcat.html">logcat</a>.</p>
+
+<p>我们可以通过用参数 <a href="http://developer.android.com/reference/android/content/Context.html#DROPBOX_SERVICE">DROPBOX_SERVICE</a>
+调用 <a href="http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String">getSystemService(String)</a>
+来获得这个服务, 并查询出所有存储在 DropBoxManager 里的系统错误记录.</p>
+
+<h2>Android 缺省能记录哪些系统错误 ?</h2>
+
+<p>我没有在官方的网站上找到关于哪些系统错误会被记录到 DropBoxManager 中的文档, 但我们可以查看源代码来找到相关信息.
+从源代码中可以查找到记录到 DropBoxManager 中各种 <code>tag</code>(类似于 logcat 的 <code>tag</code>).</p>
+
+<h3>crash (应用程序强制关闭, Force Close)</h3>
+
+<p>当Java层遇到未被 catch 的例外时, ActivityManagerService 会记录一次 <code>crash</code> 到 DropBoxManager中, 并弹出 <code>Force Close</code> 对话框提示用户.</p>
+
+<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleApplicationCrash</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">app</span><span class="o">,</span> <span class="n">ApplicationErrorReport</span><span class="o">.</span><span class="na">CrashInfo</span> <span class="n">crashInfo</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ProcessRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">findAppProcess</span><span class="o">(</span><span class="n">app</span><span class="o">,</span> <span class="s">&quot;Crash&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">app</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;system_server&quot;</span>
+</span><span class='line'>            <span class="o">:</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;unknown&quot;</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">processName</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">EventLog</span><span class="o">.</span><span class="na">writeEvent</span><span class="o">(</span><span class="n">EventLogTags</span><span class="o">.</span><span class="na">AM_CRASH</span><span class="o">,</span> <span class="n">Binder</span><span class="o">.</span><span class="na">getCallingPid</span><span class="o">(),</span>
+</span><span class='line'>            <span class="n">UserHandle</span><span class="o">.</span><span class="na">getUserId</span><span class="o">(</span><span class="n">Binder</span><span class="o">.</span><span class="na">getCallingUid</span><span class="o">()),</span> <span class="n">processName</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">info</span><span class="o">.</span><span class="na">flags</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">crashInfo</span><span class="o">.</span><span class="na">exceptionClassName</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">crashInfo</span><span class="o">.</span><span class="na">exceptionMessage</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">crashInfo</span><span class="o">.</span><span class="na">throwFileName</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">crashInfo</span><span class="o">.</span><span class="na">throwLineNumber</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;crash&quot;</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">processName</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">crashApplication</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<h3>anr (应用程序没响应, Application Not Responding, ANR)</h3>
+
+<p>当应用程序的主线程(UI线程)长时间未能得到响应时, ActivityManagerService 会记录一次 <code>anr</code> 到 DropBoxManager中, 并弹出 <code>Application Not Responding</code> 对话框提示用户.</p>
+
+<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="kt">void</span> <span class="nf">appNotResponding</span><span class="o">(</span><span class="n">ProcessRecord</span> <span class="n">app</span><span class="o">,</span> <span class="n">ActivityRecord</span> <span class="n">activity</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">ActivityRecord</span> <span class="n">parent</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">aboveSystem</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">annotation</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'>    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;anr&quot;</span><span class="o">,</span> <span class="n">app</span><span class="o">,</span> <span class="n">app</span><span class="o">.</span><span class="na">processName</span><span class="o">,</span> <span class="n">activity</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="n">annotation</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">cpuInfo</span><span class="o">,</span> <span class="n">tracesFile</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>wtf (What a Terrible Failure)</h3>
+
+<p>&lsquo;android.util.Log&rsquo; 类提供了静态的 <code>wtf</code> 函数, 应用程序可以在代码中用来主动报告一个不应当发生的情况. 依赖于系统设置,
+这个函数会通过 ActivityManagerService 增加一个 <code>wtf</code> 记录到 DropBoxManager中, 并/或终止当前应用程序进程.</p>
+
+<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">handleApplicationWtf</span><span class="o">(</span><span class="n">IBinder</span> <span class="n">app</span><span class="o">,</span> <span class="n">String</span> <span class="n">tag</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">ApplicationErrorReport</span><span class="o">.</span><span class="na">CrashInfo</span> <span class="n">crashInfo</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ProcessRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">findAppProcess</span><span class="o">(</span><span class="n">app</span><span class="o">,</span> <span class="s">&quot;WTF&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">app</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;system_server&quot;</span>
+</span><span class='line'>            <span class="o">:</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">&quot;unknown&quot;</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">processName</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">EventLog</span><span class="o">.</span><span class="na">writeEvent</span><span class="o">(</span><span class="n">EventLogTags</span><span class="o">.</span><span class="na">AM_WTF</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">UserHandle</span><span class="o">.</span><span class="na">getUserId</span><span class="o">(</span><span class="n">Binder</span><span class="o">.</span><span class="na">getCallingUid</span><span class="o">()),</span> <span class="n">Binder</span><span class="o">.</span><span class="na">getCallingPid</span><span class="o">(),</span>
+</span><span class='line'>            <span class="n">processName</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">r</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">r</span><span class="o">.</span><span class="na">info</span><span class="o">.</span><span class="na">flags</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">tag</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">.</span><span class="na">exceptionMessage</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;wtf&quot;</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">processName</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">tag</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">r</span><span class="o">.</span><span class="na">pid</span> <span class="o">!=</span> <span class="n">Process</span><span class="o">.</span><span class="na">myPid</span><span class="o">()</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>            <span class="n">Settings</span><span class="o">.</span><span class="na">Global</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">(),</span>
+</span><span class='line'>                    <span class="n">Settings</span><span class="o">.</span><span class="na">Global</span><span class="o">.</span><span class="na">WTF_IS_FATAL</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">crashApplication</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">crashInfo</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>strict_mode (StrictMode Violation)</h3>
+
+<p><a href="http://developer.android.com/reference/android/os/StrictMode.html">StrictMode</a> (严格模式), 顾名思义, 就是在比正常模式检测得更严格, 通常用来监测不应当在主线程执行的网络, 文件等操作.
+任何 StrictMode 违例都会被 ActivityManagerService 在 DropBoxManager 中记录为一次 <code>strict_mode</code> 违例.</p>
+
+<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleApplicationStrictModeViolation</span><span class="o">(</span>
+</span><span class='line'>        <span class="n">IBinder</span> <span class="n">app</span><span class="o">,</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">violationMask</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">StrictMode</span><span class="o">.</span><span class="na">ViolationInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ProcessRecord</span> <span class="n">r</span> <span class="o">=</span> <span class="n">findAppProcess</span><span class="o">(</span><span class="n">app</span><span class="o">,</span> <span class="s">&quot;StrictMode&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">((</span><span class="n">violationMask</span> <span class="o">&amp;</span> <span class="n">StrictMode</span><span class="o">.</span><span class="na">PENALTY_DROPBOX</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Integer</span> <span class="n">stackFingerprint</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+</span><span class='line'>        <span class="kt">boolean</span> <span class="n">logIt</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">stackFingerprint</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">logIt</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>                <span class="c1">// TODO: sub-sample into EventLog for these, with</span>
+</span><span class='line'>                <span class="c1">// the info.durationMillis?  Then we&#39;d get</span>
+</span><span class='line'>                <span class="c1">// the relative pain numbers, without logging all</span>
+</span><span class='line'>                <span class="c1">// the stack traces repeatedly.  We&#39;d want to do</span>
+</span><span class='line'>                <span class="c1">// likewise in the client code, which also does</span>
+</span><span class='line'>                <span class="c1">// dup suppression, before the Binder call.</span>
+</span><span class='line'>            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>                <span class="k">if</span> <span class="o">(</span><span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">MAX_DUP_SUPPRESSED_STACKS</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>                <span class="n">mAlreadyLoggedViolatedStacks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">stackFingerprint</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">logIt</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">logStrictModeViolationToDropBox</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">info</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>lowmem (低内存)</h3>
+
+<p>在内存不足的时候, Android 会终止后台应用程序来释放内存, 但如果没有后台应用程序可被释放时, ActivityManagerService 就会在 DropBoxManager 中记录一次 <code>lowmem</code>.</p>
+
+<figure class='code'><figcaption><span>ActivityManagerService</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/am/ActivityManagerService.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">switch</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">what</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="c1">//...</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">REPORT_MEM_USAGE:</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">//......</span>
+</span><span class='line'>            <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="n">StringBuilder</span> <span class="n">dropBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">1024</span><span class="o">);</span>
+</span><span class='line'>                    <span class="n">StringBuilder</span> <span class="n">logBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">1024</span><span class="o">);</span>
+</span><span class='line'>                    <span class="c1">//......</span>
+</span><span class='line'>                    <span class="n">addErrorToDropBox</span><span class="o">(</span><span class="s">&quot;lowmem&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&quot;system_server&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+</span><span class='line'>                            <span class="kc">null</span><span class="o">,</span> <span class="n">tag</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="n">dropBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">(),</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>                    <span class="c1">//......</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">};</span>
+</span><span class='line'>            <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>            <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="c1">//......</span>
+</span><span class='line'>    <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>watchdog</h3>
+
+<p>如果 WatchDog 监测到系统进程(<code>system_server</code>)出现问题, 会增加一条 <code>watchdog</code> 记录到 DropBoxManager 中, 并终止系统进程的执行.</p>
+
+<figure class='code'><figcaption><span>Watchdog</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/Watchdog.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="cm">/** This class calls its monitor every minute. Killing this process if they don&#39;t return **/</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Watchdog</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kt">boolean</span> <span class="n">waitedHalf</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">//......</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// If we got here, that means that the system is most likely hung.</span>
+</span><span class='line'>            <span class="c1">// First collect stack traces from all threads of the system process.</span>
+</span><span class='line'>            <span class="c1">// Then kill this process so that the system will restart.</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//......</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// Try to add the error to the dropbox, but assuming that the ActivityManager</span>
+</span><span class='line'>            <span class="c1">// itself may be deadlocked.  (which has happened, causing this statement to</span>
+</span><span class='line'>            <span class="c1">// deadlock and the watchdog as a whole to be ineffective)</span>
+</span><span class='line'>            <span class="n">Thread</span> <span class="n">dropboxThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="s">&quot;watchdogWriteToDropbox&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                        <span class="n">mActivity</span><span class="o">.</span><span class="na">addErrorToDropBox</span><span class="o">(</span>
+</span><span class='line'>                                <span class="s">&quot;watchdog&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&quot;system_server&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+</span><span class='line'>                                <span class="n">name</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">stack</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>                    <span class="o">}</span>
+</span><span class='line'>                <span class="o">};</span>
+</span><span class='line'>            <span class="n">dropboxThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>            <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">dropboxThread</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>  <span class="c1">// wait up to 2 seconds for it to return.</span>
+</span><span class='line'>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ignored</span><span class="o">)</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//......</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>netstats_error</h3>
+
+<p>NetworkStatsService 负责收集并持久化存储网络状态的统计数据, 当遇到明显的网络状态错误时, 它会增加一条 <code>netstats_error</code> 记录到 DropBoxManager.</p>
+
+<h3>BATTERY_DISCHARGE_INFO</h3>
+
+<p>BatteryService 负责检测充电状态, 并更新手机电池信息. 当遇到明显的 discharge 事件, 它会增加一条 <code>BATTERY_DISCHARGE_INFO</code> 记录到 DropBoxManager.</p>
+
+<h3>系统服务(System Serve)启动完成后的检测</h3>
+
+<p>系统服务(System Serve)启动完成后会进行一系列自检, 包括:</p>
+
+<ul>
+<li><p>开机</p>
+
+<p>每次开机都会增加一条 <code>SYSTEM_BOOT</code> 记录.</p></li>
+<li><p>System Server 重启</p>
+
+<p>如果系统服务(System Server)不是开机后的第一次启动, 会增加一条 <code>SYSTEM_RESTART</code> 记录, 正常情况下系统服务(System Server)在一次开机中只会启动一次,
+启动第二次就意味着 bug.</p></li>
+<li><p>Kernel Panic (内核错误)</p>
+
+<p>发生 Kernel Panic 时, Kernel 会记录一些 log 信息到文件系统, 因为 Kernel 已经挂掉了, 当然这时不可能有其他机会来记录错误信息了. 唯一能检测 Kernel Panic
+的办法就是在手机启动后检查这些 log 文件是否存在, 如果存在则意味着上一次手机是因为 Kernel Panic 而宕机, 并记录这些日志到 DropBoxManager 中.
+DropBoxManager 记录 TAG 名称和对应的文件名分别是:</p>
+
+<ul>
+<li><code>SYSTEM_LAST_KMSG</code>, 如果 <code>/proc/last_kmsg</code> 存在.</li>
+<li><code>APANIC_CONSOLE</code>, 如果 <code>/data/dontpanic/apanic_console</code> 存在.</li>
+<li><code>APANIC_THREADS</code>, 如果 <code>/data/dontpanic/apanic_threads</code> 存在.</li>
+</ul>
+</li>
+<li><p>系统恢复(System Recovery)</p>
+
+<p>通过检测文件 <code>/cache/recovery/log</code> 是否存在来检测设备是否因为系统恢复而重启, 并增加一条 <code>SYSTEM_RECOVERY_LOG</code> 记录到 DropBoxManager 中.</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>System Server BootReceiver</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/BootReceiver.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">logBootEvents</span><span class="o">(</span><span class="n">Context</span> <span class="n">ctx</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">DropBoxManager</span> <span class="n">db</span> <span class="o">=</span> <span class="o">(</span><span class="n">DropBoxManager</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">DROPBOX_SERVICE</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getSharedPreferences</span><span class="o">(</span><span class="s">&quot;log_files&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="mi">512</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Build: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">FINGERPRINT</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Hardware: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">BOARD</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Revision: &quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">SystemProperties</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;ro.revision&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">)).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Bootloader: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">BOOTLOADER</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Radio: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">Build</span><span class="o">.</span><span class="na">RADIO</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;Kernel: &quot;</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">FileUtils</span><span class="o">.</span><span class="na">readTextFile</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;/proc/version&quot;</span><span class="o">),</span> <span class="mi">1024</span><span class="o">,</span> <span class="s">&quot;...\n&quot;</span><span class="o">))</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="n">recovery</span> <span class="o">=</span> <span class="n">RecoverySystem</span><span class="o">.</span><span class="na">handleAftermath</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">recovery</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_RECOVERY_LOG&quot;</span><span class="o">,</span> <span class="n">headers</span> <span class="o">+</span> <span class="n">recovery</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">SystemProperties</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">&quot;ro.runtime.firstboot&quot;</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">now</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">SystemProperties</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&quot;ro.runtime.firstboot&quot;</span><span class="o">,</span> <span class="n">now</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_BOOT&quot;</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Negative sizes mean to take the *tail* of the file (see FileUtils.readTextFile())</span>
+</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/proc/last_kmsg&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_LAST_KMSG&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/cache/recovery/log&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_RECOVERY_LOG&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/data/dontpanic/apanic_console&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;APANIC_CONSOLE&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="s">&quot;/data/dontpanic/apanic_threads&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="o">-</span><span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;APANIC_THREADS&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">db</span><span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">&quot;SYSTEM_RESTART&quot;</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Scan existing tombstones (in case any new ones appeared)</span>
+</span><span class='line'>    <span class="n">File</span><span class="o">[]</span> <span class="n">tombstoneFiles</span> <span class="o">=</span> <span class="n">TOMBSTONE_DIR</span><span class="o">.</span><span class="na">listFiles</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">tombstoneFiles</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tombstoneFiles</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">tombstoneFiles</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getPath</span><span class="o">(),</span>
+</span><span class='line'>                <span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_TOMBSTONE&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Start watching for new tombstone files; will record them as they occur.</span>
+</span><span class='line'>    <span class="c1">// This gets registered with the singleton file observer thread.</span>
+</span><span class='line'>    <span class="n">sTombstoneObserver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileObserver</span><span class="o">(</span><span class="n">TOMBSTONE_DIR</span><span class="o">.</span><span class="na">getPath</span><span class="o">(),</span> <span class="n">FileObserver</span><span class="o">.</span><span class="na">CLOSE_WRITE</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="nd">@Override</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="kt">int</span> <span class="n">event</span><span class="o">,</span> <span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">TOMBSTONE_DIR</span><span class="o">,</span> <span class="n">path</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span>
+</span><span class='line'>                <span class="n">addFileToDropBox</span><span class="o">(</span><span class="n">db</span><span class="o">,</span> <span class="n">prefs</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">filename</span><span class="o">,</span> <span class="n">LOG_SIZE</span><span class="o">,</span> <span class="s">&quot;SYSTEM_TOMBSTONE&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">Slog</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Can&#39;t log tombstone&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">sTombstoneObserver</span><span class="o">.</span><span class="na">startWatching</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SYSTEM_TOMBSTONE (Native 进程的崩溃)</h3>
+
+<p>Tombstone 是 Android 用来记录 native 进程崩溃的 <code>core dump</code> 日志, 系统服务在启动完成后会增加一个 Observer 来侦测 tombstone 日志文件的变化,
+每当生成新的 <code>tombstone</code> 文件, 就会增加一条 <code>SYSTEM_TOMBSTONE</code> 记录到 DropBoxManager 中.</p>
+
+<h2>DropBoxManager 如何存储记录数据 ?</h2>
+
+<p>DropBoxManager 使用的是文件存储, 所有的记录都存储在 <code>/data/system/dropbox</code> 目录中, 一条记录就是一个文件, 当文本文件的尺寸超过文件系统的最小区块尺寸后,
+DropBoxManager 还会自动压缩该文件, 通常文件名以调用 DropBoxManager 的 TAG 参数开头.</p>
+
+<figure class='code'><figcaption><span>System Server BootReceiver</span><a href='https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-4.2_r1/services/java/com/android/server/BootReceiver.java'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">$</span> <span class="n">adb</span> <span class="n">shell</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">dropbox</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>        <span class="mi">258</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">SYSTEM_RESTART</span><span class="err">@</span><span class="mi">1353469017940</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">39</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">40</span> <span class="n">event_data</span><span class="err">@</span><span class="mi">1353469222884</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">39</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">12</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_data</span><span class="err">@</span><span class="mi">1353471022975</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">18</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353492624170</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">18</span><span class="o">:</span><span class="mi">40</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353494424296</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>         <span class="mi">34</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span> <span class="mi">10</span><span class="o">:</span><span class="mi">10</span> <span class="n">event_log</span><span class="err">@</span><span class="mi">1353550227432</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">1528</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">22</span><span class="o">:</span><span class="mi">54</span> <span class="n">system_app_crash</span><span class="err">@</span><span class="mi">1353509648395</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">1877</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">system_app_strictmode</span><span class="err">@</span><span class="mi">1353469014395</span><span class="o">.</span><span class="na">txt</span>
+</span><span class='line'><span class="o">-</span><span class="n">rw</span><span class="o">-------</span> <span class="n">system</span>   <span class="n">system</span>       <span class="mi">3724</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">21</span> <span class="mi">11</span><span class="o">:</span><span class="mi">36</span> <span class="n">system_app_strictmode</span><span class="err">@</span><span class="mi">1353469014924</span><span class="o">.</span><span class="na">txt</span><span class="o">.</span><span class="na">gz</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>如何利用 DropBoxManager ?</h2>
+
+<ul>
+<li><p>利用 DropBoxManager 来记录需要持久化存储的错误日志信息</p>
+
+<p>DropBoxManager 提供了 logcat 之外的另外一种错误日志记录机制, 程序可以在出错的时候自动将相关信息记录到 DropBoxManager 中. 相对于 logcat,
+DropBoxManager 更适合于程序的自动抓错, 避免人为因素而产生的错误遗漏. 并且 DropBoxManager 是 Android 系统的公开服务, 相对于很多私有实现,
+出现兼容性问题的几率会大大降低.</p></li>
+<li><p>错误自动上报</p>
+
+<p>可以将 DropBoxManager 和设备的 BugReport 结合起来, 实现自动上报错误到服务器. 每当生成新的记录, DropBoxManager 就会广播一个
+<code>DropBoxManager.ACTION_DROPBOX_ENTRY_ADDED</code> Intent, 设备的 BugReport 服务需要侦听这个 Intent, 然后触发错误的自动上报.</p></li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.android.com">Android Official Site</a></li>
+<li><a href="http://developer.android.com/reference/android/os/DropBoxManager.html">DropBoxManager Overview</a></li>
+<li><a href="http://developer.android.com/reference/android/app/ActivityManager.html">ActivityManager Service Overview</a></li>
+<li><a href="http://developer.android.com/reference/android/os/StrictMode.html">Android StrictMode Overview</a></li>
+</ul>
+
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/android/'>android</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/11/21/to-introduce-android-dropboxmanager-service/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

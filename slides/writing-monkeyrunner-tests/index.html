@@ -1,0 +1,309 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>index - 葱丝瓣酱</title>
+    
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="Writing Monkeyrunner Tests in Python monkeyrunner · June 2012 · He, Xiaocong What is android monkeyrunner ? Monkeyrunner Python script in PC &hellip;">
+  
+  
+<!--   <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+ -->
+  <!-- <link href="/impress.js/css/impress-demo.css" rel="stylesheet" /> -->
+  <link href="/customize/impress.js/css/font.css" rel="stylesheet" />
+  <link href="/customize/impress.js/css/default.css" rel="stylesheet" />
+  <link href="/customize/impress.js/css/sunburst.css" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="/impress.js/favicon.png" />
+  <link rel="apple-touch-icon" href="/impress.js/apple-touch-icon.png" />
+</head>
+
+<body>
+<div id="impress" class="impress-not-supported">
+  <div id="fm1" class="fallback-message hidden">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js,
+      so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b> or
+      <b>Safari</b> browser. Firefox 10 (to be released soon)
+      will also handle it.</p>
+  </div>
+  <div id="fm2" class="fallback-message">
+    <p>If you have fast machine and recent Google Chrome or Safari installed,
+      please check <a href="index.html">a bit more "moving" version of that presentation</a></p>
+    <p style="text-align:center"><big>Otherwise, scroll down to see the slides</big></p>
+  </div>
+
+
+<div id="monkeyrunner-testing" class="step" >
+  <h1>Writing Monkeyrunner Tests</h1>
+  <p class="substep">in Python</p>
+  <p class="footer">
+    <a href="http://developer.android.com/guide/developing/tools/monkeyrunner_concepts.html">monkeyrunner</a> ·
+    <span>June 2012</span> ·
+    <span>He, Xiaocong</span>
+  </p>
+</div>
+
+<div id="what-monkeyrunner" class="step" data-x="-2000" data-y="-1500" data-scale="0.5">
+  <h2>What is android monkeyrunner ?</h2>
+</div>
+
+<div id="classic-monkeyrunner" class="step" data-x="-2000" data-y="-1500">
+  <h3>Monkeyrunner</h3>
+  <p/>
+  <p class="substep">Python script in PC</p>
+  <p class="substep">Communicate with monkey daemon on device via adb</p>
+  <p class="substep">Control Android device</p>
+  <p class="substep">Multiple device control</p>
+  <p class="substep">Functional testing</p>
+  <p class="substep">Extensible automation</p>
+</div>
+
+<div id="classic-monkeyrunner-code-sample" class="step" data-x="-1000" data-y="-1500">
+  <h3>Example</h3>
+  <pre><code class="python">
+# Import monkeyrunner
+from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice
+
+# Get the android device
+device = MonkeyRunner.waitForConnection()
+
+# Install apk to device
+device.installPackage('myproject/bin/MyApp.apk')
+# Start a new activity
+device.startActivity(component='com.myapp/.MainActivity')
+
+# Press down/up menu key
+device.press('KEYCODE_MENU', MonkeyDevice.DOWN_AND_UP)
+# Take snapshot and save it to file
+result = device.takeSnapshot()
+result.writeToFile('myproject/shot1.png','png')
+  </code></pre>
+</div>
+
+<div id="manage-tests" class="step" data-x="-1000" data-y="-1500" data-scale="0.1">
+  <h2>How to manage tests ?</h2>
+</div>
+
+<div id="encapluate-unittest" class="step" data-x="-1000" data-y="-1500">
+  <h2>Encapsulate tests using <b>unittest</b> module !</h2>
+</div>
+
+<div id="encapluate-unittest-example" class="step" data-x="0" data-y="-1500">
+  <h3>Example</h3>
+  <p class="substep">Using unittest to manage monkeyrunner tests</p>
+  <pre><code class="python">
+# Import TestCase
+from unittest import TestCase
+
+class MyTest(TestCase):
+  def setUp(self):
+    # setup code here
+    pass
+
+  def test_LoopLaunch(self):
+    # testing code here
+    # ......
+    device.press('KEYCODE_MENU', MonkeyDevice.DOWN_AND_UP)
+  </code></pre>
+</div>
+
+<div id="how-to-assert" class="step" data-x="0" data-y="-1500" data-scale="5">
+  <h2>Assert what ?</h2>
+</div>
+
+<div id="compare-snapshot" class="step" data-x="0" data-y="-1500" data-rotate="90">
+  <h2>Comparing snapshot !</h2>
+</div>
+<div id="compare-ocr" class="step" data-x="0" data-y="-1500" data-rotate="180">
+  <h2>and OCR !</h2>
+</div>
+<div id="record-first" class="step" data-x="0" data-y="-1500" data-rotate="270">
+  <p class="substep">Recording <b>snapshot</b> &amp; <b>OCR</b> firstly.</p>
+  <p class="substep">Comparing snapshot &amp; OCR while testing.</p>
+  <p class="substep">ONE test script for both recording and testing.</p>
+</div>
+<div id="assert-interface" class="step" data-x="0" data-y="-1500">
+  <h3>Methods need to be implemented</h3>
+  <pre><code class="python">
+# assert current screen with recorded one
+assertCheckImage(...)
+# wait for recorded screen or timeout
+assertWaitForScreen(...)
+# assert OCR text
+assertCheckString(...)
+# wait for recorded OCR text
+assertWaitForString(...)
+  </code></pre>
+</div>
+<div id="assert-example" class="step" data-x="1000" data-y="-1500">
+  <h3>Example</h3>
+  <pre><code class="python">
+def test_example(self):
+  # some test steps
+  device.press(...)
+  sleep(...) # sleep until phone gets response
+  # and then assert/recording
+  self.assertCheckImage(...)
+  # other steps like above
+  # ......
+  </code></pre>
+</div>
+
+<div id="separate" class="step" data-x="1000" data-y="-1500" data-z="-1000" data-rotate-z="-90">
+  <p>That&#8217;s what we have done before.</p>
+  <p>How about <b>next</b> ?</p>
+</div>
+
+<div id="readable-way" class="step" data-x="-1000" data-y="-500" data-z="-1000" data-rotate-z="90">
+  <h2>Is there a <b>readable</b> way to write test steps ?</h2>
+</div>
+
+<div id="chained-invoke" class="step" data-x="-1000" data-y="-500" data-z="-2000" data-rotate-z="180">
+  <h3>Chained invocation !</h3>
+  <p class="substep">User input serial is likely to be method invocation chain.</p>
+  <pre><code class="python">
+def test_example(self):
+  # some test steps
+  device.shell(...) \
+        .startActivity(...) \
+        .press(...) \
+        .tap(...) \
+        .expectImage(...) \
+        .press(...) \
+        .expectImageUntilTimeout(...)
+  </code></pre>
+</div>
+
+<div id="code-architecture" class="step" data-x="0" data-y="-500" data-z="-1000">
+  <h2>Maintainable code architecture !</h2>
+</div>
+<div id="python-package" class="step" data-x="0" data-y="-500" data-z="1000">
+  <h3>Packaging !</h3>
+  <ul>
+    <li>Export package interface.</li>
+    <li>Hide package implementation.</li>
+  </ul>
+  <pre><code class="python">
+# file: package/__init__.py
+__all__=["BaseClass", ...]
+
+import impl.BaseClassImpl1 as BaseClass
+# We may have other impl of BaseClass, but here we only
+# export impl.BaseClassImpl1 as BaseClass.
+  </code></pre>
+</div>
+<div id="mixin" class="step" data-x="1000" data-y="-500" data-z="1000">
+  <h3>Mixin !</h3>
+  <ul>
+    <li>Mixin is a minimum feature implementation unit.</li>
+    <li>Divide a class into several mixins.</li>
+  </ul>
+  <pre><code class="python">
+# file: package/impl.py
+__all__ = ["BaseClassImpl1", "BaseClassImpl2"]
+
+class BaseClassImpl1(Base, AssertImpl1, DevImpl):
+  pass
+class BaseClassImpl2(Base, AssertImpl2, DevImpl, ReportImpl):
+  pass
+# Here AssertImpl1/AssertImpl2, DeviceImpl, ReportImpl are
+# mixins. We can using mixin to add new feature to the class
+# or replace old mixin with new one.
+  </code></pre>
+</div>
+<div id="trait-pubsub" class="step" data-x="2000" data-y="-500" data-z="1000">
+  <h3><a href="http://pubsub.sourceforge.net/">Pub/Sub</a> !</h3>
+  <p class="substep">Cross module communication:</p>
+  <p class="substep">Send message cross Test, TestRunner, DataUploader, DeviceMonitor, etc.</p>
+  <pre><code class="python">
+# module a.py
+from pubsub import pub
+def listener1(arg1, arg2=None):
+    print 'received:  arg1="%s"  arg2="%s"' % (arg1, arg2)
+pub.subscribe(listener1, 'rootTopic')
+  </code></pre>
+  <pre><code class="python">
+# module b.py
+from pubsub import pub
+pub.sendMessage('rootTopic', arg1=123, arg2={'a':'abc'})
+  </code></pre>
+</div>
+
+
+<div id="thoughts" class="step" data-x="-2000" data-y="500" data-z="1000">
+  <h2>Other thoughts</h2>
+</div>
+<div id="thought-hierarchy-assert" class="step" data-x="-1000" data-y="500" data-scale="4">
+  <h3>Assert on <a href="http://developer.android.com/guide/developing/tools/hierarchy-viewer.html">View Hierarchy</a></h3>
+  <pre><code class="python">
+from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice
+from com.android.monkeyrunner.easy import EasyMonkeyDevice
+from com.android.monkeyrunner.easy import By
+
+device = MonkeyRunner.waitForConnection()
+# Use the EasyMonkey API, all methods on device are available
+# in easy_device.
+easy_device = EasyMonkeyDevice(device)
+
+if not easy_device.visible(By.id('id/all_apps_button')):
+    raise Error('Could not find the "all apps" button')
+
+print "Location of element:", 
+print easy_device.locate(By.id('id/all_apps_button'))
+
+easy_device.touch(By.id('id/all_apps_button'), 'DOWN_AND_UP')
+  </code></pre>
+</div>
+<div id="thought-server-data" class="step" data-x="-1000" data-y="500" data-scale="2">
+  <p class="substep">Upload all test data to server.</p>
+  <ul>
+    <li>Account management</li>
+    <li>Expected-data management on server side</li>
+    <li>Test result query/report</li>
+    <li>Test data, including Snapshot/OCR/log</li>
+    <li>Realtime monitor/alert</li>
+  </ul>
+</div>
+<div id="thanks" class="step" data-x="-1000" data-y="500" data-rotate-y="90" data-rotate-x="90" data-scale="0.5">
+  <h2>Thanks &amp; QA</h2>
+</div>
+
+<div id="overview" class="step" data-scale="10"></div>
+
+<div class="hint"><p>Use a spacebar or arrow keys to navigate</p></div>
+</div>
+<div id="timer"></div>
+
+<script src="/customize/impress.js/js/highlight.pack.js"></script>
+<script src="/customize/impress.js/js/impress.js"></script>
+<script src="/customize/impress.js/js/default.js"></script>
+
+<div style="position: fixed; bottom: 10px; left: 10px; pointer-events: auto;">
+    <a href="http://twitter.com/share" class="twitter-share-button" data-text="index - 葱丝瓣酱 by @xiaocong}" data-url="http://xiaocong.github.io/slides/writing-monkeyrunner-tests/index.html" data-related="bartaz"></a>
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32376813-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="在Backbone项目中使用backbone.layoutmanager来组织页面布局 Oct 9th, 2012 bbb 的 init 命令生成的初始化模板工程中包含有 backbone.layoutmanager 插件, 该插件提供了一种页面的结构化组织方式, 将 Backbone &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">在Backbone项目中使用backbone.layoutmanager来组织页面布局</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-09T19:20:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><p><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 的 <code>init</code> 命令生成的初始化模板工程中包含有 <a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 插件, 该插件提供了一种页面的结构化组织方式, 将 <code>Backbone Views</code> 组装成页面布局 <code>Layout</code>.</p>
+
+<p><a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主要的目的是提供一种规则来管理 <code>Backbone.View</code> 的渲染, 程序员只需要遵循这套规则, 就能简化页面渲染的实现.
+<a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主页已经很详细地介绍了使用方法, 这里就不再赘述. 下面是个人感觉在学习使用过程中感觉应当注意的几点:</p>
+
+<h2>完全受管理的 render</h2>
+
+<p><code>Backbone.LayoutView</code> 仅仅是一个将 <code>manage</code> 属性设置成 <code>true</code> 的 <code>Backbone.View</code>.</p>
+
+<figure class='code'><figcaption><span>backbone.layoutmanager V0.6.6</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Backbone</span><span class="p">.</span><span class="nx">LayoutView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">manage</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>只有当 <code>manage</code> 属性被设置为 <code>true</code>, <code>LayoutManager</code> 才会接管 <code>Backbone.View</code> 的渲染.</p>
+
+<h2>数据和模板</h2>
+
+<p>视图的渲染需要 <code>template</code> 和 <code>serialize</code> 属性, 分别对应HTML模板和数据模型. <code>LayoutManager</code> 缺省使用 <a href="http://underscorejs.org/">underscore</a> 的 <code>template</code> 函数进行页面的渲染.</p>
+
+<h2>嵌套视图</h2>
+
+<p>可以通过 <code>setView</code>, <code>setViews</code>, <code>insertView</code>, <code>insertViews</code> 等函数在<strong>视图</strong>中嵌套多个其他的<strong>子视图</strong>.</p>
+
+<h2>BeforeRender 和 AfterRender</h2>
+
+<p><code>render</code> 完全处在 <code>LayoutManager</code> 的管理下, 因此, 如果你想在每次视图渲染前后做一些特殊的处理, 必须定义 <code>beforeRender</code> 和 <code>afterRender</code> 函数.
+由于 <code>LayoutManager</code> 内部会在渲染<strong>视图</strong>前移除所有附加模式的<strong>子视图</strong>, 因此, 通常在 <code>beforeRender</code> 函数中调用 <code>setView</code> 和 <code>insertView</code> 来增加和设置<strong>子视图</strong>.</p>
+
+<p><em>如果你不想在每次渲染时移除子视图, 自己控制子视图的增删, 可以设置子视图的 <code>keep</code> 属性为 <code>true</code>.</em></p>
+
+<h2>Cleanup 函数</h2>
+
+<p>很多视图(View)都有数据模型(model)的事件绑定函数, 因此, 必须在视图被删除后解除绑定. 可以通过定义视图的 <code>cleanup</code> 函数来完成这个解绑操作:</p>
+
+<figure class='code'><figcaption><span>cleanup函数</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">MyView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+</span><span class='line'>  <span class="c1">// The constructor binds the model&#39;s &quot;change&quot; event to the view&#39;s render function. </span>
+</span><span class='line'>  <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span><span class="err">，</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// This is a custom cleanup method that will remove the model events owned by</span>
+</span><span class='line'>  <span class="c1">// this View.</span>
+</span><span class='line'>  <span class="nx">cleanup</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>自定义获取模版</h2>
+
+<p><code>LayoutManager</code> 缺省只支持 <code>script</code> 标签的模版, 但是在实际软件项目中, 通常会将不同的模版放置在不同的单独的 html 文件中, 这样便于模版文件的管理.
+<code>LayoutManager</code> 提供了 <code>fetch</code> 配置项让我们有机会来自己获得模版文件:</p>
+
+<figure class='code'><figcaption><span>从script标签中获得模版内容</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nx">Backbone</span><span class="p">.</span><span class="nx">LayoutManager</span><span class="p">.</span><span class="nx">configure</span>
+</span><span class='line'>    <span class="c1"># Default fetch implementation, get template from `script` tag</span>
+</span><span class='line'>    <span class="nv">fetch: </span><span class="nf">(path)-&gt;</span>
+</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">template</span> <span class="nx">$</span><span class="p">(</span><span class="nx">path</span><span class="p">).</span><span class="nx">html</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>同步方式获取模版文件</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nv">JST = </span><span class="nb">window</span><span class="p">.</span><span class="nv">JST = </span><span class="nb">window</span><span class="p">.</span><span class="nx">JST</span> <span class="o">or</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="nx">Backbone</span><span class="p">.</span><span class="nx">LayoutManager</span><span class="p">.</span><span class="nx">configure</span>
+</span><span class='line'>    <span class="nv">manage: </span><span class="kc">true</span>
+</span><span class='line'>    <span class="nv">paths:</span>
+</span><span class='line'>      <span class="nv">layout: </span><span class="s">&quot;templates/layouts/&quot;</span>
+</span><span class='line'>      <span class="nv">template: </span><span class="s">&quot;templates/&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">fetch: </span><span class="nf">(path) -&gt;</span>
+</span><span class='line'>      <span class="nv">path = </span><span class="nx">path</span> <span class="o">+</span> <span class="s">&quot;.html&quot;</span>
+</span><span class='line'>      <span class="k">unless</span> <span class="nx">JST</span><span class="p">[</span><span class="nx">path</span><span class="p">]</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span>
+</span><span class='line'>          <span class="nv">url: </span><span class="nx">app</span><span class="p">.</span><span class="nx">root</span> <span class="o">+</span> <span class="nx">path</span>
+</span><span class='line'>          <span class="nv">async: </span><span class="kc">false</span>
+</span><span class='line'>        <span class="p">).</span><span class="nx">then</span> <span class="nf">(contents) -&gt;</span>
+</span><span class='line'>          <span class="nx">JST</span><span class="p">[</span><span class="nx">path</span><span class="p">]</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">contents</span><span class="p">)</span>
+</span><span class='line'>      <span class="nx">JST</span><span class="p">[</span><span class="nx">path</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面是作者的教学视频, 初学者一定要看看.</p>
+
+<iframe src="http://player.vimeo.com/video/32765088" width="500" height="313" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+
+<p> <p><a href="http://vimeo.com/32765088">backbone.layoutmanager</a> from <a href="http://vimeo.com/user5699767">tbranyen</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p>
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/backbone-dot-js-backbone-dot-layoutmanager-bbb/'>backbone.js backbone.layoutmanager bbb</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="Backbone.sync和资源的CRUD Jun 26th, 2012 Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">Backbone.sync和资源的CRUD</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-26T01:33:00+08:00" pubdate data-updated="true">Jun 26<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone</strong> <cite><a href='http://documentcloud.github.com/backbone/#Sync'>Backbone.sync</a></cite></footer></blockquote>
+
+
+<p>Backbone.sync的函数定义是<code>function(method, model, [options])</code>:</p>
+
+<ul>
+<li><strong>medhod</strong>: CRUD名称, 可以是<code>create</code>, <code>read</code>, <code>update</code>, <code>delete</code>.</li>
+<li><strong>model</strong>: 需要保存的model, 可以是Backbone.Model或者Backbone.Collection.</li>
+<li><strong>options</strong>: 所有jQuery请求选项, 包括success和error回掉函数.</li>
+</ul>
+
+
+<p>Backbone.sync方法的缺省实现是通过标准的RESTful风格的CRUD进行数据的操作. CRUD方法对应的REST接口分别是:</p>
+
+<ul>
+<li><strong>create</strong> &ndash;> <strong>POST</strong> <code>/collection</code></li>
+<li><strong>read</strong> &ndash;> <strong>GET</strong> <code>/collection[/id]</code></li>
+<li><strong>update</strong> &ndash;> <strong>PUT</strong> <code>/collection/id</code></li>
+<li><strong>create</strong> &ndash;> <strong>DELETE</strong> <code>/collection/id</code></li>
+</ul>
+
+
+<p>你可以通过重载全局的Backbone.sync, 或者Collection/Model的sync方法来改变其缺省实现.</p>
+
+<h2>localStorage方式实现Backbone.sync</h2>
+
+<p>在<a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-contacts/index.html">地址本示例</a>中, 通过重载全局的Backbone.sync方法,
+将Collection/Model的CRUD操作转化为localStorage的对象CRUD操作.</p>
+
+<p>下面是Backbone.sync方法的定义(<a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-contacts/coffee/store.coffee">源码</a>),
+首先获得传递进来的model对象或其集合对象的localStorage属性对象, 并将CRUD操作转化为localStorage属性对象的数据CRUD操作:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nv">Backbone.sync = </span><span class="nf">(method, model, options) -&gt;</span>
+</span><span class='line'>    <span class="nv">store = </span><span class="nx">model</span><span class="p">.</span><span class="nx">localStorage</span> <span class="o">or</span> <span class="nx">model</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">localStorage</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">switch</span> <span class="nx">method</span>
+</span><span class='line'>      <span class="k">when</span> <span class="s">&quot;read&quot;</span>
+</span><span class='line'>        <span class="nv">resp = </span><span class="k">if</span> <span class="nx">model</span><span class="p">.</span><span class="nx">id</span> <span class="k">then</span> <span class="nx">store</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="k">else</span> <span class="nx">store</span><span class="p">.</span><span class="nx">findAll</span><span class="p">()</span>
+</span><span class='line'>      <span class="k">when</span> <span class="s">&quot;create&quot;</span>
+</span><span class='line'>        <span class="nv">resp = </span><span class="nx">store</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">when</span> <span class="s">&quot;update&quot;</span>
+</span><span class='line'>        <span class="nv">resp = </span><span class="nx">store</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">when</span> <span class="s">&quot;delete&quot;</span>
+</span><span class='line'>        <span class="nv">resp = </span><span class="nx">store</span><span class="p">.</span><span class="nx">destroy</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="nx">resp</span>
+</span><span class='line'>      <span class="nx">options</span><span class="p">.</span><span class="nx">success</span> <span class="nx">resp</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="nx">options</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Record not found&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>localStorage属性对象的类型定义如下, 数据最后是通过HTML本地存储方法<code>localStorage.setItem</code>进行持久化存储:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="k">class</span> <span class="nx">Store</span>
+</span><span class='line'>    <span class="nv">constructor: </span><span class="nf">(@name) -&gt;</span>
+</span><span class='line'>      <span class="nv">store = </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">@name</span><span class="p">)</span>
+</span><span class='line'>      <span class="vi">@data = </span><span class="p">(</span><span class="nx">store</span> <span class="o">and</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">store</span><span class="p">))</span> <span class="o">or</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">save: </span><span class="nf">-&gt;</span>
+</span><span class='line'>      <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span> <span class="nx">@name</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">@data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">create: </span><span class="nf">(model) -&gt;</span>
+</span><span class='line'>      <span class="nv">model.id = model.attributes.id = </span><span class="nx">guid</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">model</span><span class="p">.</span><span class="nx">id</span>
+</span><span class='line'>      <span class="nx">@data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">model</span>
+</span><span class='line'>      <span class="nx">@save</span><span class="p">()</span>
+</span><span class='line'>      <span class="nx">model</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">update: </span><span class="nf">(model) -&gt;</span>
+</span><span class='line'>      <span class="nx">@data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">model</span>
+</span><span class='line'>      <span class="nx">@save</span><span class="p">()</span>
+</span><span class='line'>      <span class="nx">model</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">find: </span><span class="nf">(model) -&gt;</span>
+</span><span class='line'>      <span class="nx">@data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">findAll: </span><span class="nf">-&gt;</span>
+</span><span class='line'>      <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">@data</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">destroy: </span><span class="nf">(model) -&gt;</span>
+</span><span class='line'>      <span class="k">delete</span> <span class="nx">@data</span><span class="p">[</span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span>
+</span><span class='line'>      <span class="nx">@save</span><span class="p">()</span>
+</span><span class='line'>      <span class="nx">model</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在定义Collection对象的时候, 需要定义其localStorage属性为上面定义的<code>Store</code>类型:</p>
+
+<figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;use!underscore&#39;</span><span class="p">,</span> <span class="s">&#39;use!backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">,</span> <span class="s">&#39;store&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact, Store) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">localStorage: </span><span class="k">new</span> <span class="nx">Store</span><span class="p">(</span><span class="s">&#39;my-contacts&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Backbone.sync标准CRUD REST接口</h2>
+
+<p>如果采用标准的CRUD REST接口进行数据交换, 那就不用重载Backbone.sync方法, 只需要定义Collection的url属性(字符串或者方法)即可.</p>
+
+<figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;backbone&#39;</span><span class="p">,</span> <span class="s">&#39;models/contact&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;http://xiaocong.herokuapp.com/contacts/&#39;</span>
+</span><span class='line'>    <span class="nv">parse: </span><span class="nf">(resp) -&gt;</span>
+</span><span class='line'>      <span class="nx">resp</span><span class="p">.</span><span class="nx">results</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中<code>http://xiaocong.herokuapp.com/contacts/</code>实现了标准的CRUD REST接口:</p>
+
+<ul>
+<li><strong>POST</strong> /contacts 生成一个新的地址本记录, 并返回带有新生成的id的地址本数据, 供客户端更新model的id.</li>
+<li><strong>GET</strong> /contacts 获取所有地址本数据, 由于Collection对象需要的集合数组在返回的JSON字符串的<code>results</code>属性中, 因此需要通过<code>parse</code>方法转换一下返回的结果.</li>
+<li><strong>GET</strong> /contacts/id 获取指定id的地址本数据.</li>
+<li><strong>PUT</strong> /contacts/id 更新指定id的地址本数据.</li>
+<li><strong>DELETE</strong> /contacts/id 删除指定id的地址本数据</li>
+</ul>
+
+
+<p><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/index.html">使用该CRUD REST接口的演示</a>.</p>
+
+<p>下面是托管在<a href="http://www.heroku.com">heroku</a>上的该REST接口的python源代码:</p>
+
+<ul>
+<li>使用<a href="http://bottlepy.org/docs/dev/">bottle</a>微型web框架实现HTTP路由管理</li>
+<li>使用<a href="http://www.sqlalchemy.org/">sqlalchemy</a>实现数据库的持续化存储</li>
+<li>使用<a href="http://www.gevent.org/">gevent</a>实现HTTP并发服务</li>
+<li>通过<code>Access-Control-Allow-Origin</code>实现跨域调用</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>app.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">monkey</span><span class="p">;</span> <span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">bottle</span> <span class="kn">import</span> <span class="n">Bottle</span><span class="p">,</span> <span class="n">route</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">post</span><span class="p">,</span> <span class="n">put</span><span class="p">,</span> <span class="n">delete</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">static_file</span><span class="p">,</span> <span class="n">HTTPError</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">bottle.ext</span> <span class="kn">import</span> <span class="n">sqlalchemy</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">String</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sqlalchemy.exc</span> <span class="kn">import</span> <span class="n">SQLAlchemyError</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">app</span> <span class="o">=</span> <span class="n">Bottle</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@app.route</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;APIs for demo!&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+</span><span class='line'><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&quot;SHARED_DATABASE_URL&quot;</span><span class="p">],</span> <span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'><span class="n">create_session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Contact</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&quot;contact&quot;</span>
+</span><span class='line'>    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">(</span><span class="s">&#39;contact_id_seq&#39;</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">email</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&lt;Contact(&#39;</span><span class="si">%d</span><span class="s">&#39;, &#39;</span><span class="si">%s</span><span class="s">&#39;, &#39;</span><span class="si">%s</span><span class="s">&#39;)&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">contactsApp</span> <span class="o">=</span> <span class="n">Bottle</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.hook</span><span class="p">(</span><span class="s">&quot;after_request&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">crossDomianHook</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;*&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.route</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;OPTIONS&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">options1</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.route</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">&quot;/:id&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;OPTIONS&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">options2</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">options</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&quot;Access-Control-Allow-Methods&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;GET, POST, PUT, DELETE&quot;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;Access-Control-Request-Headers&quot;</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&quot;Access-Control-Allow-Headers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&quot;Access-Control-Request-Headers&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.post</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">createContact</span><span class="p">(</span><span class="n">db</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Create contact&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="n">contact</span> <span class="o">=</span> <span class="n">Contact</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">],</span> <span class="n">email</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">&quot;email&quot;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">contact</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span><span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">email</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">getAllContacts</span><span class="p">(</span><span class="n">db</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Retrieve all contacts&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="n">contacts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Contact</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span><span class="s">&quot;results&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&quot;id&quot;</span><span class="p">:</span><span class="n">contact</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">:</span><span class="n">contact</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">:</span><span class="n">contact</span><span class="o">.</span><span class="n">email</span><span class="p">}</span> <span class="k">for</span> <span class="n">contact</span> <span class="ow">in</span> <span class="n">contacts</span><span class="p">]}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.get</span><span class="p">(</span><span class="s">&quot;/:id&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">getContact</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">db</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Retrieve specified contact with id&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="n">contact</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Contact</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">contact</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">contact</span><span class="o">.</span><span class="n">email</span><span class="p">}</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="s">&quot;Contact not found.&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.put</span><span class="p">(</span><span class="s">&quot;/:id&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">updateContact</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">db</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Update contact&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="n">session</span> <span class="o">=</span> <span class="n">create_session</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Contact</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">],</span> <span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s">&quot;email&quot;</span><span class="p">]})</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">SQLAlchemyError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="s">&quot;Database Error&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@contactsApp.delete</span><span class="p">(</span><span class="s">&quot;/:id&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">deleteContact</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">db</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Delete contact&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="n">session</span> <span class="o">=</span> <span class="n">create_session</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">contact</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Contact</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">contact</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">SQLAlchemyError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="s">&quot;Database Error&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">sqlalchemyplugin</span> <span class="o">=</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">Plugin</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'><span class="n">contactsApp</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">sqlalchemyplugin</span><span class="p">)</span>
+</span><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s">&quot;/contacts&quot;</span><span class="p">,</span> <span class="n">contactsApp</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="s">&quot;gevent&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">reloader</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/backbone-dot-js/'>backbone.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/06/26/backbone-dot-sync-and-crud/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

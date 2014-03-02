@@ -1,0 +1,1161 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>葱丝瓣酱</title>
+
+  <meta name="author" content="Xiaocong He">
+  
+  <meta name="description" content="在AMD项目中使用grunt/bbb进行构建和发布 May 30th, 2012 AMD项目的构建和发布 在 Javascript 前端项目中, 为了提高页面的响应速度, 通常需要对 js/css 文件进行: concat, 将多个 js 或者 css 文件合成一个文件, &hellip;">
+  
+  
+
+  <link rel="canonical" href="http://xiaocong.github.io/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+</head>
+  
+<body class="default">
+  <div id="wrapper">
+    <div id="header">
+  <h1><a href="/">葱丝瓣酱</a></h1>
+  
+    <p>你真的需要呼吸吗?!</p>
+  
+</div>
+<ul id="social-links">
+  
+    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
+  
+  
+    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
+  
+  
+    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
+  
+</ul>
+<div class="clear"></div>
+<ul id="nav">
+  
+    <li> <a href="/">blog</a> </li>
+  
+
+  
+    <li><a href="/blog/archives">archives</a></li>
+  
+</ul>
+
+    <div id="main"> <div class="post-header">
+  
+    <h1 class="post-title">在AMD项目中使用grunt/bbb进行构建和发布</h1>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-30T12:25:00+08:00" pubdate data-updated="true">May 30<span>th</span>, 2012</time>
+</div>
+
+<div class="post-content"><h2>AMD项目的构建和发布</h2>
+
+<p>在 Javascript 前端项目中, 为了提高页面的响应速度, 通常需要对 js/css 文件进行:</p>
+
+<ul>
+<li>concat, 将多个 js 或者 css 文件合成一个文件, 这样能减少浏览器给服务器发送请求的此次数, 减少在网络通讯握手上花费的时间;</li>
+<li>minify, 去除 js 或者 css 文件中多余的字符, 例如注释, 换行, 空格等, 并将变量的可读的长名称改为不可读的短名称, 缩短 js 和 css 文件的长度, 减少网络传输的时间;</li>
+</ul>
+
+
+<p>目前已经有很多进行 Javascript 构建和发布管理的工具, 包括<a href="https://github.com/mde/jake">Jake</a>, <a href="https://github.com/cowboy/grunt">Grunt</a>, <a href="https://code.google.com/p/js-build-tools">js-build-tools</a> (ant tasks collection).
+<a href="http://requirejs.org/">RequireJS</a>也已经提供了一个很好的优化 js 文件的工具<a href="http://requirejs.org/docs/optimization.html">r.js</a>, 可以将多个 AMD 模块合并成一个文件.
+这里主要介绍 Grunt 的一个 plugin 集合: <a href="https://github.com/backbone-boilerplate/grunt-bbb">Grunt-bbb</a></p>
+
+<h2><a href="https://github.com/backbone-boilerplate/grunt-bbb">Grunt-bbb</a></h2>
+
+<p>bbb 主要包含下面这些 tasks:</p>
+
+<ul>
+<li><code>init</code>
+初始化一个空的项目模板.</li>
+<li><code>lint</code>
+确保所有的 js 文件符合 JSHint.</li>
+<li><code>less</code>
+编译 LESS 生成 css 文件.</li>
+<li><code>mincss</code>
+Minify 所有的 css 文件,并合并成一个 css 文件.</li>
+<li><code>min</code>
+grunt 内置 task, Minify js 文件.</li>
+<li><code>concat</code>
+合并多个文件到一个文件.</li>
+<li><code>requirejs</code>
+利用<code>r.js</code>合并<a href="http://requirejs.org/">RequireJS</a>模块到一个 js 文件.</li>
+<li><code>server</code>
+静态文件的 HTTP 服务, 用于开发调试.</li>
+</ul>
+
+
+<h3>安装</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g bbb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>新项目初始化</h3>
+
+<p>进入空的项目目录,然后运行:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bbb init
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>根据命令行的提示输入相应的内容, 然后会生成一个空的 <code>grunt.js</code> 文件.</p>
+
+<h3>目录结构</h3>
+
+<p>bbb 要求按照如下目录结构组织源代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>|-app
+</span><span class='line'>   |-项目 js 文件
+</span><span class='line'>|-dist
+</span><span class='line'>   |-build生成的发布文件
+</span><span class='line'>|-assets
+</span><span class='line'>   |-require.js
+</span><span class='line'>   |-backbone.js
+</span><span class='line'>   |-underscore.js 等需要的 js 库文件
+</span><span class='line'>|-index.html
+</span><span class='line'>|-favicon.ico
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务(task), 以及更改任务的设置,
+包括缺省目录.</p>
+
+<!--more-->
+
+
+<h2>在<a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/amd-backbone-contacts/">AMD Backbone Contacts</a>中增加<code>bbb</code>构建配置</h2>
+
+<p><a href="/examples/amd-backbone-contacts/index.html">demo</a> 项目中没有对 js 文件进行任何优化, 下面就逐步修
+改该项目来引入<code>bbb</code>进行项目构建和发布.</p>
+
+<ul>
+<li>修改项目目录结构, 来适应<code>bbb</code>的要求.</li>
+</ul>
+
+
+<p>主要的改动在于将<code>backbone</code>, <code>require</code>, <code>underscore</code>等库文件从<code>js/libs/</code>移动到<code>assets/js/</code>目录, 将
+<code>js/</code>目录更名为<code>app/</code>, 将<code>templates/</code>和<code>css/</code>目录移动到<code>assets/</code>.</p>
+
+<ul>
+<li>增加<code>grunt.js</code>配置文件.</li>
+</ul>
+
+
+<p>可以用<code>bbb init</code>命令来生成缺省的<code>grunt.js</code>配置文件, <em>必须</em>包含下面的代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//config options...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义文件路径.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">dirs</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span> <span class="c1">// debug files under the folder</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span> <span class="c1">// release files under the folder</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在 <code>grunt.js</code> 配置选项中定义文件清理任务 <code>clean</code>.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">clean</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span><span class="p">],</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义 <code>lint</code> 任务, 确保所有在 <code>app/</code> 目录下的 <code>js</code> 文件都符合 <code>JSHint</code>.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">lint</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">beforeconcat</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;app/**/*.js&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nx">afterconcat</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">jshint</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">scripturl</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>注:<code>lint:afterconcat</code>任务运行会报jQuery代码的错, 没有仔细调查原因, 因此在<code>concat</code>完成后没有调用<code>lint:afterconcat</code>任务.</em></p>
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义 <code>requirejs</code> 任务, 合并所有项目所需要的 js 文件到一个 <code>require.js</code> 文件(真正的
+<code>assets/js/require/require.js</code>文件不会包含在这个输出文件中, 后面会用<code>concat</code>任务将真正的<code>require.js</code>合并进来).</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">requirejs</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// Include the main configuration file</span>
+</span><span class='line'>      <span class="nx">mainConfigFile</span><span class="o">:</span> <span class="s2">&quot;app/config.js&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="c1">// Output file</span>
+</span><span class='line'>      <span class="nx">out</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="c1">// Root application module</span>
+</span><span class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="c1">// Do not wrap everything in an IIFE</span>
+</span><span class='line'>      <span class="nx">wrap</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义<code>concat</code>任务, 将<code>require.js</code>库文件合并到<code>requirejs</code>任务的输出文件中去.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">concat</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;assets/js/require/require.js&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义<code>min</code>任务, Minify <code>concat</code>任务生成的文件到<code>dist/release/assets/js/require/require.js</code>.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">min</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/release/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义<code>mincss</code>任务, Minify所有的<code>css</code>文件到<code>dist/release/assets/css/index.css</code>.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">mincss</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/release/assets/css/index.css&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;assets/css/application.css&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义<code>copy</code>任务, 复制相应的文件到<code>dist/debug/</code>或者<code>dist/release/</code>目录.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;assets/css/**/*.css&quot;</span><span class="p">,</span> <span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">},</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>bbb</code>和<code>grunt</code>没有内置文件复制任务, 因此我们需要自己实现这个任务. 这里直接采用
+<a href="https://github.com/jquery/jquery-ui/blob/master/grunt.js#L392">jquery-ui</a>的实现.</p>
+
+<figure class='code'><figcaption><span>copy  (copy.js)</span> <a href='/examples/bbb-amd-backbone-contacts/tasks/copy.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Copy multitask definition, copied from jquery grunt.js file.</span>
+</span><span class='line'><span class="c1">// It takes src/dest/rename/strip params.</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerMultiTask</span><span class="p">(</span> <span class="s2">&quot;copy&quot;</span><span class="p">,</span> <span class="s2">&quot;Copy files to destination folder and replace @VERSION with pkg.version&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">replaceVersion</span><span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">source</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/@VERSION/g</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span> <span class="s2">&quot;pkg.version&quot;</span> <span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span> <span class="sr">/(js|css)$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span> <span class="nx">src</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">process</span><span class="o">:</span> <span class="nx">replaceVersion</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span> <span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">expandFiles</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">src</span> <span class="p">),</span>
+</span><span class='line'>      <span class="nx">target</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">dest</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">strip</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">fileName</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">strip</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">strip</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span> <span class="s2">&quot;^&quot;</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">).</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/[\-\[\]{}()*+?.,\\\^$|#\s]/g</span><span class="p">,</span> <span class="s2">&quot;\\$&amp;&quot;</span> <span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">fileName</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">targetFile</span> <span class="o">=</span> <span class="nx">strip</span> <span class="o">?</span> <span class="nx">fileName</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="nx">strip</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">fileName</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">targetFile</span> <span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Copied &quot;</span> <span class="o">+</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span> <span class="nx">fileName</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">renameCount</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">copyFile</span><span class="p">(</span> <span class="nx">fileName</span><span class="p">,</span> <span class="nx">target</span> <span class="o">+</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">template</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">renames</span><span class="p">[</span> <span class="nx">fileName</span> <span class="p">],</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">config</span><span class="p">()</span> <span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="nx">renameCount</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">grunt</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span> <span class="s2">&quot;Renamed &quot;</span> <span class="o">+</span> <span class="nx">renameCount</span> <span class="o">+</span> <span class="s2">&quot; files.&quot;</span> <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>grunt.js</code>配置文件中需要加载该任务:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">);</span>  <span class="c1">//加载所有在&#39;tasks/&#39;目录下的`task`.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在<code>grunt.js</code>配置选项中定义<code>server</code>任务, 用于开发调试.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>    <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">base</span><span class="o">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;assets&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release/assets&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里定义了3个任务:</p>
+
+<ol>
+<li><strong><code>server</code></strong>: 侦听并返回<code>.</code>目录下的文件, 这个服务不对 js 和 css 文件作任何 Minify 和 concat.</li>
+<li><strong><code>server:debug</code></strong>: 侦听并返回<code>dist/debug/</code>目录下的文件.</li>
+<li><p><strong><code>server:release</code></strong>: 侦听并返回<code>dist/release/</code>目录下的文件.</p></li>
+<li><p>将上诉任务进行串接, 定义复合任务.</p></li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;clean lint:beforeconcat&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;default copy:debug requirejs concat&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">,</span> <span class="s2">&quot;debug copy:release mincss min&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><strong><code>default</code></strong>: 清除<code>dist/</code>目录, <code>lint</code> <code>app/</code>目录下的所有 js 文件.</li>
+<li><strong><code>debug</code></strong>: 调用<code>default</code>任务, 复制相关文件到<code>dist/debug/</code>目录下, 合并 js(AMD模块) 文件, 最后合并<code>require.js</code>库文件.</li>
+<li><strong><code>release</code></strong>: 调用<code>debug</code>任务, 复制相关文件到<code>dist/release/</code>目录下, Minify css 文件, Minify js 文件.</li>
+</ol>
+
+
+<p>至此, 所有的任务都已经定义完成. 下面是完整的<code>grunt.js</code>文件.</p>
+
+<figure class='code'><figcaption><span>gruntfile  (grunt.js)</span> <a href='/examples/bbb-amd-backbone-contacts/grunt.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This is the main application configuration file.  It is a Grunt</span>
+</span><span class='line'><span class="c1">// configuration file, which you can learn more about here:</span>
+</span><span class='line'><span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/configuring.md</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// define the debug/release directories for distribution.</span>
+</span><span class='line'>    <span class="c1">// TODO, maybe remove it later. I don&#39;t like hardcode, but sometimes</span>
+</span><span class='line'>    <span class="c1">// hardcode is more simple.</span>
+</span><span class='line'>    <span class="nx">dirs</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span> <span class="c1">// debug files under the folder</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span> <span class="c1">// release files under the folder</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// The clean task ensures all files are removed from the dist/ directory so</span>
+</span><span class='line'>    <span class="c1">// that no files linger from previous builds.</span>
+</span><span class='line'>    <span class="nx">clean</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span><span class="p">],</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// The lint task will run the build configuration and the application</span>
+</span><span class='line'>    <span class="c1">// JavaScript through JSHint and report any errors.  You can change the</span>
+</span><span class='line'>    <span class="c1">// options for this task, by reading this:</span>
+</span><span class='line'>    <span class="c1">// https://github.com/cowboy/grunt/blob/master/docs/task_lint.md</span>
+</span><span class='line'>    <span class="nx">lint</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">beforeconcat</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;app/**/*.js&quot;</span>
+</span><span class='line'>      <span class="p">],</span>
+</span><span class='line'>      <span class="nx">afterconcat</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// The jshint option for scripturl is set to lax, because the anchor</span>
+</span><span class='line'>    <span class="c1">// override inside main.js needs to test for them so as to not accidentally</span>
+</span><span class='line'>    <span class="c1">// route.</span>
+</span><span class='line'>    <span class="nx">jshint</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">scripturl</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// The copy task is to copy files from source to distribution directory.</span>
+</span><span class='line'>    <span class="nx">copy</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;assets/css/**/*.css&quot;</span><span class="p">,</span> <span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.debug&gt;&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;favicon.ico&quot;</span><span class="p">],</span>
+</span><span class='line'>        <span class="nx">renames</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;index.noconfig.html&quot;</span><span class="o">:</span> <span class="s2">&quot;index.html&quot;</span>
+</span><span class='line'>        <span class="p">},</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="s2">&quot;&lt;config:dirs.release&gt;&quot;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// The concatenate task is used here to merge the require.js into the</span>
+</span><span class='line'>    <span class="c1">// application code.  It&#39;s named dist/debug/assets/js/require/require.js,</span>
+</span><span class='line'>    <span class="c1">//because we want to only load one script file in index.html.</span>
+</span><span class='line'>    <span class="nx">concat</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;assets/js/require/require.js&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// This task uses the MinCSS Node.js project to take all your CSS files in</span>
+</span><span class='line'>    <span class="c1">// order and concatenate them into a single CSS file named index.css.  It</span>
+</span><span class='line'>    <span class="c1">// also minifies all the CSS as well.  This is named index.css, because we</span>
+</span><span class='line'>    <span class="c1">// only want to load one stylesheet in index.html.</span>
+</span><span class='line'>    <span class="nx">mincss</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/release/assets/css/index.css&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;assets/css/application.css&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Takes the built require.js file and minifies it for filesize benefits.</span>
+</span><span class='line'>    <span class="nx">min</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s2">&quot;dist/release/assets/js/require/require.js&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span>
+</span><span class='line'>      <span class="p">]</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Running the server without specifying an action will run the defaults,</span>
+</span><span class='line'>    <span class="c1">// port: 8080 and host: 127.0.0.1.  If you would like to change these</span>
+</span><span class='line'>    <span class="c1">// defaults, simply add in the properties `port` and `host` respectively.</span>
+</span><span class='line'>    <span class="c1">//</span>
+</span><span class='line'>    <span class="c1">// Changing the defaults might look something like this:</span>
+</span><span class='line'>    <span class="c1">//</span>
+</span><span class='line'>    <span class="c1">// server: {</span>
+</span><span class='line'>    <span class="c1">//   host: &quot;127.0.0.1&quot;, port: 9001</span>
+</span><span class='line'>    <span class="c1">//   debug: { ... can set host and port here too ...</span>
+</span><span class='line'>    <span class="c1">//  }</span>
+</span><span class='line'>    <span class="c1">//</span>
+</span><span class='line'>    <span class="c1">//  To learn more about using the server task, please refer to the code</span>
+</span><span class='line'>    <span class="c1">//  until documentation has been written.</span>
+</span><span class='line'>    <span class="c1">// Run below commands will cause:</span>
+</span><span class='line'>    <span class="c1">// $ bbb server</span>
+</span><span class='line'>    <span class="c1">//      Run server under . folder. It uses require.js to load all needed</span>
+</span><span class='line'>    <span class="c1">//      js files, templates and css files.</span>
+</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
+</span><span class='line'>    <span class="c1">//      Run server under dist/debug folder. All js files are merged into one</span>
+</span><span class='line'>    <span class="c1">//      require.js. Make sure you run &#39;bbb debug&#39; firstly.</span>
+</span><span class='line'>    <span class="c1">// $ bbb server:debug</span>
+</span><span class='line'>    <span class="c1">//      Run server under dist/release folder.</span>
+</span><span class='line'>    <span class="c1">//      All js files are merged into one require.js and minized. All css</span>
+</span><span class='line'>    <span class="c1">//      files are merged into one and minized.</span>
+</span><span class='line'>    <span class="c1">//      Make sure you run &#39;bbb release&#39; firstly.</span>
+</span><span class='line'>    <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">base</span><span class="o">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;assets&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">debug</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/debug&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">release</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">folders</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;app&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;assets&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release/assets&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;&quot;</span><span class="o">:</span> <span class="s2">&quot;dist/release&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// This task uses James Burke&#39;s excellent r.js AMD build tool.  In the</span>
+</span><span class='line'>    <span class="c1">// future other builders may be contributed as drop-in alternatives.</span>
+</span><span class='line'>    <span class="nx">requirejs</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// Include the main configuration file</span>
+</span><span class='line'>      <span class="nx">mainConfigFile</span><span class="o">:</span> <span class="s2">&quot;app/config.js&quot;</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// Output file</span>
+</span><span class='line'>      <span class="nx">out</span><span class="o">:</span> <span class="s2">&quot;dist/debug/assets/js/require/require.js&quot;</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// Root application module</span>
+</span><span class='line'>      <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// Do not wrap everything in an IIFE</span>
+</span><span class='line'>      <span class="nx">wrap</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// load tasks from tasks/ folder.</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadTasks</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// The default task will remove all contents inside the dist/ folder, lint</span>
+</span><span class='line'>  <span class="c1">// all your code.</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;clean lint:beforeconcat&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// The debug task will remove all contents inside the dist/ folder, lint all</span>
+</span><span class='line'>  <span class="c1">// js code under app/ folder, copy files to dist/debug folder, combine all</span>
+</span><span class='line'>  <span class="c1">// application files into require.js, and then concat real require.js with</span>
+</span><span class='line'>  <span class="c1">// the application require.js file.</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;default copy:debug requirejs concat&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// The release task will perform debug task, copy files to dist/release folder,</span>
+</span><span class='line'>  <span class="c1">// minmize css file, and minimize require.js into dist/release.</span>
+</span><span class='line'>  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s2">&quot;release&quot;</span><span class="p">,</span> <span class="s2">&quot;debug copy:release mincss min&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>运行</h2>
+
+<ul>
+<li>运行 HTTP 服务器于<a href="/examples/bbb-amd-backbone-contacts/index.html">开发版本</a>:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">bbb</span> <span class="nx">server</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>发布文件到<code>dist/debug/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/debug/index.html">debug 版本</a>:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">bbb</span> <span class="nx">debug</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">bbb</span> <span class="nx">server</span><span class="o">:</span><span class="nx">debug</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>发布文件到<code>dist/release/</code>目录, 并运行 HTTP 服务器于 <a href="/examples/bbb-amd-backbone-contacts/dist/release/index.html">release 版本</a>:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span> <span class="nx">bbb</span> <span class="nx">release</span>
+</span><span class='line'><span class="nx">$</span> <span class="nx">bbb</span> <span class="nx">server</span><span class="o">:</span><span class="nx">release</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里可以查看所有的<strong><a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/bbb-amd-backbone-contacts/">源代码</a></strong>.</p>
+
+<h2>参考</h2>
+
+<ol>
+<li><a href="http://requirejs.org/">RequireJS官方网站</a></li>
+<li><a href="https://github.com/cowboy/grunt">Grunt.js</a></li>
+<li><a href="https://github.com/backbone-boilerplate/grunt-bbb">bbb</a></li>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md">Grunt API</a></li>
+<li><a href="https://github.com/jquery/jquery-ui/blob/master/grunt.js">jQuery-ui自定义grunt任务</a></li>
+</ol>
+
+</div>
+
+
+<div class="post-single">
+  <div class="post-meta">
+    
+
+<span class="categories">
+  Categories:
+  
+    <a class='category' href='/blog/categories/backbone-dot-js/'>backbone.js</a>, <a class='category' href='/blog/categories/bbb/'>bbb</a>, <a class='category' href='/blog/categories/grunt-dot-js/'>grunt.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/require-dot-js/'>require.js</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/" data-via="xiaocong" data-counturl="http://xiaocong.github.io/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+  </div>
+  <div class="clear"></div>
+
+  
+    <div id="comments">
+      <h2>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"></div>
+    </div>
+  
+</div>
+ </div>
+    <div id="footer">
+  <div class="panels">
+    <div class="license">
+      <h2>License</h2>
+      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
+    </div>
+
+    <div class="posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        
+          <li>
+            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+    <div class="douban">
+      <h2>Reading</h2>
+      
+        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
+        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
+      
+    </div>
+  </div>
+
+  <p class="powered">
+    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
+  </p>
+</div>
+
+  </div> <!-- #wrapper end -->
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'xiaocong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://xiaocong.github.io/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/';
+        var disqus_url = 'http://xiaocong.github.io/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</body>
+</html>

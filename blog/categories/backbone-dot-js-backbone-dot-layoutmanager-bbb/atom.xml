@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: backbone.js backbone.layoutmanager bbb | 葱丝瓣酱]]></title>
+  <link href="http://xiaocong.github.io/blog/categories/backbone-dot-js-backbone-dot-layoutmanager-bbb/atom.xml" rel="self"/>
+  <link href="http://xiaocong.github.io/"/>
+  <updated>2013-10-15T15:15:44+08:00</updated>
+  <id>http://xiaocong.github.io/</id>
+  <author>
+    <name><![CDATA[Xiaocong He]]></name>
+    <email><![CDATA[xiaocong@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在Backbone项目中使用backbone.layoutmanager来组织页面布局]]></title>
+    <link href="http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views/"/>
+    <updated>2012-10-09T19:20:00+08:00</updated>
+    <id>http://xiaocong.github.io/blog/2012/10/09/use-backbone-dot-layoutmanager-to-assemble-layouts-with-backbone-views</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/backbone-boilerplate/grunt-bbb" title="Backbone Boilerplate framework tool.">bbb</a> 的 <code>init</code> 命令生成的初始化模板工程中包含有 <a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 插件, 该插件提供了一种页面的结构化组织方式, 将 <code>Backbone Views</code> 组装成页面布局 <code>Layout</code>.</p>
+
+<p><a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主要的目的是提供一种规则来管理 <code>Backbone.View</code> 的渲染, 程序员只需要遵循这套规则, 就能简化页面渲染的实现.
+<a href="https://github.com/tbranyen/backbone.layoutmanager">backbone.layoutmanager</a> 主页已经很详细地介绍了使用方法, 这里就不再赘述. 下面是个人感觉在学习使用过程中感觉应当注意的几点:</p>
+
+<h2>完全受管理的 render</h2>
+
+<p><code>Backbone.LayoutView</code> 仅仅是一个将 <code>manage</code> 属性设置成 <code>true</code> 的 <code>Backbone.View</code>.
+<code>javascript backbone.layoutmanager V0.6.6
+Backbone.LayoutView = Backbone.View.extend({
+  manage: true
+});
+</code>
+只有当 <code>manage</code> 属性被设置为 <code>true</code>, <code>LayoutManager</code> 才会接管 <code>Backbone.View</code> 的渲染.</p>
+
+<h2>数据和模板</h2>
+
+<p>视图的渲染需要 <code>template</code> 和 <code>serialize</code> 属性, 分别对应HTML模板和数据模型. <code>LayoutManager</code> 缺省使用 <a href="http://underscorejs.org/">underscore</a> 的 <code>template</code> 函数进行页面的渲染.</p>
+
+<h2>嵌套视图</h2>
+
+<p>可以通过 <code>setView</code>, <code>setViews</code>, <code>insertView</code>, <code>insertViews</code> 等函数在<strong>视图</strong>中嵌套多个其他的<strong>子视图</strong>.</p>
+
+<h2>BeforeRender 和 AfterRender</h2>
+
+<p><code>render</code> 完全处在 <code>LayoutManager</code> 的管理下, 因此, 如果你想在每次视图渲染前后做一些特殊的处理, 必须定义 <code>beforeRender</code> 和 <code>afterRender</code> 函数.
+由于 <code>LayoutManager</code> 内部会在渲染<strong>视图</strong>前移除所有附加模式的<strong>子视图</strong>, 因此, 通常在 <code>beforeRender</code> 函数中调用 <code>setView</code> 和 <code>insertView</code> 来增加和设置<strong>子视图</strong>.</p>
+
+<p><em>如果你不想在每次渲染时移除子视图, 自己控制子视图的增删, 可以设置子视图的 <code>keep</code> 属性为 <code>true</code>.</em></p>
+
+<h2>Cleanup 函数</h2>
+
+<p>很多视图(View)都有数据模型(model)的事件绑定函数, 因此, 必须在视图被删除后解除绑定. 可以通过定义视图的 <code>cleanup</code> 函数来完成这个解绑操作:</p>
+
+<p>``` javascript cleanup函数
+var MyView = Backbone.View.extend({
+  // The constructor binds the model&rsquo;s &ldquo;change&rdquo; event to the view&rsquo;s render function.
+  initialize: function() {</p>
+
+<pre><code>this.model.on("change", this.render, this);
+</code></pre>
+
+<p>  }，</p>
+
+<p>  // This is a custom cleanup method that will remove the model events owned by
+  // this View.
+  cleanup: function() {</p>
+
+<pre><code>this.model.off(null, null, this);
+</code></pre>
+
+<p>  }
+});
+```</p>
+
+<h2>自定义获取模版</h2>
+
+<p><code>LayoutManager</code> 缺省只支持 <code>script</code> 标签的模版, 但是在实际软件项目中, 通常会将不同的模版放置在不同的单独的 html 文件中, 这样便于模版文件的管理.
+<code>LayoutManager</code> 提供了 <code>fetch</code> 配置项让我们有机会来自己获得模版文件:</p>
+
+<p>``` coffeescript 从script标签中获得模版内容
+  Backbone.LayoutManager.configure</p>
+
+<pre><code># Default fetch implementation, get template from `script` tag
+fetch: (path)-&gt;
+  _.template $(path).html()
+</code></pre>
+
+<p>```</p>
+
+<p>``` coffeescript 同步方式获取模版文件
+  JST = window.JST = window.JST or {}
+  Backbone.LayoutManager.configure</p>
+
+<pre><code>manage: true
+paths:
+  layout: "templates/layouts/"
+  template: "templates/"
+
+fetch: (path) -&gt;
+  path = path + ".html"
+  unless JST[path]
+    $.ajax(
+      url: app.root + path
+      async: false
+    ).then (contents) -&gt;
+      JST[path] = _.template(contents)
+  JST[path]
+</code></pre>
+
+<p>```</p>
+
+<p>下面是作者的教学视频, 初学者一定要看看.</p>
+
+<iframe src="http://player.vimeo.com/video/32765088" width="500" height="313" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+
+<p> <p><a href="http://vimeo.com/32765088">backbone.layoutmanager</a> from <a href="http://vimeo.com/user5699767">tbranyen</a> on <a href="http://vimeo.com">Vimeo</a>.</p></p>
+]]></content>
+  </entry>
+  
+</feed>
