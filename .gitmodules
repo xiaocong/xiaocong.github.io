@@ -1,11 +1,9 @@
 [submodule ".themes/compbits"]
-        path = .themes/compbits
-        url = https://github.com/iwinux/compbits.git
-
+    path = .themes/compbits
+    url = https://github.com/iwinux/compbits.git
 [submodule ".themes/slash"]
-        path = .themes/slash
-        url = https://github.com/tommy351/Octopress-Theme-Slash.git
-
+    path = .themes/slash
+    url = https://github.com/tommy351/Octopress-Theme-Slash.git
 [submodule "source/deck.js"]
 	path = source/deck.js
 	url = https://github.com/imakewebthings/deck.js.git
@@ -23,7 +21,7 @@
 	url = https://github.com/tommy351/hexo-theme-phase.git
 [submodule ".themes/darkstripes"]
 	path = .themes/darkstripes
-	url = git://github.com/amelandri/darkstripes.git
+	url = https://github.com/amelandri/darkstripes.git
 [submodule ".themes/OctoPanel"]
 	path = .themes/OctoPanel
-	url = git://github.com/ConnorAtherton/OctoPanel.git
+	url = https://github.com/ConnorAtherton/OctoPanel.git
