@@ -1,90 +1,103 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>Slides - 葱丝瓣酱</title>
-    <meta name="author" content="Xiaocong He">
-    
-	<meta name="description" content="Mocha &ndash; javascript test framework
+  <meta charset="utf-8">
+  <title>Slides - 葱丝瓣酱</title>
+  <meta name="author" content="Xiaocong He">
+
+  
+  <meta name="description" content="Slides May 23rd, 2012 Mocha &ndash; javascript test framework
 Monkeyrunner &ndash; Android function/stability test framework
-Markdown &ndash; Network writing language &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+Markdown &ndash; &hellip;">
+  
 
-	<link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+  <link rel="canonical" href="http://xiaocong.github.io/slides">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="葱丝瓣酱" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
 
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-32376813-1']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 
 </head>
 
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><div id="header">
+<body   >
+  <header role="banner"><hgroup>
   <h1><a href="/">葱丝瓣酱</a></h1>
   
-    <p>你真的需要呼吸吗?!</p>
+    <h2>你真的需要呼吸吗?!</h2>
   
-</div>
-<ul id="social-links">
-  
-    <li><a class="feed" href="/atom.xml" title="RSS">RSS</a></li>
-  
-  
-    <li><a class="twitter" href="http://twitter.com/xiaocong" title="Twitter">Twitter</a></li>
-  
-  
-    <li> <a class="github" href="https://github.com/xiaocong" title="GitHub">GitHub</a> </li>
-  
-</ul>
-<div class="clear"></div>
-<ul id="nav">
-  
-    <li> <a href="/">blog</a> </li>
-  
+</hgroup>
 
-  
-    <li><a href="/blog/archives">archives</a></li>
-  
-</ul>
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:xiaocong.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
 
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
-        <article class="page">
-    
-    <h1 class="title">Slides</h1>
-    
-    <div class="entry-content"><ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Slides</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-23T13:02:00+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2012</time></p>
+  </header>
+  
+  <ul>
 <li><a href="/slides/introduce_mocha_for_rest_api_testing/">Mocha &ndash; javascript test framework</a></li>
 <li><a href="/slides/writing-monkeyrunner-tests/">Monkeyrunner &ndash; Android function/stability test framework</a></li>
 <li><a href="/slides/writing-documentation-with-markdown/">Markdown &ndash; Network writing language</a></li>
@@ -92,12 +105,30 @@ Markdown &ndash; Network writing language &hellip;">
 <li><a href="/slides/android-uiautomator-and-python/">Android UiAutomator and Python</a></li>
 </ul>
 
-</div>
-</article>
 
-	<div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/slides/index.html" data-via="xiaocong" data-counturl="http://xiaocong.github.io/slides/index.html" >Tweet</a>
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-23T13:02:00+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://xiaocong.github.io/slides/index.html" data-via="xiaocong" data-counturl="http://xiaocong.github.io/slides/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -107,74 +138,103 @@ Markdown &ndash; Network writing language &hellip;">
   
 </div>
 
+      
+    </footer>
+  
+</article>
 
-
-<section id="comment">
-    <h1 class="title">Comments</h1>
+  <section>
+    <h1>Comments</h1>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android Uiautomator的python包</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/xiaocong">@xiaocong</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'xiaocong',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
-    </div>
-    <footer id="footer">
-    <div id="footer">
-  <div class="panels">
-    <div class="license">
-      <h2>License</h2>
-      <p>如非特别声明，本 Blog 的文章由 Xiaocong He 创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported 许可协议</a>进行许可。</p>
-    </div>
 
-    <div class="posts">
-      <h2>Recent Posts</h2>
-      <ul>
-        
-          <li>
-            <a href="/blog/2013/08/26/android-uiautomator-and-python/">Android uiautomator的python包</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/07/18/idiomatic-python-code/">符合语言习惯的Python编程</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/06/18/customize-python-dev-environment-on-ubuntu/">在Ubuntu下配置舒服的Python开发环境</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/06/16/python-interview-question-and-answer/">Python 面试问题</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2013/06/04/creating-a-singleton-in-python/">在Python中生成单体实例的方法</a>
-          </li>
-        
-      </ul>
-    </div>
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/106150875079575926280?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
 
-    <div class="douban">
-      <h2>Reading</h2>
-      
-        <script type="text/javascript" src="http://www.douban.com/service/badge/xiaoconghe/?show=collection&amp;select=favorite&amp;n=8&amp;columns=4&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book" ></script>
-        <a href="http://www.douban.com/people/xiaoconghe" class="view-douban">xiaoconghe on douban.com&raquo;</a>
-      
+
+
+  
+</aside>
+
+
     </div>
   </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Xiaocong He -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-  <p class="powered">
-    Powered by <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/iwinux/compbits">Compbits</a>
-  </p>
-</div>
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
+</footer>
+  
 
 <script type="text/javascript">
       var disqus_shortname = 'xiaocong';
@@ -187,23 +247,47 @@ Markdown &ndash; Network writing language &hellip;">
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
 </body>
 </html>

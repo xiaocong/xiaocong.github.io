@@ -4,7 +4,7 @@
   <title><![CDATA[Category: grunt.js | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.io/blog/categories/grunt-dot-js/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.io/"/>
-  <updated>2013-10-15T15:15:44+08:00</updated>
+  <updated>2014-03-02T12:55:38+08:00</updated>
   <id>http://xiaocong.github.io/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Yeoman: 一个新的 javascript 构建工具]]></title>
+    <title type="html"><![CDATA[Yeoman: 一个新的 Javascript 构建工具]]></title>
     <link href="http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool/"/>
     <updated>2012-10-16T12:59:00+08:00</updated>
     <id>http://xiaocong.github.io/blog/2012/10/16/yeoman-a-new-javascript-build-tool</id>
@@ -543,7 +543,7 @@ grunt.initConfig({
 <code>bbb</code>和<code>grunt</code>没有内置文件复制任务, 因此我们需要自己实现这个任务. 这里直接采用
 <a href="https://github.com/jquery/jquery-ui/blob/master/grunt.js#L392">jquery-ui</a>的实现.
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>copy  (copy.js)</span> <a href='/examples/bbb-amd-backbone-contacts/tasks/copy.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -673,7 +673,7 @@ grunt.registerTask("release", "debug copy:release mincss min");
 
 <p>至此, 所有的任务都已经定义完成. 下面是完整的<code>grunt.js</code>文件.
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>gruntfile  (grunt.js)</span> <a href='/examples/bbb-amd-backbone-contacts/grunt.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
