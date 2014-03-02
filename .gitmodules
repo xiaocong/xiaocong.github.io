@@ -1,0 +1,6 @@
+[submodule "source/deck.js"]
+	path = deck.js
+	url = https://github.com/imakewebthings/deck.js.git
+[submodule "source/impress.js"]
+	path = impress.js
+	url = https://github.com/bartaz/impress.js.git
