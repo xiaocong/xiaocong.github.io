@@ -6,9 +6,11 @@ html {
 
 body {
 	background: #3D4349;
-	font-family: "Open Sans", "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: $font;
+	background: $color-sidebar;
 	height: 100%;
 	color: #333;
+	font-size: 11px;
 }
 
 ::selection, ::-moz-selection, ::-webkit-selection {
@@ -90,22 +92,37 @@ body {
 		  width: auto;
 		}
 		.mid-col-container {
-			padding: 0px 70px 0px 40px;
+			padding: 0px 70px 0px 100px;
+			max-width: 800px;
 			#content {
 				width: 100%;
 				article {
 					border-top: none;
+					padding: 80px 0px;
 					.title {
 						margin-left: 0px;
+						font-size: 3em;
+						font-weight: 500;
+					}
+					&.single-post .title{
+						text-align: center;
+						text-decoration: underline;
 					}
 					.entry-content {
 						margin-left: 0px;
-						line-height: 1.5em;
+						line-height: 1.4em;
+						font-size: 1.5em;
+						p {
+							margin-top: 10px;
+						}
+						.github-widget p {
+							margin-top: 0px;
+						}
 						.more-link:before {
 							line-height: 1.2em;
 						}
 						.more-link {
-							padding-left: 20px;
+							padding-left: 0px;
 						}
 						.gist .gist-file .gist-data {
 							.line_numbers {
@@ -117,15 +134,19 @@ body {
 						}
 						h2 {
 							font-size: 1.3em;
-							color: #574C4C;
-							border-bottom: none;
+							color: #333;
+							margin-top: 30px;
+							font-weight: bold;
 						}
 						h2::before {
 							border-bottom: none;
 						}
 						blockquote {
 							border-left: 5px solid $greyshade;
-							background: #FCFCFC;
+							background: #F7F7F7;
+							p {
+								margin-top: 0px;
+							}
 						}
 						table {
 							line-height: 1.2em;
@@ -181,21 +202,29 @@ body {
 	.left-col {
 		width: 23%;
 		position: fixed;
-		opacity: .3;
+		color: $color-gray05;
+		height: 100%;
+		font-size: 1.3em;
+		opacity: $opacity-sidebar;
 		-webkit-transition: all .2s ease-in;
 		-moz-transition: all .2s ease-in;
 		-o-transition: all .2s ease-in;
 		-ms-transition: all .2s ease-in;
 		transition: all .2s ease-in;
-		height: 100%;
+		
 		.intrude-less {
 			width: 80%;
 		}
+		
 		#header {
 			width: 100%;
 			padding: 20% 0% 0% 15%;
 			#main-nav {
 				margin-top: 10px;
+
+				p {
+					line-height: 1.4em;
+				}
 			}
 			.profilepic {
 				img {
@@ -218,6 +247,9 @@ body {
 				}
 				.social {
 					margin-bottom: 10px;
+					a {
+						margin-right: 5px;
+					}
 				}
 			}
 		}
@@ -252,7 +284,7 @@ body {
 			margin: 0 0;
 	}
 }
-@media screen and (max-width: 700px){
+@media screen and (max-width: 830px){
 	.container {
 		.credit-box {
 			display: none;
